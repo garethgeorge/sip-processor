@@ -27,8 +27,11 @@ while true do
     puts region
     max += 1
     threads << Thread.new do 
-      `./get-region-data.sh #{region}`
-      `dpgstarter /mnt/data/receivers.json #{region}` 
+      puts region + ' thread started'
+      puts `/mnt/data/get-region-data.sh #{region}`
+      puts region + ' middle'
+      puts `dpgstarter /mnt/data/receivers.json #{region}` 
+      puts region + ' thread finished'
     end
   end
   threads.each { |th| th.join }

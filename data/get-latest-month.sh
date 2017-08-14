@@ -17,5 +17,5 @@ ONEMONTH="`date "+%Y"`-$PREVMONTH-`date "+%dT%H:%M:%S"`"
 
 #echo $NOW $ONEYEAR
 #aws ec2 describe-spot-price-history --region $REGION --instance-types `cat instance-types.txt` --start-time $ONEYEAR --end-time $NOW
-aws ec2 describe-spot-price-history --region $REGION --start-time $ONEYEAR --end-time $NOW
+aws ec2 describe-spot-price-history --region $REGION --start-time $ONEMONTH --end-time $NOW
 

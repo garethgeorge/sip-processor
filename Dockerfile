@@ -4,6 +4,8 @@ COPY src  /root/src
 
 COPY data /mnt/data    
 
+COPY sip-processor-entrypoint.sh /mnt/data
+
 RUN     apt-get update && \
   curl https://bootstrap.pypa.io/get-pip.py | python && \
   pip install --upgrade --user awscli && \
@@ -29,5 +31,4 @@ RUN     apt-get update && \
   go install github.com/williamberman/dpgstarter
 
 WORKDIR /mnt/data
-CMD ["/bin/sh", "-c", ". /root/.bashrc && echo $PATH && dpg & /mnt/data/runner.rb"]
-#CMD ["source", "/root/.bashrc", "&&", "echo", "$PATH", "dpg", "&", "runner.rb"]
+ENTRYPOINT ["/mnt/data/sip-processor-entrypoint.sh"]

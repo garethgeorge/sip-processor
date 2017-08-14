@@ -4,6 +4,8 @@ HERE=/mnt/data
 
 REGION=$1
 
+echo PATH: $PATH
+
 echo REGION: $REGION
 
 aws ec2 describe-availability-zones --region $REGION | awk '{print $4}' > $HERE/$REGION.az.txt

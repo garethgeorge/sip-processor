@@ -12,6 +12,6 @@ done
 date --rfc-3339="seconds" > /mnt/export/last_update.txt
 echo $1 >> /mnt/export/last_update.txt
 
-curl -X POST sip-api:3000/update
+curl -X POST api:3030/update
 
 echo "X" >> count_file.txt
