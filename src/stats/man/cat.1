@@ -1,0 +1,23 @@
+.TH CAT 1 "July 16, 1986" "\(co 1980 Gary Perlman" "|STAT" "UNIX User's Manual"
+.SH NAME
+cat \- concatenate files by printing them one after another
+.SH SYNOPSIS
+.B cat
+[files] [-]
+.SH DESCRIPTION
+.I cat
+prints its argument files one after the other.
+The special file name - is taken to mean the standard input;
+this allows inserting the standard input in between a
+series of files.
+If not files are named, the standard input is read.
+.SH EXAMPLES
+.nf
+cat a b c   # print files a, b, and c on the standard output
+echo ----- | cat a - b   # print a, a line, and b
+.fi
+.SH NOTE
+This program is supplied for systems that do not have
+.I cat
+or some other program to join a series of files.
+It is a bare bones version with no options.

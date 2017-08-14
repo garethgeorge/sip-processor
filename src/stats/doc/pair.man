@@ -1,0 +1,61 @@
+PAIR(1)                            |STAT                   January 20, 1987
+
+NAME
+     pair - paired data points analysis and plots
+
+SYNOPSIS
+     pair [-fps] [-h height] [-w width] [-c char] [-x xname] [-y yname]
+          [-t top] [-b bottom] [-l left] [-r right]
+
+DESCRIPTION
+     _p_a_i_r analyzes paired data by providing summary statistics and
+     scattergrams.  _p_a_i_r reads pairs of points (two points per line) from
+     the standard input and, without options, provides statistics on the
+     first variable (X), the second (Y), and their difference.  If only one
+     datum is on each line, then _p_a_i_r will supply the datum number (1 to N)
+     as the first variable and use the datum as the second.
+
+OPTIONS
+     -b bottom
+          minimum Y value at the bottom of the plot (default: from data).
+
+     -c char
+          plotting character (default: frequency counts).
+
+     -f   do not print frame around plot (default: print frame).
+
+     -h height
+          set height of the plot to _h_e_i_g_h_t lines.
+
+     -l left
+          minimum X value at the left of the plot (default: from data).
+
+     -p   print bivariate plot.
+
+     -r right
+          maximum X value at the right of the plot (default: from data).
+
+     -s   requests summary statistics.
+
+     -t top
+          maximum Y value at the top of the plot (default: from data).
+
+     -w width
+          set width of the plot to _w_i_d_t_h characters.
+
+     -x name
+          name of the first variable (default: "Column 1").
+
+     -y name
+          name of the second variable (default: "Column 2").
+
+EXAMPLES
+     pair -p -h 10 -w 20        # 10 high, 20 wide plot
+     abut a b | pair -x a -y b  # compare two single column files
+
+LIMITS
+     Use the -L option to determine the program limits.
+
+MISSING VALUES
+     Cases with missing data values (NA) are counted but not included in
+     the analysis.

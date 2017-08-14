@@ -1,0 +1,55 @@
+INTRO|STAT(1)                      |STAT                          1980-1987
+
+NAME
+     |STAT - compact data analysis programs
+
+DESCRIPTION
+
+     |STAT is a set of data manipulation and analysis programs developed by
+     Gary Perlman while at the University of California, San Diego and at
+     the Wang Institute of Graduate Studies.  The programs are designed
+     with the UNIX philosophy that individual programs should be designed
+     as _t_o_o_l_s that do one task well and produce output suitable for input
+     via pipes to other programs.  Interactive use is supported in the UNIX
+     shell which also provides a programming language for complex analyses.
+     Functionality often built into statistical packages (e.g., graphics,
+     sorting and other data manipulation) is not re-invented in |STAT which
+     delegates such responsibility to standard UNIX tools.
+     DATA MANIPULATION PROGRAMS
+       1  abut                join data files
+       2  colex               column extraction/formatting
+       3  dm                  column oriented data manipulator
+       4  dsort               multiple-key data line sorting filter
+       5  linex               line extraction
+       6  maketrix            create matrix type file from free-form file
+       7  perm                permute line order
+       8  probdist            probability distribution functions
+       9  ranksort            rank order columns
+      10  repeat              repeat a pattern or file
+      11  reverse             reverse lines, columns, and characters
+      12  series              print a series of numbers
+      13  transpose           transpose matrix type file
+      14  validata            verify data file consistency
+     ANALYSIS PROGRAMS
+      15  anova               multi-factor analysis of variance
+      16  calc                interactive algebraic modeling calculator
+      17  contab              contingency tables and chi-square
+      18  desc                descriptions, histograms, frequency tables
+      19  dprime              signal detection d' and beta calculations
+      20  features            display features of items
+      21  oneway              one-way anova and t-test and error-bar plots
+      22  pair                paired data statistics, regression, plots
+      23  rankind             rank order analysis for independent conditions
+      24  rankrel             rank order analysis for related conditions
+      25  regress             multiple linear regression
+      26  stats               report summary statistics
+      27  ts                  time series analysis and plots
+
+AUTHOR
+     Gary Perlman
+
+SEE ALSO
+     awk(1), cat(1), cp(1), grep(1), ls(1), mv(1), pr(1), rm(1), sed(1),
+     sh(1), sort(1), uniq(1)
+     manstat(1) prints the manual entry on |STAT programs
+

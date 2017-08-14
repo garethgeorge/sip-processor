@@ -1,0 +1,112 @@
+<html>
+
+<h2>DAFTS -- Durability Agreements From Time Series for AWS Spot Instances</h2>
+
+<b>DAFTS</b> is an acronym for <b>D</b>urability <b>A</b>greements <b>F</b>rom <b>T</b>ime <b>S</b>eries.
+Using historical pricing data from AWS and <a
+href="http://www.cs.ucsb.edu/~rich/publications/bmbp-ppopp06">Quantile Bounds Estimation from Time Series (QBETS)</a> -- a
+non-parametric time series forecasting methodology for predicting bounds on
+future values -- this site provides predicted bid prices (in US dollars) and
+time durations (in hours) with probabilistic guarantees.  Each prediction is 
+of the form 
+<ul> 
+<li> time stamp, bid price (probability of bid success), duration
+(probability of longevity) 
+</ul> 
+where 
+<ul> <li><b>time stamp</b> is the time
+at which the prediction was made, 
+<li><b>bid price</b> is the upper bound on
+price that will likely be higher than the next bid, 
+<li><b>probability of bid
+success</b> is the probability that the bid will succeed (based on previous
+predictions) 
+<li><b>duration</b> is the lower bound on the future time frame
+(beginning at the time stamp) over which the bid will continue to be greater
+than other bids 
+<li><b>probability of longevity</b> is the probability that the
+duration will exceed the quoted duration (based on previous predictions) 
+</ul>
+For example, a prediction of the form 
+<ul> 
+<li><b>c4.4xlarge	Wed Feb 25 05:30:42 2015	$1.1041 (0.96)	1.72 hrs (0.95)</b> 
+</ul> 
+should be interpreted
+to mean that at <i>Wed Feb 25 05:30:42 2015</i> a bid of <i>$1.1041</i> an
+<i>c4.4xlarge</i> instance type would be above the "spot price" (with
+probability <i>0.96</i>) at which AWS can terminate the instance for at least
+<i>1.72</i> hours (with probability <i>0.95</i>).  
+
+<h3><font color=blue>NEW: Minimum Bid Calculator</font></h3>
+DAFTS computes the minimum value that can be specified as the "AWS Maximum Bid" such that the instance will start and run for the predicted duration
+with probability that is greater than or equal to 0.95.  Any bid above the DAFTS bid will also start and run with probability greater than or equal to 0.95 but for (potentially) a longer duration.
+The Bid Calculator graph (accessed by clicking on "What Should I Bid") shows the relationship between maximum AWS bid and the duration that is statistically guaranteed with
+probability at least 0.95.  Using the graph it is possible to select the bid value to specify that assures a specific execution duration with probability 0.95 or greater.
+
+<p>
+
+Because Amazon obscures the global Availability Zone identities, the minimum bid calculator cannot determine what Availability Zone you 
+should use -- only that the bid that it computes will be correct for which is ever zone is currently least expensive.  
+To use the bid, request an instance in the Availability Zone with the lowest current price.
+
+<p> 
+
+The site recomputes its
+predictions periodically.  Note that the the historical pricing data provided
+by AWS is not necessarily complete. The algorithm attempts to compensate when it can, but some times are not represented or
+have insufficient data necessary to make a reliable prediction.  Note also that
+AWS does not necessarily terminate a spot instance when the spot price exceeds
+the bid price -- it is just entitled to do so.  For more information on spot
+instances, please see the 
+
+<a href="http://aws.amazon.com/ec2/purchasing-options/spot-instances/#understanding-spot-requests">AWS
+documentation for spot instances</a>.  
+
+<p> 
+
+<h2>Using the Predictions as the basis for SLAs</h2>
+
+The predictions are intended to
+provide a statistical "Service Level Agreement" guarantee
+associated with each spot
+instance type in each availability zone.  That is, bidding the predicted price
+at the time stamp shown will <i>"guarantee"</i> that the spot price 
+does not exceed
+the bid for <i>at least</i> the duration shown with a probability that is 
+the product (assuming
+independence) of the two probabilities shown in each entry.  Thus they do not reflect the instantaneous spot price or the duration it persists but rather a 
+prediction of the upper bound on the spot price and the duration that the 
+upper bound will persist.  
+
+<h3>Minimum Predicted Bids by Region</h3>
+These predictions represent the minimum bid that guarantees the listed duration with probability at least 0.95.
+<p>
+<a href=http://128.111.84.183/by-inst.html>Predicted Bid Prices by Instance Type for each Region</a>
+<p>
+<a href=http://128.111.84.183/by-region.html>Predicted Bid Prices by Region for each Instance Type</a>
+
+<hr>
+
+<h3>Predicted Bids by Region and Availability Zone for launch groups</h3>
+
+<a href=./instance.html>Bid prices by instance type, all regions, all AZs</a>
+<p>
+<a href=./us-west-1.html>Bid prices for AWS US West 1, all AZs</a> 
+<p> 
+<a href=./us-west-2.html>Bid prices for for AWS US West 2, all AZs</a>
+<p>
+<a href=./us-east-1.html>Bid prices for AWS US East 1, all AZs</a> 
+<p>
+If you are running an instance in a <i>launch group</i> and there is an 
+active instance in that group, AWS will attempt to co-locate the new instance
+in the same availability zone with the running instance <i>if</i> the bid
+price is high enough for that availability zone.  These prices reflect the 
+bid price necessary to achieve an SLA per availability zone.
+<p>
+<b>HOWEVER</b>, AWS does not use the same mapping of availability zone names to 
+physical resources for each user.  Thus these predictions reflect what a
+"random" user sees in terms of availability zone names.  If you wish to use
+them, you'll need to try and figure out how they map to the
+availability zone names AWS shows to your specific user ID.
+</html>
+

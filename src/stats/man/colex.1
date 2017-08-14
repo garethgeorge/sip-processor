@@ -1,0 +1,92 @@
+.TH COLEX 1 "September 23, 1990" "\(co 1980 Gary Perlman" "|STAT" "UNIX User's Manual""
+.SH NAME
+colex \- column/field extraction/formatting
+.SH SYNOPSIS
+.B colex
+[-cfiqtv] [-F format] column numbers
+.SH DESCRIPTION
+.I colex
+extracts the named columns (fixed columns or space-separated fields)
+from the standard input and prints each, optionally followed by tabs.
+Column numbers begin with 1.
+Ranges of column numbers can be abbreviated with arguments
+of the form #-# (e.g., 12-24).
+Column ranges can be in reverse order
+(e.g., 5-1 to reverse the first five columns).
+.PP
+Optionally,
+.I colex
+will format output columns as integers, numbers with decimal points,
+or as numbers in exponential (scientific) notation,
+instead of the default of printing the columns as alphabetic fields.
+A format specification
+precedes the column range and is indicated by a single letter:
+a (alphabetic), e (exponential), i (integer), and n (numeric).
+Each format can be preceded by an optional width and/or a precision.
+The width tells how wide the field should be.
+The precision tells how many digits after the decimal point
+should be printed for real numbers,
+or the maximum width for alphabetic fields.
+The general form is:
+.br
+	[[width][.precision]format][column range]
+.br
+See the examples for simple cases.
+C programmers will recognize the format as that used by the
+standard formatted printing functions.
+.SH OPTIONS
+.de OP
+.TP
+.B -\\$1 \\$2
+..
+.OP c
+Character column mode,
+to allow extracting fixed format data.
+By default,
+.I colex
+extracts white-space-separated columns, but with this option,
+input lines are treated as a series of characters.
+No type checking is supported with this option,
+and extracted columns can not be quoted.
+This option should usually be used with the option to
+inhibit tabs between columns.
+.OP f
+Force filling of missing columns
+with the string NA.
+.OP F format
+By default, columns without type specifiers
+are printed as alphabetic strings.
+This option changes the default for all columns
+for which the format is not explicitly specified.
+.OP i
+Ignore missing columns.
+Otherwise, a missing column,
+not filled by the -f option,
+is an error.
+.OP q
+Place quotes around the printed strings.
+.OP t
+By default, there is a tab printed after every column.
+This option turns off the tab printing.
+.OP v
+Validate data types in numerical columns.
+If a numerical output format is requested,
+validation will print warnings when a non-integer or non-number
+is being printed as a number (usually as 0).
+By default, no checking is done.
+.SH EXAMPLES
+.nf
+.ta 2i
+colex 1 2 3 4	# columns 1 through 4
+colex 1-4	# an abbreviation of the above
+colex 4-1	# columns 4-1 in reverse order
+colex -i 100-1	# reverse the columns ignoring missing columns
+colex 10.2n1-5	# columns 1-5, 10-wide, with 2 digits after decimal place
+colex -F 10.2n 5-2	# columns 5-2 in 10.2n format
+colex 4i1 5.2n2-3 10a4	# column 1 as a 4-wide integer,
+	# columns 2-3 as 5-wide numbers with 2 decimal digits,
+	# and column 4 as a 10-wide alphabetic string
+colex -tc 12-14	# extract characters 12-14 (3 characters wide)
+.fi
+.SH LIMITS
+Use the -L option to determine the program limits.

@@ -1,0 +1,25 @@
+#! /bin/sh
+
+# The following works satisfactorily with the Sun AT&T DWB nroff and -man macros
+
+DOCDIR=../doc
+TROFFDIR=.
+MAN=.man
+MACROS=tmac.an
+MACROS="-man online.macros"
+
+for prog
+do
+	basefile=`basename $prog .1`
+	basefile=`basename $basefile $MAN`
+	# echo -------- $basefile
+
+	srcfile=$basefile.1
+	manfile=$DOCDIR/$basefile$MAN
+
+	chmod 644 $manfile
+	# ls -l $srcfile $manfile
+	nroff $MACROS $srcfile | cat -s > $manfile
+	chmod 444 $manfile
+	# unctrl < $manfile > unctrl/$basefile$MAN
+done

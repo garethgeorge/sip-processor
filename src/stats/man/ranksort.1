@@ -1,0 +1,55 @@
+.TH RANKSORT 1 "November 28, 1986" "\(co 1980 Gary Perlman" "|STAT" "UNIX User's Manual"
+.SH NAME
+ranksort \- rank order columns
+.SH SYNOPSIS
+.B ranksort
+[-r] [-l lines]
+.SH DESCRIPTION
+.I ranksort
+reads the lines from the standard input and rank orders each column.
+Blank lines are ignored.
+Ties share the ranks, so if the 13th and 14th ranked numbers
+are equal, then each will be assigned the rank 13.5.
+.PP
+.I ranksort
+is used on data when the assumptions for procedures like the normal theory
+Pearson correlation coefficient are suspected to be false.
+Under such conditions, the Spearman rho rank order correlation coefficient
+is more appropriate.
+The Spearman rho is equal to the Pearson calculation on the data
+converted to ranks.
+The normal theory (F or t) significance test of the correlation coefficient
+is a good approximation to the two tailed test of the rank order
+correlation when the number of pairs is greater than 10.
+For smaller samples, a table should be consulted.
+.SH OPTIONS
+.de OP
+.TP
+.B -\\$1 \\$2
+..
+.OP l lines
+Set the maximum number of lines to be read.
+.OP r
+Reverse the order of the rankings.
+By default,
+rank orderings correlate with input data
+so that smaller numbers get smaller rank order values.
+.SH EXAMPLE
+.nf
+.ta .25i +.5i +.5i +.5i +.5i +.5i +.5i +.5i +.5i +.5i
+	Input				Output
+	0	5	0	2		1	6	1	5.5	
+	1	6	10	3		2	7	2	7.5	
+	2	7	20	3		3	8	3	7.5	
+	3	8	30	4		4	9	4	9.5	
+	4	9	40	4		5	10	5	9.5	
+	5	0	50	0		6	1	6	1.5	
+	6	1	60	0		7	2	7	1.5	
+	7	2	70	1		8	3	8	3.5	
+	8	3	80	1		9	4	9	3.5	
+	9	4	90	2		10	5	10	5.5	
+.fi
+.SH LIMITS
+Use the -L option to determine the program limits.
+.SH "SEE ALSO
+rankrel(1) and rankind(1) perform rank order statistics.

@@ -1,0 +1,2748 @@
+%!PS
+%%Version: 3.3
+%%DocumentFonts: (atend)
+%%Pages: (atend)
+%%EndComments
+%
+% Version 3.3 prologue for troff files.
+%
+
+/#copies 1 store
+/aspectratio 1 def
+/formsperpage 1 def
+/landscape false def
+/linewidth .3 def
+/magnification 1 def
+/margin 0 def
+/orientation 0 def
+/resolution 720 def
+/rotation 1 def
+/xoffset 0 def
+/yoffset 0 def
+
+/roundpage true def
+/useclippath true def
+/pagebbox [0 0 612 792] def
+
+/R  /Times-Roman def
+/I  /Times-Italic def
+/B  /Times-Bold def
+/BI /Times-BoldItalic def
+/H  /Helvetica def
+/HI /Helvetica-Oblique def
+/HB /Helvetica-Bold def
+/HX /Helvetica-BoldOblique def
+/CW /Courier def
+/CO /Courier def
+/CI /Courier-Oblique def
+/CB /Courier-Bold def
+/CX /Courier-BoldOblique def
+/PA /Palatino-Roman def
+/PI /Palatino-Italic def
+/PB /Palatino-Bold def
+/PX /Palatino-BoldItalic def
+/Hr /Helvetica-Narrow def
+/Hi /Helvetica-Narrow-Oblique def
+/Hb /Helvetica-Narrow-Bold def
+/Hx /Helvetica-Narrow-BoldOblique def
+/KR /Bookman-Light def
+/KI /Bookman-LightItalic def
+/KB /Bookman-Demi def
+/KX /Bookman-DemiItalic def
+/AR /AvantGarde-Book def
+/AI /AvantGarde-BookOblique def
+/AB /AvantGarde-Demi def
+/AX /AvantGarde-DemiOblique def
+/NR /NewCenturySchlbk-Roman def
+/NI /NewCenturySchlbk-Italic def
+/NB /NewCenturySchlbk-Bold def
+/NX /NewCenturySchlbk-BoldItalic def
+/ZD /ZapfDingbats def
+/ZI /ZapfChancery-MediumItalic def
+/S  /S def
+/S1 /S1 def
+/GR /Symbol def
+
+/inch {72 mul} bind def
+/min {2 copy gt {exch} if pop} bind def
+
+/setup {
+	counttomark 2 idiv {def} repeat pop
+
+	landscape {/orientation 90 orientation add def} if
+	/scaling 72 resolution div def
+	linewidth setlinewidth
+	1 setlinecap
+
+	pagedimensions
+	xcenter ycenter translate
+	orientation rotation mul rotate
+	width 2 div neg height 2 div translate
+	xoffset inch yoffset inch neg translate
+	margin 2 div dup neg translate
+	magnification dup aspectratio mul scale
+	scaling scaling scale
+
+	/Symbol /S Sdefs cf
+	/Times-Roman /S1 S1defs cf
+	0 0 moveto
+} def
+
+/pagedimensions {
+	useclippath userdict /gotpagebbox known not and {
+		/pagebbox [clippath pathbbox newpath] def
+		roundpage currentdict /roundpagebbox known and {roundpagebbox} if
+	} if
+	pagebbox aload pop
+	4 -1 roll exch 4 1 roll 4 copy
+	landscape {4 2 roll} if
+	sub /width exch def
+	sub /height exch def
+	add 2 div /xcenter exch def
+	add 2 div /ycenter exch def
+	userdict /gotpagebbox true put
+} def
+
+/pagesetup {
+	/page exch def
+	currentdict /pagedict known currentdict page known and {
+		page load pagedict exch get cvx exec
+	} if
+} def
+
+/decodingdefs [
+	{counttomark 2 idiv {y moveto show} repeat}
+	{neg /y exch def counttomark 2 idiv {y moveto show} repeat}
+	{neg moveto {2 index stringwidth pop sub exch div 0 32 4 -1 roll widthshow} repeat}
+	{neg moveto {spacewidth sub 0.0 32 4 -1 roll widthshow} repeat}
+	{counttomark 2 idiv {y moveto show} repeat}
+	{neg setfunnytext}
+] def
+
+/setdecoding {/t decodingdefs 3 -1 roll get bind def} bind def
+
+/w {neg moveto show} bind def
+/m {neg dup /y exch def moveto} bind def
+/done {/lastpage where {pop lastpage} if} def
+
+/f {
+	dup /font exch def findfont exch
+	dup /ptsize exch def scaling div dup /size exch def scalefont setfont
+	linewidth ptsize mul scaling 10 mul div setlinewidth
+	/spacewidth ( ) stringwidth pop def
+} bind def
+
+/changefont {
+	/fontheight exch def
+	/fontslant exch def
+	currentfont [
+		1 0
+		fontheight ptsize div fontslant sin mul fontslant cos div
+		fontheight ptsize div
+		0 0
+	] makefont setfont
+} bind def
+
+/sf {f} bind def
+
+/cf {
+	dup length 2 idiv
+	/entries exch def
+	/chtab exch def
+	/newfont exch def
+
+	findfont dup length 1 add dict
+	/newdict exch def
+	{1 index /FID ne {newdict 3 1 roll put} {pop pop} ifelse} forall
+
+	newdict /Metrics entries dict put
+	newdict /Metrics get
+	begin
+		chtab aload pop
+		1 1 entries {pop def} for
+		newfont newdict definefont pop
+	end
+} bind def
+
+%
+% A few arrays used to adjust reference points and character widths in some
+% of the printer resident fonts. If square roots are too high try changing
+% the lines describing /radical and /radicalex to,
+%
+%	/radical	[0 -75 550 0]
+%	/radicalex	[-50 -75 500 0]
+%
+% Move braceleftbt a bit - default PostScript character is off a bit.
+%
+
+/Sdefs [
+	/bracketlefttp		[201 500]
+	/bracketleftbt		[201 500]
+	/bracketrighttp		[-81 380]
+	/bracketrightbt		[-83 380]
+	/braceleftbt		[203 490]
+	/bracketrightex		[220 -125 500 0]
+	/radical		[0 0 550 0]
+	/radicalex		[-50 0 500 0]
+	/parenleftex		[-20 -170 0 0]
+	/integral		[100 -50 500 0]
+	/infinity		[10 -75 730 0]
+] def
+
+/S1defs [
+	/underscore		[0 80 500 0]
+	/endash			[7 90 650 0]
+] def
+%%EndProlog
+%%BeginSetup
+mark
+/resolution 720 def
+setup
+2 setdecoding
+%%EndSetup
+%%Page: 1 1
+/saveobj save def
+mark
+1 pagesetup
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 1 1
+%%Page: 1 2
+/saveobj save def
+mark
+2 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 4-1)1 1964( Manipulation)1 564( Data)1 1412(STAT Handbook)1 691 4 769 480 t
+14 B f
+(Section 4.1 Data Generation/Augmentation)3 2571 1 720 768 t
+( a string or \256le)4 871(repeat: repeat)1 876 2 720 1128 t
+12 CB f
+(rep eat)1 435 1 720 1308 t
+10 R f
+( helps generate labels for datasets, or)6 1519( It)1 119( \256le as many times as requested.)6 1338(can repeat strings or lines in a)6 1234 4 1190 1308 t
+(feed a program like)3 778 1 720 1428 t
+12 CB f
+(dm)1571 1428 w
+10 R f
+( following will repeat the \256le)5 1163( The)1 205(that needs input to produce output.)5 1388 3 1742 1428 t
+12 CB f
+(dat a)1 291 1 4571 1428 t
+10 R f
+(10 times.)1 367 1 4888 1428 t
+10 CB f
+( a)1 63( dat)1 304( 10)1 183( -n)1 245(rep eat)1 363 5 1080 1608 t
+10 R f
+(The following will repeat its input series of 20 numbers 15 times.)11 2615 1 720 1788 t
+10 CB f
+( 15)1 183( -n)1 245( eat)1 183( rep)1 303( |)1 184( 20)1 182( 1)1 185(ser ies)1 363 8 1080 1968 t
+10 R f
+(Strings can be repeated using the)5 1317 1 720 2148 t
+12 CB f
+(ech o)1 291 1 2110 2148 t
+10 R f
+( following will repeat the string)5 1263(command. The)1 624 2 2427 2148 t
+12 CB f
+(hel lo)1 363 1 4387 2148 t
+10 R f
+(100 times.)1 417 1 4777 2148 t
+10 CB f
+( 100)1 243( -n)1 184( eat)1 183( rep)1 242( |)1 123( lo)1 123( hel)1 242(ech o)1 243 8 1080 2328 t
+14 B f
+( a linear series)3 860(series: generate)1 963 2 720 2628 t
+12 CB f
+(ser ies)1 435 1 720 2808 t
+10 R f
+( values change by units, but this)6 1304( default, its)2 453( By)1 170(generates a linear series of numbers between two values.)8 2287 4 1186 2808 t
+( following produces a series of 10 numbers, 1 to 10, one per line.)13 2596( The)1 205(can be modi\256ed.)2 663 3 720 2928 t
+10 CB f
+( 10)1 182( 1)1 124(ser ies)1 363 3 1080 3108 t
+10 R f
+(The following produces the same series, but in reverse order; the start of the series can be greater than the end.)20 4411 1 720 3288 t
+10 CB f
+( 1)1 123( 10)1 184(ser ies)1 363 3 1080 3468 t
+10 R f
+(Non-integral series can be created by supplying an optional increment.)9 2822 1 720 3648 t
+10 CB f
+( 1 .1)2 304( 0)1 124(ser ies)1 363 3 1080 3828 t
+10 R f
+(produces the series:)2 787 1 720 4008 t
+10 CB f
+( .2 .3 .4 .5 .6 .7 .8 .9 1)9 2136(0 .1)1 303 2 1080 4188 t
+10 R f
+( output from series can be transformed with)7 1751( The)1 206( value is on its own line.)6 981(except that each)2 642 4 720 4368 t
+12 CB f
+(dm)4374 4368 w
+10 R f
+(to produce other than)3 854 1 4546 4368 t
+( is an exponential series:)4 982( Here)1 243(linear series.)1 504 3 720 4488 t
+10 CB f
+( p\(x 1\)")2 366( "ex)1 243( dm)1 182( |)1 123( 10)1 182( 1)1 124(ser ies)1 363 7 1080 4668 t
+14 B f
+( random numbers)2 1073(probdist: generate)1 1134 2 720 4968 t
+12 CB f
+(pro bdi st)2 582 1 720 5148 t
+10 R f
+( following will generate 100)4 1156( The)1 211( probability distributions.)2 1027(can generate random numbers for several)5 1672 4 1334 5148 t
+(random numbers from the uniform distribution \(between 0 and 1\).)9 2641 1 720 5268 t
+10 CB f
+( 100)1 242( for m)2 246( uni)1 244( dom)1 183( ran)1 243(pro bdi st)2 486 6 1080 5448 t
+10 R f
+(This can be transformed using)4 1265 1 720 5628 t
+12 CB f
+(dm)2072 5628 w
+10 R f
+( 100)1 190( following will produce)3 983( The)1 219(to get random numbers with other ranges.)6 1751 4 2257 5628 t
+(random integers uniformly distributed between 10 and 29.)7 2325 1 720 5748 t
+10 CB f
+( oor \(x1 *20 +10 \)")5 855( "fl)1 243( dm)1 182( |)1 124( 100)1 242( for m)2 246( uni)1 244( dom)1 183( ran)1 243(pro bdi st)2 486 10 1080 5928 t
+10 R f
+(The following generates numbers from a one-trial binomial distribution with probability 0.5.)11 3700 1 720 6108 t
+10 CB f
+( 0")1 182( e)1 63( 1 els)2 364( n)1 63( the)1 243( .5)1 182( >)1 123( x1)1 184( "if)1 243( dm)1 182( |)1 124( 100)1 242( for m)2 246( uni)1 244( dom)1 183( ran)1 243(pro bdi st)2 486 17 1080 6288 t
+12 CB f
+(pro bdi st)2 582 1 720 6468 t
+10 R f
+( binomial distribution built in, so the following would be equivalent to the previous)13 3620(also has a)2 430 2 1350 6468 t
+(example:)720 6588 w
+10 CB f
+( 100)1 244( 1/2)1 242( 1)1 123( omi al)2 306( bin)1 242( d)1 63( ran)1 243(pro bdi st)2 486 8 1080 6768 t
+10 R f
+( 143 and)2 358( following will seed the random number generator with)8 2256( The)1 211(The random number generator can be seeded.)6 1855 4 720 6948 t
+(generate 100 normally distributed z values.)5 1725 1 720 7068 t
+10 CB f
+( 100)1 244( mal)1 183( nor)1 244( dom)1 183( ran)1 244( -s 143)2 426(pro bdi st)2 486 7 1080 7248 t
+10 S f
+(\323)2617 7728 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7728 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 1 2
+%%Page: 2 3
+/saveobj save def
+mark
+3 pagesetup
+10 R f
+( Manipulation)1 564(4-2 Data)1 2152 2 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+( random normal numbers have a mean)6 1554( The)1 209( repeated.)1 391(The seeding option is useful when a random sequence must be)10 2526 4 720 828 t
+( of 1, so)3 352(of 0 and a standard deviation)5 1211 2 720 948 t
+12 CB f
+(dm)2366 948 w
+10 R f
+( following)1 424( The)1 215(can help create different random normal distributions.)6 2214 3 2547 948 t
+(samples a normal distribution with mean 100 and standard deviation 15.)10 2884 1 720 1068 t
+10 CB f
+( *15 +10 0")3 489( "x1)1 304( dm)1 243( |)1 185( 100)1 244( mal)1 183( nor)1 244( dom)1 183( ran)1 243(pro bdi st)2 486 10 1080 1248 t
+14 B f
+( lines, recycle \256les)3 1066(abut: number)1 862 2 720 1548 t
+12 CB f
+(abu t)1 291 1 720 1728 t
+10 R f
+(can number input lines in \256les using the)7 1716 1 1054 1728 t
+12 CB f
+(-n)2860 1728 w
+10 R f
+( as is)2 236(option, or cycle through input \256les as many times)8 2116 2 3048 1728 t
+( for programs like)3 748( latter case is common in creating input \256les)8 1853( The)1 216(necessary to match the length of longer \256les.)7 1863 4 720 1848 t
+12 CB f
+(ano va)1 363 1 720 1968 t
+10 R f
+(and)1110 1968 w
+12 CB f
+(con tab)1 435 1 1327 1968 t
+10 R f
+(, which have input data tagged with regular patterns of labels.)10 2462 1 1765 1968 t
+10 I f
+(File1 File2 Data)2 1640 1 1080 2148 t
+10 CB f
+( 12)1 597( y)1 63( eas)1 597(lar ge)1 303 4 1080 2268 t
+( 23)1 597( y)1 63( eas)1 597(sma ll)1 303 4 1080 2388 t
+( 34)1 597(har d)1 243 2 1800 2508 t
+( 45)1 597(har d)1 243 2 1800 2628 t
+(56)2520 2748 w
+(67)2520 2868 w
+(78)2520 2988 w
+(89)2520 3108 w
+10 R f
+(For the above input \256le con\256guration, the command)7 2082 1 720 3288 t
+10 CB f
+( a)1 63( Dat)1 243( e2)1 123( Fil)1 243( e1)1 123( Fil)1 244( -nc)1 242(abu t)1 243 8 1080 3468 t
+10 R f
+(would produce the following by recycling the smaller \256les.)8 2361 1 720 3648 t
+10 CB f
+( 12)1 597( y)1 63( eas)1 597( ge)1 123(1 lar)1 900 5 1080 3828 t
+( 23)1 597( y)1 63( eas)1 597( ll)1 123(2 sma)1 900 5 1080 3948 t
+( 34)1 597( d)1 63( har)1 597( ge)1 123(3 lar)1 900 5 1080 4068 t
+( 45)1 597( d)1 63( har)1 597( ll)1 123(4 sma)1 900 5 1080 4188 t
+( 56)1 597( y)1 63( eas)1 597( ge)1 123(5 lar)1 900 5 1080 4308 t
+( 67)1 597( y)1 63( eas)1 597( ll)1 123(6 sma)1 900 5 1080 4428 t
+( 78)1 597( d)1 63( har)1 597( ge)1 123(7 lar)1 900 5 1080 4548 t
+( 89)1 597( d)1 63( har)1 597( ll)1 123(8 sma)1 900 5 1080 4668 t
+14 B f
+( lines)1 308(dm: number)1 784 2 720 4968 t
+12 CB f
+(dm)720 5148 w
+10 R f
+(can number its input lines with its special variables)8 2083 1 896 5148 t
+12 CB f
+(INL INE)1 435 1 3058 5148 t
+10 R f
+(, which always contains the input line number,)7 1904 1 3496 5148 t
+(and)720 5268 w
+12 CB f
+(INP UT)1 363 1 937 5268 t
+10 R f
+(, which always contains the current input line.)7 1839 1 1302 5268 t
+10 CB f
+( a)1 63( dat)1 242( <)1 123( UT)1 123( INP)1 244( INE)1 183(dm INL)1 363 7 1080 5448 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 2 3
+%%Page: 3 4
+/saveobj save def
+mark
+4 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 4-3)1 1964( Manipulation)1 564( Data)1 1412(STAT Handbook)1 691 4 769 480 t
+14 B f
+(Section 4.2 Data Transformation)3 1958 1 720 768 t
+( algebraic combinations of columns)4 2107(dm: conditional)1 979 2 720 1128 t
+12 CB f
+(dm)720 1308 w
+10 R f
+( following command reads from)4 1291( The)1 206(can produce algebraic combinations of columns.)5 1940 3 892 1308 t
+12 CB f
+(dat a)1 291 1 4403 1308 t
+10 R f
+( the)1 149(and produces)1 530 2 4721 1308 t
+(ratio of columns 2 and 1 with column 3 added on.)10 1990 1 720 1428 t
+10 CB f
+( a)1 63( dat)1 303( <)1 184( x1+ x3)2 306(dm x2/)1 424 5 1080 1608 t
+10 R f
+( example, if)2 474( For)1 189(Transformations can be based on conditions.)5 1786 3 720 1788 t
+12 CB f
+(x1)3242 1788 w
+10 R f
+( example is 0,)3 558(, the value in column 1, in the above)8 1454 2 3388 1788 t
+(then)720 1908 w
+12 CB f
+(dm)965 1908 w
+10 R f
+(will exit after producing an error message like:)7 1871 1 1136 1908 t
+10 CB f
+( r[1 ].)2 306( exp)1 304( 12)1 182( e)1 63( lin)1 243( ut)1 123( inp)1 243( o.)1 123( by zer)2 426( isi on)2 306(dm: div)1 424 11 1080 2088 t
+10 R f
+(To avoid this problem, the following will do the division only if)11 2562 1 720 2268 t
+12 CB f
+(x1)3355 2268 w
+10 R f
+(is non-zero.)1 471 1 3526 2268 t
+10 CB f
+( a)1 63( dat)1 242( <)1 123( 0")1 182( e)1 63( els)1 243( x1+ x3)2 306( x2/)1 242( n)1 63( the)1 243( x1)1 184(dm "if)1 363 12 1080 2448 t
+14 B f
+( conversion)1 681(probdist: probability/statistic)1 1788 2 720 2748 t
+12 CB f
+(pro bdi st)2 582 1 720 2928 t
+10 R f
+(can convert probabilities to distribution statistics and)6 2152 1 1335 2928 t
+10 I f
+(vice versa)1 407 1 3518 2928 t
+10 R f
+(as seen in tables at the end of most)8 1443 1 3957 2928 t
+( The)1 210( t.)1 83( distributions are supported, including: the normal z, binomial, chi-square, F, and)11 3308( Many)1 289(statistics textbooks.)1 790 5 720 3048 t
+(following will print the two-tailed probability of an obtained t statistic of 2.5 with 20 degrees of freedom.)17 4210 1 720 3168 t
+10 CB f
+( 2.5)1 243( t 20)2 304( b)1 63( pro)1 243(pro bdi st)2 486 5 1080 3348 t
+(0.0 212 34)2 486 1 1080 3468 t
+10 R f
+(Similarly, the following will print the two-tailed probability of an F ratio of 6.25 with 1 and 20 degrees of freedom.)20 4610 1 720 3648 t
+10 CB f
+( 5)1 63( 6.2)1 243( F 1 20)3 426( b)1 63( pro)1 243(pro bdi st)2 486 6 1080 3828 t
+(0.0 212 34)2 486 1 1080 3948 t
+10 R f
+(These results are the same because of the relationship between the t and F distributions.)14 3497 1 720 4128 t
+( prints the critical value \(also called the quantile\) in the chi-square distribution with 5 degrees)15 3751(The following)1 569 2 1080 4308 t
+(of freedom to obtain a signi\256cance level of .05.)8 1891 1 720 4428 t
+10 CB f
+( .05)1 242( 5)1 123( sq)1 123( chi)1 242( t)1 63( cri)1 243(pro bdi st)2 486 7 1080 4608 t
+(11. 070 498)2 546 1 1080 4728 t
+10 R f
+( the normal z distribution use the lower one tail -)10 1978(Both probabilities and critical values in)5 1584 2 720 4908 t
+10 S f
+(\245)4282 4908 w
+10 R f
+(to +)1 162 1 4383 4908 t
+10 S f
+(\245)4545 4908 w
+10 R f
+(distribution, so the)2 754 1 4646 4908 t
+(z value that produces the .05 level is obtained with the following.)11 2611 1 720 5028 t
+10 CB f
+( z .05)2 364( t)1 63( cri)1 243(pro bdi st)2 486 4 1080 5208 t
+(-1. 644 854)2 546 1 1080 5328 t
+10 R f
+(The critical value for the 99th percentile is found with the following.)11 2746 1 720 5508 t
+10 CB f
+( z .99)2 364( t)1 63( cri)1 243(pro bdi st)2 486 4 1080 5688 t
+(2.3 263 48)2 486 1 1080 5808 t
+10 R f
+( the binomial)2 536( For)1 192(Binomial distribution critical values are treated differently than the other continuous distributions.)11 3952 3 720 5988 t
+( value for a one-tailed test at the)7 1290(distribution based on \256ve trials, and a probability of success of one half, The critical)14 3390 2 720 6108 t
+(.05 level is:)2 464 1 720 6228 t
+10 CB f
+( .05)1 244( 1/2)1 242( 5)1 123( omi al)2 306( bin)1 242( t)1 63( cri)1 243(pro bdi st)2 486 8 1080 6408 t
+(5)1080 6528 w
+10 R f
+(even though the probability of 5 successes is proportionally much less than .05:)12 3178 1 720 6708 t
+10 CB f
+( 5)1 124( 1/2)1 242( 5)1 123( omi al)2 306( bin)1 242( b)1 63( pro)1 243(pro bdi st)2 486 8 1080 6888 t
+(0.0 312 50)2 486 1 1080 7008 t
+10 R f
+( only are critical values conservative, sometimes there may)8 2383( Not)1 203( distribution is discrete.)3 948(This is because the binomial)4 1146 4 720 7188 t
+(be no possible value; there is no way to get a less probable event than \256ve out of \256ve successes:)19 3825 1 720 7308 t
+10 S f
+(\323)2617 7788 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7788 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 3 4
+%%Page: 4 5
+/saveobj save def
+mark
+5 pagesetup
+10 R f
+( Manipulation)1 564(4-4 Data)1 2152 2 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+10 CB f
+( .01)1 244( 1/2)1 242( 5)1 123( omi al)2 306( bin)1 242( t)1 63( cri)1 243(pro bdi st)2 486 8 1080 828 t
+(6)1080 948 w
+10 R f
+(Here,)720 1128 w
+12 CB f
+(pro bdi st)2 582 1 1011 1128 t
+10 R f
+(is returning an impossible value \(one with zero probability\).)8 2400 1 1620 1128 t
+14 B f
+( data to ranks)3 828(ranksort: convert)1 1087 2 720 1368 t
+12 CB f
+(ran kso rt)2 582 1 720 1548 t
+10 R f
+( the input:)2 406( For)1 189(can rank order data from numerical data columns.)7 1989 3 1329 1548 t
+10 CB f
+( 4.3)1 420(1 95)1 480 2 1080 1728 t
+( 5.2)1 360(2 113)1 540 2 1080 1848 t
+( 4.5)1 420(3 89)1 480 2 1080 1968 t
+( 5.0)1 360(4 100)1 540 2 1080 2088 t
+( 4.5)1 420(5 89)1 480 2 1080 2208 t
+12 CB f
+(ran kso rt)2 582 1 720 2388 t
+10 R f
+(would produce:)1 624 1 1329 2388 t
+10 CB f
+(1 3 1)2 780 1 1080 2568 t
+(2 5 5)2 780 1 1080 2688 t
+( 2.5)1 360(3 1.5)1 540 2 1080 2808 t
+(4 4 4)2 780 1 1080 2928 t
+( 2.5)1 360(5 1.5)1 540 2 1080 3048 t
+10 R f
+( data are)2 351( Once)1 267( get the average rank of the values for which they are tied.)12 2402(The ties in the second and third columns)7 1660 4 720 3228 t
+( rank orders within columns, rank order statistics \(e.g., Spearman)9 2631( With)1 253(ranksorted, further ranksorting has no effect.)5 1796 3 720 3348 t
+(rank order correlation, average group rank\) can be computed by parametric programs like)12 3575 1 720 3468 t
+12 CB f
+(pai r)1 291 1 4368 3468 t
+10 R f
+(or)4685 3468 w
+12 CB f
+(reg res s)2 510 1 4841 3468 t
+10 R f
+(.)5352 3468 w
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 4 5
+%%Page: 5 6
+/saveobj save def
+mark
+6 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 4-5)1 1964( Manipulation)1 564( Data)1 1412(STAT Handbook)1 691 4 769 480 t
+14 B f
+(Section 4.3 Data Formatting)3 1684 1 720 768 t
+( a matrix format \256le)4 1202(maketrix: form)1 953 2 720 1128 t
+12 CB f
+(mak etr ix)2 582 1 720 1308 t
+10 R f
+( one whitespace separated string at a time from its free format input, and produces a)15 3498(reads its data,)2 564 2 1338 1308 t
+(multicolumn output.)1 818 1 720 1428 t
+10 CB f
+( 5)1 123( etr ix)2 306( mak)1 242( |)1 123( 20)1 182( 1)1 124(ser ies)1 363 7 1080 1608 t
+10 R f
+(The above produces a \256ve column output.)6 1678 1 720 1788 t
+10 CB f
+(1 2 3 4 5)4 1500 1 1080 1968 t
+(6 7 8 9 10)4 1560 1 1080 2088 t
+(11 12 13 14 15)4 1560 1 1080 2208 t
+(16 17 18 19 20)4 1560 1 1080 2328 t
+14 B f
+( lines)1 308(perm: permute)1 938 2 720 2628 t
+12 CB f
+(per m)1 291 1 720 2808 t
+10 R f
+( can randomize output from programs like)6 1686( It)1 111(, with no options, randomizes its input lines.)7 1773 3 1012 2808 t
+12 CB f
+(ser ies)1 435 1 4655 2808 t
+10 R f
+(.)5093 2808 w
+10 CB f
+( m)1 63( per)1 242( |)1 123( 20)1 182( 1)1 124(ser ies)1 363 6 1080 2988 t
+10 R f
+( following is a sample of size 10 from the \256le)10 1915( The)1 214(A subset of this permutation is a sample without replacement.)9 2551 3 720 3168 t
+12 CB f
+(dat a)1 291 1 720 3288 t
+10 R f
+(.)1012 3288 w
+10 CB f
+( T")1 123( EXI)1 242( e)1 63( els)1 243( UT)1 123( INP)1 242( n)1 63( 10 the)2 426( <=)1 184( INE)1 183( INL)1 244( "if)1 243( | dm)2 304( a)1 63( < dat)2 364(per m)1 243 16 1080 3468 t
+12 CB f
+(per m)1 291 1 720 3648 t
+10 R f
+(can be supplied a seed for its random number generator, to replicate a random permutation.)14 3642 1 1037 3648 t
+10 CB f
+( 5)1 123( etr ix)2 306( | mak)2 364( 2)1 63( 576)1 243( -s)1 182( m)1 63( per)1 242( |)1 123( 20)1 182( 1)1 124(ser ies)1 363 12 1080 3828 t
+10 R f
+(The above produces \(with my system's random number generator\):)8 2689 1 720 4008 t
+10 CB f
+( 13 2)2 660( 10)1 420(18 7)1 420 3 1080 4188 t
+(14 11 19 15 20)4 1560 1 1080 4308 t
+(1 3 9 6 16)4 1560 1 1080 4428 t
+( 4)1 360( 12 5)2 660(8 17)1 480 3 1080 4548 t
+12 CB f
+(per m)1 291 1 1080 4788 t
+10 R f
+( example, the output from the previous)6 1569( For)1 192(can also put its lines in alphabetical or numerical order.)9 2240 3 1399 4788 t
+(example could be put into ascending order \(according to the \256rst number on each line\) with:)15 3680 1 720 4908 t
+10 CB f
+( -n)1 182( m)1 63( | per)2 364( 5)1 123( etr ix)2 306( | mak)2 364( 2)1 63( 576)1 243( -s)1 182( m)1 63( per)1 242( |)1 123( 20)1 182( 1)1 124(ser ies)1 363 15 1080 5088 t
+10 R f
+(This produces:)1 591 1 720 5268 t
+10 CB f
+(1 3 9 6 16)4 1560 1 1080 5448 t
+( 4)1 360( 12 5)2 660(8 17)1 480 3 1080 5568 t
+(14 11 19 15 20)4 1560 1 1080 5688 t
+( 13 2)2 660( 10)1 420(18 7)1 420 3 1080 5808 t
+14 B f
+( data lines by multiple keys)5 1622(dsort: sort)1 660 2 720 6108 t
+10 R f
+(The last example of the)4 945 1 720 6288 t
+12 CB f
+(per m)1 291 1 1740 6288 t
+10 R f
+( according to the numerical value in the \256rst)8 1788(\256lter showed how lines can be ordered)6 1553 2 2059 6288 t
+(column.)720 6408 w
+12 CB f
+(dso rt)1 363 1 1207 6408 t
+10 R f
+( example, the)2 565( For)1 204( in any column.)3 667(can sort lines based on numerical or alphabetical values)8 2351 4 1613 6408 t
+(following command sorts the previous example matrix in ascending order of the values in the third column.)16 4298 1 720 6528 t
+10 CB f
+( -n 3)2 306( rt)1 123( | dso)2 364( 5)1 123( etr ix)2 306( | mak)2 364( 2)1 63( 576)1 243( -s)1 182( m)1 63( per)1 242( |)1 123( 20)1 182( 1)1 124(ser ies)1 363 15 1080 6708 t
+10 R f
+(This produces:)1 591 1 720 6888 t
+10 CB f
+(1 3 9 6 16)4 1560 1 1080 7068 t
+( 13 2)2 660( 10)1 420(18 7)1 420 3 1080 7188 t
+( 4)1 360( 12 5)2 660(8 17)1 480 3 1080 7308 t
+10 S f
+(\323)2617 7788 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7788 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 5 6
+%%Page: 6 7
+/saveobj save def
+mark
+7 pagesetup
+10 R f
+( Manipulation)1 564(4-6 Data)1 2152 2 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+10 CB f
+(14 11 19 15 20)4 1560 1 1080 768 t
+10 R f
+(If there were ties in a column,)6 1194 1 720 948 t
+12 CB f
+(dso rt)1 363 1 1987 948 t
+10 R f
+(could sort by additional key columns.)5 1505 1 2377 948 t
+14 B f
+( matrix format \256le)3 1097(transpose: transpose)1 1268 2 720 1188 t
+12 CB f
+(tra nsp ose)2 654 1 720 1368 t
+10 R f
+( the input:)2 406( For)1 189(\257ips rows and columns in its input.)6 1404 3 1402 1368 t
+10 CB f
+(1 2 3 4)3 1140 1 1080 1548 t
+(5 6 7 8)3 1140 1 1080 1668 t
+( 11 12)2 720(9 10)1 480 2 1080 1788 t
+12 CB f
+(tra nsp ose)2 654 1 720 1968 t
+10 R f
+(produces:)1402 1968 w
+10 CB f
+(1 5 9)2 780 1 1080 2148 t
+(2 6 10)2 840 1 1080 2268 t
+(3 7 11)2 840 1 1080 2388 t
+(4 8 12)2 840 1 1080 2508 t
+10 R f
+(The input to)2 489 1 720 2688 t
+12 CB f
+(tra nsp ose)2 654 1 1282 2688 t
+10 R f
+(does not have to be regular, nor does it have to be numerical.)12 2434 1 1964 2688 t
+10 CB f
+( ee)1 123(one two thr)2 1620 2 1080 2868 t
+( e)1 63( fiv)1 657(fou r)1 243 3 1080 2988 t
+(six)1080 3108 w
+( ht)1 123( eig)1 597(sev en)1 303 3 1080 3228 t
+( ven)1 183( ele)1 720( ten)1 657(nin e)1 243 4 1080 3348 t
+10 R f
+(For the above input,)3 805 1 720 3528 t
+12 CB f
+(tra nsp ose)2 654 1 1598 3528 t
+10 R f
+(produces the following.)2 946 1 2280 3528 t
+10 CB f
+( e)1 63( nin)1 597( en)1 123( sev)1 720( six)1 657( r)1 63(one fou)1 900 7 1080 3708 t
+( ten)1 597( ht)1 123( eig)1 1377( e)1 63(two fiv)1 900 5 1080 3828 t
+( ven)1 183( ele)1 2757(thr ee)1 303 3 1080 3948 t
+10 R f
+( is not necessarily so with)5 1050( This)1 232( the transposition of a transposition yields the original.)8 2212(Note that with regular inputs,)4 1186 4 720 4128 t
+( above output piped through another pass of)7 1770( The)1 207( output.)1 308(data as in the above input and)6 1205 4 720 4248 t
+12 CB f
+(tra nsp ose)2 654 1 4285 4248 t
+10 R f
+(produces a)1 431 1 4969 4248 t
+(result different from the original input.)5 1548 1 720 4368 t
+10 CB f
+( ee)1 123(one two thr)2 1620 2 1080 4548 t
+( ven)1 183( ele)1 657( e)1 63( fiv)1 657(fou r)1 243 5 1080 4668 t
+( ht)1 123(six eig)1 900 2 1080 4788 t
+( ten)1 597(sev en)1 303 2 1080 4908 t
+(nin e)1 243 1 1080 5028 t
+14 B f
+( lines, columns, characters)3 1575(reverse: reverse)1 986 2 720 5328 t
+12 CB f
+(rev ers e)2 510 1 720 5508 t
+10 R f
+( in a)2 182( can provide easier access to the last lines)8 1689( It)1 115(can reverse the lines, \256elds, or characters in its input.)9 2154 4 1260 5508 t
+( \256le, get the \256rst 10 lines, and)7 1214( get the last 10 lines in a \256le, we can reverse the)12 1970( To)1 166(\256le, or the last columns on lines.)6 1330 4 720 5628 t
+(then reverse those 10 lines.)4 1084 1 720 5748 t
+10 CB f
+( ers e)2 246( rev)1 242( |)1 124( UT")1 183( INP)1 242( e)1 63( els)1 242( T)1 63( EXI)1 242( n)1 63( 10 the)2 426( GT)1 184( INE)1 183( INL)1 244( "if)1 243( | dm)2 304( a)1 63( < dat)2 364(rev ers e)2 426 19 1080 5928 t
+10 R f
+(To get the last two)4 744 1 720 6108 t
+10 I f
+(columns)1489 6108 w
+10 R f
+(in a \256le is easier.)4 674 1 1847 6108 t
+10 CB f
+( s2 s1)2 366( | dm)2 304( a)1 63( dat)1 242( <)1 123( -f)1 182(rev ers e)2 426 7 1080 6288 t
+10 R f
+(Here,)720 6468 w
+12 CB f
+(dm)1017 6468 w
+10 R f
+( for column extraction, and rather than call)7 1756(is used)1 281 2 1194 6468 t
+12 CB f
+(rev ers e)2 510 1 3311 6468 t
+10 R f
+(a second time, what were the last two)7 1546 1 3854 6468 t
+(columns before reversal are listed in the opposite order.)8 2220 1 720 6588 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 6 7
+%%Page: 7 8
+/saveobj save def
+mark
+8 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 4-7)1 1964( Manipulation)1 564( Data)1 1412(STAT Handbook)1 691 4 769 480 t
+14 B f
+( columns, reformat columns)3 1670(colex: reorder)1 877 2 720 768 t
+12 CB f
+(col ex)1 363 1 720 948 t
+10 R f
+( program that shares some of the functionality of)8 2195(is a column extraction)3 975 2 1140 948 t
+12 CB f
+(dm)4414 948 w
+10 R f
+(and)4616 948 w
+12 CB f
+(rev ers e)2 510 1 4864 948 t
+10 R f
+(.)5375 948 w
+12 CB f
+(col ex)1 363 1 720 1068 t
+10 R f
+( and has a simpler syntax than)6 1216(is faster)1 316 2 1113 1068 t
+12 CB f
+(dm)2720 1068 w
+10 R f
+( a matrix dataset)3 663( Suppose)1 391(and has data formatting capabilities.)4 1453 3 2893 1068 t
+(with 10 columns is created with the following.)7 1860 1 720 1188 t
+10 CB f
+( 10)1 183( etr ix)2 306( mak)1 242( |)1 123( 50)1 182( 1)1 124(ser ies)1 363 7 1080 1368 t
+12 CB f
+(col ex)1 363 1 720 1548 t
+10 R f
+(can extract the last \256ve columns followed by the \256rst \256ve with the command:)13 3089 1 1110 1548 t
+10 CB f
+( 1 2 3 4 5)5 610( 0)1 63( 6-1)1 243( ex)1 123( col)1 242( 10 |)2 306( etr ix)2 306( mak)1 242( |)1 123( 50)1 182( 1)1 124(ser ies)1 363 12 1080 1728 t
+10 R f
+( above command produces:)3 1095( The)1 205(Either ranges of columns or single columns can be given.)9 2291 3 720 1908 t
+10 CB f
+( 2 3 4 5)4 1440( 1)1 300(6 7 8 9 10)4 1560 3 1080 2088 t
+(16 17 18 19 20 11 12 13 14 15)9 3360 1 1080 2208 t
+(26 27 28 29 30 21 22 23 24 25)9 3360 1 1080 2328 t
+(36 37 38 39 40 31 32 33 34 35)9 3360 1 1080 2448 t
+(46 47 48 49 50 41 42 43 44 45)9 3360 1 1080 2568 t
+10 R f
+( left, rather than the customary format to line)8 1826(Note in the previous example how the numbers line up on the)11 2494 2 1080 2808 t
+( is because)2 450( This)1 237(up the unit digits.)3 728 3 720 2928 t
+12 CB f
+(col ex)1 363 1 2217 2928 t
+10 R f
+(puts tabs between columns, and it is not a problem because)10 2451 1 2616 2928 t
+10 S f
+(\357)5101 2928 w
+10 R f
+(STAT)5150 2928 w
+(programs read data in free-format.)4 1418 1 720 3048 t
+12 CB f
+(col ex)1 363 1 2296 3048 t
+10 R f
+( its columns in several numerical formats as well as the)10 2338(can print)1 364 2 2698 3048 t
+( number of decimal places \(like zero, for)7 1658( numerical formatting can round values to some)7 1953( The)1 211(default string format.)2 858 4 720 3168 t
+( option:)1 309( The)1 205(whole numbers\).)1 671 3 720 3288 t
+12 CB f
+(-F 4i)1 363 1 1978 3288 t
+10 R f
+(would tell)1 403 1 2368 3288 t
+12 CB f
+(col ex)1 363 1 2844 3288 t
+10 R f
+( integers, each four spaces)4 1053(to format all the columns as)5 1113 2 3234 3288 t
+(wide, and the)2 543 1 720 3408 t
+12 CB f
+(-t)1340 3408 w
+10 R f
+(option would tell)2 692 1 1515 3408 t
+12 CB f
+(col ex)1 363 1 2284 3408 t
+10 R f
+( of columns can be)4 766( format)1 295( The)1 209(to not place a tab between columns.)6 1452 4 2678 3408 t
+( example, the following)3 985( For)1 201( by placing the format before each range of columns.)9 2219(assigned to individual columns)3 1275 4 720 3528 t
+( after the decimal)3 713(variation on the previous command would print columns 6-10 in a money format with two digits)15 3967 2 720 3648 t
+(place, and columns 1-5 as integers four wide.)7 1810 1 720 3768 t
+10 CB f
+( -5)1 123( 4i1)1 243( n6- 10)2 306( -t 6.2)2 426( ex)1 123( col)1 242( 10 |)2 306( etr ix)2 306( mak)1 242( |)1 123( 50)1 182( 1)1 124(ser ies)1 363 13 1080 3948 t
+( 2 3 4 5)4 976( 1)1 245( 00)1 123( 10.)1 242( 0)1 63( 9.0)1 303( 0)1 63( 8.0)1 303( 0)1 63( 7.0)1 303(6.0 0)1 243 11 1202 4188 t
+( 11 12 13 14 15)5 1220( 00)1 123( 20.)1 243( 00)1 123( 19.)1 243( 00)1 123( 18.)1 243( 00)1 123( 17.)1 243(16. 00)1 303 10 1141 4308 t
+( 21 22 23 24 25)5 1220( 00)1 123( 30.)1 243( 00)1 123( 29.)1 243( 00)1 123( 28.)1 243( 00)1 123( 27.)1 243(26. 00)1 303 10 1141 4428 t
+( 31 32 33 34 35)5 1220( 00)1 123( 40.)1 243( 00)1 123( 39.)1 243( 00)1 123( 38.)1 243( 00)1 123( 37.)1 243(36. 00)1 303 10 1141 4548 t
+( 41 42 43 44 45)5 1220( 00)1 123( 50.)1 243( 00)1 123( 49.)1 243( 00)1 123( 48.)1 243( 00)1 123( 47.)1 243(46. 00)1 303 10 1141 4668 t
+14 B f
+( columns)1 533(dm: reorder)1 768 2 720 4968 t
+12 CB f
+(dm)720 5148 w
+10 R f
+(, like)1 206 1 866 5148 t
+12 CB f
+(col ex)1 363 1 1151 5148 t
+10 R f
+( The)1 212( ranges of columns.)3 803( it does not allow the speci\256cation of)7 1516( However,)1 446(, can reorder columns.)3 907 5 1516 5148 t
+(above example of)2 709 1 720 5268 t
+12 CB f
+(col ex)1 363 1 1502 5268 t
+10 R f
+(could be done with)3 763 1 1892 5268 t
+12 CB f
+(dm)2728 5268 w
+10 R f
+(with similar results.)2 792 1 2899 5268 t
+10 CB f
+( s2 s3 s4 s5)4 732( s1)1 184( s6 s7 s8 s9 s10)5 975( dm)1 182( 10 |)2 306( etr ix)2 306( mak)1 242( |)1 123( 50)1 182( 1)1 124(ser ies)1 363 11 1080 5448 t
+14 B f
+( corresponding lines from \256les)4 1805(abut: paste)1 699 2 720 5748 t
+12 CB f
+(abu t)1 291 1 720 5928 t
+10 R f
+( the usual case,)3 619( In)1 138(can join data in separate \256les beside one another.)8 1994 3 1042 5928 t
+12 CB f
+(abu t)1 291 1 3871 5928 t
+10 R f
+(takes N \256les with K lines and)6 1207 1 4193 5928 t
+( the \256les)2 371( Suppose)1 405(produces 1 \256le with K lines.)5 1207 3 720 6048 t
+12 CB f
+(hei ght)1 435 1 2792 6048 t
+10 R f
+(and)3271 6048 w
+12 CB f
+(wei ght)1 435 1 3504 6048 t
+10 R f
+(contain the respective heights and)4 1417 1 3983 6048 t
+( with the)2 366( could be plotted)3 690( These)1 295( line in each \256le contains one height or weight.)9 1933( Each)1 256(weights of the same people.)4 1140 6 720 6168 t
+(plotting option on the)3 865 1 720 6288 t
+12 CB f
+(pai r)1 291 1 1658 6288 t
+10 R f
+(program with the following command.)4 1546 1 1975 6288 t
+10 CB f
+( -p)1 182( r)1 63( pai)1 242( |)1 124( ght)1 183( wei)1 244( ght)1 183( hei)1 242(abu t)1 243 9 1080 6468 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 7 8
+%%Page: 8 9
+/saveobj save def
+mark
+9 pagesetup
+10 R f
+( Manipulation)1 564(4-8 Data)1 2152 2 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+14 B f
+(Section 4.4 Data Extraction)3 1639 1 720 768 t
+( data extraction)2 939(dm: conditional)1 979 2 720 1128 t
+12 CB f
+(dm)720 1308 w
+10 R f
+( extract columns of data, each extracted)6 1683( To)1 178(can extract subsets of its input, either by columns or by lines.)11 2632 3 907 1308 t
+(column is speci\256ed with the number of the column preceded by the letter)12 2966 1 720 1428 t
+12 CB f
+(s)3763 1428 w
+10 R f
+( columns 8, 2,)3 573( following extracts)2 757(. The)1 234 3 3836 1428 t
+(and 11, in that order.)4 832 1 720 1548 t
+10 CB f
+(dm s8 s2 s11)3 729 1 1080 1728 t
+12 CB f
+(dm)720 1908 w
+10 R f
+(can extract lines of data by using its built-in line skipping expression)11 2784 1 894 1908 t
+12 CB f
+(SKI P)1 291 1 3754 1908 t
+10 R f
+( following will extract lines)4 1121(. The)1 233 2 4046 1908 t
+(50 to 100.)2 403 1 720 2028 t
+10 CB f
+( P")1 123( SKI)1 242( e)1 63( els)1 243( UT)1 123( INP)1 242( n)1 63( the)1 244( 100)1 243( <=)1 184( INE)1 183( INL)1 242( 50 &)2 306( >=)1 184( INE)1 183( INL)1 244(dm "if)1 363 17 1080 2208 t
+10 R f
+(It is more awkward than column extraction, but the latter is common.)11 2766 1 720 2388 t
+14 B f
+( column extraction)2 1118(colex: quick)1 754 2 720 2628 t
+12 CB f
+(col ex)1 363 1 720 2808 t
+10 R f
+( easier to use and faster)5 958( column extraction, it is)4 963( For)1 193(can extract individual columns, or ranges of columns.)7 2172 4 1114 2808 t
+(than)720 2928 w
+12 CB f
+(dm)965 2928 w
+10 R f
+( following extracts, in order, columns 8, 2, and 11.)9 2020(. The)1 230 2 1111 2928 t
+10 CB f
+( 2 11)2 426( 8)1 184(col ex)1 303 3 1080 3108 t
+14 B f
+( extraction)1 640(linex: line)1 622 2 720 3408 t
+12 CB f
+(lin ex)1 363 1 720 3588 t
+10 R f
+( following extracts, in order, lines 8, 2, and)8 1720( The)1 205(can extract individual lines \(by number\), or ranges of lines.)9 2365 3 1110 3588 t
+(11.)720 3708 w
+10 CB f
+( 2 11)2 426( 8)1 184(lin ex)1 303 3 1080 3888 t
+10 R f
+(To extract lines 50 to 100, you could type:)8 1696 1 720 4068 t
+10 CB f
+( 100)1 183( 50-)1 304(lin ex)1 303 3 1080 4248 t
+10 R f
+(or you could even extract them in reverse order:)8 1917 1 720 4428 t
+10 CB f
+( -50)1 183( 100)1 304(lin ex)1 303 3 1080 4608 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 8 9
+%%Page: 9 10
+/saveobj save def
+mark
+10 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 4-9)1 1964( Manipulation)1 564( Data)1 1412(STAT Handbook)1 691 4 769 480 t
+14 B f
+(Section 4.5 Data Validation)3 1632 1 720 768 t
+( validation)1 634(validata: data)1 862 2 720 1128 t
+12 CB f
+(val ida ta)2 582 1 720 1308 t
+10 R f
+( of columns, data-types of columns, and for columns with)9 2522(will report for its input the number)6 1526 2 1352 1308 t
+( minima.)1 361(numerical values, the maxima and)4 1391 2 720 1428 t
+12 CB f
+(val ida ta)2 582 1 2623 1428 t
+10 R f
+(reports any inconsistencies in the number of columns)7 2163 1 3237 1428 t
+( the input:)2 406( For)1 189( point numbers can be entered in scienti\256c notation.)8 2067( Floating)1 384(in its input.)2 454 5 720 1548 t
+10 CB f
+(1 2 3)2 780 1 1080 1728 t
+(4 5 6)2 780 1 1080 1848 t
+( end)1 360(7 2E2)1 540 2 1080 1968 t
+( 3)1 63(5 1e-)1 900 2 1080 2088 t
+12 CB f
+(val ida ta)2 582 1 720 2268 t
+10 R f
+('s output is:)2 473 1 1304 2268 t
+10 CB f
+( 4)1 122( e)1 63( lin)1 243( at)1 182( umn s)2 246( col)1 243( of)1 184( ber)1 183( num)1 243( iab le)2 306( Var)1 244(val ida ta:)2 546 12 1080 2448 t
+( max)1 366( min)1 364( e)1 63( typ)1 304( er)1 123( oth)1 243( at)1 123( flo)1 244( int)1 365( ha)1 123( alp)1 243( um)1 123( aln)1 243( NA)1 243(Col N)1 426 15 1080 2568 t
+( 7)1 366( 1)1 368( int)1 364( 4 0 4 4 0)5 1830(1 4 0)2 548 5 1202 2688 t
+( 200)1 365( 01)1 123( 0.0)1 243( at)1 123( flo)1 242( 3 0 2 4 0)5 1830(2 4 0)2 548 7 1202 2808 t
+( 6)1 366( 3)1 367( um)1 123( aln)1 242( 3 1 2 2 0)5 1830(3 3 0)2 548 6 1202 2928 t
+14 B f
+( data validation)2 933(dm: conditional)1 979 2 720 3228 t
+12 CB f
+(dm)720 3408 w
+10 R f
+( simple case is non-numerical input, which can be checked with)10 2568( A)1 123(can \256nd exceptional cases in its input.)6 1524 3 892 3408 t
+12 CB f
+(dm)5182 3408 w
+10 R f
+('s)5328 3408 w
+12 CB f
+(num ber)1 435 1 720 3528 t
+10 R f
+(function.)1183 3528 w
+10 CB f
+( INE)1 183( INL)1 304( P")1 123( SKI)1 242( e)1 63( els)1 243( e')1 123( on lin)2 426( ut)1 123( inp)1 242( d)1 63( 'ba)1 242( n)1 63( the)1 243( mbe r\(s 1\))3 489( !nu)1 244(dm "if)1 424 17 1080 3708 t
+12 CB f
+(dm)720 3888 w
+10 R f
+( following prints all lines in)5 1139( The)1 211( or speci\256c relations of values.)5 1250(can check for speci\256c values, ranges of values,)7 1904 4 896 3888 t
+12 CB f
+(dat a)1 291 1 720 4008 t
+10 R f
+(with the string)2 578 1 1037 4008 t
+12 CB f
+(bad)1688 4008 w
+10 R f
+(in them.)1 328 1 1932 4008 t
+10 CB f
+( P")1 123( SKI)1 242( e)1 63( els)1 243( UT)1 123( INP)1 242( n)1 63( the)1 243( UT)1 123( INP)1 242( C)1 123( d')1 123( 'ba)1 244(dm "if)1 363 14 1080 4188 t
+10 R f
+(The input line number could be prepended.)6 1722 1 720 4368 t
+10 CB f
+( P")1 123( SKI)1 242( e)1 63( els)1 243( UT)1 123( INP)1 242( n)1 63( the)1 243( UT)1 123( INP)1 242( C)1 123( d')1 123( "if 'ba)2 488( INE)1 183(dm INL)1 363 15 1080 4548 t
+10 R f
+(This is possible because)3 1035 1 720 4728 t
+12 CB f
+(dm)1852 4728 w
+10 R f
+( The)1 230(will produce no output for skipped lines, regardless of expression order.)10 3123 2 2047 4728 t
+(following prints all lines where column 3 is greater than column 2.)11 2664 1 720 4848 t
+10 CB f
+( P")1 123( SKI)1 242( e)1 63( els)1 243( UT)1 123( INP)1 242( n)1 63( the)1 243( x2)1 182( >)1 123( x3)1 184(dm "if)1 363 12 1080 5028 t
+12 CB f
+(dm)720 5208 w
+10 R f
+(can print lengths of strings and check for numerical \256elds:)9 2327 1 891 5208 t
+10 CB f
+( ber \(s1 \))3 429( num)1 303( \(s1 \))2 246(dm len)1 424 4 1080 5388 t
+10 R f
+( for non-numbers, 1 for integers, 2 for)7 1572(will print the length of column 1 strings, and report if they are numerical \(0)14 3108 2 720 5568 t
+(real numbers, 3 for exponential scienti\256c notation numbers\).)7 2416 1 720 5688 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 9 10
+%%Page: 10 11
+/saveobj save def
+mark
+11 pagesetup
+10 R f
+( Manipulation)1 564(4-10 Data)1 2152 2 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+14 B f
+(Section 4.6 DM: Tutorial and Manual)5 2255 1 720 768 t
+12 CB f
+(dm)1080 1068 w
+10 R f
+( for manipulating columnated \256les of numbers and)7 2044(is a data manipulating program with many operators)7 2103 2 1253 1068 t
+(strings.)720 1188 w
+12 CB f
+(dm)1167 1188 w
+10 R f
+(helps avoid writing little BASIC or C programs every time some transformation to a \256le of data is)17 4053 1 1347 1188 t
+( use)1 163(wanted. To)1 479 2 720 1308 t
+12 CB f
+(dm)1440 1308 w
+10 R f
+( list of expressions is entered, and for each line of data,)11 2264(, a)1 99 2 1586 1308 t
+12 CB f
+(dm)4028 1308 w
+10 R f
+(prints the result of evaluating)4 1195 1 4205 1308 t
+(each expression.)1 659 1 720 1428 t
+10 B f
+(Introductory Examples.)1 1025 1 1080 1608 t
+10 R f
+(Usually, the input to)3 826 1 2158 1608 t
+12 CB f
+(dm)3060 1608 w
+10 R f
+( the same number of \256elds.)5 1102(is a \256le of lines, each with)6 1064 2 3234 1608 t
+(Put another way,)2 674 1 720 1728 t
+12 CB f
+(dm)1467 1728 w
+10 R f
+('s input is a \256le with some set number of columns.)10 2019 1 1613 1728 t
+10 I f
+(Column Extraction:)1 800 1 1080 1908 t
+12 CB f
+(dm)1956 1908 w
+10 R f
+( If)1 119(can be used to extract columns.)5 1268 2 2130 1908 t
+12 CB f
+(dat a)1 291 1 3593 1908 t
+10 R f
+( of a \256le of \256ve columns,)6 1026(is the name)2 461 2 3913 1908 t
+(then the following will extract the 3rd string followed by the 1st, followed by the 4th, and print them to the standard)21 4680 1 720 2028 t
+(output.)720 2148 w
+10 CB f
+( a)1 63( dat)1 303(dm s3 s1 s4 <)4 1036 3 1080 2328 t
+10 R f
+(Thus)720 2508 w
+12 CB f
+(dm)993 2508 w
+10 R f
+( correct format for input to many programs, notably the)9 2222(is useful for putting data in a)6 1149 2 1164 2508 t
+10 S f
+(\357)4561 2508 w
+10 R f
+(STAT data analysis)2 790 1 4610 2508 t
+(programs.)720 2628 w
+10 B f
+(Warning:)1179 2628 w
+10 R f
+( access column 3 and there is no third column in the input\),)12 2439(If a column is missing \(e.g., you)6 1333 2 1628 2628 t
+( This)1 232(then the value of the access will be taken from the previous input line.)13 2853 2 720 2748 t
+10 I f
+(feature)3835 2748 w
+10 R f
+(must be considered if there are)5 1252 1 4148 2748 t
+(blank lines in the input; it may be best to remove blank lines, with)13 2644 1 720 2868 t
+12 CB f
+(dm)3437 2868 w
+10 R f
+(or some other \256lter program.)4 1151 1 3608 2868 t
+10 I f
+(Simple Expressions:)1 819 1 1080 3048 t
+10 R f
+( preceding example, columns were accessed by typing the letter)9 2607(In the)1 236 2 1930 3048 t
+12 CB f
+(s)4853 3048 w
+10 R f
+(\(for string\))1 442 1 4958 3048 t
+( by typing)2 436( numerical value of a column can be accessed)8 1950( The)1 221(followed by a column number.)4 1293 4 720 3168 t
+12 CB f
+(x)4708 3168 w
+10 R f
+(followed by a)2 579 1 4821 3168 t
+( Suppose)1 400( is useful to form simple expressions based on columns.)9 2331( This)1 239(column number.)1 666 4 720 3288 t
+12 CB f
+(dat a)1 291 1 4440 3288 t
+10 R f
+(is a \256le of four)4 632 1 4768 3288 t
+( of the \256rst two columns followed by the difference of the)11 2387(numerical columns, and that the task is to print the sum)10 2293 2 720 3408 t
+( easiest way to do this is with:)7 1203( The)1 205(second two.)1 477 3 720 3528 t
+10 CB f
+( a)1 63( dat)1 303( <)1 184( x4)1 123( x3-)1 304( x2)1 123(dm x1+)1 424 7 1080 3708 t
+10 R f
+( must be taken)3 604( Care)1 246( expressions can be of arbitrary complexity.)6 1797(Almost all arithmetic operations are available and)6 2033 4 720 3888 t
+(because many of the symbols used by)6 1599 1 720 4008 t
+12 CB f
+(dm)2407 4008 w
+10 R f
+(\(such as)1 338 1 2593 4008 t
+12 CB f
+(*)3018 4008 w
+10 R f
+(for multiplication\) have special meaning when used in)7 2270 1 3130 4008 t
+( example, the)2 589( For)1 216( be avoided by putting expressions in quotes.)7 1988( can)1 189( Problems)1 454(UNIX \(though not MSDOS\).)3 1244 6 720 4128 t
+( print the sum of the squares of the \256rst two columns followed by the square of the third, a simple)20 4099(following will)1 581 2 720 4248 t
+(Pythagorean program.)1 887 1 720 4368 t
+10 CB f
+( a)1 63( < dat)2 486( *x3 ')2 246( 'x3)1 303( *x1 +x2 *x2 ")4 612(dm "x1)1 424 6 1080 4548 t
+10 I f
+(Line Extraction Based on Conditions:)4 1517 1 1080 4788 t
+12 CB f
+(dm)2670 4788 w
+10 R f
+( The)1 205(allows printing values that depend on conditions.)6 1963 2 2841 4788 t
+12 CB f
+(dm)5082 4788 w
+10 R f
+(call)5253 4788 w
+10 CB f
+( a)1 63( dat)1 303( <)1 184( T")1 123( NEX)1 242( e)1 63( els)1 243( UT)1 123( INP)1 242( n)1 63( the)1 244( >= 100)2 426( x1)1 184(dm "if)1 424 14 1080 4968 t
+10 R f
+( variable)1 352( The)1 211( or equal to 100.)4 676(will print only those lines that have \256rst columns with values greater than)12 2997 4 720 5148 t
+12 CB f
+(INP UT)1 363 1 5035 5148 t
+10 R f
+( special variable)2 652( The)1 207(refers to the whole input line.)5 1186 3 720 5268 t
+12 CB f
+(NEX T)1 291 1 2840 5268 t
+10 R f
+(instructs)3159 5268 w
+12 CB f
+(dm)3573 5268 w
+10 R f
+( on the current line and)5 928(to stop processing)2 726 2 3746 5268 t
+(go to the next.)3 572 1 720 5388 t
+14 B f
+(Data Types)1 681 1 720 5628 t
+10 B f
+(String Data.)1 523 1 720 5808 t
+10 R f
+( variable,)1 373(To access or print a column in a \256le, the string)10 1866 2 1294 5808 t
+12 CB f
+(s)3608 5808 w
+10 R f
+(, is provided.)2 526 1 3681 5808 t
+12 CB f
+(s)4355 5808 w
+10 R f
+(i \(the letter)2 442 1 4428 5808 t
+12 CB f
+(s)4945 5808 w
+10 R f
+(followed)5045 5808 w
+(by a column number, such as)5 1175 1 720 5928 t
+12 CB f
+(5)1970 5928 w
+10 R f
+( most simple example)3 878( The)1 206( as a string.)3 458(\) refers to the ith column of the input, treated)9 1815 4 2043 5928 t
+(is to use an)3 447 1 720 6048 t
+12 CB f
+(s)1240 6048 w
+10 R f
+(i as the only part of an expression.)7 1370 1 1313 6048 t
+10 CB f
+(dm s2 s3 s1)3 852 1 1080 6228 t
+10 R f
+( special string is called)4 930( One)1 221( of the input.)3 526(will print the second, third and \256rst columns)7 1800 4 720 6408 t
+12 CB f
+(INP UT)1 363 1 4275 6408 t
+10 R f
+(, and is the current)4 760 1 4640 6408 t
+( example:)1 391( For)1 189( constants in expressions are delimited by single or double quotes.)10 2645( String)1 295(input line of data.)3 705 5 720 6528 t
+10 CB f
+( ing ")2 246( str)1 242("I am a)2 426 3 1080 6708 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 10 11
+%%Page: 11 12
+/saveobj save def
+mark
+12 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 4-11)1 1964( Manipulation)1 564( Data)1 1412(STAT Handbook)1 691 4 769 480 t
+10 B f
+(Numerical Data.)1 711 1 1080 768 t
+10 R f
+(Constant numbers like)2 914 1 1848 768 t
+12 CB f
+(123)2842 768 w
+10 R f
+(or)3093 768 w
+12 CB f
+(14. 6)1 291 1 3256 768 t
+10 R f
+(can be used alone or with other expressions.)7 1819 1 3581 768 t
+(Two general numerical variables are available To refer to the input columns, there is)13 3596 1 720 888 t
+12 CB f
+(x)4406 888 w
+10 R f
+( for the result of)4 707(i and)1 214 2 4479 888 t
+( is)1 104(evaluated expressions, there)2 1144 2 720 1008 t
+12 CB f
+(y)2053 1008 w
+10 R f
+(i.)2126 1008 w
+12 CB f
+(x)2337 1008 w
+10 R f
+(i refers to the ith column of the input, treated as a number.)12 2468 1 2410 1008 t
+12 CB f
+(x)5036 1008 w
+10 R f
+(i is the)2 291 1 5109 1008 t
+(result of converting)2 802 1 720 1128 t
+12 CB f
+(s)1605 1128 w
+10 R f
+( If)1 126(i to a number.)3 585 2 1678 1128 t
+12 CB f
+(s)2472 1128 w
+10 R f
+(i contains non-numerical characters,)3 1476 1 2545 1128 t
+12 CB f
+(x)4104 1128 w
+10 R f
+( A)1 131(i may have strange values.)4 1092 2 4177 1128 t
+(common use of the)3 763 1 720 1248 t
+12 CB f
+(x)1556 1248 w
+10 R f
+(i is in algebraic expressions.)4 1129 1 1629 1248 t
+10 CB f
+( x2)1 123( x1/)1 304( x2)1 123(dm x1+)1 424 4 1080 1428 t
+10 R f
+(will print out two columns, \256rst the sum of the \256rst two input columns, then their ratio.)16 3476 1 720 1608 t
+( sub-)1 226(The value of a previously evaluated expression can be accessed to avoid evaluating the same)14 4094 2 1080 1788 t
+(expression more than once.)3 1092 1 720 1908 t
+12 CB f
+(y)1958 1908 w
+10 R f
+( of writing:)2 450( Instead)1 338(i refers to the numerical value of the ith expression.)9 2057 3 2031 1908 t
+10 CB f
+( +x2 +x3 \)/3)3 549( \(x1)1 304( x2+ x3)2 306(dm x1+)1 424 4 1080 2088 t
+10 R f
+(the following would be more ef\256cient:)5 1540 1 720 2268 t
+10 CB f
+( 3)1 63( y1/)1 487( x2+ x3)2 306(dm x1+)1 424 4 1080 2448 t
+12 CB f
+(y1)720 2628 w
+10 R f
+(is the value of the \256rst expression,)6 1368 1 891 2628 t
+12 CB f
+(x1+ x2+ x3)2 582 1 2332 2628 t
+10 R f
+( values of expressions are unfortunately inaccessible.)6 2120(. String)1 320 2 2916 2628 t
+( putting the index after)4 930(Indexing numerical variables is usually done by)6 1938 2 1080 2808 t
+12 CB f
+(x)4026 2808 w
+10 R f
+(or)4129 2808 w
+12 CB f
+(y)4290 2808 w
+10 R f
+(, but if value of the index)6 1037 1 4363 2808 t
+( as when there are a variable number of columns, and only the last column is of)16 3377(is to depend on the input, such)6 1303 2 720 2928 t
+( a computed index is desired for)6 1335( If)1 125(interest, the index value will depend on the number of columns.)10 2637 3 720 3048 t
+12 CB f
+(x)4899 3048 w
+10 R f
+(or)5006 3048 w
+12 CB f
+(y)5171 3048 w
+10 R f
+(the)5278 3048 w
+(index should be an expression in square brackets following)8 2387 1 720 3168 t
+12 CB f
+(x)3183 3168 w
+10 R f
+(or)3284 3168 w
+12 CB f
+(y)3443 3168 w
+10 R f
+( example,)1 390(. For)1 216 2 3516 3168 t
+12 CB f
+(x[N ])1 291 1 4197 3168 t
+10 R f
+(is the value of the last)5 884 1 4516 3168 t
+(column of the input.)3 820 1 720 3288 t
+12 CB f
+(N)1689 3288 w
+10 R f
+( variable equal to the number of columns in)8 1774(is a special)2 444 2 1790 3288 t
+12 CB f
+(INP UT)1 363 1 4085 3288 t
+10 R f
+( is the option to)4 639(. There)1 311 2 4450 3288 t
+(use)720 3408 w
+12 CB f
+(x1)926 3408 w
+10 R f
+(or)1097 3408 w
+12 CB f
+(x[1 ])1 291 1 1253 3408 t
+10 R f
+(but)1570 3408 w
+12 CB f
+(x1)1771 3408 w
+10 R f
+(will execute faster so computed indexes should not be used unless necessary.)11 3078 1 1942 3408 t
+10 B f
+(Special Variables.)1 789 1 1080 3588 t
+12 CB f
+(dm)2037 3588 w
+10 R f
+( commonly desired)2 812(offers some special variables and control primitives for)7 2358 2 2230 3588 t
+( can)1 166( Many)1 286( name to allow more readable expressions.)6 1717( of the special variables have more than one)8 1783(operations. Many)1 728 5 720 3708 t
+(be abbreviated, and the short forms will be shown in square brackets.)11 2764 1 720 3828 t
+10 CB f
+(N)1080 4008 w
+10 R f
+(the number of columns in the current input line)8 1887 1 1800 4008 t
+10 CB f
+(SUM)1080 4128 w
+10 R f
+(the sum of the numbers on the input line)8 1616 1 1800 4128 t
+10 CB f
+(INL INE)1 363 1 1080 4248 t
+10 R f
+(the line number of the input \(initially 1.0\))7 1666 1 1800 4248 t
+10 CB f
+(OUT LIN E)2 426 1 1080 4368 t
+10 R f
+(the number of lines so far output \(initially 0.0\))8 1857 1 1800 4368 t
+10 CB f
+( [R])1 242(RAN D)1 243 2 1080 4488 t
+10 R f
+(a random number uniform in [0,1\) \(may be followed by a seed\))11 2528 1 1800 4488 t
+10 CB f
+( [I])1 243(INP UT)1 303 2 1080 4608 t
+10 R f
+(the original input line, all spaces, etc. included)7 1859 1 1800 4608 t
+10 CB f
+(NIL)1080 4728 w
+10 R f
+(the empty expression \(often used with a test\))7 1789 1 1800 4728 t
+10 CB f
+( [K])1 242(KIL L)1 243 2 1080 4848 t
+10 R f
+(stop processing the current line and produce no output)8 2169 1 1800 4848 t
+10 CB f
+(NEX T)1 243 1 1080 4968 t
+10 R f
+(synonym for)1 508 1 1800 4968 t
+10 CB f
+(KIL L)1 243 1 2333 4968 t
+(SKI P)1 243 1 1080 5088 t
+10 R f
+(synonym for)1 508 1 1800 5088 t
+10 CB f
+(KIL L)1 243 1 2333 5088 t
+( [E])1 242(EXI T)1 243 2 1080 5208 t
+10 R f
+(exit immediately \(useful after a search\))5 1565 1 1800 5208 t
+14 B f
+(User Interface)1 858 1 720 5508 t
+10 B f
+(Expressions.)720 5688 w
+10 R f
+( underscores)1 512(Expressions are written in common computer language syntax, and can have spaces or)12 3571 2 1317 5688 t
+( the middle of constants, and \(2\) in the middle of multicharacter)11 2728(inserted for readability anywhere except \(1\) in)6 1952 2 720 5808 t
+(operators such as)2 701 1 720 5928 t
+12 CB f
+(<=)1501 5928 w
+10 R f
+( modes are available for specifying expressions to)7 2042( Four)1 246(\(less than or equal to\).)4 918 3 1679 5928 t
+12 CB f
+(dm)4966 5928 w
+10 R f
+(. They)1 288 1 5112 5928 t
+( choice of entering expressions from the terminal or a \256le, and the option to use)15 3248(provide the)1 458 2 720 6048 t
+12 CB f
+(dm)4504 6048 w
+10 R f
+(interactively or in)2 720 1 4680 6048 t
+(batch mode.)1 488 1 720 6168 t
+10 I f
+(Argument Mode:)1 695 1 1080 6348 t
+10 R f
+( arguments on the)3 764(The most common but restrictive mode is to supply expressions as)10 2820 2 1816 6348 t
+(command line call to)3 844 1 720 6468 t
+12 CB f
+(dm)1638 6468 w
+10 R f
+( this mode is that many special)6 1233( main problem with)3 789( The)1 206(, as featured in previous examples.)5 1388 4 1784 6468 t
+( main)1 244( The)1 224( UNIX and MSDOS are used as operators, requiring that many expressions be quoted.)13 3688(characters in)1 524 4 720 6588 t
+(advantage is that this mode is most useful in constructing pipelines and shell scripts.)13 3371 1 720 6708 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 11 12
+%%Page: 12 13
+/saveobj save def
+mark
+13 pagesetup
+10 R f
+( Manipulation)1 564(4-12 Data)1 2152 2 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+10 I f
+(Expression File Mode:)2 925 1 1080 768 t
+10 R f
+( to supply)2 407(Another non-interactive method is)3 1388 2 2035 768 t
+12 CB f
+(dm)3909 768 w
+10 R f
+(with a \256le with expressions in it)6 1314 1 4086 768 t
+(\(one to each line\) by calling)5 1117 1 720 888 t
+12 CB f
+(dm)1910 888 w
+10 R f
+(with:)2081 888 w
+10 CB f
+( len ame)2 366(dm Efi)1 424 2 1080 1068 t
+10 R f
+(where)720 1248 w
+12 CB f
+(fil ena me)2 582 1 1036 1248 t
+10 R f
+( mode makes it easier to use)6 1126( This)1 228(is a \256le of expressions.)4 913 3 1645 1248 t
+12 CB f
+(dm)3985 1248 w
+10 R f
+(with pipelines and redirection.)3 1215 1 4156 1248 t
+10 I f
+(Interactive Mode:)1 728 1 1080 1428 t
+12 CB f
+(dm)1892 1428 w
+10 R f
+(can also be used interactively by calling)6 1663 1 2074 1428 t
+12 CB f
+(dm)3821 1428 w
+10 R f
+( interactive)1 458( In)1 145(with no arguments.)2 793 3 4004 1428 t
+(mode,)720 1548 w
+12 CB f
+(dm)1045 1548 w
+10 R f
+( the expressions are not in a \256le, type)8 1524( If)1 121(will \256rst ask for a \256le of expressions.)7 1517 3 1221 1548 t
+12 CB f
+(RET URN)1 435 1 4461 1548 t
+10 R f
+(when asked)1 472 1 4928 1548 t
+( null \256lename tells)3 748( A)1 124( can be entered interactively.)4 1157(for the expression \256le, and they)5 1264 4 720 1668 t
+12 CB f
+(dm)4088 1668 w
+10 R f
+(to read expressions from the)4 1139 1 4261 1668 t
+( terminal mode,)2 648(terminal. In)1 500 2 720 1788 t
+12 CB f
+(dm)1950 1788 w
+10 R f
+( is)1 100(will prompt with the expression number, and print out how it interprets what)12 3170 2 2130 1788 t
+( the last expression has been entered, an)7 1701( When)1 303( corrections.)1 508(typed in if it has correct syntax, otherwise it allows)9 2168 4 720 1908 t
+(empty line informs)2 763 1 720 2028 t
+12 CB f
+(dm)1557 2028 w
+10 R f
+( are in a \256le, type in the name of the \256le, and)12 1786( the expressions)2 640( If)1 117(there are no more.)3 728 4 1729 2028 t
+12 CB f
+(dm)5073 2028 w
+10 R f
+(will)5244 2028 w
+(read them from there.)3 864 1 720 2148 t
+10 B f
+(Input.)1080 2328 w
+10 R f
+(If)1395 2328 w
+12 CB f
+(dm)1534 2328 w
+10 R f
+( \256le name can be supplied or a)7 1224( A)1 123( it will prompt for an input \256le.)7 1252(is used in interactive mode,)4 1096 4 1705 2328 t
+12 CB f
+(RET URN)1 435 1 720 2448 t
+10 R f
+(without a \256le name tells)4 1001 1 1193 2448 t
+12 CB f
+(dm)2276 2448 w
+10 R f
+( of interactive mode,)3 853( Out)1 209(to read data from the terminal.)5 1259 3 2456 2448 t
+12 CB f
+(dm)4859 2448 w
+10 R f
+(will read)1 361 1 5039 2448 t
+(from the standard input.)3 960 1 720 2568 t
+12 CB f
+(dm)1080 2748 w
+10 R f
+(reads data a line at a time and stores that line in a string variable called)15 2930 1 1258 2748 t
+12 CB f
+(INP UT)1 363 1 4268 2748 t
+10 R f
+(.)4633 2748 w
+12 CB f
+(dm)4811 2748 w
+10 R f
+(then takes)1 410 1 4990 2748 t
+(each column in)2 616 1 720 2868 t
+12 CB f
+(INP UT)1 363 1 1412 2868 t
+10 R f
+( tabs, and stores each in the string variables,)8 1774(, separated by spaces or)4 956 2 1777 2868 t
+12 CB f
+(s)4582 2868 w
+10 R f
+(i.)4655 2868 w
+12 CB f
+(dm)4856 2868 w
+10 R f
+(then tries)1 371 1 5029 2868 t
+( stores the result in the number variables,)7 1684(to convert these strings to numbers and)6 1595 2 720 2988 t
+12 CB f
+(x)4078 2988 w
+10 R f
+( a column is not a number)6 1074(i. If)1 175 2 4151 2988 t
+( its numerical value will be inaccessible, and trying to refer to such a column will cause an)17 3718(\(e.g., it is a string\) then)5 962 2 720 3108 t
+( line is stored in a special variable called)8 1699( number of columns in a)5 1019( The)1 214(error message.)1 590 4 720 3228 t
+12 CB f
+(N)4325 3228 w
+10 R f
+(, so variable numbers of)4 1002 1 4398 3228 t
+( general control structure of)4 1108( The)1 205(columns can be dealt with gracefully.)5 1497 3 720 3348 t
+12 CB f
+(dm)3603 3348 w
+10 R f
+(is summarized in the following display.)5 1583 1 3774 3348 t
+10 CB f
+( en.)1 242( ,)1 63( e1, e2, ...)3 732( res sio ns;)3 549( exp)1 242( n)1 123( in)1 182(rea d)1 243 8 1080 3528 t
+( t)1 63( lef)1 243( ut)1 123( inp)1 242( e)1 63( is som)2 426( re)1 123( the)1 243( le)1 123( whi)1 244(rep eat)1 363 11 1080 3648 t
+( e>)1 123( fil)1 243( ut)1 123( inp)1 242( m)1 63( fro)1 242( e)1 63( lin)1 243( xt)1 123( <ne)1 242( =)1 184(INP UT)1 303 12 1440 3768 t
+( UT>)1 183( INP)1 243( in)1 184( lds)1 183( fie)1 243( of)1 182( mbe r)2 246( <nu)1 242(N =)1 487 9 1440 3888 t
+( 0)1 122(SUM =)1 487 2 1440 4008 t
+( 1\)>)1 183( [0,)1 243( in)1 184( ber)1 183( num)1 244( dom)1 183( ran)1 244( new)1 243( <a)1 182( =)1 244(RAN D)1 243 11 1440 4128 t
+( 1)1 122( +)1 124( INE)1 183( INL)1 242( =)1 124(INL INE)1 363 6 1440 4248 t
+( do)1 182( N)1 123( il)1 123( 1 unt)2 364( =)1 183(for i)1 304 6 1440 4368 t
+( UT>)1 183( INP)1 243( in)1 184( ing)1 183( str)1 242( h)1 63( <it)1 242(si =)1 304 8 1800 4488 t
+( ber >)2 246( num)1 242( a)1 123( to)1 184( ver ted)2 366( con)1 244( <si)1 242(xi =)1 304 8 1800 4608 t
+( xi)1 182( +)1 124( SUM)1 242(SUM =)1 304 4 1800 4728 t
+( do)1 182( n)1 123( il)1 123( = 1 unt)3 486(for i)1 304 5 1440 4848 t
+( ei>)1 243( of)1 184( lue)1 183( <va)1 243( on)1 184(swi tch)1 363 6 1800 4968 t
+( gra m>)2 306( pro)1 244( the)1 243( op)1 123( <st)1 243( T:)1 123( EXI)1 242(cas e)1 243 8 2160 5088 t
+( UT>)1 183( new INP)2 488( get)1 243( to)1 184( <go)1 243( L:)1 123( KIL)1 242(cas e)1 243 8 2160 5208 t
+( res sio n>)3 489( exp)1 242( t)1 63( nex)1 243( to)1 184( <go)1 242( :)1 124( NIL)1 242(cas e)1 243 9 2160 5328 t
+( :)1 183(def aul t)2 426 2 2160 5448 t
+( + 1)2 244( LIN E)2 246( = OUT)2 364(OUT LIN E)2 426 4 2520 5568 t
+( ei>)1 243( of)1 184( lue)1 183( <va)1 242(yi =)1 243 5 2520 5688 t
+( yi)1 183( nt)1 123( pri)1 242( \))1 63( not X'd)2 488(if \(ei)1 363 6 2520 5808 t
+( rac ter >)3 429( cha)1 242( lin e)2 246( new)1 242( a)1 124(<pr int)1 363 6 1440 5928 t
+10 B f
+(Output.)1080 6168 w
+10 R f
+(In interactive mode,)2 801 1 1467 6168 t
+12 CB f
+(dm)2341 6168 w
+10 R f
+(will ask for an output \256le \(or pipe, on UNIX only\).)10 2031 1 2512 6168 t
+10 CB f
+( e:)1 123( pip)1 243( or)1 182( e)1 63( fil)1 244(Out put)1 363 6 1080 6348 t
+10 R f
+(A \256lename, a ``pipe command,'' or just)6 1682 1 720 6528 t
+12 CB f
+(RET URN)1 435 1 2491 6528 t
+10 R f
+( null \256lename tells)3 790( A)1 138(can be entered.)2 632 3 2970 6528 t
+12 CB f
+(dm)4619 6528 w
+10 R f
+(to print to the)3 593 1 4807 6528 t
+( output is being directed to a \256le, the output \256le should be different from the input \256le.)17 3553(terminal. If)1 480 2 720 6648 t
+12 CB f
+(dm)4905 6648 w
+10 R f
+(will ask)1 319 1 5081 6648 t
+( does not mean it makes sense to write the \256le it is)12 2094(permission to overwrite any \256le that contains anything, but that)9 2586 2 720 6768 t
+(reading from.)1 543 1 720 6888 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 12 13
+%%Page: 13 14
+/saveobj save def
+mark
+14 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 4-13)1 1964( Manipulation)1 564( Data)1 1412(STAT Handbook)1 691 4 769 480 t
+(On UNIX, the output from)4 1100 1 1080 768 t
+12 CB f
+(dm)2261 768 w
+10 R f
+(can be redirected to another program by having the \256rst character of the)12 2960 1 2440 768 t
+(output speci\256cation be a pipe symbol, the vertical bar:)8 2255 1 720 888 t
+12 CB f
+(|)3058 888 w
+10 R f
+( example, the following line tells)5 1366(. For)1 224 2 3131 888 t
+12 CB f
+(dm)4804 888 w
+10 R f
+(to pipe its)2 415 1 4985 888 t
+(output to)1 359 1 720 1008 t
+12 CB f
+(tee)1152 1008 w
+10 R f
+(which prints a copy of its output to the terminal, and a copy to the named \256le.)16 3103 1 1396 1008 t
+10 CB f
+( sav e)2 246( dm.)1 244( tee)1 242( |)1 123( e:)1 123( pip)1 243( or)1 182( e)1 63( fil)1 244(Out put)1 363 10 1080 1188 t
+10 R f
+(Out of interactive mode,)3 976 1 1080 1428 t
+12 CB f
+(dm)2129 1428 w
+10 R f
+(prints to the standard output.)4 1147 1 2300 1428 t
+12 CB f
+(dm)1080 1608 w
+10 R f
+( expressions in)2 598(prints the values of all its)5 1013 2 1252 1608 t
+12 CB f
+(%.6 g)1 291 1 2938 1608 t
+10 R f
+(format for numbers \(maintaining at most six digits of)8 2143 1 3257 1608 t
+(precision and printing in the fewest possible characters\), and)8 2500 1 720 1728 t
+12 CB f
+(%s)3302 1728 w
+10 R f
+( tab is printed after every)5 1045( A)1 131(format for strings.)2 742 3 3482 1728 t
+(column to insure separation.)3 1132 1 720 1848 t
+14 B f
+(Operations)720 2088 w
+12 CB f
+(dm)720 2268 w
+10 R f
+( usual order \(e.g., times)4 960( operators are evaluated in the)5 1219( The)1 209(offers many numerical, logical, and string operators.)6 2117 4 895 2268 t
+( can be used to make the order of)8 1428( Parentheses)1 534( left to right.)3 539(before plus\) and expressions tend be evaluated from)7 2179 4 720 2388 t
+( way)1 200( The)1 214(operations clear.)1 668 3 720 2508 t
+12 CB f
+(dm)1884 2508 w
+10 R f
+( interactively on UNIX, in)4 1091(interprets expressions can be veri\256ed by entering them)7 2245 2 2064 2508 t
+(which case)1 440 1 720 2628 t
+12 CB f
+(dm)1233 2628 w
+10 R f
+(prints a fully parenthesized form.)4 1328 1 1404 2628 t
+( variables can be evaluated but not printed by)8 1925( Instead,)1 377( available.)1 424(An assignment operator is not directly)5 1594 4 1080 2808 t
+( suppression \257ag,)2 707(using the expression)2 828 2 720 2928 t
+12 CB f
+(X)2333 2928 w
+10 R f
+( the \256rst character of an expression is)7 1523(. If)1 146 2 2406 2928 t
+12 CB f
+(X)4153 2928 w
+10 R f
+(, it will be evaluated, but not)6 1174 1 4226 2928 t
+( value of a suppressed expression can later be accessed with the expression value variable,)14 3604(printed. The)1 513 2 720 3048 t
+12 CB f
+(y)4910 3048 w
+10 R f
+(i.)4983 3048 w
+10 B f
+(String Operations.)1 804 1 1080 3228 t
+10 R f
+( comparators:)1 556(Strings can be lexically compared with several)6 1917 2 1943 3228 t
+12 CB f
+(<)4499 3228 w
+10 R f
+(or)4607 3228 w
+12 CB f
+(LT)4773 3228 w
+10 R f
+(\(less-than\),)4954 3228 w
+12 CB f
+(<=)720 3348 w
+10 R f
+(or)896 3348 w
+12 CB f
+(LE)1057 3348 w
+10 R f
+(\(less-than or equal\),)2 805 1 1233 3348 t
+12 CB f
+(=)2116 3348 w
+10 R f
+(or)2219 3348 w
+12 CB f
+(EQ)2380 3348 w
+10 R f
+(\(equal\),)2556 3348 w
+12 CB f
+(!=)2941 3348 w
+10 R f
+(or)3117 3348 w
+12 CB f
+(NE)3278 3348 w
+10 R f
+(\(not equal\),)1 464 1 3453 3348 t
+12 CB f
+(>=)3994 3348 w
+10 R f
+(or)4169 3348 w
+12 CB f
+(GE)4329 3348 w
+10 R f
+(greater-than or equal\),)2 896 1 4504 3348 t
+(and)720 3468 w
+12 CB f
+(>)937 3468 w
+10 R f
+(or)1035 3468 w
+12 CB f
+(GT)1191 3468 w
+10 R f
+( return)1 263( They)1 255(\(greater than\).)1 564 3 1362 3468 t
+12 CB f
+(1.0)2517 3468 w
+10 R f
+(if their condition holds, and)4 1108 1 2761 3468 t
+12 CB f
+(0.0)3942 3468 w
+10 R f
+( example,)1 388(otherwise. For)1 602 2 4186 3468 t
+10 CB f
+( ek! ')2 246( 'ee)1 304( <=)1 243("ab cde ")2 426 4 1080 3648 t
+10 R f
+(is equal to)2 411 1 720 3828 t
+12 CB f
+(1.0 .)1 291 1 1204 3828 t
+10 R f
+(The length of strings can be found with the)8 1720 1 1546 3828 t
+12 CB f
+(len)3339 3828 w
+10 R f
+(operator.)3583 3828 w
+10 CB f
+( ve')1 183(len 'fi)1 485 2 1080 4008 t
+10 R f
+( character)1 398( The)1 214(evaluates to four, the length of the string argument.)8 2119 3 720 4188 t
+12 CB f
+(#)3533 4188 w
+10 R f
+(is a synonym for the)4 852 1 3640 4188 t
+12 CB f
+(len)4574 4188 w
+10 R f
+(operator. The)1 572 1 4828 4188 t
+(numerical type of a string can be checked with the)9 2045 1 720 4308 t
+12 CB f
+(num ber)1 435 1 2842 4308 t
+10 R f
+( non-numerical strings,)2 930(function, which returns 0 for)4 1161 2 3309 4308 t
+( numbers \(scienti\256c notation or strings with non-zero digits after the decimal)11 3220(1 for integer strings, and 2 for real)7 1460 2 720 4428 t
+(point\).)720 4548 w
+(Individual characters inside strings can be accessed by following a string with an index in square brackets.)16 4250 1 1080 4728 t
+10 CB f
+("ab cde fg" [4])3 729 1 1080 4908 t
+10 R f
+( \(164.0\) of the 4th character in)6 1252(is the ASCII character number)4 1239 2 720 5088 t
+12 CB f
+(abc def g)2 510 1 3290 5088 t
+10 R f
+( a string is mainly useful for)6 1163(. Indexing)1 436 2 3801 5088 t
+( warning is)2 492( A)1 146( the character that is printed, but the character number.)9 2396(comparing characters because it is not)5 1646 4 720 5208 t
+(appropriate here:)1 678 1 720 5328 t
+10 CB f
+( '*')1 303( =)1 184(s1[ 1])1 303 3 1080 5508 t
+10 R f
+( side of the)3 468(will result in an error because the left)7 1544 2 720 5688 t
+12 CB f
+(=)2814 5688 w
+10 R f
+( correct)1 310( The)1 214(is a number, and the right hand side is a string.)10 1955 3 2921 5688 t
+(\(although inelegant\) form is:)3 1146 1 720 5808 t
+10 CB f
+( [1])1 183( '*')1 303( =)1 184(s1[ 1])1 303 4 1080 5988 t
+10 R f
+(A substring test is available. The expression:)6 1790 1 1080 6228 t
+10 CB f
+( ing 2)2 246( C str)2 486(str ing 1)2 426 3 1080 6408 t
+10 R f
+(will return)1 444 1 720 6588 t
+12 CB f
+(1.0)1262 6588 w
+10 R f
+(if)1531 6588 w
+12 CB f
+(str ing 1)2 510 1 1690 6588 t
+10 R f
+(is somewhere in)2 699 1 2251 6588 t
+12 CB f
+(str ing 2)2 510 1 3048 6588 t
+10 R f
+( for character)2 582( can be used as a test)6 981(. This)1 278 3 3559 6588 t
+( available is)2 485( Also)1 243(membership if string1 has only one character.)6 1851 3 720 6708 t
+12 CB f
+(!C)3376 6708 w
+10 R f
+(which returns)1 550 1 3551 6708 t
+12 CB f
+(1.0)4177 6708 w
+10 R f
+(if)4424 6708 w
+12 CB f
+(str ing 1)2 510 1 4561 6708 t
+10 R f
+(is NOT)1 300 1 5100 6708 t
+(in)720 6828 w
+12 CB f
+(str ing 2)2 510 1 871 6828 t
+10 R f
+(.)1382 6828 w
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 13 14
+%%Page: 14 15
+/saveobj save def
+mark
+15 pagesetup
+10 R f
+( Manipulation)1 564(4-14 Data)1 2152 2 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+10 B f
+(Numerical Operators.)1 937 1 1080 768 t
+10 R f
+(The numerical comparators are:)3 1271 1 2067 768 t
+10 CB f
+( >= >)2 428( !=)1 243( =)1 184(< <=)1 303 4 1080 948 t
+( GT)1 183( GE)1 244( NE)1 183( EQ)1 244(LT LE)1 303 5 1080 1068 t
+10 R f
+(and have the analogous meanings as their string counterparts.)8 2454 1 720 1248 t
+(The binary operators,)2 910 1 1080 1428 t
+12 CB f
+(+)2090 1428 w
+10 R f
+(\(addition\),)2215 1428 w
+12 CB f
+(-)2735 1428 w
+10 R f
+(\(subtraction or "change-sign"\),)2 1288 1 2861 1428 t
+12 CB f
+(*)4250 1428 w
+10 R f
+(\(multiplication\), and)1 850 1 4376 1428 t
+12 CB f
+(/)5327 1428 w
+10 R f
+( all)1 146( and division are evaluated before addition and subtraction, and are)10 2900( Multiplication)1 645(\(division\) are available.)2 989 4 720 1548 t
+( Exponentiation,)1 686(evaluated left to right.)3 882 2 720 1668 t
+12 CB f
+(\303)2361 1668 w
+10 R f
+( right to left.)3 503(, is the binary operator of highest precedence and is evaluated)10 2463 2 2434 1668 t
+(Modulo division,)1 698 1 720 1788 t
+12 CB f
+(%)1499 1788 w
+10 R f
+( NOTE:)1 351( of even/odd and the like.)5 1050(, has the same properties as division, and is useful for tests)11 2427 3 1572 1788 t
+(Modulo division truncates its operands to integers before dividing.)8 2662 1 720 1908 t
+(Several unary functions are available:)4 1607 1 1080 2088 t
+12 CB f
+(l)2786 2088 w
+10 R f
+(\(natural log)1 489 1 2910 2088 t
+12 CB f
+([lo g])1 363 1 3498 2088 t
+10 R f
+(\),)3863 2088 w
+12 CB f
+(L)4020 2088 w
+10 R f
+(\(base ten log)2 562 1 4144 2088 t
+12 CB f
+([Lo g])1 363 1 4805 2088 t
+10 R f
+(\),)5170 2088 w
+12 CB f
+(e)5327 2088 w
+10 R f
+(\(exponential)720 2208 w
+12 CB f
+([ex p])1 363 1 1298 2208 t
+10 R f
+(\),)1663 2208 w
+12 CB f
+(a)1800 2208 w
+10 R f
+(\(absolute value)1 613 1 1904 2208 t
+12 CB f
+([ab s])1 363 1 2596 2208 t
+10 R f
+(\),)2961 2208 w
+12 CB f
+(f)3097 2208 w
+10 R f
+(\(\257oor)3200 2208 w
+12 CB f
+([fl oor ])2 510 1 3500 2208 t
+10 R f
+(\),)4011 2208 w
+12 CB f
+(c)4147 2208 w
+10 R f
+(\(ceiling)4250 2208 w
+12 CB f
+([ce il])1 435 1 4633 2208 t
+10 R f
+(\). Their)1 329 1 5071 2208 t
+( letter names for these functions or the more)8 1851( Single)1 317( Manual.)1 366(meaning can be veri\256ed in the UNIX Programmer's)7 2146 4 720 2328 t
+( work on)2 363( available are trigonometric functions that)5 1697( Also)1 244(mnemonic strings bracketed after their names can be used.)8 2376 4 720 2448 t
+(degrees in radians:)2 748 1 720 2568 t
+12 CB f
+( n)1 75( ata)1 290( s)1 75( aco)1 290( n)1 75(sin cos tan asi)3 1092 6 1541 2568 t
+10 R f
+(.)3439 2568 w
+10 B f
+(Logical Operators.)1 822 1 1080 2748 t
+10 R f
+( logical)1 315( Both)1 263( than any other operators.)4 1089(Logical operators are of lower precedence)5 1764 4 1969 2748 t
+(AND,)720 2868 w
+12 CB f
+(&)1043 2868 w
+10 R f
+(and OR)1 316 1 1150 2868 t
+12 CB f
+(|)1547 2868 w
+10 R f
+( example, to see if the \256rst three columns are in)10 1974( For)1 197(can be used to form complicated tests.)6 1576 3 1653 2868 t
+(either increasing or decreasing order, one could test if)8 2147 1 720 2988 t
+12 CB f
+(x2)2940 2988 w
+10 R f
+(was between)1 512 1 3111 2988 t
+12 CB f
+(x1)3696 2988 w
+10 R f
+(and)3867 2988 w
+12 CB f
+(x3)4084 2988 w
+10 R f
+(:)4230 2988 w
+10 CB f
+( x3)1 123( x2>)1 303( &)1 184( x2)1 123( x1>)1 303( |)1 184( x3)1 123( x2<)1 303( &)1 184(x1< x2)1 303 10 1080 3168 t
+10 R f
+(would equal)1 502 1 720 3348 t
+12 CB f
+(1.0)1306 3348 w
+10 R f
+( are unnecessary because)3 1031( Parentheses)1 532(if the condition was satis\256ed.)4 1213 3 1561 3348 t
+12 CB f
+(<)4421 3348 w
+10 R f
+(and)4530 3348 w
+12 CB f
+(>)4758 3348 w
+10 R f
+(are of higher)2 533 1 4867 3348 t
+(precedence than)1 644 1 720 3468 t
+12 CB f
+(&)1437 3468 w
+10 R f
+(which is of higher precedence than)5 1393 1 1535 3468 t
+12 CB f
+(|)3001 3468 w
+10 R f
+( above expression could be written as:)6 1525(. The)1 230 2 3074 3468 t
+10 CB f
+( GT x3)2 366( x2)1 245( AND)1 304( GT x2)2 366( OR x1)2 488( LT x3)2 366( x2)1 245( AND)1 304(x1 LT x2)2 486 9 1080 3648 t
+10 R f
+( of characters in)3 660( is useful to avoid the special meaning)7 1571( This)1 234(by using synonyms for the special character operators.)7 2215 4 720 3828 t
+( unary logical operator,)3 937( The)1 207(command lines.)1 635 3 720 3948 t
+12 CB f
+(!)2574 3948 w
+10 R f
+(\(NOT\), evaluates to 1.0 if its operand is)7 1603 1 2699 3948 t
+12 CB f
+(0.0)4377 3948 w
+10 R f
+( equals)1 281(, otherwise it)2 523 2 4596 3948 t
+12 CB f
+(0.0)720 4068 w
+10 R f
+( be immediately preceded by)4 1185( binary operators can)3 860(. Many)1 315 3 939 4068 t
+12 CB f
+(!)3380 4068 w
+10 R f
+(to negate their value.)3 861 1 3511 4068 t
+12 CB f
+(!=)4526 4068 w
+10 R f
+(is "not equal to,")3 695 1 4705 4068 t
+12 CB f
+(!|)720 4188 w
+10 R f
+(is "neither,")1 476 1 891 4188 t
+12 CB f
+(!&)1440 4188 w
+10 R f
+(is "not both," and)3 699 1 1611 4188 t
+12 CB f
+(!C)2383 4188 w
+10 R f
+(is "not in.")2 430 1 2554 4188 t
+10 B f
+(Conditional Expressions.)1 1069 1 1080 4368 t
+10 R f
+(The expressions:)1 674 1 2199 4368 t
+10 CB f
+( res sio n3)3 489( exp)1 242( e)1 63( els)1 243( res sio n2)3 489( exp)1 242( n)1 63( the)1 243( res sio n1)3 489(if exp)1 363 10 1080 4548 t
+( res sio n3)3 489( exp)1 303( :)1 245( res sio n2)3 489( exp)1 364( ?)1 184(exp res sio n1)3 669 7 1263 4668 t
+10 R f
+(evaluate to)1 519 1 720 4848 t
+12 CB f
+(exp res sio n2)3 801 1 1396 4848 t
+10 R f
+(if)2308 4848 w
+12 CB f
+(exp res sio n1)3 801 1 2526 4848 t
+10 R f
+( to)1 188(is non-zero, otherwise they evaluate)4 1774 2 3438 4848 t
+12 CB f
+(exp res sio n3)3 801 1 720 4968 t
+10 R f
+( Upper)1 307( C syntax.)2 419( \256rst form is more mnemonic than the second which is consistent with)12 2912(. The)1 239 4 1523 4968 t
+( forms have the same meaning.)5 1347( Both)1 266(case names can be used in their stead.)7 1654 3 720 5088 t
+12 CB f
+(exp res sio n1)3 801 1 4154 5088 t
+10 R f
+(has to be)2 397 1 5003 5088 t
+(numerical,)720 5208 w
+12 CB f
+(exp res sio n2)3 801 1 1229 5208 t
+10 R f
+(or)2068 5208 w
+12 CB f
+(exp res sio n3)3 801 1 2235 5208 t
+10 R f
+( example, The following)3 1015( For)1 200(can be numerical or string.)4 1111 3 3074 5208 t
+(expression will \256lter out lines with the word)7 1769 1 720 5328 t
+12 CB f
+(bad)2562 5328 w
+10 R f
+(in them.)1 328 1 2806 5328 t
+10 CB f
+( UT)1 123( INP)1 303( e)1 63( els)1 303( L)1 63( KIL)1 303( n)1 63( the)1 304( UT)1 123( INP)1 303( C)1 184( d')1 123(if 'ba)1 424 13 1080 5508 t
+10 R f
+( the following expression will print the ratio of columns two and three if \(a\) there are at least)18 3843(As another example,)2 837 2 720 5688 t
+(three columns, and \(b\) column three is not zero.)8 1913 1 720 5808 t
+10 CB f
+( e')1 123( lin)1 242( d)1 63( 'ba)1 303( e)1 63( els)1 304( x3)1 123( x2/)1 303( n)1 63( the)1 304( 0\))1 183( !=)1 184( \(x3)1 303( &)1 184( >= 3\))2 366(if \(N)1 364 16 1080 5988 t
+10 R f
+(These are the only expressions, besides)5 1659 1 720 6168 t
+12 CB f
+(s)2470 6168 w
+10 R f
+( a conditional)2 582( If)1 134(i or a string constant that can evaluate to a string.)10 2141 3 2543 6168 t
+( conditional expression)2 927( The)1 205(expression does evaluate to a string, then it CANNOT be used in some other expression.)14 3548 3 720 6288 t
+( recommended to make the semantics)5 1590(is of lowest precedence and groups left to right, however parentheses are)11 3090 2 720 6408 t
+(obvious.)720 6528 w
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 14 15
+%%Page: 15 16
+/saveobj save def
+mark
+16 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 4-15)1 1964( Manipulation)1 564( Data)1 1412(STAT Handbook)1 691 4 769 480 t
+14 B f
+(Expression Syntax)1 1110 1 720 768 t
+10 R f
+(Arithmetic expressions may be formed using variables \(with)7 2507 1 720 948 t
+12 CB f
+(x)3313 948 w
+10 R f
+(i and)1 210 1 3386 948 t
+12 CB f
+(y)3682 948 w
+10 R f
+(i\) and constants and can be of arbitrary)7 1645 1 3755 948 t
+( listed along with their precedences and a brief)8 1934( the following table, unary and binary operators are)8 2128(complexity. In)1 618 3 720 1068 t
+( unary operators are pre\256x except string indexing,)7 2039(description. All)1 654 2 720 1188 t
+12 CB f
+([])3493 1188 w
+10 R f
+( binary operators are)3 846( All)1 185(, which is post\256x.)3 730 3 3639 1188 t
+(in\256x.)720 1308 w
+( except)1 319( binary operators are left associative)5 1608( All)1 211(Operators of higher precedence are executed \256rst.)6 2182 4 1080 1488 t
+( operator,)1 417( An)1 207(exponentiation, which groups to the right.)5 1849 3 720 1608 t
+12 CB f
+(O)3301 1608 w
+10 R f
+(, is left associative if)4 964 1 3374 1608 t
+12 CB f
+(xOx Ox)1 363 1 4446 1608 t
+10 R f
+( as)1 142(is parsed)1 387 2 4871 1608 t
+12 CB f
+(\(xO x\)O x)2 510 1 720 1728 t
+10 R f
+(, while one that is right associative is parsed as)9 1870 1 1231 1728 t
+12 CB f
+(xO\( xOx \))2 510 1 3174 1728 t
+10 R f
+(.)3685 1728 w
+(Unary Operators:)1 695 1 1080 1908 t
+10 I f
+( description)1 630(op prec)1 720 2 1260 2028 t
+10 CW f
+(sin)1260 2148 w
+10 R f
+( of argument degrees in radians)5 1255(10 sine)1 441 2 1880 2148 t
+10 CW f
+(cos)1260 2268 w
+10 R f
+( of argument degrees in radians)5 1255(10 cosine)1 535 2 1880 2268 t
+10 CW f
+(tan)1260 2388 w
+10 R f
+( of argument degrees in radians)5 1255(10 tangent)1 574 2 1880 2388 t
+10 CW f
+(asi n)1 243 1 1260 2508 t
+10 R f
+( \(inverse\) sine function)3 923(10 arc)1 401 2 1880 2508 t
+10 CW f
+(aco s)1 243 1 1260 2628 t
+10 R f
+( \(inverse\) cosine function)3 1017(10 arc)1 401 2 1880 2628 t
+10 CW f
+(ata n)1 243 1 1260 2748 t
+10 R f
+( \(inverse\) tangent function)3 1056(10 arc)1 401 2 1880 2748 t
+10 CW f
+(sqr t)1 243 1 1260 2868 t
+10 R f
+( root function)2 544(10 square)1 540 2 1880 2868 t
+10 CW f
+(log)1260 2988 w
+10 R f
+( e logarithm [)3 541(10 base)1 457 2 1880 2988 t
+10 CW f
+(l)2878 2988 w
+10 R f
+(])2939 2988 w
+10 CW f
+(Log)1260 3108 w
+10 R f
+( 10 logarithm [)3 597(10 base)1 457 2 1880 3108 t
+10 CW f
+(L)2934 3108 w
+10 R f
+(])2995 3108 w
+10 CW f
+(exp)1260 3228 w
+10 R f
+( [)1 58(10 exponential)1 746 2 1880 3228 t
+10 CW f
+(e)2684 3228 w
+10 R f
+(])2745 3228 w
+10 CW f
+(abs)1260 3348 w
+10 R f
+( value [)2 299(10 absolute)1 613 2 1880 3348 t
+10 CW f
+(a)2792 3348 w
+10 R f
+(])2853 3348 w
+10 CW f
+(cei l)1 243 1 1260 3468 t
+10 R f
+( \(rounds up to next integer\) [)6 1148(10 ceiling)1 552 2 1880 3468 t
+10 CW f
+(c)3580 3468 w
+10 R f
+(])3641 3468 w
+10 CW f
+(flo or)1 303 1 1260 3588 t
+10 R f
+( \(rounds down to last integer\) [)6 1237(10 \257oor)1 469 2 1880 3588 t
+10 CW f
+(f)3586 3588 w
+10 R f
+(])3647 3588 w
+10 CW f
+(len)1260 3708 w
+10 R f
+( of characters in string [)5 950(10 number)1 585 2 1880 3708 t
+10 CW f
+(#)3415 3708 w
+10 R f
+(])3476 3708 w
+10 CW f
+(num ber)1 363 1 1260 3828 t
+10 R f
+( if string is a number \(0 non, 1 int, 2 real\))11 1651(10 report)1 518 2 1880 3828 t
+10 CW f
+([])1260 3948 w
+10 R f
+( number of indexed string character)5 1421(10 ASCII)1 541 2 1880 3948 t
+10 CW f
+(-)1260 4068 w
+10 R f
+( sign)1 192(9 change)1 512 2 1930 4068 t
+10 CW f
+(!)1260 4188 w
+10 R f
+( not \(also)2 372(4 logical)1 502 2 1930 4188 t
+10 CW f
+(NOT)2829 4188 w
+10 R f
+(,)3012 4188 w
+10 CW f
+(not)3062 4188 w
+10 R f
+(\))3245 4188 w
+(Binary Operators:)1 718 1 1080 4368 t
+10 I f
+( description)1 630(op prec)1 720 2 1260 4488 t
+10 CW f
+(\303)1260 4608 w
+10 R f
+(8 exponentiation)1 824 1 1930 4608 t
+10 CW f
+(*)1260 4728 w
+10 R f
+(7 multiplication)1 792 1 1930 4728 t
+10 CW f
+(/)1260 4848 w
+10 R f
+(7 division)1 553 1 1930 4848 t
+10 CW f
+(%)1260 4968 w
+10 R f
+( division)1 348(7 modulo)1 536 2 1930 4968 t
+10 CW f
+(+)1260 5088 w
+10 R f
+(6 addition)1 558 1 1930 5088 t
+10 CW f
+(-)1260 5208 w
+10 R f
+(6 subtraction)1 674 1 1930 5208 t
+10 CW f
+(=)1260 5328 w
+10 R f
+( for equality \(also)3 707(5 test)1 369 2 1930 5328 t
+10 CW f
+(EQ)3031 5328 w
+10 R f
+(; opposite)1 392 1 3153 5328 t
+10 CW f
+(!=)3570 5328 w
+10 R f
+(,)3692 5328 w
+10 CW f
+(NE)3742 5328 w
+10 R f
+(\))3864 5328 w
+10 CW f
+(>)1260 5448 w
+10 R f
+( for greater-than \(also)3 866(5 test)1 369 2 1930 5448 t
+10 CW f
+(GT)3190 5448 w
+10 R f
+(; opposite)1 392 1 3312 5448 t
+10 CW f
+(<=)3729 5448 w
+10 R f
+(,)3851 5448 w
+10 CW f
+(LE)3901 5448 w
+10 R f
+(\))4023 5448 w
+10 CW f
+(<)1260 5568 w
+10 R f
+( for less-than \(also)3 740(5 test)1 369 2 1930 5568 t
+10 CW f
+(LT)3064 5568 w
+10 R f
+(; opposite,)1 417 1 3186 5568 t
+10 CW f
+(>=)3628 5568 w
+10 R f
+(,)3750 5568 w
+10 CW f
+(GE)3800 5568 w
+10 R f
+(\))3922 5568 w
+10 CW f
+(C)1260 5688 w
+10 R f
+( \(opposite)1 397(5 substring)1 597 2 1930 5688 t
+10 CW f
+(!C)2949 5688 w
+10 R f
+(\))3071 5688 w
+10 CW f
+(&)1260 5808 w
+10 R f
+( AND \(also)2 460(4 logical)1 502 2 1930 5808 t
+10 CW f
+(AND)2917 5808 w
+10 R f
+(,)3100 5808 w
+10 CW f
+(and)3150 5808 w
+10 R f
+(; opposite)1 392 1 3333 5808 t
+10 CW f
+(!&)3750 5808 w
+10 R f
+(\))3872 5808 w
+10 CW f
+(|)1260 5928 w
+10 R f
+( OR \(also)2 383(3 logical)1 502 2 1930 5928 t
+10 CW f
+(OR)2840 5928 w
+10 R f
+(,)2962 5928 w
+10 CW f
+(or)3012 5928 w
+10 R f
+(; opposite)1 392 1 3134 5928 t
+10 CW f
+(!|)3551 5928 w
+10 R f
+(\))3673 5928 w
+14 B f
+(Some Examples)1 945 1 720 6228 t
+10 R f
+(To print lines 10-20 from an input \256le)7 1533 1 720 6408 t
+12 CB f
+(dm. dat)1 435 1 2328 6408 t
+10 R f
+( that)1 178(, you could run the following command \(note)7 1829 2 2766 6408 t
+12 CB f
+(x)4849 6408 w
+10 R f
+(is the same)2 450 1 4950 6408 t
+(as)720 6528 w
+12 CB f
+(x0)876 6528 w
+10 R f
+(, which is the same as)5 871 1 1022 6528 t
+12 CB f
+(INL INE)1 435 1 1966 6528 t
+10 R f
+(, the input line number\).)4 966 1 2404 6528 t
+10 CB f
+( dat)1 183( dm.)1 242( <)1 184( P")1 123( SKI)1 242( e)1 63( els)1 243( UT)1 123( INP)1 242( n)1 63( 20 the)2 426( <=)1 182( x)1 124( 20 and)2 426( >=)1 182( x)1 124(dm "if)1 424 17 1080 6708 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 15 16
+%%Page: 16 17
+/saveobj save def
+mark
+17 pagesetup
+10 R f
+( Manipulation)1 564(4-16 Data)1 2152 2 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+(To print all the lines longer than 100 characters, you could run the following:)13 3085 1 1080 768 t
+10 CB f
+( dat)1 183( dm.)1 242( <)1 184( P")1 123( SKI)1 242( e)1 63( els)1 243( UT)1 123( INP)1 242( n)1 63( the)1 244( > 100)2 364( \(IN PUT \))3 429( len)1 244(dm "if)1 424 15 1080 948 t
+10 R f
+(To print the running sums of values in a column, you need to use the)14 2745 1 1080 1188 t
+12 CB f
+(y)3898 1188 w
+10 R f
+( following will print)3 812(variables. The)1 591 2 3997 1188 t
+(the running sum of values in the \256rst column.)8 1819 1 720 1308 t
+10 CB f
+( x1)1 123(dm y1+)1 363 2 1080 1488 t
+10 R f
+(To print the running sum of the data in the 5th column is a bit unintuitive.)15 2980 1 720 1668 t
+12 CB f
+(y1)3848 1668 w
+10 R f
+( previous line)2 550(is the value from the)4 829 2 4021 1668 t
+(of the \256rst expression, and)4 1109 1 720 1788 t
+12 CB f
+(x5)1915 1788 w
+10 R f
+( the running sum of)4 831( get)1 160( To)1 174(is the value of the \256fth column on the current line.)10 2136 4 2099 1788 t
+(column 5, you would type:)4 1075 1 720 1908 t
+10 CB f
+( x5)1 123(dm y1+)1 363 2 1080 2088 t
+10 R f
+(If the running sum is to come out in the third column, then you would run:)15 2977 1 720 2268 t
+10 CB f
+( x5)1 123( y3+)1 243( met hin g>)3 489( <so)1 243( met hin g>)3 489(dm <so)1 363 6 1080 2448 t
+12 CB f
+(dm)1080 2688 w
+10 R f
+( the following example, the)4 1116( In)1 138(is good at making tables of computed values.)7 1839 3 1255 2688 t
+12 CB f
+(ech o)1 291 1 4426 2688 t
+10 R f
+(command prints)1 652 1 4748 2688 t
+(headings for the columns, and)4 1221 1 720 2808 t
+12 CB f
+(col ex)1 363 1 2019 2808 t
+10 R f
+( output of)2 397(reformats the)1 534 2 2414 2808 t
+12 CB f
+(dm)3422 2808 w
+10 R f
+(.)3568 2808 w
+12 CB f
+(col ex)1 363 1 3743 2808 t
+10 R f
+(sets the default format to 10.3n)5 1263 1 4137 2808 t
+( wide, with 3 decimal places\), and prints column 1 in 2i format \(2-wide integer\) and column 6 in 6i)19 4168(\(numbers 10)1 512 2 720 2928 t
+( The)1 205(format \(6-wide integer\).)2 961 2 720 3048 t
+12 CB f
+(-t)1959 3048 w
+10 R f
+(option to)1 359 1 2130 3048 t
+12 CB f
+(col ex)1 363 1 2562 3048 t
+10 R f
+(stops the printing of tabs after columns.)6 1585 1 2952 3048 t
+10 CB f
+( \(x\) ")2 246( log)1 425( t\(x \))2 246( sqr)1 364( 2)1 63( x**)1 305( 1/x)1 608( " x)2 244(ech o)1 243 9 1080 3228 t
+( |)1 124( g\(x 1\)")2 366( "lo)1 242( rt\( x1\) ")3 429( "sq)1 242( *x1 ")2 246( "x1)1 242( 1)1 63( x1 1/x)2 426( dm)1 182( |)1 123( 10)1 182( 1)1 124(ser ies)1 363 14 1080 3348 t
+( 4-5)1 244( 6i3)1 242( 2)1 124( 2i1)1 243( 3n)1 123( -t -F 10.)3 609(col ex)1 303 7 1440 3468 t
+( \(x\))1 183( log)1 425( t\(x \))2 246( sqr)1 364( 2)1 63( x**)1 305(x 1/x)1 668 7 1141 3708 t
+( 00)1 123( 0.0)1 487( 00)1 123( 1.0)1 486( 1)1 367( 00)1 123(1 1.0)1 546 7 1141 3828 t
+( 93)1 123( 0.6)1 487( 14)1 123( 1.4)1 486( 4)1 367( 00)1 123(2 0.5)1 546 7 1141 3948 t
+( 99)1 123( 1.0)1 487( 32)1 123( 1.7)1 486( 9)1 367( 33)1 123(3 0.3)1 546 7 1141 4068 t
+( 86)1 123( 1.3)1 487( 00)1 123( 2.0)1 487( 16)1 366( 50)1 123(4 0.2)1 546 7 1141 4188 t
+( 09)1 123( 1.6)1 487( 36)1 123( 2.2)1 487( 25)1 366( 00)1 123(5 0.2)1 546 7 1141 4308 t
+( 92)1 123( 1.7)1 487( 49)1 123( 2.4)1 487( 36)1 366( 67)1 123(6 0.1)1 546 7 1141 4428 t
+( 46)1 123( 1.9)1 487( 46)1 123( 2.6)1 487( 49)1 366( 43)1 123(7 0.1)1 546 7 1141 4548 t
+( 79)1 123( 2.0)1 487( 28)1 123( 2.8)1 487( 64)1 366( 25)1 123(8 0.1)1 546 7 1141 4668 t
+( 97)1 123( 2.1)1 487( 00)1 123( 3.0)1 487( 81)1 366( 11)1 123(9 0.1)1 546 7 1141 4788 t
+( 03)1 123( 2.3)1 487( 62)1 123( 3.1)1 488( 100)1 365( 00)1 123(10 0.1)1 607 7 1080 4908 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 16 17
+%%Page: 0 18
+/saveobj save def
+mark
+18 pagesetup
+24 B f
+(CHAPTER 4)1 1354 1 720 1128 t
+(Data Manipulation)1 1954 1 720 1608 t
+10 R f
+(4.1)795 2088 w
+10 B f
+(Data Generation/Augmentation)1 1352 1 970 2088 t
+10 R f
+(........................................................................................................... 4-1)1 3035 1 2365 2088 t
+( a string or \256le)4 583(repeat: repeat)1 564 2 970 2208 t
+( a linear series)3 573(series: generate)1 642 2 970 2328 t
+( random numbers)2 699(probdist: generate)1 743 2 970 2448 t
+( lines, recycle \256les)3 743(abut: number)1 555 2 970 2568 t
+( lines)1 214(dm: number)1 511 2 970 2688 t
+(4.2)795 2808 w
+10 B f
+(Data Transformation)1 913 1 970 2808 t
+10 R f
+(............................................................................................................................. 4-3)1 3485 1 1915 2808 t
+( algebraic combinations of columns)4 1426(dm: conditional)1 656 2 970 2928 t
+( conversion)1 463(probdist: probability/statistic)1 1179 2 970 3048 t
+( data to ranks)3 535(ranksort: convert)1 704 2 970 3168 t
+(4.3)795 3288 w
+10 B f
+(Data Formatting)1 718 1 970 3288 t
+10 R f
+(..................................................................................................................................... 4-5)1 3685 1 1715 3288 t
+( a matrix format \256le)4 799(maketrix: form)1 627 2 970 3408 t
+( lines)1 214(perm: permute)1 610 2 970 3528 t
+( data lines by multiple keys)5 1097(dsort: sort)1 428 2 970 3648 t
+( matrix format \256le)3 730(transpose: transpose)1 832 2 970 3768 t
+( lines, columns, characters)3 1056(reverse: reverse)1 652 2 970 3888 t
+( columns, reformat columns)3 1121(colex: reorder)1 581 2 970 4008 t
+( columns)1 364(dm: reorder)1 493 2 970 4128 t
+( corresponding lines from \256les)4 1221(abut: paste)1 455 2 970 4248 t
+(4.4)795 4368 w
+10 B f
+(Data Extraction)1 685 1 970 4368 t
+10 R f
+(...................................................................................................................................... 4-8)1 3710 1 1690 4368 t
+( data extraction)2 615(dm: conditional)1 656 2 970 4488 t
+( column extraction)2 749(colex: quick)1 516 2 970 4608 t
+( extraction)1 424(linex: line)1 428 2 970 4728 t
+(4.5)795 4848 w
+10 B f
+(Data Validation)1 681 1 970 4848 t
+10 R f
+(...................................................................................................................................... 4-9)1 3710 1 1690 4848 t
+( validation)1 425(validata: data)1 560 2 970 4968 t
+( data validation)2 616(dm: conditional)1 656 2 970 5088 t
+(4.6)795 5208 w
+10 B f
+(DM: Tutorial and Manual)3 1126 1 970 5208 t
+10 R f
+(.................................................................................................................... 4-10)1 3260 1 2140 5208 t
+(Data Types)1 457 1 970 5328 t
+(User Interface)1 566 1 970 5448 t
+(Operations)970 5568 w
+(Expression Syntax)1 747 1 970 5688 t
+(Some Examples)1 647 1 970 5808 t
+( documentation is in the manual)5 1290( Full)1 214( programs are introduced, showing some of their options.)8 2302(All data manipulation)2 874 4 720 6072 t
+(entries.)720 6192 w
+10 S f
+(\357)1083 6192 w
+10 R f
+(STAT data manipulation tools allow users to generate, transform, format, extract, and validate data.)13 4268 1 1132 6192 t
+12 CB f
+(dm)720 6312 w
+10 R f
+( manipulator, is the most important tool for use with other)10 2419(, the data)2 381 2 866 6312 t
+10 S f
+(\357)3701 6312 w
+10 R f
+( detailed manual for)3 831( A)1 132(STAT programs.)1 687 3 3750 6312 t
+12 CB f
+(dm)720 6432 w
+10 R f
+(is the last section of this chapter.)6 1307 1 891 6432 t
+(There are several classes of data manipulation programs.)7 2280 1 720 6612 t
+10 B f
+(Generation)3052 6612 w
+10 R f
+(programs produce more data than their inputs)6 1837 1 3563 6612 t
+( data, or by creating new data.)6 1232(by repeating data, numbering)3 1188 2 720 6732 t
+10 B f
+(Transformation)3195 6732 w
+10 R f
+(programs allow algebraic conversion)3 1492 1 3908 6732 t
+(of data.)1 314 1 720 6852 t
+10 B f
+(Formatting)1099 6852 w
+10 R f
+( data.)1 232(programs change the shape or order of the)7 1786 2 1627 6852 t
+10 B f
+(Extraction)3711 6852 w
+10 R f
+(programs produce subsets of)3 1193 1 4207 6852 t
+(datasets.)720 6972 w
+10 B f
+(Validation)1111 6972 w
+10 R f
+(programs check the consistency, data types, and ranges of data.)9 2527 1 1587 6972 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 0 18
+%%Trailer
+done
+%%Pages: 18
+%%DocumentFonts: Times-Roman Symbol Courier-Bold Courier Times-Bold Times-Italic

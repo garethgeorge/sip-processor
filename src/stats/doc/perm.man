@@ -1,0 +1,47 @@
+PERM(1)                            |STAT                        August 1992
+
+NNNNAAAAMMMMEEEE
+     perm - permute line order
+
+SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+     ppppeeeerrrrmmmm [-a | -c | -e | -i | -n | -j] [-r] [-l lines] [-s seed]
+
+DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+     _p_e_r_m reads lines from the standard input and prints them in permuted
+     order.  By default, this order is random, but the order can be sorted
+     numerically or alphabetically with options.
+
+OOOOPPPPTTTTIIIIOOOONNNNSSSS
+     ----aaaa   Sort lines by alphabetic ordering.  Initial blank space is not
+          ignored.
+     ----cccc   Use a case-insensitive comparison and sort by alphabetic
+          ordering.
+     ----eeee   Sort lines by exponential (scientific) notation ordering.
+          Initial blank space is ignored.  This method does true numerical
+          sorting for all numbers, but is much slower than integer or
+          numerical sorting.
+     ----iiii   Sort lines by integer ordering.  Initial blank space is ignored.
+     ----jjjj   Control juxtaposition of adjacent input lines.  By default,
+          adjacent input lines can come out next to each other.  With this
+          option, if two input lines are next to each other, then they will
+          not be next to each other in the output.  For the purposes of
+          this program, the very first and very last lines are considered
+          to be next to each other.  It is impossible to produce non-
+          juxtaposed output from four lines or less.  It is unknown whether
+          all non-juxtaposed permutations are equally probable.
+     ----llll   Set the maximum number of lines to be read.
+     ----nnnn   Sort lines by special numeric ordering.  Numbers with decimal
+          points are allowed, and compared by a special fast sorting
+          algorithm that is almost as fast as integer sorting.
+     ----rrrr   Reverse the order of comparison for sorting options.
+     ----ssss   Provide an integer seed for the random number generator.
+          Otherwise, the seeding is done with the process number and the
+          time, or, on some systems, by prompting for a seed.
+
+NNNNOOOOTTTTEEEESSSS
+     The program duplicates some of the _s_o_r_t program's functions, but
+     provides true numerical sorting for MSDOS whose _s_o_r_t only does
+     alphabetic sorts.
+
+LLLLIIIIMMMMIIIITTTTSSSS
+     Use the -L option to determine the program limits.

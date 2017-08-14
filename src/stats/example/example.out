@@ -1,0 +1,376 @@
+$ ff -dc -w 79 example.txt
+            Annotated Example from Chapter 2 of the |STAT Handbook
+                          Copyright 1986 Gary Perlman
+
+      A concrete example with several |STAT programs is worked in detail.
+        The example shows the style of analysis in |STAT.  New Users of
+      |STAT should not try to understand all the details in the examples.
+   Details about all the programs can be found in the online manual entries
+  and more examples of program use appear in other chapters of the Handbook.
+
+    The example is based on a familiar problem: grades in a course based on
+    two midterm exams and a final exam.  Scores on exams are broken down by
+      student gender and by the lab section taught by one of two teaching
+   assistants: John or Jane.  The data are in the file exam.dat.  Each line
+  in exam.dat contains a student ID number, the student's teaching assistant,
+   the student's gender, and scores (out of 100) on the midterms and final.
+
+    We will compute final grades based on the exam scores, compare male and
+  female students, and compare the two teaching assistants.  The annotations
+            in Chapter 2 of the Handbook will provide more details.
+-------------------- Section 2.1    Data in exam.dat
+$ cat exam.dat
+S-1	john	male	56	42	58
+S-2	john	male	96	90	91
+S-3	john	male	70	59	65
+S-4	john	male	82	75	78
+S-5	john	male	85	90	92
+S-6	john	male	69	60	65
+S-7	john	female	82	78	60
+S-8	john	female	84	81	82
+S-9	john	female	89	80	68
+S-10	john	female	90	93	91
+S-11	jane	male	42	46	65
+S-12	jane	male	28	15	34
+S-13	jane	male	49	68	75
+S-14	jane	male	36	30	48
+S-15	jane	male	58	58	62
+S-16	jane	male	72	70	84
+S-17	jane	female	65	61	70
+S-18	jane	female	68	75	71
+S-19	jane	female	62	50	55
+S-20	jane	female	71	72	87
+-------------------- Section 2.2    Computing Final Scores
+$ dm INPUT ".2*x4 + .3*x5 + .5*x6" < exam.dat > scores.dat
+-------------------- Examine Scores File: scores.dat
+$ cat scores.dat
+S-1	john	male	56	42	58	52.8
+S-2	john	male	96	90	91	91.7
+S-3	john	male	70	59	65	64.2
+S-4	john	male	82	75	78	77.9
+S-5	john	male	85	90	92	90
+S-6	john	male	69	60	65	64.3
+S-7	john	female	82	78	60	69.8
+S-8	john	female	84	81	82	82.1
+S-9	john	female	89	80	68	75.8
+S-10	john	female	90	93	91	91.4
+S-11	jane	male	42	46	65	54.7
+S-12	jane	male	28	15	34	27.1
+S-13	jane	male	49	68	75	67.7
+S-14	jane	male	36	30	48	40.2
+S-15	jane	male	58	58	62	60
+S-16	jane	male	72	70	84	77.4
+S-17	jane	female	65	61	70	66.3
+S-18	jane	female	68	75	71	71.6
+S-19	jane	female	62	50	55	54.9
+S-20	jane	female	71	72	87	79.3
+-------------------- Sort Records by Final Scores
+$ reverse -f < scores.dat | sort
+27.1	34	15	28	male	jane	S-12
+40.2	48	30	36	male	jane	S-14
+52.8	58	42	56	male	john	S-1
+54.7	65	46	42	male	jane	S-11
+54.9	55	50	62	female	jane	S-19
+60	62	58	58	male	jane	S-15
+64.2	65	59	70	male	john	S-3
+64.3	65	60	69	male	john	S-6
+66.3	70	61	65	female	jane	S-17
+67.7	75	68	49	male	jane	S-13
+69.8	60	78	82	female	john	S-7
+71.6	71	75	68	female	jane	S-18
+75.8	68	80	89	female	john	S-9
+77.4	84	70	72	male	jane	S-16
+77.9	78	75	82	male	john	S-4
+79.3	87	72	71	female	jane	S-20
+82.1	82	81	84	female	john	S-8
+90	92	90	85	male	john	S-5
+91.4	91	93	90	female	john	S-10
+91.7	91	90	96	male	john	S-2
+-------------------- Another Way Using dsort
+$ dsort n7 < scores.dat
+S-12	jane	male	28	15	34	27.1
+S-14	jane	male	36	30	48	40.2
+S-1	john	male	56	42	58	52.8
+S-11	jane	male	42	46	65	54.7
+S-19	jane	female	62	50	55	54.9
+S-15	jane	male	58	58	62	60
+S-3	john	male	70	59	65	64.2
+S-6	john	male	69	60	65	64.3
+S-17	jane	female	65	61	70	66.3
+S-13	jane	male	49	68	75	67.7
+S-7	john	female	82	78	60	69.8
+S-18	jane	female	68	75	71	71.6
+S-9	john	female	89	80	68	75.8
+S-16	jane	male	72	70	84	77.4
+S-4	john	male	82	75	78	77.9
+S-20	jane	female	71	72	87	79.3
+S-8	john	female	84	81	82	82.1
+S-5	john	male	85	90	92	90
+S-10	john	female	90	93	91	91.4
+S-2	john	male	96	90	91	91.7
+-------------------- Section 2.3    Summary of Final Scores
+$ dm  s7  <  scores.dat | desc  -o  -t 75  -h  -i 10  -m 0
+------------------------------------------------------------
+ Under Range    In Range  Over Range     Missing         Sum
+           0          20           0           0    1359.200
+------------------------------------------------------------
+        Mean      Median    Midpoint   Geometric    Harmonic
+      67.960      68.750      59.400      65.564      62.529
+------------------------------------------------------------
+          SD   Quart Dev       Range     SE mean
+      16.707      10.575      64.600       3.736
+------------------------------------------------------------
+     Minimum  Quartile 1  Quartile 2  Quartile 3     Maximum
+      27.100      57.450      68.750      78.600      91.700
+------------------------------------------------------------
+        Skew     SD Skew    Kurtosis     SD Kurt
+      -0.586       0.548       2.844       1.095
+------------------------------------------------------------
+   Null Mean           t    prob (t)           F    prob (F)
+      75.000      -1.884       0.075       3.551       0.075
+------------------------------------------------------------
+       Midpt    Freq
+       5.000       0 
+      15.000       0 
+      25.000       1 *
+      35.000       0 
+      45.000       1 *
+      55.000       4 ****
+      65.000       5 *****
+      75.000       5 *****
+      85.000       2 **
+      95.000       2 **
+-------------------- Section 2.4    Predicting Final Exam Scores
+$ dm x6 x4 x5 < scores.dat | regress -e final midterm1 midterm2
+Analysis for 20 cases of 3 variables:
+Variable        final   midterm1   midterm2 
+Min           34.0000    28.0000    15.0000 
+Max           92.0000    96.0000    93.0000 
+Sum         1401.0000  1354.0000  1293.0000 
+Mean          70.0500    67.7000    64.6500 
+SD            15.3502    18.6720    20.4303 
+
+Correlation Matrix:
+final          1.0000 
+midterm1       0.7586     1.0000 
+midterm2       0.8838     0.9190     1.0000 
+Variable        final   midterm1   midterm2 
+
+Regression Equation for final:
+final  =  -0.2835 midterm1  +  0.9022 midterm2  +  30.9177
+
+Significance test for prediction of final
+    Mult-R  R-Squared      SEest    F(2,17)   prob (F) 
+    0.8942     0.7996     7.2640    33.9228     0.0000 
+-------------------- Predicted Plot From Regression Equation in regress.eqn
+$ dm x6 x4 x5 < scores.dat | dm Eregress.eqn |
+	pair -p -h 10 -w 30 -x final -y predicted
+|------------------------------|89.3045
+|                             3|
+|                   1    1     |
+|             1   1   11  1 1  |
+|                              |
+|              1 2 1           |predicted
+|          1     1             |
+|            1                 |
+|       1                      |
+|                              |
+|1                             |
+|------------------------------|36.5121
+34.000                    92.000
+        final  r= 0.894
+-------------------- Residual Plot
+$ dm x6 x4 x5 < scores.dat | dm Eregress.eqn | dm x2 x1-x2 |
+	pair -p -h 10 -w 30 -x predicted -y residuals
+|------------------------------|11.2546
+|                     11       |
+|                           1  |
+|         1   1   1    1      1|
+|      1        1        1    1|
+|1               1      1      |residuals
+|            1    1            |
+|                        1     |
+|                       1      |
+|                              |
+|                       1      |
+|------------------------------|-18.0399
+36.512                    89.304
+      predicted  r= 0.000
+-------------------- Section 2.5    Failures by Assistant and Gender
+$ dm s2 s3 "if x7 GE 75 then 'pass' else 'fail'" 1 < scores.dat |
+	contab assistant gender success count
+FACTOR:  assistant     gender    success      count 
+LEVELS:          2          2          2         20 
+
+assistan   count
+john          10
+jane          10
+Total         20
+NOTE: Yates' correction for continuity applied
+	chisq       0.000000     df   1      p  1.000000
+
+gender     count
+male          12
+female         8
+Total         20
+NOTE: Yates' correction for continuity applied
+	chisq       0.450000     df   1      p  0.502335
+
+success    count
+fail          12
+pass           8
+Total         20
+NOTE: Yates' correction for continuity applied
+	chisq       0.450000     df   1      p  0.502335
+
+SOURCE: assistant gender 
+            male  female  Totals
+john           6       4      10
+jane           6       4      10
+Totals        12       8      20
+Analysis for assistant x gender:
+	NOTE: Yates' correction for continuity applied
+	WARNING: 2 of 4 cells had expected frequencies < 5
+	chisq       0.000000     df   1      p  1.000000
+	Fisher Exact One-Tailed Probability     0.675042
+	Fisher Exact Other-Tail Probability     0.675042
+	Fisher Exact Two-Tailed Probability     1.000000
+	phi Coefficient == Cramer's V           0.000000
+	Contingency Coefficient                 0.000000
+
+SOURCE: assistant success 
+            fail    pass  Totals
+john           4       6      10
+jane           8       2      10
+Totals        12       8      20
+Analysis for assistant x success:
+	NOTE: Yates' correction for continuity applied
+	WARNING: 2 of 4 cells had expected frequencies < 5
+	chisq       1.875000     df   1      p  0.170904
+	Fisher Exact One-Tailed Probability     0.084901
+	Fisher Exact Other-Tail Probability     0.084901
+	Fisher Exact Two-Tailed Probability     0.169802
+	phi Coefficient == Cramer's V           0.306186
+	Contingency Coefficient                 0.292770
+
+SOURCE: gender success 
+            fail    pass  Totals
+male           8       4      12
+female         4       4       8
+Totals        12       8      20
+Analysis for gender x success:
+	NOTE: Yates' correction for continuity applied
+	WARNING: 3 of 4 cells had expected frequencies < 5
+	chisq       0.078125     df   1      p  0.779855
+	Fisher Exact One-Tailed Probability     0.886759
+	Fisher Exact Other-Tail Probability     0.259609
+	Fisher Exact Two-Tailed Probability     1.000000
+	phi Coefficient == Cramer's V           0.062500
+	Contingency Coefficient                 0.062378
+
+SOURCE: assistant gender success 
+assistan  gender success
+    john    male    fail       3
+    john    male    pass       3
+    john  female    fail       1
+    john  female    pass       3
+    jane    male    fail       5
+    jane    male    pass       1
+    jane  female    fail       3
+    jane  female    pass       1
+-------------------- Section 2.6    Effects of Assistant and Gender
+$ dm s1 s2 s3 "'m1'" s4 s1 s2 s3 "'m2'" s5 s1 s2 s3 "'final'" s6 < scores.dat |
+	maketrix 5 | anova student assistant gender exam score
+SOURCE: grand mean
+assista gender  exam       N       MEAN         SD         SE
+                          60    67.4667    18.0981     2.3365
+
+SOURCE: assistant 
+assista gender  exam       N       MEAN         SD         SE
+john                      30    76.7000    13.7869     2.5171
+jane                      30    58.2333    17.3179     3.1618
+
+SOURCE: gender 
+assista gender  exam       N       MEAN         SD         SE
+        male              36    62.8611    20.1085     3.3514
+        female            24    74.3750    11.9120     2.4315
+
+SOURCE: assistant gender 
+assista gender  exam       N       MEAN         SD         SE
+john    male              18    73.5000    15.4053     3.6311
+john    female            12    81.5000     9.6153     2.7757
+jane    male              18    52.2222    18.8541     4.4440
+jane    female            12    67.2500     9.6684     2.7910
+
+SOURCE: exam 
+assista gender  exam       N       MEAN         SD         SE
+                m1        20    67.7000    18.6720     4.1752
+                m2        20    64.6500    20.4303     4.5684
+                final     20    70.0500    15.3502     3.4324
+
+SOURCE: assistant exam 
+assista gender  exam       N       MEAN         SD         SE
+john            m1        10    80.3000    11.9355     3.7743
+john            m2        10    74.8000    16.3761     5.1786
+john            final     10    75.0000    13.4247     4.2453
+jane            m1        10    55.1000    15.5167     4.9068
+jane            m2        10    54.5000    19.5973     6.1972
+jane            final     10    65.1000    16.2101     5.1261
+
+SOURCE: gender exam 
+assista gender  exam       N       MEAN         SD         SE
+        male    m1        12    61.9167    20.7822     5.9993
+        male    m2        12    58.5833    22.5931     6.5221
+        male    final     12    68.0833    17.1329     4.9459
+        female  m1         8    76.3750    11.1475     3.9413
+        female  m2         8    73.7500    13.1557     4.6512
+        female  final      8    73.0000    12.7167     4.4960
+
+SOURCE: assistant gender exam 
+assista gender  exam       N       MEAN         SD         SE
+john    male    m1         6    76.3333    14.1516     5.7774
+john    male    m2         6    69.3333    19.1172     7.8046
+john    male    final      6    74.8333    14.4418     5.8959
+john    female  m1         4    86.2500     3.8622     1.9311
+john    female  m2         4    83.0000     6.7823     3.3912
+john    female  final      4    75.2500    13.8894     6.9447
+jane    male    m1         6    47.5000    15.8461     6.4692
+jane    male    m2         6    47.8333    21.9127     8.9458
+jane    male    final      6    61.3333    18.1071     7.3922
+jane    female  m1         4    66.5000     3.8730     1.9365
+jane    female  m2         4    64.5000    11.3871     5.6936
+jane    female  final      4    70.7500    13.0735     6.5368
+
+FACTOR  :    student  assistant     gender       exam      score 
+LEVELS  :         20          2          2          3         60 
+TYPE    :     RANDOM    BETWEEN    BETWEEN     WITHIN       DATA 
+
+SOURCE                SS     df             MS         F      p
+===============================================================
+mean	     273105.0667      1    273105.0667   443.734  0.000 ***
+s/ag	       9847.5278     16       615.4705
+
+assista	       5115.2667      1      5115.2667     8.311  0.011 *
+s/ag	       9847.5278     16       615.4705
+
+gender 	       1909.0028      1      1909.0028     3.102  0.097 
+s/ag	       9847.5278     16       615.4705
+
+ag	        177.8028      1       177.8028     0.289  0.598 
+s/ag	       9847.5278     16       615.4705
+
+exam   	        293.2333      2       146.6167     4.564  0.018 *
+es/ag	       1027.8889     32        32.1215
+
+ae	        610.4333      2       305.2167     9.502  0.001 ***
+es/ag	       1027.8889     32        32.1215
+
+ge	        314.5722      2       157.2861     4.897  0.014 *
+es/ag	       1027.8889     32        32.1215
+
+age	         29.2056      2        14.6028     0.455  0.639 
+es/ag	       1027.8889     32        32.1215
+
+-------------------- Scheffe 95% Confidence Interval:
+$ echo "sqrt ($df1 * $critf * $MSerror * 2 / $N)" | calc
+sqrt(((((2 * 3.294537) * 32.1215) * 2) / 10)) =	6.506165391

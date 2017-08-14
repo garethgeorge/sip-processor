@@ -1,0 +1,60 @@
+DM(1)                              |STAT                  November 26, 1985
+
+NAME
+     dm - data manipulation with conditional transformations
+
+SYNOPSIS
+     dm [Efile] [expressions]
+
+DESCRIPTION
+     _d_m is a data manipulating program for column extraction from files,
+     possibly based on conditions, and production of algebraic combinations
+     of columns.  _d_m reads whitespace separated fields on each line of its
+     input.  _d_m takes a series of expressions, and for each line of the
+     input, _d_m reevaluates and prints the values of those expressions.
+     Numerical values of fields on a line can be accessed by the letter 'x'
+     followed by a column number.  Character strings can be accessed by the
+     letter 's' followed by a column number.  For example, for the input
+     line:
+                                    12  45.2
+     s1 is the string '12', x2 is the number 45.2 (which is not the same as
+     s2, the string '45.2').
+
+     _C_o_l_u_m_n _E_x_t_r_a_c_t_i_o_n. Columns are extracted with string expressions.  To
+     extract the 3rd, 8th, 1st and 2nd columns (in that order) from "file,"
+     one would type:
+                          dm  s3  s8  s1  s2  <  file
+
+     _A_l_g_e_b_r_a_i_c _T_r_a_n_s_f_o_r_m_a_t_i_o_n_s. To print, in order, the sum of the columns
+     1 and 2, the difference of columns 3 and 4, and the square root of the
+     sum of squares of the 1st and 3rd columns, one could type the command:
+                    dm  "x1+x2"  "x3-x4"  "(x1*x1+x3*x3)^.5"
+     There are the usual mathematical functions that allow expressions
+     like:
+            dm  "exp(x1) + log(log(x2))"  "floor (x1/x2)"  "sin x1"
+
+     _T_e_s_t_i_n_g _C_o_n_d_i_t_i_o_n_s. Expressions can be conditionally evaluated by
+     comparing values.  To print the ratio of x1 and x2, and check the
+     value of x2 before division and print 'error' if x2 is 0, one could
+     type:
+                     dm "if x2 = 0 then 'error' else x1/x2"
+     To extract lines in which two columns are the same string, say the 5th
+     and 2nd, one would type:
+                      dm "if s5 = s2 then INPUT else NEXT"
+
+     _O_t_h_e_r _F_e_a_t_u_r_e_s. _d_m has comparison, algebraic, and logical operators,
+     and special variables to take control in exceptional conditions.
+     These include: INPUT, the current input line in string form; INLINE,
+     the current input line number; N, the field count in INPUT; SUM, the
+     sum of the numbers in INPUT; RAND, a uniform random number different
+     for each line; NIL, an expression that causes no output; NEXT, which
+     terminates evaluation on INPUT and goes to the next line; and EXIT,
+     which terminates all processing.
+
+LIMITS
+     Input fields longer than 15 characters are truncated silently.  The
+     number of input columns, output expressions, and expression constants
+     are limited to 100.
+
+SEE ALSO
+     The DM Manual in The |STAT Handbook

@@ -1,0 +1,168 @@
+.TH DPRIME 1 "August 21, 1990" "\(co 1980 Gary Perlman" "|STAT" "UNIX User's Manual"
+.SH NAME
+dprime \- compute d' and beta for signal detection data
+.SH SYNOPSIS
+.B dprime
+[-p] [hit\-rate\ false-alarm-rate] [hits\ false\-alarms\ misses\ correct\-rejections]
+.SH DESCRIPTION
+.I dprime
+works from data collected in a signal detection task in which
+a signal is either present or not in a stimulus,
+and an observer either indicates that a signal was detected or not.
+.nf
+
+.if n .ta 20n +20n +20n +20n
+.if t .ta 1.5i +1.5i +1.5i +1.5i
+	Signal Presented?
+	Yes	No
+Signal Detected?
+Yes	hit	fa
+No	miss	cr
+
+.fi
+In the table above, a
+.I hit
+is a signal that was presented and detected, a
+.I miss
+is a signal that was presented but not detected, a
+.I fa
+(for false alarm)
+is a signal that was not presented but mistakenly detected, and a
+.I cr
+(for correct rejection)
+is a signal that was not presented and not reported as detected by the observer.
+The hit rate, sometimes called
+.I hr,
+is the percentage of signals that were detected
+and is based on the number of hits and misses:
+.ce
+hr = #hit / (#hit + #miss).
+The false alarm rate, sometimes called
+.I far,
+is  the percentage of non-signals that were reported as signals
+and is based on the number of false-alarms and correct-rejections:
+.ce
+far = #fa / (#fa + #cr).
+.PP
+.I dprime
+reads its input in several formats.
+.I dprime
+can be given two arguments: the hit-rate and the false-alarm-rate,
+for which
+.I dprime
+will compute d', beta, and the criterion.
+.I dprime
+can also be give four arguments: the number of hits, the number of false-alarms,
+the number of misses and the number of correct-rejections,
+for which
+.I dprime
+will compute the hit-rate and false-alarm-rate and
+then compute d', beta, and the criterion.
+Otherwise, if no values are provided on the command line,
+.I dprime
+reads raw data from the standard input.
+If raw data are input,
+.I dprime
+assumes a two column input in which the first column tells whether
+signal+noise or just noise were presented,
+and the second column tells how the observer responded.
+The following strings can be used to indicate affirmative answers
+.ce
+signal, yes, 1
+while the following can be used to indicate negative:
+.ce
+noise, no, 0
+Upper case forms for the above are allowed.
+When reading the standard input,
+.I dprime
+allows an optional third column that gives a repetition count
+for the case.
+.SH OPTIONS
+.de OP
+.TP
+.B -\\$1 \\$2
+..
+.OP p
+print the `precision' of the observer, calculated as:
+.ce
+#hit / (#hit + #false-alarm)
+In the information retrieval field,
+it is common to evaluate the effectiveness of a retrieval with two values:
+.nf
+  R = recall = proportion of relevant items retrieved (the hit-rate)
+  P = precision = proportion of retrieved items that are relevant
+.fi
+The correspondence to signal detection is that `relevance' is the
+signal to be detected and has been discussed in
+Swets, J. A.  (1969)
+.ft I
+Effectiveness of Information Retrieval Methods.
+.ft B
+American Documentation, 20,
+.ft R
+72-89.
+.SH ALGORITHM
+.PP
+The value for d' is the Z value of the hit-rate
+minus that of the false-alarm-rate.
+.ce
+d' = Z(hr) - Z(far)
+This reflects the distance between the two distributions:
+signal, and signal+noise.
+Though Z values can have any real value,
+normally distributed ones are between -2 and 2 about 95% of the time,
+so differences of twice that would be rare.
+.PP
+The value for beta is the ratio of the normal density functions at
+the criterion of the Z values used in the computation of d'.
+This reflects an observer's bias to say `yes' or `no'
+with the unbiased observer having a value around 1.0.
+As the bias to say `yes' increases,
+resulting in a higher hit-rate and false-alarm-rate,
+beta approaches 0.0.
+As the bias to say `no' increases,
+resulting in a lower hit-rate and false-alarm-rate,
+beta increases over 1.0 on an open-ended scale.
+A major reason for doing a signal detection analysis is to get a measure
+of discrimination that is constant over observer biases,
+but the invariance of d' over different beta is often not certain.
+The `criterion' is the distance from the mean of the noise (non-signal)
+distribution to the point above which the observer says `yes'
+and is in the same units as d'.
+.PP
+If results indicate a perfect observer (e.g., all hits and no misses),
+then then d' would be infinite.
+In realistic conditions, this would never happen.
+In such cases, d' is reported as 0.0, and beta is reported as 1.0.
+.SH EXAMPLE
+.nf
+.ta .75i +.75i +.75i +.75i +.75i
+dprime .7 .4     # will print
+hr	far	dprime	beta	criterion	
+0.700	0.400	0.778	0.900	0.253	
+
+dprime 70 400 30 600 # will print the same, but with a table
+.fi
+.SH REFERENCE
+Coombs, C. H., Dawes, R. M., and Tversky, A. (1970)
+.ft B
+Mathematical Psychology,
+.ft R
+Englewood Cliffs, NJ: Prentice-Hall.
+See Chapter 6 on
+.ft I
+The Theory of Signal Detectability,
+.ft R
+pp. 165-201.
+
+Salton, G, & McGill, M. J. (1983)
+.ft B
+Introduction to Modern Information Retrieval,
+.ft R
+New York: McGraw-Hill.
+See Chapter 5 on
+.ft I
+Retrieval Evaluation,
+especially pp. 164-184.
+.SH BUGS
+The program has not been tested extensively.

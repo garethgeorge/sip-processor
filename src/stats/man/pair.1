@@ -1,0 +1,62 @@
+.TH PAIR 1 "January 20, 1987" "\(co 1980 Gary Perlman" "|STAT" "UNIX User's Manual"
+.SH NAME
+pair - paired data points analysis and plots
+.SH SYNOPSIS
+.B pair
+[-fps] [-h height] [-w width] [-c char] [-x xname] [-y yname]
+.br
+	[-t top] [-b bottom] [-l left] [-r right]
+.br
+.SH DESCRIPTION
+.I pair
+analyzes paired data by providing summary statistics and scattergrams.
+.I pair
+reads pairs of points (two points per line)
+from the standard input and, without options,
+provides statistics on the first variable (X), the second (Y),
+and their difference.
+If only one datum is on each line,
+then
+.I pair
+will supply the datum number (1 to N) as the first variable
+and use the datum as the second.
+.SH OPTIONS
+.de OP
+.TP
+.B -\\$1 \\$2
+..
+.OP b bottom
+minimum Y value at the bottom of the plot (default: from data).
+.OP c char
+plotting character (default: frequency counts).
+.OP f
+do not print frame around plot (default: print frame).
+.OP h height
+set height of the plot to \fIheight\fR lines.
+.OP l left
+minimum X value at the left of the plot (default: from data).
+.OP p
+print bivariate plot.
+.OP r right
+maximum X value at the right of the plot (default: from data).
+.OP s
+requests summary statistics.
+.OP t top
+maximum Y value at the top of the plot (default: from data).
+.OP w width
+set width of the plot to \fIwidth\fR characters.
+.OP x name
+name of the first variable (default: "Column 1").
+.OP y name
+name of the second variable (default: "Column 2").
+.SH EXAMPLES
+.nf
+.ta 2i
+.if n .ta 27n
+pair -p -h 10 -w 20	# 10 high, 20 wide plot
+abut a b | pair -x a -y b	# compare two single column files
+.fi
+.SH LIMITS
+Use the -L option to determine the program limits.
+.SH "MISSING VALUES
+Cases with missing data values (NA) are counted but not included in the analysis.

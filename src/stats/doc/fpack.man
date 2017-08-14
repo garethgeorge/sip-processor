@@ -1,0 +1,46 @@
+FPACK(1)                    UNIX User's Manual             November 2, 1987
+
+NAME
+     fpack - pack and unpack ascii files with simple archiving scheme
+
+USAGE
+     fpack [-fv] [files]
+
+DESCRIPTION
+     _f_p_a_c_k is a simple plain-text-file archiving scheme to either reduce
+     the number of files or to package them together.  It is designed to be
+     portable to systems between which files may be transferred, such as
+     between UNIX and MSDOS.  It can save space on systems that use disk
+     blocks for files that occupy a small part of a block.  One of the
+     program's requirements is that it does not alter the format of its
+     input, so files like documents or human readable data files are not
+     converted to a special format.  This allows unpacking by hand in an
+     emergency (e.g., the recipient of an archive does not have _f_p_a_c_k to
+     unpack).
+
+     Files are delimited by a special string at the start of a line:
+          fpack:!@#$%^&*():   <filename>
+
+OPTIONS
+     -f   Forceful action.  _f_p_a_c_k will overwrite existing files it is
+          unpacking and continue when it can't open files.
+
+     -v   Verbose output.  _f_p_a_c_k will name the files it packs or unpacks.
+
+NOTES
+     Text outside file delimiters in an archive will be ignored.  So, files
+     packed and sent through mailers that add header lines and trailing
+     signatures will be unpacked safely.
+
+     If a file does not end with a newline character, one will be silently
+     added.
+
+     If a file to be unpacked exists, then it will not be overwritten.
+     Instead, the packed contents for the file(s) being unpacked will be
+     ignored.
+
+EXAMPLES
+     Pack up some C source files.
+          fpack *.c > archive
+     Unpack all files.
+          fpack < archive

@@ -1,0 +1,223 @@
+.TH ANOVA 1 "August 22, 1992" "\(co 1980 Gary Perlman" "|STAT" "UNIX User's Manual"
+.SH NAME
+anova \- multi-factor analysis of variance
+.SH SYNOPSIS
+.B anova
+[-p] [-w width] [factor names]
+.SH DESCRIPTION
+.I anova
+does multi-factor analysis of variance on designs
+with within groups factors, between groups factors, or both.
+.I anova
+allows variable numbers of replications
+(averaged before analysis) on any factor.
+All factors except the random factor must be crossed;
+some nested designs are not allowed.
+Unequal group sizes on between groups factors are allowed
+and are solved with the weighted means solution,
+however empty cells are not permitted.
+.PP
+.I "Input Format."
+The input format was designed so that when
+the user specifies
+the role individual data play in the overall design,
+.I anova
+figures out the experimental design.
+This helps reduce design specification errors.
+The input to 
+.I anova
+consists of each datum on a separate line,
+preceded by a list of index labels, one for each factor,
+that specifies the level of each factor at which that datum was obtained.
+By convention, data are always in the last column,
+and indexes for the one allowable random factor must be in the first.
+Data can be real numbers or integers.
+Indexes can be any character string,
+so mnemonic labels can simplify reading the output.
+For example:
+.ce
+fred  3  hard  10
+indicates that "fred" at level "3" of the factor indexed by column two
+and at level "hard" of the factor indexed by column three, scored 10.
+Indexes and data on a line can be separated by tabs or spaces for readability.
+Data from an experiment consists of a series of lines like the one above.
+The order of these lines does not matter, so additional data can
+be appended to the end of files.
+Replications are coded by having more than one line
+with the same list of leading indexes.
+With this information, 
+.I anova
+determines the number of factors,
+the number and names of levels of each factor,
+and whether a factor is between groups or within
+groups so that error terms for F-ratios can be chosen.
+.PP
+Names of independent and dependent variables can
+be supplied to 
+.I anova,
+providing mnemonic labels for the output.
+These names may be truncated in the output.
+The names should have unique first characters because that is all
+that is used in parts of F tables.
+For example, in a three factor design, the call to 
+.I anova:
+.ce
+anova  subjects  group  difficulty  errors
+would give the name "subjects" to the random factor,
+"group" and "difficulty" to the next two,
+and "errors" to the dependent variable.
+If names are not specified, the default name for the random factor
+is RANDOM, for the dependent variable, DATA, and for the independent
+variables, A, B, C, D, etc.
+.PP
+.I "Output Format."
+The first part of the output from 
+.I anova
+includes summary statistics and optional error bar plots
+for each source not involving the random factor.
+The summary statistics include:
+cell counts, means, standard deviations, and standard errors.
+The error bar plots place cell means between the grand minimum and
+grand maximum values and use the following characters to identify statistics,
+which are plotted in a specific order:
+.ta 4n +4n +4n
+.nf
+Example Plot:
+	<    -----(--#--)----- >
+Key:
+	-	spanning one standard deviation around the mean,
+		but within the minimum and maximum
+	(	one standard error below the mean
+	)	one standard error above the mean
+	<	minimum value
+	>	maximum value
+	#	mean value
+.fi
+With small plots and/or low variances the markers may overlap,
+some of the markers may be hidden by others.
+In particular, with no variability, only the mean will appear.
+A useful rule of thumb is that if the standard error envelopes of two means
+do not overlap, then they are significantly different,
+however, a post hoc test should be applied to verify this.
+.PP
+After the summary statistics and plots,
+a summary of design information and an F table testing main effects
+and interactions follow.
+Sums of squares, degrees of freedom, mean squares, F ratio and
+significance level are reported for each F test.
+The labels for interactions are based on the first character of
+the factor names involved, so it is wise to choose factor names
+with different first letters.
+For significance testing, one asterisk indicates a result
+significant at the .05 level, two *'s indicate .01, and three *'s indicate .001.
+.SH OPTIONS
+.de OP
+.TP
+.B -\\$1 \\$2
+..
+.OP p
+Show Error Bar Plots for N-Way Tests.
+Each use of the -p option will request plots
+for higher-order interactions.
+The first will request plots for main effects,
+the next will request them for two-way interactions,
+and so on.
+.OP w width
+Width of Error Bar Plots.
+This option will let you increase the amount of detail in the plots.
+.SH "DIAGNOSTICS
+.PP
+.I anova
+will complain about "Ragged input" if the number of variables
+in its input varies.
+.I anova
+will not print its F tables if it cannot make sense out
+of the the input specification
+("Unbalanced factor or Empty cell").
+This can happen if there are missing data
+(detected when the cell sizes of all the scores
+for a source do not add up to the expected grand total).
+Unbalanced factors often are due to a typographical error,
+but the empty cell size message can be due to an illegal nested design
+(only the random factor can be nested).
+.PP
+.I anova
+uses a temporary file to store its input and
+will complain if it is unable to create it.
+This may be because you are in some other user's directory
+that is "write protected."
+.SH EXAMPLE
+.PP
+An experiment has two experimental factors:
+difficulty of material to be learned,
+and amount of knowledge a person brings with him or her.
+(This design is due to Naomi Miyake.)
+Each person is given two learning tasks, one easy and one hard,
+so task difficulty is a within groups factor.
+Two people are experts in the task domain,
+while three are novices, so knowledge is a between groups factor
+with unequal group sizes.
+The dependent variable is the amount of time it takes a person
+to correctly work through a problem.
+Data is formatted as follows:
+in column one is the name of the person (the random factor);
+in column two is the level of the difficulty factor;
+in column three is the level of the knowledge factor;
+and in column four is the time, in seconds, to solve the problem.
+Fictitious data follow.
+.nf
+.PP
+.if t .ta .5i +.75i +.75i +1iR
+.if n .ta .5i +1i +1i +1iR
+.if t .ps 9
+.if t .vs 10
+	lucy	easy	novice	12
+	lucy	hard	novice	22
+	ethel	easy	novice	10
+	ethel	hard	novice	15
+	ricky	easy	novice	25
+	ricky	hard	novice	30
+	ernie	easy	expert	7
+	ernie	hard	expert	10
+	bert	easy	expert	12
+	bert	hard	expert	18
+.if t .ps
+.if t .vs
+.fi
+.PP
+The call to 
+.I anova
+to analyze the data would probably look like:
+.PP
+.ce
+anova subjects difficulty knowledge time < data
+.PP
+"data" is the name of the file containing the above data.
+"subjects" is the random factor so indexes for that
+factor appear in the first column.
+Data, here called "time", must appear in the last column.
+"difficulty" is a within groups factor
+because each person appears at every level of that factor.
+In the third column are indexes for "knowledge", a between groups
+factor, because no person appears at more than one
+level of that factor.
+.SH FILES
+.ta 8n
+.nf
+UNIX	/tmp/anova.????
+MSDOS	anova.tmp
+.fi
+.SH ALGORITHM
+Keppel (1973)
+.I "Design and Analysis: A Researcher's Handbook."
+.SH WARNING
+When unequal sized cell designs are used,
+the cell sizes must be in the same proportion
+across all rows and columns of interactions,
+or there may be marked distortions and the analysis may be invalid.
+This applies only to designs with more than one between groups factor.
+See Keppel's discussion of unequal cell designs.
+.SH LIMITS
+Use the -L option to determine the program limits.
+.SH "MISSING VALUES
+Missing data values (NA) are counted but not included in the analysis.

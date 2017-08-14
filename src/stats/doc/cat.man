@@ -1,0 +1,22 @@
+CAT(1)                             |STAT                      July 16, 1986
+
+NAME
+     cat - concatenate files by printing them one after another
+
+SYNOPSIS
+     cat [files] [-]
+
+DESCRIPTION
+     _c_a_t prints its argument files one after the other.  The special file
+     name - is taken to mean the standard input; this allows inserting the
+     standard input in between a series of files.  If not files are named,
+     the standard input is read.
+
+EXAMPLES
+     cat a b c   # print files a, b, and c on the standard output
+     echo ----- | cat a - b   # print a, a line, and b
+
+NOTE
+     This program is supplied for systems that do not have _c_a_t or some
+     other program to join a series of files.  It is a bare bones version
+     with no options.

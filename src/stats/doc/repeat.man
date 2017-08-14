@@ -1,0 +1,45 @@
+REPEAT(1)                          |STAT                   October 13, 1986
+
+NAME
+     repeat - repeat input strings or files
+
+SYNOPSIS
+     repeat [-fi] [-l maxlines] [-n count] [-] [files]
+
+DESCRIPTION
+     _r_e_p_e_a_t repeatedly prints its argument files as many times as
+     requested.  If no files are specified, the standard input is read.
+     The special file name - is allowed to refer to the standard input.
+
+OPTIONS
+     -f   Insert a formfeed before each repetition.  This allows pagination
+          of output for most printers.
+
+     -i   Repeat lines inside files.  For example, if a file has the days
+          of the week, each on its own line, then two copies with this
+          option will produce:
+          Sunday
+          Sunday
+          Monday
+          Monday
+           ...
+
+     -l maxlines
+          Set the maximum number of lines to be read.
+
+     -n count
+          Set the number of repetitions of each input file.  By default,
+          one copy is printed.
+
+EXAMPLES
+          repeat -n 10                  # input from tty is reprinted 10 times
+          pr file | repeat -n 5         # pr output is repeated five times
+          echo hello | repeat -n 20     # 20 hello's are printed
+          repeat -n 20 hello            # the file hello is repeated
+
+BUGS
+     The name _r_e_p_e_a_t is a reserved word in _c_s_h. The program should be
+     installed as _r_e_p instead.
+
+LIMITS
+     Use the -L option to determine the program limits.

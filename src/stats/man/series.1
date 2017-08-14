@@ -1,0 +1,42 @@
+.TH SERIES 1 "October 24, 1986" "\(co 1980 Gary Perlman" "|STAT" "UNIX User's Manual"
+.SH NAME
+series \- generate an additive series of numbers
+.SH SYNOPSIS
+.I series
+start end [stepsize]
+.SH DESCRIPTION
+.I series
+prints the real numbers from
+.I start
+to
+.I end,
+one per line.
+If
+.I stepsize
+is not specified,
+it is assumed to be of unit size.
+.I series
+begins with
+.I start
+to which
+.I stepsize
+is repeatedly added or subtracted,
+as appropriate, to approach, possibly meet, but not pass
+.I end.
+.SH EXAMPLE
+.nf
+.ta .5i
+To make a random permutation of the numbers 1 to 100:
+	series 1 100 | perm
+or
+	series 100 1 | perm
+.fi
+.SH LIMITATIONS
+The reported number of significant digits is limited.
+If the ratio of the series range to the
+.I stepsize
+is too large, several numbers in a row will be equal.
+
+The maximum length of a series is limited to the size of the
+maximum long integer that can be represented on the machine in use.
+Exceeding this value has undefined results.

@@ -1,0 +1,78 @@
+.TH DM 1 "November 26, 1985" "\(co 1980 Gary Perlman" "|STAT" "UNIX User's Manual"
+.SH NAME
+dm \- data manipulation with conditional transformations
+.SH SYNOPSIS
+.B dm
+[Efile] [expressions]
+.SH DESCRIPTION
+.I dm
+is a data manipulating program for
+column extraction from files, possibly based on conditions,
+and production of algebraic combinations of columns.
+.I dm
+reads whitespace separated fields on each line of its input.
+.I dm
+takes a series of expressions,
+and for each line of the input,
+.I dm
+reevaluates and prints the values of those expressions.
+Numerical values of fields on a line can be accessed by
+the letter 'x'
+followed by a column number.
+Character strings can be accessed by the letter 's' followed
+by a column number.
+For example, for the input line:
+.ce
+12  45.2
+s1 is the string '12',
+x2 is the number 45.2 (which is not the same as s2, the string '45.2').
+.PP
+.I "Column Extraction."
+Columns are extracted with string expressions.
+To extract the 3rd, 8th, 1st and 2nd columns
+(in that order) from "file," one would type:
+.ce
+dm  s3  s8  s1  s2  <  file
+.PP
+.I "Algebraic Transformations."
+To print, in order, the sum of the columns 1 and 2,
+the difference of columns 3 and 4, and the square root of the sum
+of squares of the 1st and 3rd columns, one could type the command:
+.ce
+dm  "x1+x2"  "x3-x4"  "(x1*x1+x3*x3)^.5"
+There are the usual mathematical functions that allow
+expressions like:
+.ce
+dm  "exp(x1) + log(log(x2))"  "floor (x1/x2)"  "sin x1"
+.PP
+.I "Testing Conditions."
+Expressions can be conditionally evaluated by comparing values.
+To print the ratio of x1 and x2, and
+check the value of x2 before division and print 'error' if x2 is 0,
+one could type:
+.ce
+dm "if x2 = 0 then 'error' else x1/x2"
+To extract lines in which two columns are the same string,
+say the 5th and 2nd, one would type:
+.ce
+dm "if s5 = s2 then INPUT else NEXT"
+.PP
+.I "Other Features."
+.I dm
+has comparison, algebraic, and logical operators,
+and special variables to take control in exceptional conditions.
+These include:
+INPUT, the current input line in string form;
+INLINE, the current input line number;
+N, the field count in INPUT;
+SUM, the sum of the numbers in INPUT;
+RAND, a uniform random number different for each line;
+NIL, an expression that causes no output;
+NEXT, which terminates evaluation on INPUT and goes to the next line;
+and EXIT, which terminates all processing.
+.SH LIMITS
+Input fields longer than 15 characters are truncated silently.
+The number of input columns,
+output expressions, and expression constants are limited to 100.
+.SH SEE\ ALSO
+The DM Manual in The |STAT Handbook

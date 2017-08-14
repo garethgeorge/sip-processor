@@ -1,0 +1,176 @@
+|STAT 5.4: DATA MANIPULATION & ANALYSIS PROGRAMS FOR UNIX and MSDOS
+
+|STAT is a set of about 30 data manipulation and analysis programs
+developed by Gary Perlman at the University of California, San
+Diego and at the Wang Institute.  The manipulation programs are
+general utilities that work with other standard programs like sort. 
+The analysis programs compute most widely used statistics.  |STAT
+programs are designed with the philosophy that individual programs
+should be designed as tools that do one task well and produce
+output suitable for input via pipes to |STAT and other programs. 
+Interactive use is supported in the command line interpreter/editor
+while batch files or shell scripts provide a programming language
+for complex analyses.  Typical usage involves a pipeline of
+transformations of data followed by input to an analysis program,
+summarized schematically by:
+
+   INPUT DATA | TRANSFORM | ANALYSIS | OUTPUT RESULTS
+
+Package Features
+================
+ * simple input formats (free-format field-oriented)
+ * flexible data manipulation
+ * several simple lineprinter plotting options
+ * data validation (range and type checking)
+ * consistent option conventions with online help
+ * compiles and runs on any UNIX System
+   (V6, V7, 2.8 BSD, 4.x BSD, System V, ANSI, etc.)
+ * runs on MSDOS/PCDOS 2.x, 3.x, 4.x, 5.x with 96K
+   (IBM, AT&T, Epson, and all compatibles)
+ * usually less than a few seconds per analysis
+ * liberal copyright (but can't be distributed for gain)
+ * in use at hundreds of university, industry, government and
+   research sites for over ten years
+
+Data Manipulation Programs
+==========================
+abut        join data files beside each other
+colex       column extraction/formatting
+dm          conditional data extraction/transformation
+dsort       multiple key data sorting filter
+linex       line extraction
+maketrix    make matrix format from free-format input
+perm        random/numerical/alphabetical permutation
+probdist    probability distribution functions
+ranksort    convert data to ranks
+repeat      repeat strings or lines in files
+reverse     reverse lines, columns, or characters
+series      generate an additive series of numbers
+transpose   transpose matrix format input
+validata    verify data file consistency
+
+Data Manipulation Program Highlights
+====================================
+ * conditional extraction of rows or columns
+ * data sorting based on multiple keys 
+ * line permutation (random and sorted)
+ * matrix formation and transposition functions 
+ * conversion of data to ranks 
+ * additive series generation + 6 distributions:
+   uniform, normal, t, chi-square, F, binomial
+ * input validation for format and data types
+ * text pagination and formatting with headers
+ * ASCII file archiver for file combination and transfer 
+
+Data Analysis Programs
+======================
+anova       multi-factor analysis of variance, plots
+calc        interactive algebraic modeling calculator
+contab      contingency tables and chi-square
+desc        descriptions, histograms, frequency tables
+dprime      signal detection d' and beta calculations
+features    tabulate features of items
+oneway      one-way anova/t-test, error-bar plots
+pair        paired data statistics, regression, plots 
+rankind     independent conditions rank order analysis
+rankrel     related conditions rank order analysis
+regress     multiple linear regression and correlation
+stats       simple summary statistics
+ts          time series analysis, plots
+
+Analysis Program Highlights
+===========================
+ * 20 descriptive statistics on a single distribution
+ * between group and within group (paired) t-tests
+ * weighted/unweighted means and multifactor anova
+ * multiple linear regression, partial correlation analysis
+ * simple time-series analysis with auto-correlation
+ * ranked-order analyses including: Friedman, Wilcoxin, Spearman,
+   Fisher Exact Test, Median Test, Mann-Whitney, Kruskal-Wallis 
+ * multifactor contingency tables with chi-square
+ * programmable calculator with over 30 functions
+ * lineprinter histograms, scatter plots, error-bar plots
+ * computed probabilities for significance tests
+
+Distribution Conditions
+=======================
+CAREFULLY READ THE FOLLOWING CONDITIONS.  IF YOU DO NOT FIND THEM
+ACCEPTABLE, YOU SHOULD NOT USE |STAT.
+
+   |STAT IS PROVIDED "AS IS," WITHOUT ANY EXPRESS OR IMPLIED
+WARRANTY.  THE USER ASSUMES ALL RISKS OF USING |STAT.  THERE IS NO
+CLAIM OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. 
+|STAT MAY NOT BE SUITED TO YOUR NEEDS.  |STAT MAY NOT RUN ON YOUR
+PARTICULAR HARDWARE OR SOFTWARE CONFIGURATION.  THE AVAILABILITY OF
+AND PROGRAMS IN |STAT MAY CHANGE WITHOUT NOTICE.  NEITHER
+MANUFACTURER NOR DISTRIBUTOR BEAR RESPONSIBILITY FOR ANY MISHAP OR
+ECONOMIC LOSS RESULTING THEREFROM OF THE USE OF |STAT EVEN IF THE
+PROGRAMS PROVE TO BE DEFECTIVE.  |STAT IS NOT INTENDED FOR CONSUMER
+USE.
+
+   CASUAL USE BY USERS NOT TRAINED IN STATISTICS, OR BY USERS NOT
+SUPERVISED BY PERSONS TRAINED IN STATISTICS, MUST BE AVOIDED. 
+USERS MUST BE TRAINED AT THEIR OWN EXPENSE TO LEARN TO USE THE
+PROGRAMS.  DATA ANALYSIS PROGRAMS MAKE MANY ASSUMPTIONS ABOUT DATA,
+THESE ASSUMPTIONS AFFECT THE VALIDITY OF CONCLUSIONS MADE BASED ON
+THE PROGRAMS.  REFERENCES TO SOME APPROPRIATE STATISTICAL SOURCES
+ARE MADE IN THE |STAT HANDBOOK AND IN THE MANUAL ENTRIES FOR
+SPECIFIC PROGRAMS.  |STAT PROGRAMS HAVE NOT BEEN VALIDATED FOR
+LARGE DATASETS, HIGHLY VARIABLE DATA, NOR VERY LARGE NUMBERS.
+
+   You may make copies of any tangible forms of |STAT programs,
+provided that there is no material gain involved, and provided that
+the information in this notice accompanies every copy.  You may not
+copy printed documentation unless such duplication is for non-
+profit educational purposes.  You may not provide |STAT as an
+inducement to buy your software or hardware or any products or
+services.  You may distribute copies of |STAT, provided that mass
+distribution (such as electronic bulletin boards or anonymous ftp)
+is not used.  You may not modify the source code for any purposes
+other than getting the programs to work on your system.  Any costs
+in compiling or porting |STAT to your system are your's alone, and
+not any other parties.  You may not distribute any modified source
+code or documentation to users at any sites other than your own.
+
+Free FTP and Email Access
+=========================
+|STAT is available via anonymous ftp in pub/stat at:
+   archive.cis.ohio-state.edu (128.146.8.52)
+The file:
+   stat.tar.Z.crypt.uu
+is the uuencoded, encrypted, compressed, tar archive of the
+package.  To unpack the archive, you need uudecode, (de)crypt,
+uncompress, and tar.  To ensure that the distribution restrictions
+on |STAT are maintained, a password has been attached to the
+archive.  To obtain the password you must send
+perlman@cis.ohio-state.edu a message containing:
+   I AGREE TO ADHERE TO THE CONDITIONS OF USING |STAT.
+   I AGREE NOT TO SHARE THE |STAT PASSWORD WITH OTHERS.
+After obtaining the file, which you can also request from me via
+email, you should run the following commands:
+   uudecode < stat.tar.Z.crypt.uu
+   crypt < stat.tar.Z.crypt > stat.tar.Z
+   uncompress stat.tar.Z
+   tar xvf stat.tar
+You should then have a stat directory that will take up about a
+megabyte.  In the stat/src directory, you should make any necessary
+changes to the makefile and then run make to build the package.  In
+addition to the online manuals, the file handbook.txt contains a
+lineprinter version of the |STAT handbook.  The troff source to the
+handbook is not yet structured enough for ftp distribution.
+
+If you do not have access to some of the programs (many people do
+not have access to crypt) you can ask that I email you the file
+stat.tar.Z.uu (about 800 Kbytes) along with the line:
+   I AGREE TO ADHERE TO THE CONDITIONS OF USING |STAT.
+
+The compiled DOS version of |STAT can be ftp'd from pub/stat/DOS.
+Use binary transfer mode for the executable files (i.e., *.exe).
+No permission or password is needed to access the DOS version,
+but a note informing perlman@cis.ohio-state.edu would be appreciated.
+
+Notes
+=====
+   UNIX is a trademark of AT&T.
+   MSDOS is a trademark of Microsoft.
+

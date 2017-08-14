@@ -1,0 +1,1124 @@
+%!PS
+%%Version: 3.3
+%%DocumentFonts: (atend)
+%%Pages: (atend)
+%%EndComments
+%
+% Version 3.3 prologue for troff files.
+%
+
+/#copies 1 store
+/aspectratio 1 def
+/formsperpage 1 def
+/landscape false def
+/linewidth .3 def
+/magnification 1 def
+/margin 0 def
+/orientation 0 def
+/resolution 720 def
+/rotation 1 def
+/xoffset 0 def
+/yoffset 0 def
+
+/roundpage true def
+/useclippath true def
+/pagebbox [0 0 612 792] def
+
+/R  /Times-Roman def
+/I  /Times-Italic def
+/B  /Times-Bold def
+/BI /Times-BoldItalic def
+/H  /Helvetica def
+/HI /Helvetica-Oblique def
+/HB /Helvetica-Bold def
+/HX /Helvetica-BoldOblique def
+/CW /Courier def
+/CO /Courier def
+/CI /Courier-Oblique def
+/CB /Courier-Bold def
+/CX /Courier-BoldOblique def
+/PA /Palatino-Roman def
+/PI /Palatino-Italic def
+/PB /Palatino-Bold def
+/PX /Palatino-BoldItalic def
+/Hr /Helvetica-Narrow def
+/Hi /Helvetica-Narrow-Oblique def
+/Hb /Helvetica-Narrow-Bold def
+/Hx /Helvetica-Narrow-BoldOblique def
+/KR /Bookman-Light def
+/KI /Bookman-LightItalic def
+/KB /Bookman-Demi def
+/KX /Bookman-DemiItalic def
+/AR /AvantGarde-Book def
+/AI /AvantGarde-BookOblique def
+/AB /AvantGarde-Demi def
+/AX /AvantGarde-DemiOblique def
+/NR /NewCenturySchlbk-Roman def
+/NI /NewCenturySchlbk-Italic def
+/NB /NewCenturySchlbk-Bold def
+/NX /NewCenturySchlbk-BoldItalic def
+/ZD /ZapfDingbats def
+/ZI /ZapfChancery-MediumItalic def
+/S  /S def
+/S1 /S1 def
+/GR /Symbol def
+
+/inch {72 mul} bind def
+/min {2 copy gt {exch} if pop} bind def
+
+/setup {
+	counttomark 2 idiv {def} repeat pop
+
+	landscape {/orientation 90 orientation add def} if
+	/scaling 72 resolution div def
+	linewidth setlinewidth
+	1 setlinecap
+
+	pagedimensions
+	xcenter ycenter translate
+	orientation rotation mul rotate
+	width 2 div neg height 2 div translate
+	xoffset inch yoffset inch neg translate
+	margin 2 div dup neg translate
+	magnification dup aspectratio mul scale
+	scaling scaling scale
+
+	/Symbol /S Sdefs cf
+	/Times-Roman /S1 S1defs cf
+	0 0 moveto
+} def
+
+/pagedimensions {
+	useclippath userdict /gotpagebbox known not and {
+		/pagebbox [clippath pathbbox newpath] def
+		roundpage currentdict /roundpagebbox known and {roundpagebbox} if
+	} if
+	pagebbox aload pop
+	4 -1 roll exch 4 1 roll 4 copy
+	landscape {4 2 roll} if
+	sub /width exch def
+	sub /height exch def
+	add 2 div /xcenter exch def
+	add 2 div /ycenter exch def
+	userdict /gotpagebbox true put
+} def
+
+/pagesetup {
+	/page exch def
+	currentdict /pagedict known currentdict page known and {
+		page load pagedict exch get cvx exec
+	} if
+} def
+
+/decodingdefs [
+	{counttomark 2 idiv {y moveto show} repeat}
+	{neg /y exch def counttomark 2 idiv {y moveto show} repeat}
+	{neg moveto {2 index stringwidth pop sub exch div 0 32 4 -1 roll widthshow} repeat}
+	{neg moveto {spacewidth sub 0.0 32 4 -1 roll widthshow} repeat}
+	{counttomark 2 idiv {y moveto show} repeat}
+	{neg setfunnytext}
+] def
+
+/setdecoding {/t decodingdefs 3 -1 roll get bind def} bind def
+
+/w {neg moveto show} bind def
+/m {neg dup /y exch def moveto} bind def
+/done {/lastpage where {pop lastpage} if} def
+
+/f {
+	dup /font exch def findfont exch
+	dup /ptsize exch def scaling div dup /size exch def scalefont setfont
+	linewidth ptsize mul scaling 10 mul div setlinewidth
+	/spacewidth ( ) stringwidth pop def
+} bind def
+
+/changefont {
+	/fontheight exch def
+	/fontslant exch def
+	currentfont [
+		1 0
+		fontheight ptsize div fontslant sin mul fontslant cos div
+		fontheight ptsize div
+		0 0
+	] makefont setfont
+} bind def
+
+/sf {f} bind def
+
+/cf {
+	dup length 2 idiv
+	/entries exch def
+	/chtab exch def
+	/newfont exch def
+
+	findfont dup length 1 add dict
+	/newdict exch def
+	{1 index /FID ne {newdict 3 1 roll put} {pop pop} ifelse} forall
+
+	newdict /Metrics entries dict put
+	newdict /Metrics get
+	begin
+		chtab aload pop
+		1 1 entries {pop def} for
+		newfont newdict definefont pop
+	end
+} bind def
+
+%
+% A few arrays used to adjust reference points and character widths in some
+% of the printer resident fonts. If square roots are too high try changing
+% the lines describing /radical and /radicalex to,
+%
+%	/radical	[0 -75 550 0]
+%	/radicalex	[-50 -75 500 0]
+%
+% Move braceleftbt a bit - default PostScript character is off a bit.
+%
+
+/Sdefs [
+	/bracketlefttp		[201 500]
+	/bracketleftbt		[201 500]
+	/bracketrighttp		[-81 380]
+	/bracketrightbt		[-83 380]
+	/braceleftbt		[203 490]
+	/bracketrightex		[220 -125 500 0]
+	/radical		[0 0 550 0]
+	/radicalex		[-50 0 500 0]
+	/parenleftex		[-20 -170 0 0]
+	/integral		[100 -50 500 0]
+	/infinity		[10 -75 730 0]
+] def
+
+/S1defs [
+	/underscore		[0 80 500 0]
+	/endash			[7 90 650 0]
+] def
+%%EndProlog
+%%BeginSetup
+mark
+/resolution 720 def
+setup
+2 setdecoding
+%%EndSetup
+%%Page: 1 1
+/saveobj save def
+mark
+1 pagesetup
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 1 1
+%%Page: 1 2
+/saveobj save def
+mark
+2 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 3-1)1 2087( Conventions)1 1853(STAT Handbook)1 691 3 769 480 t
+14 B f
+(Section 3.1 Command Line Interpreters)4 2382 1 720 768 t
+10 S f
+(\357)1080 1068 w
+10 R f
+( a single line, hence the name)6 1256(STAT analyses consist of a series of commands, each on)9 2376 2 1129 1068 t
+10 I f
+(command line)1 576 1 4799 1068 t
+10 R f
+(.)5375 1068 w
+( the commands typed in.)4 1012(Commands are typed by users into a command line interpreter, itself a program that runs)14 3668 2 720 1188 t
+( the command line)3 816( UNIX,)1 323( On)1 196(On MSDOS, there is no special name given to the command line interpreter.)12 3345 4 720 1308 t
+(interpreters are called)2 887 1 720 1428 t
+10 I f
+(shells)1644 1428 w
+10 R f
+( the conventions of their)4 1015( are expected to know)4 923( Users)1 289(, and there are several of them.)6 1301 4 1872 1428 t
+( this handbook and in the manual entries will not work because)11 2555( of the examples in)4 768( Some)1 280(command line interpreters.)2 1077 4 720 1548 t
+( modi\256cations to the examples are sometimes needed.)7 2153( Minor)1 300(of differences in how command lines are formatted.)7 2067 3 720 1668 t
+( when running)2 607(Some command line interpreters support in-line editing, which is useful)9 2996 2 1080 1848 t
+10 S f
+(\357)4723 1848 w
+10 R f
+(STAT analyses)1 628 1 4772 1848 t
+(because data analysis is an iterative process in which minor changes in analyses, and hence commands, are common.)17 4668 1 720 1968 t
+14 B f
+(Special Characters)1 1131 1 720 2208 t
+10 R f
+( there are)2 382( both MSDOS and UNIX,)4 1061( On)1 177(Command line interpreters have special characters to perform special tasks.)9 3060 4 720 2388 t
+(special characters for \256le input, output, and pipe redirection:)8 2412 1 720 2508 t
+10 CB f
+(<)1080 2688 w
+10 R f
+(redirect standard input from the following \256le)6 1831 1 1440 2688 t
+10 CB f
+(>)1080 2808 w
+10 R f
+(redirect standard output to the following \256le)6 1765 1 1440 2808 t
+10 CB f
+(|)1080 2928 w
+10 R f
+(redirect standard output to the following command)6 2031 1 1440 2928 t
+( example,)1 396( For)1 197( names.)1 313(UNIX and MSDOS both have patterns \(sometimes called ``wildcards''\) to match \256le)11 3474 4 720 3108 t
+12 CB f
+(*.c)5181 3108 w
+10 R f
+(matches all \256les that end with a)6 1314 1 720 3228 t
+12 CB f
+(c)2116 3228 w
+10 R f
+( the)1 155(suf\256x. Also,)1 525 2 2223 3228 t
+12 CB f
+(?)2984 3228 w
+10 R f
+( An)1 180(can be used in patterns to match any one character.)9 2105 2 3115 3228 t
+( interpreters is that on UNIX, the pattern matching)8 2064(important difference between UNIX and MSDOS command line)7 2616 2 720 3348 t
+(is part of the shell, and so is available to every program, while on MSDOS, it is part of only some programs.)21 4332 1 720 3468 t
+( sometimes necessary to quote the special meaning of special characters so that they are not seen by the)18 4166(It is)1 154 2 1080 3648 t
+( example, an expression for)4 1120( For)1 194(command line interpreter.)2 1044 3 720 3768 t
+12 CB f
+(dm)3156 3768 w
+10 R f
+(might contain the symbols)3 1071 1 3331 3768 t
+12 CB f
+(*)4479 3768 w
+10 R f
+(for multiplication or)2 819 1 4581 3768 t
+12 CB f
+(<)720 3888 w
+10 R f
+( these characters are special to UNIX shells, while only)9 2211( Both)1 245(for comparison.)1 632 3 818 3888 t
+12 CB f
+(<)3979 3888 w
+10 R f
+( blank)1 248( The)1 206( to MSDOS.)2 500(is special)1 369 4 4077 3888 t
+( and are used to separate command line arguments.)8 2061(space and tab characters are special on both UNIX and MSDOS,)10 2619 2 720 4008 t
+( example,)1 409( For)1 210( quotes.)1 332(Special characters can be quoted by enclosing command line arguments in double)11 3489 4 720 4128 t
+12 CB f
+(dm)5254 4128 w
+10 R f
+(expressions may contain special characters, and strings may contain spaces.)9 3024 1 720 4248 t
+10 CB f
+( INE)1 183( INL)1 304( P")1 123( SKI)1 242( e)1 63( els)1 244( e:')1 183( lin)1 243( on)1 184( ber)1 183( num)1 244( rge)1 183( 'La)1 242( n)1 63( the)1 243( 10)1 182( >)1 123( x1)1 184(dm "if)1 424 19 1080 4428 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 1 2
+%%Page: 2 3
+/saveobj save def
+mark
+3 pagesetup
+10 R f
+(3-2 Conventions)1 2593 1 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+14 B f
+(Section 3.2 Command Formats)3 1848 1 720 768 t
+10 S f
+(\357)1080 1068 w
+10 R f
+( and MSDOS by typing the name of the program, program options, and)12 2901(STAT programs are run on UNIX)5 1370 2 1129 1068 t
+( separated or)2 559( names, options, and operands, are)5 1505( Program)1 420(program operands \(e.g., expressions or \256le names\).)6 2196 4 720 1188 t
+10 I f
+(delimited)720 1308 w
+10 R f
+( are)1 148( UNIX, program names are lower case, while on the case-insensitive MSDOS, they)12 3341( On)1 173(by blank space.)2 620 4 1118 1308 t
+( options and operands can be complex,)6 1556( Program)1 395(always upper case, although users can type the names in lower case.)11 2729 3 720 1428 t
+( output or to make)4 753(so it is sometimes useful to insert spaces into an option value or an operand, either to modify the)18 3927 2 720 1548 t
+( \(with double quotes\) the parts that should be kept)9 2172( is done by quoting)4 847( This)1 248(the command line more readable.)4 1413 4 720 1668 t
+(together.)720 1788 w
+14 B f
+(Simple Commands)1 1131 1 720 2028 t
+10 R f
+( of a program name, program options delimited with minus signs, and program)12 3477(A simple command consists)3 1203 2 720 2208 t
+( are some examples:)3 812( Here)1 243(operands, such as \256le or variable names.)6 1613 3 720 2328 t
+10 CB f
+( x4)1 123( x3/)1 304( x2)1 123(dm x1+)1 424 4 1080 2508 t
+( el)1 123( mod)1 303(cal c)1 243 3 1080 2628 t
+( ght)1 183( wei)1 305( ght)1 183( hei)1 305( age)1 304( -p)1 243(reg res s)2 426 7 1080 2748 t
+( p)1 63( -cf)1 303( 0)1 123( -m)1 243( 1)1 123( -i)1 244( -h)1 243(des c)1 243 8 1080 2868 t
+( .5)1 245( 100)1 303( 1)1 185(ser ies)1 363 4 1080 2988 t
+( 100)1 305( mal)1 183( nor)1 305( dom)1 183( ran)1 304(pro bdi st)2 486 6 1080 3108 t
+14 B f
+(Pipelines of Commands)2 1407 1 720 3408 t
+10 R f
+(A pipeline of commands is a series of simple commands joined by the pipe symbol,)14 3457 1 720 3588 t
+12 CB f
+(|)4258 3588 w
+10 R f
+( the output)2 446( a pipeline,)2 457(. In)1 166 3 4331 3588 t
+( following pipeline creates a series)5 1398( The)1 208( is the input to the next command in the pipeline.)10 1988(from one simple command)3 1086 4 720 3708 t
+( by using the)3 541(of numbers from 1 to 100, transforms it)7 1638 2 720 3828 t
+12 CB f
+(dm)2981 3828 w
+10 R f
+(logarithm function, and then makes a histogram of the)8 2239 1 3161 3828 t
+(result.)720 3948 w
+10 CB f
+( -h)1 182( c)1 63( des)1 303( |)1 184( x1)1 123( log)1 243( dm)1 243( |)1 185( 100)1 242( 1)1 124(ser ies)1 363 11 1080 4128 t
+10 R f
+( another, and passes the result to the)7 1554(The following pipeline abuts three \256les beside one)7 2122 2 720 4308 t
+12 CB f
+(reg res s)2 510 1 4485 4308 t
+10 R f
+(program,)5037 4308 w
+(which prints their correlation matrix.)4 1473 1 720 4428 t
+10 CB f
+( ght)1 183( wei)1 244( ght)1 183( hei)1 244( age)1 243( -r)1 182( res s)2 246( reg)1 303( |)1 185( ght)1 183( wei)1 244( ght)1 183( hei)1 244( age)1 242(abu t)1 243 15 1080 4608 t
+10 R f
+(Note that the operands to)4 1016 1 720 4788 t
+12 CB f
+(abu t)1 291 1 1812 4788 t
+10 R f
+(are \256le names, while those for)5 1223 1 2133 4788 t
+12 CB f
+(reg res s)2 510 1 3433 4788 t
+10 R f
+(are variable names, which could be)5 1427 1 3973 4788 t
+( were always supposed to be the same, then this constraint could be encoded in a shell)16 3564( they)1 206( If)1 125(different if desired.)2 785 4 720 4908 t
+(script or batch \256le.)3 749 1 720 5028 t
+14 B f
+(Batch Files and Shell Scripts)4 1712 1 720 5268 t
+10 R f
+(Because the)1 479 1 720 5448 t
+10 S f
+(\357)1224 5448 w
+10 R f
+( data analysis is routine, it is often advantageous)8 1942(STAT programs work well together, and because most)7 2185 2 1273 5448 t
+( UNIX and MSDOS support this, MSDOS with)7 1927( Both)1 248(to save a series of commands in a \256le for later analyses.)11 2256 3 720 5568 t
+10 I f
+(batch)5178 5568 w
+10 R f
+(\256les and UNIX with)3 843 1 720 5688 t
+10 I f
+(shell)1598 5688 w
+10 R f
+( variables, some set by command line)6 1567( \256les and shell scripts also support)6 1432(scripts. Batch)1 579 3 1822 5688 t
+( provide)1 330( They)1 255(calls and some set inside the command \256le.)7 1732 3 720 5808 t
+10 S f
+(\357)3062 5808 w
+10 R f
+(STAT with a simple but effective programming facility.)7 2242 1 3111 5808 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 2 3
+%%Page: 3 4
+/saveobj save def
+mark
+4 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 3-3)1 2087( Conventions)1 1853(STAT Handbook)1 691 3 769 480 t
+14 B f
+(Section 3.3 Program Options)3 1725 1 720 768 t
+10 R f
+( extra analysis.)2 620(Program options allow the user to control how a program works by requesting custom or)14 3700 2 1080 1068 t
+(Without options,)1 688 1 720 1188 t
+10 S f
+(\357)1448 1188 w
+10 R f
+( options)1 334( Program)1 408( or most common behavior by default.)6 1613(STAT programs provide the simplest)4 1548 4 1497 1188 t
+(conform to the standard UNIX option parsing convention \(Hemenway & Armitage, 1984\) by using the)14 4164 1 720 1308 t
+12 CB f
+(get opt)1 435 1 4962 1308 t
+10 R f
+( example,)1 396( For)1 198( this standard, all program options are single characters preceded by a minus sign.)13 3386( In)1 142(option parser.)1 558 5 720 1428 t
+12 CB f
+(-a)720 1548 w
+10 R f
+(and)895 1548 w
+12 CB f
+(-X)1116 1548 w
+10 R f
+( program options must precede operands \(such as \256le names, variable names, or)12 3248( All)1 183( options.)1 350(are both)1 328 4 1291 1548 t
+( example, the)2 547( For)1 195( options require values, and these should follow the option.)9 2416(expressions\). Some)1 808 4 720 1668 t
+12 CB f
+(pai r)1 291 1 4765 1668 t
+10 R f
+(plotting)5088 1668 w
+( plot with the)3 549(function allows setting the height of the)6 1618 2 720 1788 t
+12 CB f
+(-h)2966 1788 w
+10 R f
+(option:)3143 1788 w
+12 CB f
+(-h 30)1 363 1 3506 1788 t
+10 R f
+(would set the plot height to 30 lines.)7 1498 1 3902 1788 t
+( take values \(logical options\) can be)6 1478( that do not)3 477( Options)1 375(There should be a space between an option and its value.)10 2350 4 720 1908 t
+( statistics program,)2 786( example, the descriptive)3 1037( For)1 202(grouped or ``bundled'' to save typing.)5 1590 4 720 2028 t
+12 CB f
+(des c)1 291 1 4422 2028 t
+10 R f
+(, has options for)3 686 1 4714 2028 t
+( be requested with the bundle of)6 1287( can)1 165( These)1 290(requesting a histogram, a table of frequencies, and a table of proportions.)11 2938 4 720 2148 t
+(options:)720 2268 w
+12 CB f
+(-hf p)1 291 1 1116 2268 t
+10 R f
+(instead of the longer:)3 846 1 1433 2268 t
+12 CB f
+(-h -f -p)2 582 1 2352 2268 t
+10 R f
+(.)2936 2268 w
+(There are some special conventions used with the)7 1982 1 1080 2448 t
+12 CB f
+(get opt)1 435 1 3135 2448 t
+10 R f
+( double dash,)2 532( A)1 123(option parser.)1 550 3 3598 2448 t
+12 CB f
+(--)4877 2448 w
+10 R f
+(, by itself)2 377 1 5023 2448 t
+( operand begins with)3 904(signals the end of the options, which can be useful when the \256rst)12 2871 2 720 2568 t
+12 CB f
+(-)4591 2568 w
+10 R f
+(and it would be)3 688 1 4712 2568 t
+( programs that take \256les as operands \(e.g.,)7 1708( For)1 193(misinterpreted as an option.)3 1122 3 720 2688 t
+12 CB f
+(abu t)1 291 1 3820 2688 t
+10 R f
+(,)4112 2688 w
+12 CB f
+(cal c)1 291 1 4214 2688 t
+10 R f
+(\), a solitary)2 460 1 4506 2688 t
+12 CB f
+(-)5043 2688 w
+10 R f
+(means)5145 2688 w
+( example,)1 391( For)1 192( \256les.)1 220(to read from the standard input, which can be useful to insert the output of a pipeline in a set of)20 3877 4 720 2808 t
+(the)720 2928 w
+12 CB f
+(abu t)1 291 1 915 2928 t
+10 R f
+(program can read several \256les with the standard input inserted with the following command line.)14 3864 1 1232 2928 t
+10 CB f
+( e3)1 123( fil)1 242( -)1 123( e2)1 123( fil)1 243( e1)1 123( fil)1 242( t)1 63( abu)1 303( |)1 184( 20)1 182( 1)1 124(ser ies)1 363 13 1080 3108 t
+10 R f
+(The output would be four columns, the third of which would be the series 1 to 20.)16 3269 1 720 3288 t
+( logical options \(those)3 907( For)1 196( once on a command line.)5 1061(The same options can usually be speci\256ed more than)8 2156 4 1080 3468 t
+( options that take values, such as the width of a)10 1964( For)1 198(that turn on or off a feature\), repetition usually has no effect.)11 2518 3 720 3588 t
+( to these rules for speci\256c options are mentioned in)9 2084( Exceptions)1 499(plot, respecifying an option resets it to a new value.)9 2097 3 720 3708 t
+(program manual entries.)2 973 1 720 3828 t
+10 B f
+(Table of Option Rules)3 943 1 1080 4008 t
+10 CB f
+(-x)1080 4128 w
+10 R f
+(options are single letters preceded by minus)6 1753 1 1800 4128 t
+10 CB f
+(-h 30)1 303 1 1080 4248 t
+10 R f
+(option values must follow the option after a space)8 1992 1 1800 4248 t
+10 CB f
+(-nv e)1 243 1 1080 4368 t
+10 R f
+(logical options can be bundled)4 1221 1 1800 4368 t
+10 CB f
+(--)1080 4488 w
+10 R f
+(signals the end of the options)5 1169 1 1800 4488 t
+10 CB f
+(-)1080 4608 w
+10 R f
+(insert standard input to operands of \256le-reading program)7 2260 1 1800 4608 t
+14 B f
+(Standard Options)1 1070 1 720 4908 t
+10 R f
+(All)720 5088 w
+10 S f
+(\357)874 5088 w
+10 R f
+(STAT programs using the standard option parser,)6 1984 1 923 5088 t
+12 CB f
+(get opt)1 435 1 2981 5088 t
+10 R f
+( standard options to get information online.)6 1742(, have)1 239 2 3419 5088 t
+( the printed documentation may not be up to date,)9 1996(The information reported by the program is always accurate, while)9 2684 2 720 5208 t
+(or may not apply to the particular version \(e.g., limits on MSDOS may be smaller than on UNIX\).)17 3921 1 720 5328 t
+10 CB f
+(-L)1080 5508 w
+10 R f
+(prints a list of program limits)5 1170 1 1440 5508 t
+10 CB f
+(-O)1080 5628 w
+10 R f
+(prints a summary of program options)5 1485 1 1440 5628 t
+10 CB f
+(-V)1080 5748 w
+10 R f
+(prints version information)2 1044 1 1440 5748 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 3 4
+%%Page: 4 5
+/saveobj save def
+mark
+5 pagesetup
+10 R f
+(3-4 Conventions)1 2593 1 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+14 B f
+(Section 3.4 File Inputs and Outputs)5 2116 1 720 768 t
+10 R f
+(Most of the)2 481 1 1080 1068 t
+10 S f
+(\357)1596 1068 w
+10 R f
+( means they read from the standard input and write to the)11 2403( That)1 244( are \256lters.)2 446(STAT programs)1 662 4 1645 1068 t
+( standard)1 366( The)1 208( default, the standard input is the keyboard, and the standard output is the screen.)14 3287( By)1 171(standard output.)1 648 5 720 1188 t
+( the special characters:)3 926(input and output can independently be ``redirected'' using)7 2368 2 720 1308 t
+12 CB f
+(<)4094 1308 w
+10 R f
+(, to redirect the standard input)5 1233 1 4167 1308 t
+( following \256le name,)3 848(from an immediately)2 850 2 720 1428 t
+12 CB f
+(>)2496 1428 w
+10 R f
+( the pipe character)3 748( Also,)1 269(, to redirect the standard output to a \256le.)8 1638 3 2569 1428 t
+12 CB f
+(|)5302 1428 w
+10 R f
+(,)5375 1428 w
+( of these features are not available on early)8 1743( \(Some)1 315( the input to another.)4 846(can connect the output from one program to)7 1776 4 720 1548 t
+( says for the)3 485( following command)2 835( The)1 206(versions of MSDOS \(before version 2.0\).\))5 1688 4 720 1668 t
+12 CB f
+(ano va)1 363 1 4007 1668 t
+10 R f
+(program to read from the)4 1003 1 4397 1668 t
+(\256le)720 1788 w
+12 CB f
+(ano va. in)2 582 1 921 1788 t
+10 R f
+(.)1505 1788 w
+10 CB f
+( va. in)2 306( ano)1 303( <)1 184(ano va)1 303 4 1080 1968 t
+10 R f
+( following command saves the above output to the \256le)9 2402( The)1 231( to the screen, by default.)5 1136(The output would go)3 911 4 720 2148 t
+12 CB f
+(ano va. out)2 654 1 720 2268 t
+10 R f
+(.)1377 2268 w
+10 CB f
+( va. out)2 366( ano)1 303( >)1 184( va. in)2 306( ano)1 303( <)1 184(ano va)1 303 7 1080 2448 t
+10 R f
+(Never do this:)2 566 1 720 2628 t
+10 CB f
+( s!)1 123( Do Thi)2 426( er)1 123( Nev)1 242( #)1 671( a)1 63( > dat)2 486( a)1 63( dat)1 303( <)1 184(ano va)1 303 11 1080 2808 t
+10 R f
+( as the output \256le, or you will lose the \256le; the output \256le is created \(and zeroed\))17 3270(Never make the input \256le the same)6 1410 2 720 2988 t
+( is an)2 229( Here)1 252( used instead.)2 559( \256les should be)3 633( Temporary)1 503(by the command line interpreter before the input \256le is read.)10 2504 6 720 3108 t
+(example of output redirection to save 50 random normal numbers.)9 2646 1 720 3228 t
+10 CB f
+( ber s)2 246( num)1 303( >)1 184( 50)1 184( mal)1 183( nor)1 244( dom)1 183( ran)1 243(pro bdi st)2 486 9 1080 3408 t
+10 R f
+( \256le)1 155(In English, this is read: ``A random sample of 50 numbers is created and saved in the)16 3419 2 720 3588 t
+12 CB f
+(num ber s)2 510 1 4369 3588 t
+10 R f
+( \256le of)2 265(. This)1 255 2 4880 3588 t
+( be used as input to the descriptive statistics program,)9 2164(numbers could)1 595 2 720 3708 t
+12 CB f
+(des c)1 291 1 3555 3708 t
+10 R f
+( intermediate \256le,)2 708(. The)1 233 2 3847 3708 t
+12 CB f
+(num ber s)2 510 1 4864 3708 t
+10 R f
+(,)5375 3708 w
+(could be avoided by using a pipeline.)6 1490 1 720 3828 t
+10 CB f
+( c)1 63( des)1 303( |)1 184( 50)1 184( mal)1 183( nor)1 244( dom)1 183( ran)1 243(pro bdi st)2 486 9 1080 4008 t
+10 R f
+(To save the result of the above analysis in a \256le called)11 2160 1 720 4188 t
+12 CB f
+(res ult s)2 510 1 2953 4188 t
+10 R f
+(, output redirection would be used.)5 1390 1 3464 4188 t
+10 CB f
+( ult s)2 246( > res)2 486( c)1 63( des)1 303( |)1 184( 50)1 184( mal)1 183( nor)1 244( dom)1 183( ran)1 243(pro bdi st)2 486 11 1080 4368 t
+10 R f
+( not ef\256cient and they require that there is enough space)10 2264(Although pipes are supported on MSDOS, they are)7 2056 2 1080 4608 t
+(for temporary \256les to hold the contents of the pipes \(temporary \256les with names like)14 3419 1 720 4728 t
+12 CB f
+(PIP E%1 .$$ $)3 729 1 4215 4728 t
+10 R f
+( can)1 166(\). This)1 289 2 4945 4728 t
+( for speed, especially in command scripts, called)7 2036(make input and output redirection without pipes a better choice)9 2644 2 720 4848 t
+(``batch \256les'' on MSDOS.)3 1060 1 720 4968 t
+14 B f
+(Keyboard Input)1 969 1 720 5208 t
+10 R f
+( from the keyboard \(ie. the standard input has not been redirected from a \256le or pipe\),)16 3441(If a program is expecting input)5 1239 2 720 5388 t
+( input from the keyboard is a mistake; most people do not type directly)13 2834( Often,)1 302( be printed on the screen.)5 1003(a prompt will)2 541 4 720 5508 t
+(into an analysis program but prepare a \256le with their preferred editor and use that \256le as input.)17 3760 1 720 5628 t
+10 CB f
+( c)1 63( des)1 242(pro mpt :)2 426 3 1080 5808 t
+( min al:)2 366( ter)1 242( m)1 63( fro)1 243( ut)1 123( inp)1 242( din g)2 246( rea)1 243(des c:)1 303 9 1080 5928 t
+10 I f
+(user types input, followed by end of \256le:)7 1599 1 1080 6048 t
+10 CW f
+(\303D)2704 6048 w
+10 I f
+(on UNIX,)1 383 1 2851 6048 t
+10 CW f
+(\303Z)3259 6048 w
+10 I f
+(on MSDOS)1 452 1 3406 6048 t
+10 R f
+( sequence)1 397(In all examples of keyboard input, the)6 1553 2 720 6228 t
+12 CB f
+(\303X)2750 6228 w
+10 R f
+(will be used for control characters like control-x \(hold down)9 2472 1 2928 6228 t
+(the)720 6348 w
+12 CB f
+(CTR L)1 291 1 927 6348 t
+10 R f
+(key and type the letter)4 935 1 1256 6348 t
+12 CB f
+(x)2276 6348 w
+10 R f
+( signaled by typing)3 797( UNIX, end of input from the keyboard is)8 1757(\). On)1 242 3 2349 6348 t
+12 CB f
+(\303D)5229 6348 w
+10 R f
+(.)5375 6348 w
+(MSDOS users type)2 772 1 720 6468 t
+12 CB f
+(\303Z)1565 6468 w
+10 R f
+(.)1711 6468 w
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 4 5
+%%Page: 5 6
+/saveobj save def
+mark
+6 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 3-5)1 2087( Conventions)1 1853(STAT Handbook)1 691 3 769 480 t
+14 B f
+(Section 3.5 Input Formats)3 1554 1 720 768 t
+10 S f
+(\357)1080 1068 w
+10 R f
+( input is read until the end of \256le,)8 1418( Program)1 405( simple input formats.)3 911(STAT programs have)2 885 4 1129 1068 t
+10 I f
+(EOF)4784 1068 w
+10 R f
+(, is found.)2 422 1 4978 1068 t
+(End of \256le in disk \256les is done by the system; no special marking characters are needed nor allowed.)18 4013 1 720 1188 t
+(Input)1080 1368 w
+10 B f
+(\256elds)1330 1368 w
+10 R f
+(\(visibly distinguishable)1 952 1 1592 1368 t
+10 B f
+(words)2584 1368 w
+10 R f
+(\) are separated by)3 750 1 2845 1368 t
+10 B f
+(whitespace)3635 1368 w
+10 R f
+(\(blank spaces, tabs, newlines\).)3 1259 1 4141 1368 t
+( Most)1 260(For most programs, \256elds in lines with embedded spaces can be enclosed by single or double quotes.)16 4093 2 720 1488 t
+10 S f
+(\357)5101 1488 w
+10 R f
+(STAT)5150 1488 w
+( blank lines)2 467( However,)1 443( human-readability of the data.)4 1240(analysis programs ignore blank input lines used to improve the)9 2530 4 720 1608 t
+( to)1 108(are meaningful to some data manipulation programs, so when there are unexpected results, it is often instructive)16 4572 2 720 1728 t
+(run a \256le through)3 691 1 720 1848 t
+12 CB f
+(val ida ta)2 582 1 1484 1848 t
+10 R f
+(.)2068 1848 w
+14 B f
+(Suggestion: Staged Analysis)2 1673 1 720 2088 t
+10 R f
+( each stage, a quick visual)5 1082( At)1 158( such as a pipeline, in stages.)6 1202(It is usually a good idea to build a complex command,)10 2238 4 720 2268 t
+(inspection of the output catches most errors you might make.)9 2442 1 720 2388 t
+14 B f
+(Data Types)1 681 1 720 2628 t
+10 S f
+(\357)720 2808 w
+10 R f
+( data: label and variable names, numbers \(integers and real numbers\),)10 2871(STAT programs recognize several types of)5 1760 2 769 2808 t
+( by)1 145(and some programs can deal with missing values, denoted)8 2490 2 720 2928 t
+12 CB f
+(NA)3448 2928 w
+10 R f
+( and variable names begin with an)6 1484(. Label)1 322 2 3594 2928 t
+( \(a-z, A-Z, 0-9\) and)4 876(alphabetic character \(a-z or A-Z\), and can be followed by any number of alphanumerics)13 3804 2 720 3048 t
+( in)1 125( are three types of numbers: integers, real numbers with a decimal point, and numbers)14 3749(underscores. There)1 806 3 720 3168 t
+( are positive or negative numbers with no decimal point, or if they have a)14 3052( Integers)1 380(exponential scienti\256c notation.)2 1248 3 720 3288 t
+( notation numbers are numbers of)5 1380( Exponential)1 540( digits after the decimal point.)5 1234(decimal point, they have no non-zero)5 1526 4 720 3408 t
+(the form)1 341 1 720 3528 t
+12 CB f
+(xxx .yy yEz z)3 729 1 1134 3528 t
+10 R f
+( after)1 208( may have digits before an optional decimal point or after it, and the number)14 3048(. They)1 280 3 1864 3528 t
+(the)720 3648 w
+12 CB f
+(E)915 3648 w
+10 R f
+(or)1013 3648 w
+12 CB f
+(e)1169 3648 w
+10 R f
+( example,)1 388( For)1 189(is a power of ten multiplier.)5 1110 3 1267 3648 t
+12 CB f
+(1.2 e-6)1 435 1 3027 3648 t
+10 R f
+(is 1.2 times the inverse of one million.)7 1536 1 3490 3648 t
+14 B f
+(Caveat: Appearances Can Be Deceiving)4 2371 1 720 3888 t
+10 R f
+(Inputs that look like they line up might not appear so to)11 2285 1 720 4068 t
+10 S f
+(\357)3037 4068 w
+10 R f
+( example, the following data might)5 1434( For)1 196(STAT programs.)1 684 3 3086 4068 t
+( the columns that look like they line up to a person,)11 2082( Also,)1 267( variable number.)2 707(appear to have four columns, but have a)7 1624 4 720 4188 t
+(do not line up to)4 656 1 720 4308 t
+10 S f
+(\357)1401 4308 w
+10 R f
+(STAT programs.)1 677 1 1450 4308 t
+10 CB f
+(a b c d)3 1140 1 1080 4488 t
+( g)1 360(e f)1 780 2 1080 4608 t
+( j)1 720(h i)1 420 2 1080 4728 t
+10 R f
+(Here is how)2 482 1 720 4908 t
+10 S f
+(\357)1227 4908 w
+10 R f
+(STAT programs see this input:)4 1233 1 1276 4908 t
+10 CB f
+(a b c d)3 1140 1 1080 5088 t
+(e f g)2 780 1 1080 5208 t
+(h i j)2 780 1 1080 5328 t
+10 R f
+(This difference could be found with the)6 1580 1 720 5508 t
+12 CB f
+(val ida ta)2 582 1 2373 5508 t
+10 R f
+(utility program, which would report for both formats above:)8 2400 1 2982 5508 t
+10 CB f
+( 2)1 122( e)1 63( lin)1 243( at)1 182( umn s)2 246( col)1 243( of)1 184( ber)1 183( num)1 243( iab le)2 306( Var)1 244(val ida ta:)2 546 12 1080 5688 t
+( max)1 366( min)1 364( e)1 63( typ)1 304( er)1 123( oth)1 243( at)1 123( flo)1 244( int)1 365( ha)1 123( alp)1 243( um)1 123( aln)1 243( NA)1 243(Col N)1 426 15 1080 5808 t
+( 0)1 366( 0)1 367( um)1 123( aln)1 242( 3 3 0 0 0)5 1830(1 3 0)2 548 6 1202 5928 t
+( 0)1 366( 0)1 367( um)1 123( aln)1 242( 3 3 0 0 0)5 1830(2 3 0)2 548 6 1202 6048 t
+( 0)1 366( 0)1 367( um)1 123( aln)1 242( 3 3 0 0 0)5 1830(3 3 0)2 548 6 1202 6168 t
+( 0)1 366( 0)1 367( um)1 123( aln)1 242( 1 1 0 0 0)5 1830(4 1 0)2 548 6 1202 6288 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 5 6
+%%Page: 6 7
+/saveobj save def
+mark
+7 pagesetup
+10 R f
+(3-6 Conventions)1 2593 1 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+14 B f
+(Section 3.6 Limits and Error Messages)5 2311 1 720 768 t
+10 R f
+( input line: on small systems, 512)6 1469(There is a system-dependent limit on the count of characters in an)11 2851 2 1080 1068 t
+( memory available on a)4 949( programs use dynamic memory allocation so the)7 1995( Many)1 287(characters, and on large ones, 1024.)5 1449 4 720 1188 t
+( over\257ow is not checked, so numbers like)7 1694( Integer)1 337(machine will determine the size of data sets that can be analyzed.)11 2649 3 720 1308 t
+( calculations)1 509( All)1 185(data counts are limited on 16 bit machines to 32767; in practice, this has not presented problems.)16 3986 3 720 1428 t
+( allowed double)2 680(are done with double precision \257oating point numbers, but over\257ow \(exceeding the maximum)12 4000 2 720 1548 t
+( tiny non-zero result being)4 1114(precision number, about 10 to the 38th power\) and under\257ow \(loss of precision of a)14 3566 2 720 1668 t
+( limits can be found in most programs with the)9 1905( speci\256c)1 333( Program)1 397(rounded to 0.0\) are not checked.)5 1303 4 720 1788 t
+12 CB f
+(-L)4735 1788 w
+10 R f
+(option. The)1 490 1 4910 1788 t
+( variable data \(differences of several orders of magnitude\), very large)10 2825(programs are not robust when used on highly)7 1855 2 720 1908 t
+(numbers, or large datasets \(more than 10,000 values\).)7 2140 1 720 2028 t
+( \(1\) identify the program detecting the problem \(useful when pipelines or)11 3019(All error and warning messages)4 1301 2 1080 2208 t
+( All)1 184( and for errors, \(4\) cause an exit.)7 1340(command scripts are used\), \(2\) print diagnostic information, \(3\) sound a bell,)11 3156 3 720 2328 t
+(error and warning messages are printed on the diagnostic output \(that is)11 2936 1 720 2448 t
+12 CB f
+(std err)1 435 1 3736 2448 t
+10 R f
+(for C lovers\), so they will be)6 1194 1 4206 2448 t
+( All)1 180( is redirected to a \256le.)5 875(seen even if the standard output)5 1282 3 720 2568 t
+10 S f
+(\357)3084 2568 w
+10 R f
+(STAT programs exit with a non-zero exit status on error)9 2267 1 3133 2568 t
+(and a zero exit status after a successful run.)8 1731 1 720 2688 t
+14 B f
+(Common Error Messages)2 1532 1 720 2928 t
+10 R f
+( messages should be)3 828( Other)1 282( are explained below.)3 865( They)1 259(Some errors and messages are common to several programs.)8 2446 5 720 3108 t
+(self-explanatory.)720 3228 w
+10 CB f
+( a)1 63( dat)1 243( ut)1 123( \(or no\) inp)3 732( ugh)1 183(Not eno)1 424 6 1080 3408 t
+10 R f
+(There were no data points read, or not enough to make sense)11 2422 1 1440 3528 t
+10 CB f
+( owe d)2 246( N all)2 364( t)1 63( mos)1 243( at)1 182( x's ;)2 246( xxx)1 242( y)1 63(Too man)1 424 9 1080 3648 t
+10 R f
+(Too many of something were in the input \(e.g., columns or variables\))11 2774 1 1440 3768 t
+10 CB f
+( le')1 183( 'fi)1 242( n)1 63( ope)1 244(Can not)1 363 5 1080 3888 t
+10 R f
+(The named \256le could not be opened for reading)8 1896 1 1440 4008 t
+10 CB f
+( x)1 63( xxx)1 244( for)1 242( t)1 63( lef)1 243( ce)1 123( spa)1 242( rag e)2 246(No sto)1 363 9 1080 4128 t
+10 R f
+(The program has run out of dynamic memory for internal storage)10 2606 1 1440 4248 t
+10 CB f
+( ber)1 183( num)1 242( a)1 124( not)1 243( is)1 182( scr ipt ion \))4 612( \(de)1 243(\302st rin g')2 486 8 1080 4368 t
+10 R f
+(The described object whose input value was 'string' was non-numerical)9 2869 1 1440 4488 t
+10 CB f
+( e)1 63( lin)1 242( man d)2 246( com)1 243( on)1 182( ore d)2 246( ign)1 242( ran d\(s \))3 429(N ope)1 302 9 1080 4608 t
+10 R f
+(Operands \(e.g., \256les\) on the command line are ignored by this program)11 2834 1 1440 4728 t
+10 CB f
+( E)1 63( the TYP)2 488( for)1 243( ue)1 123( val)1 242( ega l)2 246( is an ill)3 609(VAL UE)1 303 8 1080 4848 t
+10 R f
+(The provided value was out of the legal range for the given type)12 2561 1 1440 4968 t
+10 CB f
+( e)1 63( fil)1 243( ut)1 123( inp)1 244(Rag ged)1 363 5 1080 5088 t
+10 R f
+(The program expects a uniform number of input columns)8 2291 1 1440 5208 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 6 7
+%%Page: 7 8
+/saveobj save def
+mark
+8 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 3-7)1 2087( Conventions)1 1853(STAT Handbook)1 691 3 769 480 t
+14 B f
+(Section 3.7 Manual Entries)3 1618 1 720 768 t
+10 S f
+(\357)1080 1068 w
+10 R f
+( describe the effects)3 809( They)1 260( entries contain detailed information about each of the programs.)9 2629(STAT manual)1 573 4 1129 1068 t
+(of all the options.)3 700 1 720 1188 t
+14 B f
+(On-Line Manuals)1 1063 1 720 1428 t
+10 R f
+(On UNIX systems, the manual entries for)6 1727 1 720 1608 t
+10 S f
+(\357)2483 1608 w
+10 R f
+(STAT programs are available online with the)6 1874 1 2532 1608 t
+12 CB f
+(man sta t)2 510 1 4490 1608 t
+10 R f
+(program.)5037 1608 w
+(UNIX system administrators might prefer to install the)7 2204 1 720 1728 t
+10 S f
+(\357)2951 1728 w
+10 R f
+( in a public place, so they might be available)9 1790(STAT manuals)1 610 2 3000 1728 t
+(with the standard UNIX)3 1001 1 720 1848 t
+12 CB f
+(man)1807 1848 w
+10 R f
+( a)1 83( MSDOS systems, manual entries might be available online with)9 2705(program. On)1 548 3 2064 1848 t
+( following will print the online manual for the)8 1838( The)1 205(batch \256le that types pre-formatted manuals.)5 1736 3 720 1968 t
+12 CB f
+(ano va)1 363 1 4572 1968 t
+10 R f
+(program.)4962 1968 w
+10 CB f
+( va)1 123( ano)1 242(man sta t)2 426 3 1080 2148 t
+10 R f
+( options with the)3 694(Most programs print a summary of their)6 1646 2 720 2328 t
+12 CB f
+(-O)3141 2328 w
+10 R f
+( following will print a summary of the)7 1586(option. The)1 494 2 3320 2328 t
+(options available with the)3 1030 1 720 2448 t
+12 CB f
+(des c)1 291 1 1823 2448 t
+10 R f
+(descriptive statistics program.)2 1196 1 2140 2448 t
+10 CB f
+( -O)1 182(des c)1 243 2 1080 2628 t
+14 B f
+(UNIX Manual Conventions)2 1642 1 720 2928 t
+10 R f
+( to know the conventions used)5 1243( helps)1 241( It)1 116(UNIX manual entries are often considered cryptic, especially for new users.)10 3080 4 720 3108 t
+( the following table, the contents of the different manual entry sections are summarized.)13 3513( In)1 133(in writing manual entries.)3 1027 3 720 3228 t
+10 CB f
+(ALG ORI THM S)3 609 1 1080 3408 t
+10 R f
+(sources or descriptions of algorithms)4 1476 1 1440 3528 t
+10 CB f
+(BUG S)1 243 1 1080 3648 t
+10 R f
+(limitations or known de\256ciencies in the program)6 1943 1 1440 3768 t
+10 CB f
+(DES CRI PTI ON)3 669 1 1080 3888 t
+10 R f
+(details about the workings of the program,)6 1695 1 1440 4008 t
+(and information about operands)3 1273 1 1440 4128 t
+10 CB f
+(EXA MPL ES)2 486 1 1080 4248 t
+10 R f
+(examples of command lines showing expected use of the program)9 2637 1 1440 4368 t
+10 CB f
+(FIL ES)1 303 1 1080 4488 t
+10 R f
+(\256les used by the program \(e.g., temporary \256les\))7 1897 1 1440 4608 t
+10 CB f
+(LIM ITS)1 363 1 1080 4728 t
+10 R f
+(limits built into the program should be determined with the -L option)11 2764 1 1440 4848 t
+10 CB f
+(NAM E)1 243 1 1080 4968 t
+10 R f
+(the name and purpose of the program)6 1491 1 1440 5088 t
+10 CB f
+(OPT ION S)2 426 1 1080 5208 t
+10 R f
+(detailed information about command line options \(see the -O option\))9 2750 1 1440 5328 t
+10 CB f
+(SYN OPS IS)2 486 1 1080 5448 t
+10 R f
+(a short summary of the option/operand syntax for the program)9 2488 1 1440 5568 t
+(\(items enclosed in square brackets are optional\))6 1901 1 1440 5688 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 7 8
+%%Page: 0 9
+/saveobj save def
+mark
+9 pagesetup
+24 B f
+(CHAPTER 3)1 1354 1 720 1128 t
+(Conventions)720 1608 w
+10 R f
+(3.1)795 2088 w
+10 B f
+(Command Line Interpreters)2 1215 1 970 2088 t
+10 R f
+(................................................................................................................. 3-1)1 3185 1 2215 2088 t
+(Special Characters)1 745 1 970 2208 t
+(3.2)795 2328 w
+10 B f
+(Command Formats)1 835 1 970 2328 t
+10 R f
+(................................................................................................................................ 3-2)1 3560 1 1840 2328 t
+(Simple Commands)1 765 1 970 2448 t
+(Pipelines of Commands)2 956 1 970 2568 t
+(Batch Files and Shell Scripts)4 1156 1 970 2688 t
+(3.3)795 2808 w
+10 B f
+(Program Options)1 747 1 970 2808 t
+10 R f
+(................................................................................................................................... 3-3)1 3635 1 1765 2808 t
+(Standard Options)1 697 1 970 2928 t
+(3.4)795 3048 w
+10 B f
+(File Inputs and Outputs)3 1028 1 970 3048 t
+10 R f
+(........................................................................................................................ 3-4)1 3360 1 2040 3048 t
+(Keyboard Input)1 629 1 970 3168 t
+(3.5)795 3288 w
+10 B f
+(Input Formats)1 625 1 970 3288 t
+10 R f
+(........................................................................................................................................ 3-5)1 3760 1 1640 3288 t
+(Suggestion: Staged Analysis)2 1145 1 970 3408 t
+(Data Types)1 457 1 970 3528 t
+(Caveat: Appearances Can Be Deceiving)4 1601 1 970 3648 t
+(3.6)795 3768 w
+10 B f
+(Limits and Error Messages)3 1163 1 970 3768 t
+10 R f
+(................................................................................................................... 3-6)1 3235 1 2165 3768 t
+(Common Error Messages)2 1021 1 970 3888 t
+(3.7)795 4008 w
+10 B f
+(Manual Entries)1 670 1 970 4008 t
+10 R f
+(....................................................................................................................................... 3-7)1 3735 1 1665 4008 t
+(On-Line Manuals)1 707 1 970 4128 t
+(UNIX Manual Conventions)2 1110 1 970 4248 t
+(Features common to all the)4 1144 1 720 4728 t
+10 S f
+(\357)1903 4728 w
+10 R f
+( information makes it easier to learn about new)8 2000( This)1 243(STAT programs are covered.)3 1205 3 1952 4728 t
+10 S f
+(\357)720 4848 w
+10 R f
+(STAT programs, and serves as a reference for experienced users.)9 2593 1 769 4848 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 0 9
+%%Trailer
+done
+%%Pages: 9
+%%DocumentFonts: Times-Roman Symbol Courier-Bold Courier Times-Bold Times-Italic

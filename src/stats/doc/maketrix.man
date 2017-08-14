@@ -1,0 +1,27 @@
+MAKETRIX(1)                        |STAT                      March 5, 1985
+
+NAME
+     maketrix - format a file into a matrix type file
+
+SYNOPSIS
+     maketrix [-s] [ncols]
+
+DESCRIPTION
+     _m_a_k_e_t_r_i_x reads strings separated by white space (spaces, tabs, and
+     newlines) from the standard input and prints _n_c_o_l_s of them per line to
+     the standard output until the input is exhausted.
+
+OPTIONS
+     -s   Be silent about the last line missing columns.  Otherwise, a
+          warning is printed.
+
+     ncols
+          If ncols is not specified, a two column default is used.
+
+EXAMPLE
+     echo 1 2 3 4 5 6 7 8 9 10  |  maketrix 5
+     1    2    3    4    5
+     6    7    8    9    10
+
+LIMITS
+     Use the -L option to determine the program limits.

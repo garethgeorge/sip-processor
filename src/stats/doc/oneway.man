@@ -1,0 +1,64 @@
+ONEWAY(1)                          |STAT                  December 24, 1986
+
+NAME
+     oneway - one way analysis of variance / t-test
+
+SYNOPSIS
+     oneway [-ptu] [-w plotwidth] [-s splitter] [names]
+
+DESCRIPTION
+     _o_n_e_w_a_y does a one-way analysis of variance on data from different
+     groups.  These groups can have different cell sizes.  When cell sizes
+     are equal across groups, the unweighted means analysis and the
+     weighted means solutions produce identical results.  When cell sizes
+     are unequal, the preferred analysis depends on the reasons for unequal
+     cell sizes.  A text should be consulted to decide which test is most
+     appropriate.
+
+     The input format is simple: each group's data is separated from other
+     groups' by including a special value, called the splitter.
+
+OPTIONS
+     Group names can be supplied on the command line.  Otherwise, names
+     like ``Group-1'' are used.
+
+     -p   Print error bar plots of each group.  The wide line of dashes is
+          two standard deviations on each side of the mean of each group.
+          The narrower double line is one standard deviation on each side.
+          Single standard errors are marked with parentheses.  The mean of
+          each group is marked with a pound sign.  The minimum and maximum
+          values are delimited by angle brackets.
+
+     -s splitter
+          This value is used to tell when one group's data ends and
+          another's begins.
+
+     -t   Request a between group's t-test format for the significance
+          test.  This option is ignored if there are not two groups.
+
+     -u   Request unweighted means solution rather than the default
+          unweighted.
+
+     -w plotwidth
+          Set the width of the error bar plot to a value other than the
+          default 60.
+
+EXAMPLE
+     Suppose you had two groups of data in two files, called ``long'' and
+     ``short.'' To compare these, you would do something like:
+             echo 999 | cat long - short | oneway -s 999 long short
+
+ALGORITHMS
+     The weighted means analysis algorithm follows Guilford & Fruchter's
+     _F_u_n_d_a_m_e_n_t_a_l _S_t_a_t_i_s_t_i_c_s _f_o_r _P_s_y_c_h_o_l_o_g_y _a_n_d _E_d_u_c_a_t_i_o_n (_5_t_h _E_d_i_t_i_o_n). The
+     unweighted means solution follows Keppel's _D_e_s_i_g_n _a_n_d _A_n_a_l_y_s_i_s: _A
+     _R_e_s_e_a_r_c_h_e_r'_s _H_a_n_d_b_o_o_k.
+
+LIMITS
+     Use the -L option to determine the program limits.
+
+MISSING VALUES
+     Missing data values (NA) are counted but not included in the analysis.
+
+SEE ALSO
+     rankind(1) for a non-parametric rank order version of the analysis.

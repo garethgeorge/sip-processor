@@ -1,0 +1,109 @@
+.TH CONTAB 1 "February 3, 1987" "\(co 1986 Gary Perlman" "|STAT" "UNIX User's Manual"
+.SH NAME
+contab \- contingency table and chi-square analysis
+.SH SYNOPSIS
+.B contab
+[-bsy] [-i nfactors] [-c entries]
+[factor names]
+.SH OPTIONS
+.de OP
+.TP
+.B -\\$1 \\$2
+..
+.OP b
+Use blank lines to make frequency tables more readable.
+This option is recommended when the cells are filled with values from the
+cell entry format option.
+.OP c cell-entries
+Choose table cell entries from expected values (e),
+differences of obtained and expected frequencies (d),
+all percentages (p),
+row percentages (r),
+column percentages (c),
+or cell percentages of the total count (t).
+.OP i nfactors
+Maximum number of factors in interactions.
+By default, all interactions are analyzed,
+however, it may be that only those contingency tables
+involving one or two factors will be of interest.
+.OP s
+Do not print significance tests (only print tables).
+.OP y
+Do not apply Yates' correction for continuity for chi-square tests with
+one degree of freedom.
+.SH DESCRIPTION
+Hays (1973) warns
+``...there is probably no other statistical method
+that has been so widely misapplied.'' (p. 735).
+Contingency tables and chi-square
+are used to summarize and test for association between frequencies of events.
+.SS "Input Format
+The input format is simple.
+Each cell frequency is preceded by codes of the levels of factors
+under which it was obtained.
+For example, if rats are categorized by age and are further categorized
+by the length of their tails, the contingency data would look like:
+.nf
+.ta 1i 2i 3i 4i
+	young	long	12
+	old 	long	10
+	young	short	30
+	old 	short	 2
+	young	short	 3
+.sp
+.fi
+Note that the cell frequencies for young short-tailed rats
+add up to 33.
+.PP
+The most important assumption for the input data is that all
+frequencies are independent.
+For example, each subject in an experiment must contribute
+one and only one count to one cell.
+Also, if more than a small percentage of expected cell frequencies are small,
+then the chi-square statistic may be invalid.
+A text should be consulted.
+.SS Output
+.I contab
+prints a summary of the names and number of levels of factors.
+For main effects, a frequency table and significance test
+of deviation from equal cell frequencies is printed.
+For each two-way interaction, a contingency table
+and test for independence is printed.
+Yates' correction for continuity is applied whenever there is
+one degree of freedom.
+For total cell frequencies in 2x2 tables up to 100,
+the Fisher exact test is computed for both one and two tailed cases.
+A text should be used to interpret the output statistics.
+.SH ALGORITHM
+.P
+The calculation of chi-square is standard for designs with more than one
+degree of freedom and adequate expected cell frequencies.
+Different texts have different methods for corrections for small designs.
+The methods used here reflect several sources.
+.PP
+When there is one degree of freedom,
+small cell frequencies can bias the chi-square test.
+Yates' correction for continuity reduces the absolute differences
+of obtained and expected frequencies by up to 0.5,
+following the discussion by Fisher (1970) in
+``Statistical Methods for Research Workers.''
+The Fisher Exact test for 2x2 tables is drawn from Bradley (1968)
+``Distribution-Free Statistical Tests.''
+The two-tailed calculation has only been tested against Bradley's
+one example.
+.SH FILES
+.ta 1.5i
+.nf
+UNIX	/tmp/contab.????
+MSDOS	contab.tmp
+.fi
+.SH STATUS
+This is the second version of the program.
+Later versions will have
+tests of association for contingency tables
+with greater than 2 dimensions.
+The ability to supply expected frequencies may be added
+if there is demand.
+Suggestions are welcome.
+.SH LIMITS
+Use the -L option to determine the program limits.

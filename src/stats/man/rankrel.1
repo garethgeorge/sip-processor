@@ -1,0 +1,130 @@
+.TH RANKREL 1 "January 20, 1987" "\(co 1987 Gary Perlman" "|STAT" "UNIX User's Manual"
+.SH NAME
+rankrel \- rank order statistics for related samples
+.SH SYNOPSIS
+.B rankrel
+[-ry] [-c maxcases] [names]
+.SH DESCRIPTION
+.I rankrel
+analyses data from ordinally ranked data obtained from related/matched samples.
+The input consists of scores from several samples, conditions, or groups.
+Each condition's data are in a separate column.
+The scores need not be ranks; they will be ranked by the program.
+For each condition, the number of scores, extrema and quartiles are reported.
+Conditions are compared for equality of location using
+the sign test,
+the Wilcoxon signed-ranks test,
+and the Friedman two-way analysis of variance of ranks.
+A matrix of Spearman rank-order correlation coefficients (rho) is printed.
+.PP
+The sign test and the Wilcoxon test are only used when there are two
+conditions.
+When there are fewer than 25 paired cases that are different,
+the exact binomial probability is computed;
+for larger N, the normal approximation is used.
+.SS "Probability of Obtained Statistics
+Functions computing exact probabilities of Wilcoxon and Friedman
+could not be found when the program was written,
+so for small samples,
+statistical tables at the back of a text should be consulted.
+For large samples,
+normal and Chi-square approximations are adequate.
+.SH OPTIONS
+.de OP
+.TP
+.B -\\$1 \\$2
+..
+.OP c maxcases
+Set the maximum number of input cases.
+Use the -L option to see the default.
+.OP r
+Request a report of average ranks for conditions.
+.OP s
+Stop significance tests from printing.
+This option is useful when the Spearman rho values are of primary interest.
+.OP y
+When computing the normal approximation
+for the probability of the Wilcoxon test,
+Yates' correction for continuity is applied.
+This option stops its use.
+There are no cases where Yates' correction should not be used,
+but the option is useful to check textbook examples for accuracy.
+.br
+.if t .ne 2i
+.SH EXAMPLE
+.PP
+The following data are from Siegel, page 79.
+The command names the conditions "school" and "home."
+.nf
+	> rankrel school home
+	82	63
+	69	42
+	73	74
+	43	37
+	58	51
+	56	43
+	76	80
+	65	62
+.if n .sp
+.if t .sp 6p
+.ta .5i +.5i
+sign test: 0.144531 (one-tailed)
+Wilcoxon T = 4, N = 8
+	p approximated with z: .026892 (one-tailed)
+	tabled critical value for T for one-tailed p = .025: 4
+Friedman R = 2
+Spearman Rank Correlation (rho) = .786
+.fi
+.SH LIMITS
+Use the -L option to determine the program limits.
+.SH "MISSING VALUES
+Cases with missing data values (NA) are counted but not included in the analysis.
+.SH "SEE ALSO
+pair(1), regress(1), and anova(1)
+perform the normal-theory parametric counterparts
+to this non-parametric, distribution-free analysis.
+To see a scatterplot of ranks,
+the ranksort(1) filter can be used as a pre-processor for
+the pair(1) plotting option.
+rankind(1) analyses ordinal data for independent conditions.
+.sp
+Siegel, S. (1956)
+.ul
+Nonparametric Statistics for the Behavioral Sciences.
+New York: McGraw-Hill.
+.SH WARNING
+When the program advises to check a table for exact probabilities of
+significance tests,
+it may still compute approximate values.
+These approximations should not be used for serious work.
+.ig
+             N      Min      25%   Median      75%      Max
+school       8    43.00    57.00    67.00    74.50    82.00
+home         8    37.00    42.50    56.50    68.50    80.00
+Total       16    37.00    47.00    62.50    73.50    82.00
+
+Binomial Sign Test:
+	Number of cases school is above home:   6
+	Number of cases school is below home:   2
+	One-tailed probability (exact)          0.144531
+
+Wilcoxon Matched-Pairs Signed-Ranks Test:
+    Comparison of school and home
+	T                                       4.000000
+	N (number of differences)               8.000000
+	z                                       1.928571
+	One-tailed probability                  0.026892
+	NOTE: Yates' correction for continuity applied
+	Check a table for T with N = 8
+
+Friedman Chi-Square Test for Ranks:
+	Chi-square of ranks                     2.000000
+	chisq       2.000000     df   1      p  0.157299
+	Check a table for Friedman with N = 8
+
+Spearman Rank Correlation (rho) [corrected for ties]:
+	Check a table for Spearman rho with N = 8
+  school     home 
+            0.786 school
+   0.786          home
+..

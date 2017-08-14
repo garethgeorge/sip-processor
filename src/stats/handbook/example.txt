@@ -1,0 +1,19 @@
+Annotated Example from Chapter 2 of the |STAT Handbook
+Copyright 1986 Gary Perlman
+
+A concrete example with several |STAT programs is worked in detail.
+The example shows the style of analysis in |STAT.  New Users of
+|STAT should not try to understand all the details in the examples.
+Details about all the programs can be found in the online manual entries
+and more examples of program use appear in other chapters of the Handbook.
+
+The example is based on a familiar problem: grades in a course based on
+two midterm exams and a final exam.  Scores on exams are broken down by
+student gender and by the lab section taught by one of two teaching
+assistants: John or Jane.  The data are in the file exam.dat.  Each line
+in exam.dat contains a student ID number, the student's teaching assistant,
+the student's gender, and scores (out of 100) on the midterms and final.
+
+We will compute final grades based on the exam scores, compare male and
+female students, and compare the two teaching assistants.  The annotations
+in Chapter 2 of the Handbook will provide more details.

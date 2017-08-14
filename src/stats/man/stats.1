@@ -1,0 +1,78 @@
+.TH STATS 1 "January 20, 1987" "\(co 1980 Gary Perlman" "|STAT" "UNIX User's Manual"
+.SH NAME
+stats \- print summary statistics
+.SH SYNOPSIS
+.B stats
+[-v] [n min max sum ss mean var sd skew kurt se]
+.SH DESCRIPTION
+.I stats
+prints summary statistics on the data read from the standard input.
+The data can be in any format,
+as long as some white space separates the input values.
+Non-numerical input values are ignored,
+so care must be taken to insure that the input is correct.
+.SH OPTIONS
+.PP
+With no options,
+.I stats
+prints a summary table of statistic names and values
+separated by a tab delimited = sign.
+When options are supplied,
+.I stats
+prints only the value of the statistics requested,
+in the order they were requested, on one line.
+.de OP
+.TP
+.B \\$1
+..
+.OP -v
+Verbose output.
+This option causes requested statistics to be printed
+in name=value format.
+.OP n
+The number of real or integer values read in.
+If no values are read in,
+then all statistics are zero.
+If one value is read in,
+or if the variance of the distribution is zero,
+then all the higher order statistics are zero.
+.OP min
+The minimum value.
+.OP max
+The maximum value.
+.OP sum
+The sum of the input values.
+.OP ss
+The sum of squares of the input values.
+.OP mean
+The arithmetic average: sum/n.
+.OP var
+The variance of the input,
+computed with "n-1" degrees of freedom.
+.OP sd
+The square root of the variance.
+.OP skew
+The skewness of the distribution,
+as computed by SPSS and desc(1).
+.OP kurt
+The kurtosis or pointiness of the distribution.
+Normal distributions have a kurtosis of 3.
+.OP se
+The standard error of the input values.
+.OP NA
+Print the number of missing (NA) values.
+Missing data are counted but not included in the analysis.
+.SH EXAMPLES
+.nf
+.ta .5i
+Print the standard error of the mean:
+	stats sd n | dm "x1 / x2^.5"
+.sp
+Print the range of the data:
+	stats min max | dm x2-x1
+.sp
+Print the sum of the first 100 integers:
+	series 1 100 | stats sum
+.sp
+Print a t-test of the mean against 0.0:
+	stats mean se | dm x1/x2

@@ -1,0 +1,793 @@
+%!PS
+%%Version: 3.3
+%%DocumentFonts: (atend)
+%%Pages: (atend)
+%%EndComments
+%
+% Version 3.3 prologue for troff files.
+%
+
+/#copies 1 store
+/aspectratio 1 def
+/formsperpage 1 def
+/landscape false def
+/linewidth .3 def
+/magnification 1 def
+/margin 0 def
+/orientation 0 def
+/resolution 720 def
+/rotation 1 def
+/xoffset 0 def
+/yoffset 0 def
+
+/roundpage true def
+/useclippath true def
+/pagebbox [0 0 612 792] def
+
+/R  /Times-Roman def
+/I  /Times-Italic def
+/B  /Times-Bold def
+/BI /Times-BoldItalic def
+/H  /Helvetica def
+/HI /Helvetica-Oblique def
+/HB /Helvetica-Bold def
+/HX /Helvetica-BoldOblique def
+/CW /Courier def
+/CO /Courier def
+/CI /Courier-Oblique def
+/CB /Courier-Bold def
+/CX /Courier-BoldOblique def
+/PA /Palatino-Roman def
+/PI /Palatino-Italic def
+/PB /Palatino-Bold def
+/PX /Palatino-BoldItalic def
+/Hr /Helvetica-Narrow def
+/Hi /Helvetica-Narrow-Oblique def
+/Hb /Helvetica-Narrow-Bold def
+/Hx /Helvetica-Narrow-BoldOblique def
+/KR /Bookman-Light def
+/KI /Bookman-LightItalic def
+/KB /Bookman-Demi def
+/KX /Bookman-DemiItalic def
+/AR /AvantGarde-Book def
+/AI /AvantGarde-BookOblique def
+/AB /AvantGarde-Demi def
+/AX /AvantGarde-DemiOblique def
+/NR /NewCenturySchlbk-Roman def
+/NI /NewCenturySchlbk-Italic def
+/NB /NewCenturySchlbk-Bold def
+/NX /NewCenturySchlbk-BoldItalic def
+/ZD /ZapfDingbats def
+/ZI /ZapfChancery-MediumItalic def
+/S  /S def
+/S1 /S1 def
+/GR /Symbol def
+
+/inch {72 mul} bind def
+/min {2 copy gt {exch} if pop} bind def
+
+/setup {
+	counttomark 2 idiv {def} repeat pop
+
+	landscape {/orientation 90 orientation add def} if
+	/scaling 72 resolution div def
+	linewidth setlinewidth
+	1 setlinecap
+
+	pagedimensions
+	xcenter ycenter translate
+	orientation rotation mul rotate
+	width 2 div neg height 2 div translate
+	xoffset inch yoffset inch neg translate
+	margin 2 div dup neg translate
+	magnification dup aspectratio mul scale
+	scaling scaling scale
+
+	/Symbol /S Sdefs cf
+	/Times-Roman /S1 S1defs cf
+	0 0 moveto
+} def
+
+/pagedimensions {
+	useclippath userdict /gotpagebbox known not and {
+		/pagebbox [clippath pathbbox newpath] def
+		roundpage currentdict /roundpagebbox known and {roundpagebbox} if
+	} if
+	pagebbox aload pop
+	4 -1 roll exch 4 1 roll 4 copy
+	landscape {4 2 roll} if
+	sub /width exch def
+	sub /height exch def
+	add 2 div /xcenter exch def
+	add 2 div /ycenter exch def
+	userdict /gotpagebbox true put
+} def
+
+/pagesetup {
+	/page exch def
+	currentdict /pagedict known currentdict page known and {
+		page load pagedict exch get cvx exec
+	} if
+} def
+
+/decodingdefs [
+	{counttomark 2 idiv {y moveto show} repeat}
+	{neg /y exch def counttomark 2 idiv {y moveto show} repeat}
+	{neg moveto {2 index stringwidth pop sub exch div 0 32 4 -1 roll widthshow} repeat}
+	{neg moveto {spacewidth sub 0.0 32 4 -1 roll widthshow} repeat}
+	{counttomark 2 idiv {y moveto show} repeat}
+	{neg setfunnytext}
+] def
+
+/setdecoding {/t decodingdefs 3 -1 roll get bind def} bind def
+
+/w {neg moveto show} bind def
+/m {neg dup /y exch def moveto} bind def
+/done {/lastpage where {pop lastpage} if} def
+
+/f {
+	dup /font exch def findfont exch
+	dup /ptsize exch def scaling div dup /size exch def scalefont setfont
+	linewidth ptsize mul scaling 10 mul div setlinewidth
+	/spacewidth ( ) stringwidth pop def
+} bind def
+
+/changefont {
+	/fontheight exch def
+	/fontslant exch def
+	currentfont [
+		1 0
+		fontheight ptsize div fontslant sin mul fontslant cos div
+		fontheight ptsize div
+		0 0
+	] makefont setfont
+} bind def
+
+/sf {f} bind def
+
+/cf {
+	dup length 2 idiv
+	/entries exch def
+	/chtab exch def
+	/newfont exch def
+
+	findfont dup length 1 add dict
+	/newdict exch def
+	{1 index /FID ne {newdict 3 1 roll put} {pop pop} ifelse} forall
+
+	newdict /Metrics entries dict put
+	newdict /Metrics get
+	begin
+		chtab aload pop
+		1 1 entries {pop def} for
+		newfont newdict definefont pop
+	end
+} bind def
+
+%
+% A few arrays used to adjust reference points and character widths in some
+% of the printer resident fonts. If square roots are too high try changing
+% the lines describing /radical and /radicalex to,
+%
+%	/radical	[0 -75 550 0]
+%	/radicalex	[-50 -75 500 0]
+%
+% Move braceleftbt a bit - default PostScript character is off a bit.
+%
+
+/Sdefs [
+	/bracketlefttp		[201 500]
+	/bracketleftbt		[201 500]
+	/bracketrighttp		[-81 380]
+	/bracketrightbt		[-83 380]
+	/braceleftbt		[203 490]
+	/bracketrightex		[220 -125 500 0]
+	/radical		[0 0 550 0]
+	/radicalex		[-50 0 500 0]
+	/parenleftex		[-20 -170 0 0]
+	/integral		[100 -50 500 0]
+	/infinity		[10 -75 730 0]
+] def
+
+/S1defs [
+	/underscore		[0 80 500 0]
+	/endash			[7 90 650 0]
+] def
+%%EndProlog
+%%BeginSetup
+mark
+/resolution 720 def
+setup
+2 setdecoding
+%%EndSetup
+%%Page: 1 1
+/saveobj save def
+mark
+1 pagesetup
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 1 1
+%%Page: 1 2
+/saveobj save def
+mark
+2 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 1-1)1 2093( Introduction)1 1847(STAT Handbook)1 691 3 769 480 t
+14 B f
+(Section 1.1 Capabilities and Requirements)4 2531 1 720 768 t
+10 S f
+(\357)1080 1068 w
+10 R f
+( on the UNIX operating system \(Ritchie &)7 1918(STAT is a small statistical package I have developed)8 2353 2 1129 1068 t
+( Over)1 259( California San Diego and at the Wang Institute of Graduate Studies.)11 2856(Thompson, 1974\) at the University of)5 1565 3 720 1188 t
+( data and are complemented by this documentation and)8 2330(twenty programs allow the manipulation and analysis of)7 2350 2 720 1308 t
+( portability of)2 552( package has been distributed to hundreds of UNIX sites and the)11 2592( The)1 207(manual entries for each program.)4 1329 4 720 1428 t
+( C \(Kernighan & Ritchie, 1979\), was demonstrated when it was ported from UNIX to)14 3711(the package, written in)3 969 2 720 1548 t
+( designed to be a)4 723( handbook is)2 539( This)1 242(MSDOS at Cornell University on an IBM PC using the Lattice C compiler.)12 3176 4 720 1668 t
+( for the most popular parts of release 5.3 of)9 1787(tutorial introduction and reference)3 1384 2 720 1788 t
+10 S f
+(\357)3923 1788 w
+10 R f
+(STAT \(January, 1987\) and updates)4 1428 1 3972 1788 t
+( in the online manual entries and in the)8 1562( reference information on the programs is found)7 1929( Full)1 214(through February, 1987.)2 975 4 720 1908 t
+(online options help available with most of the programs.)8 2257 1 720 2028 t
+14 B f
+(Dataset Sizes)1 781 1 720 2268 t
+10 S f
+(\357)720 2448 w
+10 R f
+(STAT programs have mostly been run on small datasets, the kind obtained in controlled psychological)14 4631 1 769 2448 t
+( programs' performances on)3 1196( The)1 228( physical experiments.)2 942(experiments, not the large sets obtained in surveys or)8 2314 4 720 2568 t
+(datasets with more than about 10,000 points is not known, and the programs should not be used for them.)18 4211 1 720 2688 t
+14 B f
+(System Requirements)1 1301 1 720 2928 t
+10 R f
+( are compatible with UNIX systems dating back to Version)9 2384( They)1 257( any version of UNIX.)4 903(The programs run on almost)4 1136 4 720 3108 t
+( versions earlier than)3 855( MSDOS)1 402( 3.X.)1 204( MSDOS, the programs run on versions 2.X through)8 2157( On)1 180(6 UNIX \(circa 1975\).)3 882 6 720 3228 t
+(2.0 may not support the pipes often used with)8 2040 1 720 3348 t
+10 S f
+(\357)2813 3348 w
+10 R f
+(STAT programs, and MSDOS version 4.0 formats are not)8 2538 1 2862 3348 t
+( requirements for MSDOS are about 1 megabyte of disk space, and at least 96 kilobytes of main)17 3918(compatible. Space)1 762 2 720 3468 t
+( disk storage is preferred, but not mandatory.)7 1794(memory. Hard)1 607 2 720 3588 t
+14 B f
+(Availability and Distribution)2 1727 1 720 3828 t
+10 R f
+(Please take care to follow all the instructions below.)8 2083 1 720 4008 t
+10 S f
+(\267)720 4128 w
+10 R f
+(Please indicate the items that you would like to order.)9 2148 1 920 4128 t
+10 S f
+(\267)720 4248 w
+10 R f
+( orders are not acceptable.)4 1043( Purchase)1 410(Orders must be prepaid.)3 959 3 920 4248 t
+10 S f
+(\267)720 4368 w
+10 R f
+(Make your check/\(postal\)money order payable to G. Perlman.)7 2475 1 920 4368 t
+10 S f
+(\267)720 4488 w
+10 R f
+(Checks must be in US funds drawn on a US bank.)10 2001 1 920 4488 t
+10 S f
+(\267)720 4608 w
+10 R f
+(Please include a delivery address label to speed service.)8 2225 1 920 4608 t
+(International orders: please indicate your country name.)6 2231 1 920 4728 t
+10 B f
+(UNIX C Source Version of)4 1137 1 720 4968 t
+10 S f
+(\357)1882 4968 w
+10 B f
+(STAT: $20/30)1 598 1 1931 4968 t
+10 R f
+(C Language Source Code & Online Manual Entries)7 2061 1 795 5088 t
+(1/2 inch 9 track mag tape, 1600 bpi tar format \($20\))10 2077 1 870 5208 t
+(1/4 inch cartridge tape, tar format \($30\))6 1582 1 870 5328 t
+10 B f
+(DOS Executable Version of)3 1169 1 720 5448 t
+10 S f
+(\357)1914 5448 w
+10 B f
+(STAT: $15)1 470 1 1963 5448 t
+10 R f
+(Preformatted Manuals & Executables \(without Source Code\) \($15\))7 2676 1 795 5568 t
+(2S/2D \(360K\) DOS 5.25" \257oppy diskettes)5 1691 1 870 5688 t
+(HD \(1.2M\) DOS 5.25" or 3.5" \257oppies \(by special request\))9 2362 1 870 5808 t
+10 B f
+(DOS Turbo C Source Code Version for)6 1677 1 720 5928 t
+10 S f
+(\357)2422 5928 w
+10 B f
+(STAT: $10)1 470 1 2471 5928 t
+10 R f
+(Turbo C Language Source Code, Project Files, Online Manual)8 2497 1 795 6048 t
+(HD \(1.2M\) DOS 5.25"inch or 3.5" \257oppy diskette)7 2003 1 870 6168 t
+10 B f
+(Handbook \(highly recommended for new users\): $10)6 2244 1 720 6288 t
+10 R f
+(Examples, Ref. Materials, CALC & DM Manuals, Manual Entries)8 2653 1 795 6408 t
+(Typeset Manual \(over 100 8.5 x 11 inch pages\))8 1888 1 870 6528 t
+10 I f
+(Prices include cost of media and airmail delivery worldwide.)8 2446 1 720 6648 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 1 2
+%%Page: 2 3
+/saveobj save def
+mark
+3 pagesetup
+10 R f
+(1-2 Introduction)1 2587 1 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+14 B f
+(Section 1.2 Design Philosophy)3 1782 1 720 768 t
+10 S f
+(\357)1080 1068 w
+10 R f
+( package is interactive and programmable.)5 1695( The)1 205(STAT programs promote a particular style of data analysis.)8 2371 3 1129 1068 t
+( is)1 97(Data analysis is typically not a single action but an iterative process in which a goal of understanding some data)19 4583 2 720 1188 t
+( tools are used to provide several analyses of data, and based on the feedback provided by one)17 3905(approached. Many)1 775 2 720 1308 t
+(analysis, new analyses are suggested.)4 1491 1 720 1428 t
+( of)1 112(The design philosophy)2 917 2 1080 1608 t
+10 S f
+(\357)2138 1608 w
+10 R f
+(STAT is easy to summarize.)4 1151 1 2187 1608 t
+10 S f
+(\357)3392 1608 w
+10 R f
+(STAT consists of several separate programs that)6 1959 1 3441 1608 t
+( common analyses)2 746( programs are called and combined at the command level, and)10 2525( The)1 210(can be used apart or together.)5 1199 4 720 1728 t
+(can be saved in \256les using UNIX shell scripts or MSDOS batch \256les.)12 2756 1 720 1848 t
+(Understanding the design philosophy behind)4 1888 1 1080 2028 t
+10 S f
+(\357)3018 2028 w
+10 R f
+( use them.)2 460(STAT programs makes it easier to)5 1498 2 3067 2028 t
+10 S f
+(\357)5101 2028 w
+10 R f
+(STAT)5150 2028 w
+( is)1 110( This)1 246(programs are designed to be tools, used with each other, and with standard UNIX and MSDOS tools.)16 4324 3 720 2148 t
+( of the)2 293( Most)1 275( \256le formats used by other programs.)6 1587(possible because the programs make few assumptions about)7 2525 4 720 2268 t
+( typed at the keyboard, unless redirected from a \256le\), and)10 2298(programs read their inputs from the standard input \(what is)9 2382 2 720 2388 t
+( The)1 210( \(what appears on the screen, unless saved to a \256le or sent to another program\).)15 3226(all write to the standard output)5 1244 3 720 2508 t
+( space \(blank spaces or tabs\).)5 1183(data formats are readable by people, with \256elds \(columns\) on lines separated by white)13 3497 2 720 2628 t
+( program on UNIX and)4 943( example of a \256lter)4 762( An)1 174(Data are line-oriented, so they can be operated on by many programs.)11 2801 4 720 2748 t
+(MSDOS that can be used with the)6 1492 1 720 2868 t
+10 S f
+(\357)2259 2868 w
+10 R f
+(STAT programs is the)3 957 1 2308 2868 t
+12 CB f
+(sor t)1 291 1 3360 2868 t
+10 R f
+(utility, which puts lines in numerical or)6 1701 1 3699 2868 t
+( following command sorts the lines in the \256le)8 1931( The)1 220(alphabetical order.)1 757 3 720 2988 t
+12 CB f
+(inp ut)1 363 1 3716 2988 t
+10 R f
+(and saves the result in the \256le)6 1278 1 4122 2988 t
+12 CB f
+(sor ted)1 435 1 720 3108 t
+10 R f
+(.)1158 3108 w
+10 CB f
+( ted)1 183( sor)1 303( >)1 184( ut)1 123( < inp)2 486(sor t)1 243 6 1080 3288 t
+10 R f
+(The)720 3468 w
+12 CB f
+(<)951 3468 w
+10 R f
+(symbol causes)1 583 1 1052 3468 t
+12 CB f
+(sor t)1 291 1 1711 3468 t
+10 R f
+(to read from)2 499 1 2031 3468 t
+12 CB f
+(inp ut)1 363 1 2607 3468 t
+10 R f
+(and the)1 295 1 3001 3468 t
+12 CB f
+(>)3373 3468 w
+10 R f
+(causes)3475 3468 w
+12 CB f
+(sor t)1 291 1 3812 3468 t
+10 R f
+(to write to the \256le)4 727 1 4133 3468 t
+12 CB f
+(sor ted)1 435 1 4937 3468 t
+10 R f
+(.)5375 3468 w
+(Because)720 3588 w
+12 CB f
+(sor t)1 291 1 1133 3588 t
+10 R f
+(exists on UNIX and MSDOS, it is not necessary to duplicate its function in)13 3095 1 1458 3588 t
+10 S f
+(\357)4585 3588 w
+10 R f
+(STAT, which does)2 766 1 4634 3588 t
+( all following examples,)3 969( \(In)1 167(not duplicate existing tools.)3 1109 3 720 3708 t
+12 CB f
+( d)1 75( use)1 293( be)1 220( l)1 75( wil)1 291( t)1 75( fon)1 291(thi s)1 291 8 3039 3708 t
+10 R f
+(to show text \(e.g.,)3 722 1 4678 3708 t
+(commands and program names\) that would be seen by people using the programs.)12 3281 1 720 3828 t
+( does not mean the programs are slow, but ease-)9 1945( That)1 236( program ef\256ciency.)2 812(User ef\256ciency is supported over)4 1327 4 1080 4008 t
+( is extensive)2 500( There)1 285( by people.)2 447( formats are simple and readable)5 1319( Input)1 265(of-use is not sacri\256ced to save computer time.)7 1864 6 720 4128 t
+( formats of analysis programs are designed to be easy to)10 2460( Output)1 350( analyses.)1 410(checking to protect against invalid)4 1460 4 720 4248 t
+( for input to other)4 721( manipulation programs are designed to produce uncluttered output that is ready)11 3253(understand. Data)1 706 3 720 4368 t
+(programs.)720 4488 w
+(On UNIX and MSDOS, a)4 1049 1 1080 4668 t
+10 I f
+(\256lter)2159 4668 w
+10 R f
+(is a program that reads from the standard input, also called)10 2393 1 2378 4668 t
+12 CB f
+(std in)1 363 1 4849 4668 t
+10 R f
+(\(the)5245 4668 w
+( from a \256le\) and writes to the standard output, also called)11 2302(keyboard, unless redirected)2 1100 2 720 4788 t
+12 CB f
+(std out)1 435 1 4197 4788 t
+10 R f
+(\(the screen, unless)2 738 1 4662 4788 t
+( Most)1 267(redirected to a \256le\).)3 811 2 720 4908 t
+10 S f
+(\357)1834 4908 w
+10 R f
+( are small programs that can be used alone, or with)10 2142( They)1 266(STAT programs are \256lters.)3 1109 3 1883 4908 t
+(other programs.)1 646 1 720 5028 t
+10 S f
+(\357)1430 5028 w
+10 R f
+(STAT users typically keep their data in a)7 1737 1 1479 5028 t
+10 I f
+(master data \256le)2 648 1 3254 5028 t
+10 R f
+( data manipulation programs,)3 1210(. With)1 288 2 3902 5028 t
+( The)1 215( data \256le are transformed into a format suitable for input to an analysis program.)14 3343(extractions from the master)3 1122 3 720 5148 t
+( analysis consists of an)4 936( an)1 125( Thus,)1 281(original data do not change, but copies are made for transformations and analysis.)12 3338 4 720 5268 t
+( this can be shown as:)5 874( Pictorially,)1 492(extraction of data, optional transformations, and some analysis.)7 2530 3 720 5388 t
+10 CB f
+( ult s)2 246( res)1 242( |)1 123( lys is)2 306( ana)1 242( |)1 124( mat)1 183( for)1 242( |)1 124( nsf orm)2 366( | tra)2 364( rac t)2 246( | ext)2 364(dat a)1 243 14 1080 5568 t
+10 R f
+( transformed, reformatted, and analyzed by chaining several)7 2473(where a copy a subset of the data has been extracted,)10 2207 2 720 5748 t
+( distinct)1 339( manipulation functions, sometimes built into analysis programs in other packages, are)11 3681(programs. Data)1 660 3 720 5868 t
+(programs in)1 480 1 720 5988 t
+10 S f
+(\357)1225 5988 w
+10 R f
+( use of pipelines, signaled with the pipe symbol,)8 1927(STAT. The)1 480 2 1274 5988 t
+12 CB f
+(|)3754 5988 w
+10 R f
+(, is the reason for the name)6 1078 1 3827 5988 t
+10 S f
+(\357)4930 5988 w
+10 R f
+(STAT.)4979 5988 w
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 2 3
+%%Page: 3 4
+/saveobj save def
+mark
+4 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 1-3)1 2093( Introduction)1 1847(STAT Handbook)1 691 3 769 480 t
+14 B f
+(Section 1.3 Table of)3 1174 1 720 768 t
+14 S f
+(\357)1929 768 w
+14 B f
+(STAT Programs)1 992 1 1998 768 t
+10 S f
+(\357)1080 1068 w
+10 R f
+( data)1 223( are programs for data manipulation:)5 1616( There)1 313(STAT programs are divided into two categories.)6 2119 4 1129 1068 t
+( are programs for data analysis:)5 1400( there)1 254( And)1 252(generation, transformation, formatting, extraction, and validation.)5 2774 4 720 1188 t
+( tasks)1 244( data manipulation programs can be used for)7 1903( The)1 223(summary statistics, inferential statistics, and data plots.)6 2310 4 720 1308 t
+(outside of statistics.)2 792 1 720 1428 t
+14 B f
+(Data Manipulation Programs)2 1764 1 720 1788 t
+10 CW f
+(abu t)1 243 1 900 1968 t
+10 R f
+(join data \256les beside each other)5 1256 1 1620 1968 t
+10 CW f
+(col ex)1 303 1 900 2088 t
+10 R f
+(column extraction/formatting)1 1174 1 1620 2088 t
+10 CW f
+(dm)900 2208 w
+10 R f
+(conditional data extraction/transformation)2 1681 1 1620 2208 t
+10 CW f
+(dso rt)1 303 1 900 2328 t
+10 R f
+(multiple key data sorting \256lter)4 1211 1 1620 2328 t
+10 CW f
+(lin ex)1 303 1 900 2448 t
+10 R f
+(line extraction)1 574 1 1620 2448 t
+10 CW f
+(mak etr ix)2 486 1 900 2568 t
+10 R f
+(create matrix format \256le from free-format input)6 1895 1 1620 2568 t
+10 CW f
+(per m)1 243 1 900 2688 t
+10 R f
+(permute line order randomly, numerically, alphabetically)5 2282 1 1620 2688 t
+10 CW f
+(pro bdi st)2 486 1 900 2808 t
+10 R f
+(probability distribution functions)2 1323 1 1620 2808 t
+10 CW f
+(ran kso rt)2 486 1 900 2928 t
+10 R f
+(convert data to ranks)3 834 1 1620 2928 t
+10 CW f
+(rep eat)1 363 1 900 3048 t
+10 R f
+(repeat strings or lines in \256les)5 1152 1 1620 3048 t
+10 CW f
+(rev ers e)2 426 1 900 3168 t
+10 R f
+(reverse lines, columns, or characters)4 1451 1 1620 3168 t
+10 CW f
+(ser ies)1 363 1 900 3288 t
+10 R f
+(generate an additive series of numbers)5 1532 1 1620 3288 t
+10 CW f
+(tra nsp ose)2 546 1 900 3408 t
+10 R f
+(transpose matrix format input)3 1185 1 1620 3408 t
+10 CW f
+(val ida ta)2 486 1 900 3528 t
+10 R f
+(verify data \256le consistency)3 1073 1 1620 3528 t
+14 B f
+(Data Analysis Programs)2 1454 1 720 3768 t
+10 CW f
+(ano va)1 303 1 900 3948 t
+10 R f
+(multi-factor analysis of variance)3 1294 1 1620 3948 t
+10 CW f
+(cal c)1 243 1 900 4068 t
+10 R f
+(interactive algebraic modeling calculator)3 1632 1 1620 4068 t
+10 CW f
+(con tab)1 363 1 900 4188 t
+10 R f
+(contingency tables and chi-square)3 1355 1 1620 4188 t
+10 CW f
+(des c)1 243 1 900 4308 t
+10 R f
+(descriptions, histograms, frequency tables)3 1678 1 1620 4308 t
+10 CW f
+(dpr ime)1 363 1 900 4428 t
+10 R f
+(signal detection d' and beta calculations)5 1600 1 1620 4428 t
+10 CW f
+(fea tur es)2 486 1 900 4548 t
+10 R f
+(display features of items)3 979 1 1620 4548 t
+10 CW f
+(one way)1 363 1 900 4668 t
+10 R f
+(one-way anova/t-test with error-bar plots)4 1635 1 1620 4668 t
+10 CW f
+(pai r)1 243 1 900 4788 t
+10 R f
+(paired data statistics, regression, scatterplots)4 1775 1 1620 4788 t
+10 CW f
+(ran kin d)2 426 1 900 4908 t
+10 R f
+(rank order analysis for independent conditions)5 1855 1 1620 4908 t
+10 CW f
+(ran kre l)2 426 1 900 5028 t
+10 R f
+(rank order analysis for related conditions)5 1638 1 1620 5028 t
+10 CW f
+(reg res s)2 426 1 900 5148 t
+10 R f
+(multiple linear regression and correlation)4 1647 1 1620 5148 t
+10 CW f
+(sta ts)1 303 1 900 5268 t
+10 R f
+(simple summary statistics)2 1034 1 1620 5268 t
+10 CW f
+(ts)900 5388 w
+10 R f
+(time series analysis and plots)4 1166 1 1620 5388 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 3 4
+%%Page: 4 5
+/saveobj save def
+mark
+5 pagesetup
+10 R f
+(1-4 Introduction)1 2587 1 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+14 B f
+(Section 1.4 Table of UNIX and MSDOS Utilities)7 2862 1 720 768 t
+10 R f
+( at least as far as)5 776(The UNIX and MSDOS environments are similar,)6 2149 2 1080 1068 t
+10 S f
+(\357)4054 1068 w
+10 R f
+(STAT is concerned, but many)4 1297 1 4103 1068 t
+( following table shows the pairing of UNIX names with their MSDOS equivalents.)12 3311( The)1 205(command names differ.)2 945 3 720 1188 t
+10 B f
+( Purpose)1 894(UNIX MSDOS)1 1256 2 900 1428 t
+10 CW f
+( e)1 63(cat typ)1 1080 2 900 1548 t
+10 R f
+(print \256les to stdout)3 754 1 2700 1548 t
+10 CW f
+( cd)1 657(cd, pwd)1 363 2 900 1668 t
+10 R f
+(change/print working directory)2 1242 1 2700 1668 t
+10 CW f
+( y)1 63(cp cop)1 1080 2 900 1788 t
+10 R f
+(copy \256les)1 386 1 2700 1788 t
+10 CW f
+( p)1 63( com)1 837(dif f)1 243 3 900 1908 t
+10 R f
+(compare and list \256le differences)4 1280 1 2700 1908 t
+10 CW f
+( o)1 63( ech)1 837(ech o)1 243 3 900 2028 t
+10 R f
+(print text to standard output)4 1111 1 2700 2028 t
+10 CW f
+( d)1 63( fin)1 837(gre p)1 243 3 900 2148 t
+10 R f
+(search for pattern in \256les)4 992 1 2700 2148 t
+10 CW f
+(ls dir)1 1080 1 900 2268 t
+10 R f
+(list \256les in directory)3 803 1 2700 2268 t
+10 CW f
+( ir)1 123( mkd)1 777(mkd ir)1 303 3 900 2388 t
+10 R f
+(create a new directory)3 882 1 2700 2388 t
+10 CW f
+( e)1 63( mor)1 837(mor e)1 243 3 900 2508 t
+10 R f
+(paginate text on screen)3 917 1 2700 2508 t
+10 CW f
+( ame)1 183(mv ren)1 1080 2 900 2628 t
+10 R f
+(move/rename \256les)1 735 1 2700 2628 t
+10 CW f
+( nt)1 123( pri)1 777(pri nt)1 303 3 900 2748 t
+10 R f
+(print \256les on printer)3 797 1 2700 2748 t
+10 CW f
+( ,er ase)2 366(rm del)1 1080 2 900 2868 t
+10 R f
+(remove/delete \256les)1 757 1 2700 2868 t
+10 CW f
+( ir)1 123( rmd)1 777(rmd ir)1 303 3 900 2988 t
+10 R f
+(remove an empty directory)3 1078 1 2700 2988 t
+10 CW f
+( t)1 63( sor)1 837(sor t)1 243 3 900 3108 t
+10 R f
+(sort lines in \256les)3 659 1 2700 3108 t
+10 CW f
+( ch- fil e)3 429( bat)1 351(she ll- scr ipt)3 729 3 900 3348 t
+10 R f
+(programming language)1 929 1 2700 3348 t
+10 CW f
+( %2)1 123( %1,)1 777($1, $2)1 303 3 900 3468 t
+10 R f
+(variables)2700 3468 w
+10 CW f
+( con)1 594(/de v/t ty)2 486 2 900 3588 t
+10 R f
+(terminal keyboard/screen)1 1011 1 2700 3588 t
+10 CW f
+( nul)1 534(/de v/n ull)2 546 2 900 3708 t
+10 R f
+(empty \256le, in\256nite sink)3 929 1 2700 3708 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 4 5
+%%Page: 0 6
+/saveobj save def
+mark
+6 pagesetup
+24 B f
+(CHAPTER 1)1 1354 1 720 1128 t
+(Introduction)720 1608 w
+10 R f
+(1.1)795 2088 w
+10 B f
+(Capabilities and Requirements)2 1323 1 970 2088 t
+10 R f
+(............................................................................................................ 1-1)1 3060 1 2340 2088 t
+(Dataset Sizes)1 535 1 970 2208 t
+(System Requirements)1 875 1 970 2328 t
+(Availability and Distribution)2 1156 1 970 2448 t
+(1.2)795 2568 w
+10 B f
+(Design Philosophy)1 788 1 970 2568 t
+10 R f
+(.................................................................................................................................. 1-2)1 3610 1 1790 2568 t
+(1.3)795 2688 w
+10 B f
+(Table of)1 353 1 970 2688 t
+10 S f
+(\357)1348 2688 w
+10 B f
+(STAT Programs)1 708 1 1397 2688 t
+10 R f
+(.................................................................................................................... 1-3)1 3260 1 2140 2688 t
+(Data Manipulation Programs)2 1160 1 970 2808 t
+(Data Analysis Programs)2 971 1 970 2928 t
+(1.4)795 3048 w
+10 B f
+(Table of UNIX and MSDOS Utilities)5 1559 1 970 3048 t
+10 R f
+(................................................................................................... 1-4)1 2835 1 2565 3048 t
+(The purpose, environment, and philosophy of the)6 1970 1 720 3528 t
+10 S f
+(\357)2715 3528 w
+10 R f
+(STAT programs are introduced.)3 1275 1 2764 3528 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 0 6
+%%Trailer
+done
+%%Pages: 6
+%%DocumentFonts: Times-Roman Symbol Courier-Bold Courier Times-Bold Times-Italic

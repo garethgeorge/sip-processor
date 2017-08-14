@@ -1,0 +1,3 @@
+{
+  "receivers" : ["localhost:4000"]
+}

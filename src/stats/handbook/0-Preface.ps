@@ -1,0 +1,518 @@
+%!PS
+%%Version: 3.3
+%%DocumentFonts: (atend)
+%%Pages: (atend)
+%%EndComments
+%
+% Version 3.3 prologue for troff files.
+%
+
+/#copies 1 store
+/aspectratio 1 def
+/formsperpage 1 def
+/landscape false def
+/linewidth .3 def
+/magnification 1 def
+/margin 0 def
+/orientation 0 def
+/resolution 720 def
+/rotation 1 def
+/xoffset 0 def
+/yoffset 0 def
+
+/roundpage true def
+/useclippath true def
+/pagebbox [0 0 612 792] def
+
+/R  /Times-Roman def
+/I  /Times-Italic def
+/B  /Times-Bold def
+/BI /Times-BoldItalic def
+/H  /Helvetica def
+/HI /Helvetica-Oblique def
+/HB /Helvetica-Bold def
+/HX /Helvetica-BoldOblique def
+/CW /Courier def
+/CO /Courier def
+/CI /Courier-Oblique def
+/CB /Courier-Bold def
+/CX /Courier-BoldOblique def
+/PA /Palatino-Roman def
+/PI /Palatino-Italic def
+/PB /Palatino-Bold def
+/PX /Palatino-BoldItalic def
+/Hr /Helvetica-Narrow def
+/Hi /Helvetica-Narrow-Oblique def
+/Hb /Helvetica-Narrow-Bold def
+/Hx /Helvetica-Narrow-BoldOblique def
+/KR /Bookman-Light def
+/KI /Bookman-LightItalic def
+/KB /Bookman-Demi def
+/KX /Bookman-DemiItalic def
+/AR /AvantGarde-Book def
+/AI /AvantGarde-BookOblique def
+/AB /AvantGarde-Demi def
+/AX /AvantGarde-DemiOblique def
+/NR /NewCenturySchlbk-Roman def
+/NI /NewCenturySchlbk-Italic def
+/NB /NewCenturySchlbk-Bold def
+/NX /NewCenturySchlbk-BoldItalic def
+/ZD /ZapfDingbats def
+/ZI /ZapfChancery-MediumItalic def
+/S  /S def
+/S1 /S1 def
+/GR /Symbol def
+
+/inch {72 mul} bind def
+/min {2 copy gt {exch} if pop} bind def
+
+/setup {
+	counttomark 2 idiv {def} repeat pop
+
+	landscape {/orientation 90 orientation add def} if
+	/scaling 72 resolution div def
+	linewidth setlinewidth
+	1 setlinecap
+
+	pagedimensions
+	xcenter ycenter translate
+	orientation rotation mul rotate
+	width 2 div neg height 2 div translate
+	xoffset inch yoffset inch neg translate
+	margin 2 div dup neg translate
+	magnification dup aspectratio mul scale
+	scaling scaling scale
+
+	/Symbol /S Sdefs cf
+	/Times-Roman /S1 S1defs cf
+	0 0 moveto
+} def
+
+/pagedimensions {
+	useclippath userdict /gotpagebbox known not and {
+		/pagebbox [clippath pathbbox newpath] def
+		roundpage currentdict /roundpagebbox known and {roundpagebbox} if
+	} if
+	pagebbox aload pop
+	4 -1 roll exch 4 1 roll 4 copy
+	landscape {4 2 roll} if
+	sub /width exch def
+	sub /height exch def
+	add 2 div /xcenter exch def
+	add 2 div /ycenter exch def
+	userdict /gotpagebbox true put
+} def
+
+/pagesetup {
+	/page exch def
+	currentdict /pagedict known currentdict page known and {
+		page load pagedict exch get cvx exec
+	} if
+} def
+
+/decodingdefs [
+	{counttomark 2 idiv {y moveto show} repeat}
+	{neg /y exch def counttomark 2 idiv {y moveto show} repeat}
+	{neg moveto {2 index stringwidth pop sub exch div 0 32 4 -1 roll widthshow} repeat}
+	{neg moveto {spacewidth sub 0.0 32 4 -1 roll widthshow} repeat}
+	{counttomark 2 idiv {y moveto show} repeat}
+	{neg setfunnytext}
+] def
+
+/setdecoding {/t decodingdefs 3 -1 roll get bind def} bind def
+
+/w {neg moveto show} bind def
+/m {neg dup /y exch def moveto} bind def
+/done {/lastpage where {pop lastpage} if} def
+
+/f {
+	dup /font exch def findfont exch
+	dup /ptsize exch def scaling div dup /size exch def scalefont setfont
+	linewidth ptsize mul scaling 10 mul div setlinewidth
+	/spacewidth ( ) stringwidth pop def
+} bind def
+
+/changefont {
+	/fontheight exch def
+	/fontslant exch def
+	currentfont [
+		1 0
+		fontheight ptsize div fontslant sin mul fontslant cos div
+		fontheight ptsize div
+		0 0
+	] makefont setfont
+} bind def
+
+/sf {f} bind def
+
+/cf {
+	dup length 2 idiv
+	/entries exch def
+	/chtab exch def
+	/newfont exch def
+
+	findfont dup length 1 add dict
+	/newdict exch def
+	{1 index /FID ne {newdict 3 1 roll put} {pop pop} ifelse} forall
+
+	newdict /Metrics entries dict put
+	newdict /Metrics get
+	begin
+		chtab aload pop
+		1 1 entries {pop def} for
+		newfont newdict definefont pop
+	end
+} bind def
+
+%
+% A few arrays used to adjust reference points and character widths in some
+% of the printer resident fonts. If square roots are too high try changing
+% the lines describing /radical and /radicalex to,
+%
+%	/radical	[0 -75 550 0]
+%	/radicalex	[-50 -75 500 0]
+%
+% Move braceleftbt a bit - default PostScript character is off a bit.
+%
+
+/Sdefs [
+	/bracketlefttp		[201 500]
+	/bracketleftbt		[201 500]
+	/bracketrighttp		[-81 380]
+	/bracketrightbt		[-83 380]
+	/braceleftbt		[203 490]
+	/bracketrightex		[220 -125 500 0]
+	/radical		[0 0 550 0]
+	/radicalex		[-50 0 500 0]
+	/parenleftex		[-20 -170 0 0]
+	/integral		[100 -50 500 0]
+	/infinity		[10 -75 730 0]
+] def
+
+/S1defs [
+	/underscore		[0 80 500 0]
+	/endash			[7 90 650 0]
+] def
+%%EndProlog
+%%BeginSetup
+mark
+/resolution 720 def
+setup
+2 setdecoding
+%%EndSetup
+%%Page: 1 1
+/saveobj save def
+mark
+1 pagesetup
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 1 1
+%%Page: 1 2
+/saveobj save def
+mark
+2 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 0-1)1 2191( Preface)1 1749(STAT Handbook)1 691 3 769 480 t
+14 B f
+(Purpose and Intended Audience of the Handbook)6 2956 1 720 888 t
+10 R f
+(This handbook is meant to be an introduction to the)9 2099 1 720 1068 t
+10 S f
+(\357)2848 1068 w
+10 R f
+( to do)2 238( is not written to teach students how)7 1469( It)1 115(STAT programs.)1 681 4 2897 1068 t
+(data analysis, although it has been used as a supplementary text in courses.)12 3098 1 720 1188 t
+10 S f
+(\357)3876 1188 w
+10 R f
+(STAT users should be familiar with)5 1475 1 3925 1188 t
+(using the hardware and utility programs \(e.g., a text editor\) on their systems.)12 3057 1 720 1308 t
+14 B f
+(Comparison With Other Packages)3 2056 1 720 1548 t
+10 S f
+(\357)720 1728 w
+10 R f
+(STAT has advantages and disadvantages compared to other statistical packages.)9 3289 1 769 1728 t
+10 S f
+(\357)4118 1728 w
+10 R f
+(STAT is not a comprehensive)4 1233 1 4167 1728 t
+( there are de\256cits in many areas of analysis: no multivariate)10 2469( So)1 165( it was developed as needs arose.)6 1370(package because)1 676 4 720 1848 t
+( not)1 168( of these limitations, the programs are)6 1596( Independent)1 557(analysis other than regression, and only simple graphics.)7 2359 4 720 1968 t
+( up to a few thousand)5 857(designed for use with large data sets or large values; the programs are usually adequate for data)16 3823 2 720 2088 t
+(points. Also,)1 536 1 720 2208 t
+10 S f
+(\357)1283 2208 w
+10 R f
+(STAT is unsupported, so if you have problems installing or using the programs, you may be on your)17 4068 1 1332 2208 t
+( these limitations,)2 711(own. Despite)1 553 2 720 2328 t
+10 S f
+(\357)2010 2328 w
+10 R f
+(STAT provides you with most analyses reported in research.)8 2429 1 2059 2328 t
+10 S f
+(\357)4539 2328 w
+10 R f
+(STAT programs run)2 812 1 4588 2328 t
+( and MSDOS, operating systems popular in educational and research institutions, government, and)12 4279(on UNIX)1 401 2 720 2448 t
+( the programs allows free copies to be made for multiple machines provided the)13 3290( liberal copyright of)3 823(industry. The)1 567 3 720 2568 t
+(programs are not copied for material gain.)6 1700 1 720 2688 t
+10 S f
+(\357)2473 2688 w
+10 R f
+( and this makes it)4 716(STAT programs integrate easily with other programs,)6 2162 2 2522 2688 t
+(possible for new programs to be added later.)7 1774 1 720 2808 t
+14 B f
+(Distribution Conditions)1 1420 1 720 3048 t
+10 R f
+( FIND THEM ACCEPTABLE, YOU)4 1510( YOU DO NOT)3 643( IF)1 140(CAREFULLY READ THE FOLLOWING CONDITIONS.)4 2387 4 720 3228 t
+(SHOULD NOT USE)2 849 1 720 3348 t
+10 S f
+(\357)1594 3348 w
+10 R f
+(STAT.)1643 3348 w
+10 S f
+(\357)1080 3528 w
+10 R f
+( USER)1 287( THE)1 250(STAT IS PROVIDED "AS IS," WITHOUT ANY EXPRESS OR IMPLIED WARRANTY.)10 3734 3 1129 3528 t
+(ASSUMES ALL RISKS OF USING)4 1517 1 720 3648 t
+10 S f
+(\357)2272 3648 w
+10 R f
+( IS NO CLAIM OF MERCHANTABILITY OR FITNESS)7 2422(STAT. THERE)1 657 2 2321 3648 t
+(FOR A PARTICULAR PURPOSE.)3 1477 1 720 3768 t
+10 S f
+(\357)2261 3768 w
+10 R f
+( NEEDS.)1 387(STAT MAY NOT BE SUITED TO YOUR)6 1821 2 2310 3768 t
+10 S f
+(\357)4583 3768 w
+10 R f
+(STAT MAY NOT)2 768 1 4632 3768 t
+( AVAILABILITY OF)2 887( THE)1 244(RUN ON YOUR PARTICULAR HARDWARE OR SOFTWARE CONFIGURATION.)7 3549 3 720 3888 t
+(AND PROGRAMS IN)2 974 1 720 4008 t
+10 S f
+(\357)1745 4008 w
+10 R f
+( MANUFACTURER NOR)2 1143( NEITHER)1 504(STAT MAY CHANGE WITHOUT NOTICE.)4 1959 3 1794 4008 t
+( LOSS RESULTING)2 952(DISTRIBUTOR BEAR RESPONSIBILITY FOR ANY MISHAP OR ECONOMIC)7 3728 2 720 4128 t
+(THEREFROM OF THE USE OF)4 1369 1 720 4248 t
+10 S f
+(\357)2120 4248 w
+10 R f
+(STAT EVEN IF THE PROGRAMS PROVE TO BE DEFECTIVE.)8 2756 1 2169 4248 t
+10 S f
+(\357)4981 4248 w
+10 R f
+(STAT IS)1 370 1 5030 4248 t
+(NOT INTENDED FOR CONSUMER USE.)4 1774 1 720 4368 t
+( IN STATISTICS, OR BY USERS NOT SUPERVISED BY)8 2482(CASUAL USE BY USERS NOT TRAINED)5 1838 2 1080 4548 t
+( BE TRAINED AT THEIR OWN)5 1376( MUST)1 308( USERS)1 367(PERSONS TRAINED IN STATISTICS, MUST BE AVOIDED.)6 2629 4 720 4668 t
+( ANALYSIS PROGRAMS MAKE MANY)4 1912( DATA)1 369(EXPENSE TO LEARN TO USE THE PROGRAMS.)6 2399 3 720 4788 t
+( ASSUMPTIONS AFFECT THE VALIDITY OF CONCLUSIONS)6 2872(ASSUMPTIONS ABOUT DATA, THESE)3 1808 2 720 4908 t
+( STATISTICAL SOURCES)2 1150( TO SOME APPROPRIATE)3 1180( REFERENCES)1 686(MADE BASED ON THE PROGRAMS.)4 1664 4 720 5028 t
+(ARE MADE IN THE)3 898 1 720 5148 t
+10 S f
+(\357)1653 5148 w
+10 R f
+( SPECIFIC PROGRAMS.)2 1073(STAT HANDBOOK AND IN THE MANUAL ENTRIES FOR)7 2625 2 1702 5148 t
+10 S f
+(\357)720 5268 w
+10 R f
+(STAT PROGRAMS HAVE NOT BEEN VALIDATED FOR LARGE DATASETS, HIGHLY VARIABLE)10 4631 1 769 5268 t
+(DATA, NOR VERY LARGE NUMBERS.)4 1727 1 720 5388 t
+(You may make copies of any tangible forms of)8 1944 1 1080 5568 t
+10 S f
+(\357)3057 5568 w
+10 R f
+(STAT programs, provided that there is no material gain)8 2294 1 3106 5568 t
+( may not copy printed)4 941( You)1 238( copy.)1 260(involved, and provided that the information in this notice accompanies every)10 3241 4 720 5688 t
+( may not provide)3 701( You)1 228(documentation unless such duplication is for non- pro\256t educational purposes.)9 3179 3 720 5808 t
+10 S f
+(\357)4860 5808 w
+10 R f
+(STAT as an)2 491 1 4909 5808 t
+( may distribute copies of)4 1028( You)1 232( software or hardware or any products or services.)8 2076(inducement to buy your)3 985 4 720 5928 t
+10 S f
+(\357)5076 5928 w
+10 R f
+(STAT,)5125 5928 w
+( may not)2 378( You)1 236( distribution \(such as electronic bulletin boards or anonymous ftp\) is not used.)12 3285(provided that mass)2 781 4 720 6048 t
+( costs in)2 352( Any)1 234( purposes other than getting the programs to work on your system.)11 2785(modify the source code for any)5 1309 4 720 6168 t
+(compiling or porting)2 832 1 720 6288 t
+10 S f
+(\357)1579 6288 w
+10 R f
+( not distribute any)3 734( may)1 199( You)1 224(STAT to your system are your's alone, and not any other parties.)11 2615 4 1628 6288 t
+(modi\256ed source code or documentation to users at any sites other than your own.)13 3240 1 720 6408 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 1 2
+%%Page: 2 3
+/saveobj save def
+mark
+3 pagesetup
+10 R f
+(0-2 Preface)1 2489 1 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+14 B f
+(References)720 888 w
+10 R f
+( \(1968\))1 316(Bradley, J. V.)2 552 2 720 1128 t
+10 I f
+(Distribution-Free Statistical Tests)2 1368 1 1613 1128 t
+10 R f
+( Cliffs, NJ: Prentice-Hall.)3 1024(. Englewood)1 530 2 2981 1128 t
+( \(1970\))1 335(Coombs, C. H., Dawes, R. M., & Tversky, A.)8 1979 2 720 1308 t
+10 I f
+( Elementary Introduction)2 1050(Mathematical Psychology: An)2 1247 2 3078 1308 t
+10 R f
+(.)5375 1308 w
+(Englewood Cliffs, NJ: Prentice-Hall.)3 1479 1 1080 1428 t
+( \(1975\))1 316(Dixon, W. J.)2 508 2 720 1608 t
+10 I f
+(BMD-P Biomedical Computer Programs)3 1640 1 1569 1608 t
+10 R f
+( CA: University of California Press.)5 1438(. Berkeley,)1 460 2 3209 1608 t
+( \(1978\))1 327(Guilford, J. P., & Fruchter, B.)5 1252 2 720 1788 t
+10 I f
+( Psychology and Education)3 1132(Fundamental Statistics in)2 1045 2 2335 1788 t
+10 R f
+( New)1 250( Edition\).)1 390(. \(6th)1 248 3 4512 1788 t
+(York: McGraw-Hill.)1 826 1 1080 1908 t
+( \(1973\))1 316(Hays, W. L.)2 485 2 720 2088 t
+10 I f
+(Statistics for the Social Sciences)4 1294 1 1546 2088 t
+10 R f
+( York, NY: Holt Rinehart Winston.)5 1413( New)1 238( Edition\).)1 378(. \(2nd)1 258 4 2840 2088 t
+( In)1 153( Proposed Syntax Standard for UNIX System Commands.)7 2461( \(1984\))1 336(Hemenway, K., & Armitage, H.)4 1358 4 720 2268 t
+10 I f
+(Summer)5073 2268 w
+(USENIX Conference)1 829 1 1080 2388 t
+10 R f
+( DC.\))1 222( \(Washington,)1 591( Cerito, CA: Usenix Association.)4 1322(. El)1 164 4 1909 2388 t
+( \(1973\))1 316(Keppel, G.)1 435 2 720 2568 t
+10 I f
+(Design and Analysis: A Researcher's Handbook)5 1933 1 1496 2568 t
+10 R f
+( Cliffs, NJ: Prentice-Hall.)3 1024(. Englewood)1 530 2 3429 2568 t
+( \(1973\))1 332(Kerlinger, F. N., & Pedhazur, E. J.)6 1480 2 720 2748 t
+10 I f
+( Research)1 413(Multiple Regression in Behavioral)3 1428 2 2573 2748 t
+10 R f
+( York, NY: Holt)3 706(. New)1 280 2 4414 2748 t
+(Rinehart Winston.)1 733 1 1080 2868 t
+( \(1979\))1 316(Kernighan, B. W., & Ritchie, D. M.)6 1435 2 720 3048 t
+10 I f
+(The C Programming Language)3 1253 1 2496 3048 t
+10 R f
+( Cliffs, NJ: Prentice-Hall.)3 1024(. Englewood)1 530 2 3749 3048 t
+( \(1975\))1 318(Nie, H. H., Jenkins, J. G., Steinbrenner, K., & Bent, D. H.)11 2328 2 720 3228 t
+10 I f
+(SPSS: Statistical Package for the Social Sciences)6 1982 1 3393 3228 t
+10 R f
+(.)5375 3228 w
+(New York: McGraw-Hill.)2 1039 1 1080 3348 t
+( UNIX Operating System.)3 1103( Data Analysis Programs for the)5 1379( \(1980\))1 335(Perlman, G.)1 499 4 720 3528 t
+10 I f
+(Behavior Research Methods &)3 1294 1 4106 3528 t
+(Instrumentation)1080 3648 w
+10 R f
+(,)1719 3648 w
+10 B f
+(12:5)1769 3648 w
+10 R f
+(, 554-558.)1 408 1 1952 3648 t
+( Analysis in the UNIX Environment: Techniques for Automated Experimental Design)10 3620( Data)1 230( \(1982\))1 333(Perlman, G.)1 497 4 720 3828 t
+( \(Eds.\),)1 296( K. W. Heiner, R. S. Sacher, & J. W. Wilkinson)10 1969(Speci\256cation. In)1 686 3 1080 3948 t
+10 I f
+(Computer Science and Statistics:)3 1339 1 4061 3948 t
+(Proceedings of the 14th Symposium on the Interface)7 2089 1 1080 4068 t
+10 R f
+(.)3169 4068 w
+( Report on)2 426( \(1986\))1 318( Horan, F. L.)3 522(Perlman, G., &)2 610 4 720 4248 t
+10 S f
+(\357)2623 4248 w
+10 R f
+(STAT Release 5.1 Data Analysis Programs for UNIX and MSDOS.)9 2728 1 2672 4248 t
+10 I f
+(Behavior Research Methods, Instruments, & Computers)5 2245 1 1080 4368 t
+10 R f
+(,)3325 4368 w
+10 B f
+(18.2)3375 4368 w
+10 R f
+(, 168-176.)1 408 1 3550 4368 t
+( \(1986\))1 322( F. L.)2 229(Perlman, G., & Horan,)3 922 3 720 4548 t
+10 S f
+(\357)2224 4548 w
+10 R f
+(STAT: Compact Data Manipulation and Analysis Programs for MSDOS and)9 3127 1 2273 4548 t
+( MA: Wang Institute of Graduate Studies.)6 1673( Tyngsboro,)1 508(UNIX - A Tutorial Overview.)4 1194 3 1080 4668 t
+( The UNIX Time-Sharing System.)4 1399( \(1974\))1 321(Ritchie, D. M., & Thompson, K.)5 1323 3 720 4848 t
+10 I f
+(Communications of the Association for)4 1582 1 3818 4848 t
+(Computing Machinery)1 902 1 1080 4968 t
+10 R f
+(,)1982 4968 w
+10 B f
+(17:7)2032 4968 w
+10 R f
+(, 365-375.)1 408 1 2215 4968 t
+( \(1976\))1 316(Ryan, T. A., Joiner, B. L., & Ryan, B. F.)9 1628 2 720 5148 t
+10 I f
+(MINITAB Student Handbook)2 1160 1 2689 5148 t
+10 R f
+( Scituate, MA: Duxbury Press.)4 1227(. North)1 308 2 3849 5148 t
+( \(1956\))1 316(Siegel, S.)1 381 2 720 5328 t
+10 I f
+(Nonparametric Methods for the Behavioral Sciences)5 2106 1 1442 5328 t
+10 R f
+( York: McGraw-Hill.)2 851(. New)1 263 2 3548 5328 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 2 3
+%%Page: 0 4
+/saveobj save def
+mark
+4 pagesetup
+24 B f
+(CHAPTER 0)1 1354 1 720 1128 t
+(Preface)720 1608 w
+10 R f
+(Purpose and Intended Audience of the Handbook)6 1968 1 970 2088 t
+(Comparison With Other Packages)3 1362 1 970 2208 t
+(Distribution Conditions)1 949 1 970 2328 t
+(References)970 2448 w
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 0 4
+%%Trailer
+done
+%%Pages: 4
+%%DocumentFonts: Times-Roman Symbol Times-Bold Times-Italic

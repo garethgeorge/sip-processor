@@ -1,0 +1,16 @@
+#! /bin/sh
+
+# Use this script to install the formatted manual entries
+
+D=/usr/man/cat1
+
+STATPROGS="abut      anova     calc      cat       colex     contab
+           desc      dm        dprime    dsort     ff        fpack
+           intro     linex     maketrix  manstat   oneway    rankind
+           rankrel   pair      perm      probdist  ranksort  regress
+           repeat    reverse   series    stats     transpose ts
+           validata  "
+for prog in $STATPROGS
+do
+	cp $prog.man $D/$prog.1
+done

@@ -1,0 +1,121 @@
+FEATURES(1)                        |STAT                     March 10, 1989
+
+NAME
+     features - Tabulate Features of Items
+
+USAGE
+     _f_e_a_t_u_r_e_s [-h] [-c col-delim] [-f inputfile] [-i itemwidth] [-l leader]
+     [-n no-str] [-p pagesize] [-w featwidth] [-y yes-str]
+     feature[=width] [feature[=width] ...]
+
+DESCRIPTION
+     Think of this program as a consumer product comparison checklist tool.
+     For each item, there are features that you would like the product to
+     have, and for some features, several values are possible.
+
+OPTIONS
+
+     feature
+          Feature Names.  Feature names indicate which features to
+          tabulate, and in which order, to describe items.  Features on the
+          command line can be exact matches for item's features, but to
+          simplify the format of feature files, features in files can be
+          abbreviated and upper and lower case letters are treated as
+          equivalent.  For example, Usability on the command line matches
+          usab=good in the feature file.  You can specify the width of a
+          column for a feature by putting a width after an equal sign.  See
+          the examples.
+
+     -c col-delim
+          Column Delimiter String.  Default: bar (|).  This string is
+          placed between every feature column describing an item.  It can
+          be wider than one character; for example, " | " would give a
+          wider table with more space in columns.
+
+     -f inputfile
+          Input file.  Default: standard input.  This option allows you to
+          specify a file name for the item description lines.
+
+     -h
+          Use Horizontal Format for Headers.  If this option is selected,
+          then all field widths for features must be specified.
+
+     -i itemwidth
+          Width of Items.  Default: 15 characters wide.  If you have ones
+          that are wider, the tables won't line up correctly.  This option
+          allows you to widen the space used to show the items.
+
+     -l leader
+          Leader Character After Item Name.  Default: underbar (_).
+
+     -n no-str
+          String to Print When Item Feature is Not Present.  Default:
+          space.
+
+     -p pagesize
+          Size of Pages.  Default: 60 lines.  For every page, a new
+          feature-table header is generated.
+
+     -w feat-width
+          Width of Feature Columns.  Default: 1 character.  This option
+          will allow you to set all the feature column widths.  Individual
+          column widths can be overridden with feature widths on the
+          command line.
+
+     -y yes-string
+          String to Print When Item Has a Feature.  Default: sharp (#).
+          This can be changed to any character.  It can also be changed for
+          an individual item-feature pair by using a feature=value format.
+          For example,
+                                   Perlman eyes=H
+          could be used to indicate that Perlman's eyes are hazel.  For
+          longer strings, you will want to adjust the width of the columns
+          with the -w option or with the feature name on the command line.
+
+EXAMPLES
+     Product Comparisons
+
+     Suppose you want to buy a toaster with a bunch of features like
+     inexpensive, reliable, wood-grain and one that holds four slices of
+     bread.  These features might be: price (L=low, M=medium, H=high),
+     reliability (yes, no), finish (M=metal, W=wood-grain, O=other), and
+     capacity (number of slices of bread).  A set of toasters (items) might
+     be described by a list of features:
+          BrandX    price=Med reliable finish=Wood capacity=4
+          BrandY    price=High finish=Metal capacity=2
+          BrandZ    price=Low finish=Wood capacity=4
+     The above input, along with the feature labels:
+          Price Reliable Finish Capacity
+     in the command:
+          features -c " | " Price=4 Reliable Finish=6 Capacity
+     will display:
+                          | Price
+                          |      | Reliable
+                          |      |   | Finish
+                          |      |   |        | Capacity
+          BrandX_________ | Med  | # | Wood   | 4 |
+          BrandY_________ | High |   | Metal  | 2 |
+          BrandZ_________ | Low  |   | Wood   | 4 |
+
+     Another command shows how the same information can be viewed differently.
+          features -l. -c" " -h -nNo -yYes Price=6 Reliable=10 Finish=6 Capacity=10
+
+                          Price  Reliable   Finish Capacity
+          BrandX......... Med    Yes        Wood   4
+          BrandY......... High   No         Metal  2
+          BrandZ......... Low    No         Wood   4
+     Other Uses
+     The program has been useful for organizing lists of publications by
+     the topics they cover and for listing the research interests of
+     faculty in a large Midwest computer science department.
+
+SEE ALSO
+     ptx(1), sort(1)
+
+AUTHOR
+     Gary Perlman
+
+WARNINGS
+     Try to avoid similar feature names, especially ones that begin with
+     the same characters.
+

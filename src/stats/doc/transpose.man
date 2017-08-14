@@ -1,0 +1,30 @@
+TRANSPOSE(1)                       |STAT                      March 5, 1985
+
+NAME
+     transpose - transpose matrix type file of strings or numbers
+
+SYNOPSIS
+     transpose [-f format]
+
+DESCRIPTION
+     _t_r_a_n_s_p_o_s_e reads non-blank lines and transposes lines and columns.
+
+OPTIONS
+     -f format
+          Specify the width of the field holding each string.  At least one
+          space is guaranteed between fields.  If the width is negative,
+          then the absolute value of the width is used to left justify
+          fields.  Without formatting instructions, _t_r_a_n_s_p_o_s_e puts a tab
+          between fields on a line.
+
+EXAMPLE
+     For the input:
+          1    2    3
+          4    5    6
+     the program produces:
+          1    4
+          2    5
+          3    6
+
+LIMITS
+     Use the -L option to determine the program limits.

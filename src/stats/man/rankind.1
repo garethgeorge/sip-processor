@@ -1,0 +1,141 @@
+.TH RANKIND 1 "January 20, 1987" "\(co 1987 Gary Perlman" "|STAT" "UNIX User's Manual"
+.SH NAME
+rankind \- rank order statistics for independent samples
+.SH SYNOPSIS
+.B rankind
+[-pry] [-w plotwidth] [-s splitter] [names]
+.SH DESCRIPTION
+.I rankind
+analyses data from ordinally ranked data obtained from independent samples.
+The input consists of scores from several samples, conditions, or groups.
+The scores need not be ranks; they will be ranked by the program.
+Each group's data are separated by a special value called the splitter,
+which is by default -1.0,
+but can be changed with the -s option.
+For each group, the number of scores, extrema and quartiles are reported.
+These scores are then ranked and their medians and average ranks are tested
+using the median test,
+the Fisher Exact Test,
+the Mann-Whitney U test,
+and the Kruskal-Wallis one-way analysis of variance for ranks.
+These test the equality of location (e.g., median or average rank)
+of the conditions.
+.PP
+The Mann-Whitney U test and the Fisher Exact test are used only when there
+are two conditions.
+The Kruskal-Wallis H significance test tests the same hypothesis
+as the Mann-Whitney U.
+The Fisher Exact test is an exact test of the chi-square approximation
+of the Median test, however, it is a generally less powerful test
+than the Mann-Whitney or Kruskal-Wallis,
+both of which make more use of ordinal information in scores.
+.SS "Probability of Obtained Statistics
+Functions computing probabilities of U and H could not be found
+when the program was written,
+so for small samples,
+statistical tables at the back of a text should be consulted.
+For large samples,
+normal and Chi-square approximations are adequate.
+According to Siegel's suggestions:
+With two conditions,
+a sample is large if the larger group has more than 20 values.
+When there are three conditions,
+a sample is small if all conditions have at most 5 values,
+and large otherwise.
+.SS Ties
+A correction for ties is applied to the Kruskal-Wallis
+and Mann-Whitney statistics according to Siegel's suggestions.
+.SH OPTIONS
+.de OP
+.TP
+.B -\\$1 \\$2
+..
+.OP p
+Show a plot of each condition's scores.
+The plots look like:
+.nf
+	<    ----------#----------------        >
+.fi
+in which the angle brackets show the extrema,
+the # shows the median, and the line shows the interquartile range:
+Q1-Q3 (the 25th percentile to the 75th percentile).
+.OP r
+Request a report of average ranks for conditions.
+.OP s splitter
+Scores from different conditions are separated by a special splitter value.
+By default, this value is -1.
+.OP w plotwidth
+By default, the plotwidth is 60 characters.
+.OP y
+When computing chi-square values,
+Yates' correction for continuity is applied.
+This option stops its use.
+There are no cases where Yates' correction should not be used,
+but the option is useful to check textbook examples for accuracy.
+.br
+.if t .ne 2i
+.SH EXAMPLE
+.PP
+The following data are from Siegel, page 122.
+An analysis that includes a plot and names the conditions "absent"
+and "present" follows.
+.nf
+	> rankind -p absent present
+	17 16 15 15 15 14 14 14 13 13 13 12 12 12 12 11 11 10 10 10 8 8 6
+	-1
+	13 12 12 10 10 10 10 9 8 8 7 7 7 7 7 6
+.fi
+The Fisher Exact two-tailed probability is .002550,
+while the chi-square approximation is 8.089 (p\ =\ .004453).
+The Mann-Whitney U of 304 has a probability of .000292 using
+a normal approximation (corrected for ties).
+The Kruskal-Wallis H of 11.9091 has a two-tailed probability
+of .000559,
+which is very close to twice the probability of the U test.
+.SH LIMITS
+Use the -L option to determine the program limits.
+.SH "MISSING VALUES
+Missing data values (NA) are counted but not included in the analysis.
+.SH "SEE ALSO
+oneway(1) performs the normal-theory parametric counterparts
+to this non-parametric, distribution-free analysis.
+rankrel(1) analyses ordinal data for related conditions.
+.sp
+Siegel, S. (1956)
+.ul
+Nonparametric Statistics for the Behavioral Sciences.
+New York: McGraw-Hill.
+.SH WARNING
+When the program advises to check a table for exact probabilities of
+significance tests,
+it may still compute approximate values.
+These approximations should not be used for serious work.
+.ig
+             N      Min      25%   Median      75%      Max
+Cond-1      23     6.00    10.25    12.00    14.00    17.00
+Cond-2      16     6.00     7.00     8.50    10.00    13.00
+Total       39     6.00     8.00    11.00    13.00    17.00
+
+Median-Test:
+	Fisher Exact One-Tailed Probability     0.001863
+	Fisher Exact Other-Tail Probability     0.000687
+	Fisher Exact Two-Tailed Probability     0.002550
+	       Cond-1 Cond-2 
+	above      15      3     18 
+	below       6     13     19 
+	           21     16     37 
+	NOTE: Yates' correction for continuity applied
+	chisq       8.089001     df   1      p  0.004453
+
+Mann-Whitney U:
+	U                                     304.000000
+	U'                                     64.000000
+	z(U) (corrected for ties)               3.438576
+	One tailed p(z(U))                      0.000292
+
+Kruskal-Wallis:
+	H (not corrected for ties)             11.739130
+	Tie correction factor                   0.985729
+	H (corrected for ties)                 11.909088
+	chisq      11.909088     df   1      p  0.000559
+..

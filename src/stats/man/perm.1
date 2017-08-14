@@ -1,0 +1,60 @@
+.TH PERM 1 "August 1992" "\(co 1980 Gary Perlman" "|STAT" "UNIX User's Manual"
+.SH NAME
+perm \- permute line order
+.SH SYNOPSIS
+.B perm
+[-a | -c | -e | -i | -n | -j] [-r] [-l lines] [-s seed]
+.SH DESCRIPTION
+.I perm
+reads lines from the standard input and prints them in permuted order.
+By default, this order is random,
+but the order can be sorted numerically or alphabetically with options.
+.SH OPTIONS
+.de OP
+.TP
+.B -\\$1 \\$2
+..
+.OP a
+Sort lines by alphabetic ordering.
+Initial blank space is not ignored.
+.OP c
+Use a case-insensitive comparison and sort by alphabetic ordering.
+.OP e
+Sort lines by exponential (scientific) notation ordering.
+Initial blank space is ignored.
+This method does true numerical sorting for all numbers,
+but is much slower than integer or numerical sorting.
+.OP i
+Sort lines by integer ordering.
+Initial blank space is ignored.
+.OP j
+Control juxtaposition of adjacent input lines.
+By default, adjacent input lines can come out next to each other.
+With this option, if two input lines are next to each other,
+then they will not be next to each other in the output.
+For the purposes of this program, the very first and very last lines
+are considered to be next to each other.
+It is impossible to produce non-juxtaposed output from four lines or less.
+It is unknown whether all non-juxtaposed permutations are equally probable.
+.OP l lines
+Set the maximum number of lines to be read.
+.OP n
+Sort lines by special numeric ordering.
+Numbers with decimal points are allowed,
+and compared by a special fast sorting algorithm
+that is almost as fast as integer sorting.
+.OP r
+Reverse the order of comparison for sorting options.
+.OP s seed
+Provide an integer seed for the random number generator.
+Otherwise, the seeding is done with the process number and the time,
+or, on some systems, by prompting for a seed.
+.SH NOTES
+The program duplicates some of the
+.I sort
+program's functions,
+but provides true numerical sorting for MSDOS whose
+.I sort
+only does alphabetic sorts.
+.SH LIMITS
+Use the -L option to determine the program limits.

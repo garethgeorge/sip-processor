@@ -1,0 +1,524 @@
+This file contains some highlights of the changes to |STAT.
+
+Tue Jan  8 19:56:25 EST 1985
+ALL	plan for syntax standard changes
+	I am now using the getopt command line option parser for
+	many of the programs.  Eventually, all the programs will
+	use it so that the command syntax is consistent and
+	conforms to the Hemenway & Armitage UNIX standard.
+REGRESS major changes
+	Now only the first column is the predicted variable.
+	Previously, all variables were predicted with all others;
+	this was because it was easy, not for any good reason.
+	Added functionality includes significance tests to
+	see if individual variables add to the others.
+	This should promote better analyses.
+DATAPLOT new program
+	This program is an interim replacement for the plotting
+	capabilities of the PAIR program (AKA BIPLOT).  It allows
+	defining more information about the axes.
+COLEX	new program
+	This program provides the column extraction capabilities
+	of DM and is provided for systems that do not have YACC
+	so that they can compile DM.  In some ways, it is superior
+	to DM as a column extractor because it allows ranges of
+	columns to be specified.
+MORE	new program
+	This program is available on most Berkeley UNIX systems.
+	This simplified version allows paging on systems that
+	don't have it.
+
+Fri Feb  1 14:25:39 EST 1985
+CALC	bug fixed
+	Calc used to blow up with recursive expressions like
+		a = 12
+		a = a + 1
+	Now it checks for recursion and prints an error message.
+
+Thu Feb  7 01:43:31 EST 1985
+DM	portability enhancements and better expression printer
+	DM used to assume that all data types were of size int.
+	Now all sorts of non-portable casts that did not work
+	on MS_DOS have been replaced by strong typing.  It should
+	not affect any UNIX versions of the program.
+
+Mon Feb 11 17:19:48 EST 1985
+POF	better approximation added to reduce rounding errors.
+
+Sat Feb 23 11:26:56 EST 1985
+MAKETRIX
+DESC
+VINCENT
+TS
+	scanf was replaced by the more efficient getword.
+VINCENT	added capability to read one file from stdin using "-"
+PARSELINE now uses a register variable for efficiency
+
+Wed Feb 27 18:03:47 EST 1985
+MANSTAT	added -u option, clean up code
+MAKETRIX	added getopt
+REPEAT	changed command line options
+CALC	on-line help now only available interactively
+
+Mon Mar  4 00:42:42 EST 1985
+DESC
+PAIR
+TS
+		converted to getopt
+*PLOT	removed variable width strings
+CHECKIO	fixed MSDOS code
+DM	new fixes for MSDOS (should now work)
+
+Tue Mar  5 20:57:37 EST 1985
+TRANSPOSE	now uses getopt with -f option for field format
+	no longer reads from a file--only stdin
+ABUT	now uses -f option for format of fields
+PERM	no longer reads or writes files--only stdin and stdout
+RANDOM	new random seed produces more random result
+********************************************************
+many programs now consider ignored operands an error
+all programs now exit with a 0 error status on successful runs
+most programs now only read stdin and write stdout
+most programs now use getopt for command line option handling
+comparison of floating point values to zero have been defined in stat.h
+program versions have all been updated to 5.0 for major new release.
+
+Mon Apr 22 01:45:21 EST 1985
+ANOVA	nreplics variable used to be (char), now (short) to avoid overflow
+	version 5.1
+
+Wed Apr 24 15:11:59 EST 1985
+stat.h	#define	SMALL_MEM added to compile on smaller systems
+	affects desc, pair, ts, perm
+	version 5.1
+
+Wed May 15 17:53:03 EDT 1985
+IO had bugs when options were supplied.
+
+Thu May 30 17:38:34 EDT 1985
+SERIES	bugs when low == high fixed
+
+Sat Oct  5 16:26:16 EDT 1985
+	no longer support linked programs
+	disappearing are:
+		biplot (== pair -p)
+		ttest  (== oneway -t)
+		corr   (== regress -r)
+	STAT.h
+		fixed MSDOS version of ARGV macro to set argv[0] to Argv0
+		(previously, MSDOS thought program names were all 'c' in getopt)
+	DPRIME
+		The routine initial() was never called, causing core dumps.
+		This was fixed.
+
+Tue Oct  8 21:09:51 EDT 1985
+	STATS
+		Added new program, printed documentation is out of date,
+		but online documentation is okay.
+	MANSTAT
+		Added special macros to -man macros for better on-line format.
+		These are in stat/doc/man/online.macros.
+	TS
+		Added some portability fixes and a check for inconsistent options.
+
+Wed Oct  9 06:01:35 EDT 1985
+	CALC
+		worked on portability of calc to MSDOS
+		the program is now lint free and looks like it should port
+
+Thu Oct 17 22:19:27 EDT 1985
+	REVERSE
+		fixed control character bug in the -c option
+
+Fri Oct 18 19:30:05 EDT 1985
+	CALC
+		fixed ! operation to work on correct operand
+		added $ variable which returns most recent value
+
+Wed Oct 23 03:02:38 EDT 1985
+	CRITF
+		reworked algorithm to a binary halving strategy
+		stopped when F ratio was accurate to 5 decimal places
+
+Tue Oct 29 18:18:46 EST 1985
+	ABUT
+		fixed bug that printed extra lines for blank lines
+		because abut did not strip off trailing white space properly
+		(bug reported by Bill Reiland)
+
+Wed Oct 30 13:41:07 EST 1985
+	IO, REPEAT, ANOVA
+		installed umask command to read protect files in /tmp
+
+Sat Nov  9 19:14:41 EST 1985
+	ANOVA
+		new version with better input checking installed
+			designs with non-proportional cell sizes now stopped
+		this version uses parseline for efficiency
+		this version uses tmpfile for more portable temp file names
+	ONEWAY
+		uneighted means analysis added as an option
+
+Sun Nov 10 15:51:52 EST 1985
+	CRITF & POF
+		both programs were expanded to take parameters from stdin
+	POZ, CRITZ, POCHISQ, & CRITCHISQ
+		new programs based on Collected Algorithms of the CACM
+		these also take parameters from the command line or stdin
+	DPRIME
+		now uses critz rather than old table lookup (ptoz trashed)
+
+Tue Nov 19 02:05:15 EST 1985
+	ONEWAY
+		added option for error bar graphs
+
+Tue Nov 26 01:00:27 EST 1985
+	CONTAB
+		new program
+	REGRESS
+		added -e option to save regression equation
+	DM
+		added trig functions
+
+Thu Dec  5 00:36:16 EST 1985
+	CONTAB
+		revised after disk crash
+	REPEAT
+		remove tmpfile if necessary
+
+Wed Dec 11 18:35:02 EST 1985
+	STAT.H
+		split into stat.h, unix.h, and msdos.h
+		added -LOV options to:
+			ABUT ANOVA COLEX CONTAB DATAPLOT DESC IO
+			MAKETRIX MANSTAT ONEWAY PAIR PERM RANKSORT
+			REGRESS REVERSE TRANSPOSE TS VALIDATA
+		programs still w/out LOV options:
+			all probability programs   | no options
+			calc, dm                   |
+			dprime, trans, vincent     | unsupported programs
+			series, repeat             | no limits nor options
+
+Mon Dec 16 01:00:05 EST 1985
+	RAND*
+		added randu randf ranchisq randz
+
+Sun Jan  5 22:19:05 EST 1986
+	ANOVA
+		changed print format to 7 chars for label names
+		do not check non-prop if Errorflag
+	MISC & STAT.H
+		added operands to usinfo functions
+		added setint and setreal functions
+		did spelling corrections on all strings
+	CONTAB
+		added -m option for marginal means
+	PAIR
+		added options to support dataplot functionality
+		removed dataplot from distribution
+		later fixed double-float rounding errors in plot
+
+Thu Jan  9 00:43:50 EST 1986
+	PERM
+		changed operand seed to -s option
+
+Sat Jan 11 19:13:03 EST 1986
+	DM
+		added FORTRAN like operators to solve MSDOS quoting problems
+
+Thu Jan 16 20:10:47 EST 1986
+	ABUT & TRANSPOSE
+		added range check (setint) to format option
+	PAIR, TS, ONEWAY
+		added numline to number lines
+	ONEWAY
+		added plot width option
+
+Mon Jan 20 02:34:48 EST 1986
+	NUMBER
+		now allows trailing .0* on integers
+	MSDOS.H
+		added _stack variable
+	DM
+		added number, len, and sqrt functions
+	DPRIME
+		changed tests for input checking
+	CONTAB
+		added tables and tests for 1 x N factors
+		added -s option to stop significance tests
+
+Fri Jan 31 13:46:46 EST 1986
+	CONTAB/Fisher exact test
+		fixed bug in how the cell contents were changed
+		when finding more deviant configurations
+
+Tue Feb 11 03:07:31 EST 1986
+	CALC
+		expr '?' expr ':' expr ...
+		changed second Tmp1 to Tmp2
+	ABUT
+		used logical variables rather than ints
+	DM, PROBDIST, PERM
+		put abs(rand()) to adapt to new Lattice rand function
+
+Sun Feb 16 22:32:02 EST 1986
+	TS
+		put in checks to avoid division by zero
+	DM, PROBDIST, PERM
+		waited while rand() < 0 for good value (because of new Lattice bug)
+	CONFIRM.C
+		changed "con:" to "con" for MSDOS version
+	DM
+		stopped DM from infinite loop on input
+	ABUT
+		properly initialized doneonce flag array
+		now do not close ioptr's because finished file ioptr's set to NULL
+
+Mon Feb 17 19:42:40 EST 1986
+	STATS
+		added standard error of the mean
+
+Sun Feb 23 01:30:49 EST 1986
+	DM
+		added _ as allowable space character in expressions
+		mostly to help MSDOS readability
+
+Sun Feb 23 20:25:18 EST 1986
+	DM
+		fixed misparsing of len (s1) and number (s1)
+		by adding parentheses to definition of string
+		fixed NE(XT) parsing problem
+
+Wed Feb 26 12:45:05 EST 1986
+	MANSTAT
+		deleted C code, switched to shell script
+		no longer distribute troff source files, only formatted manuals
+
+Fri Mar  7 14:51:00 EST 1986
+	STAT.H
+		changed lopt macro to use popt macro directly rather than go through
+		sopt macro.  There were problems on the V7 C compiler with the
+		nexted conditional that resulted.
+
+Fri Mar 14 12:50:57 EST 1986
+	PAIR
+		added line to printstats to tell how many points were read
+		added FZERO checks for division by zero
+	PROBDIST
+		added echo option for coprocess support
+
+Fri May 23 18:09:14 EDT 1986
+	PERM
+		added sorting options to perm
+
+Wed Jun 11 18:49:28 EDT 1986
+	DSORT
+		new program
+	CONTAB
+		yanked out column specification for sharing with DSORT
+	PERM
+		changed sorting options
+
+Thu Jun 12 22:03:31 EDT 1986
+	PAIR
+		reduced size of scatterplot/plot matrix to char
+		thanks to mark wallen
+
+Thu Jul 17 19:57:04 EDT 1986
+	REGRESS
+		fixed complaint about nonsingular correlation matrix
+	ANOVA, PAIR
+		now use MAXF for infinite F ratios
+	STAT.H
+		added constant MAXF and MAXT
+
+Fri Aug  6 16:11:06 EDT 1986
+	DM
+		added new print format to insure better format for real numbers
+		that are integers
+
+Mon Aug 11 12:46:08 EDT 1986
+	specol.c
+		fixed info specification so that it reads to first alpha over all chars
+	COLEX
+		restructured for addition of formatting information
+		added column formatting and verification capability
+
+Fri Aug 15 17:58:53 EDT 1986
+	DM
+		R and RAND can now be followed by an integer seed
+
+Fri Aug 22 18:22:03 EDT 1986
+	FPACK, FF now informally distributed with |STAT
+
+Thu Sep  4 15:04:36 EDT 1986
+	Handbook example now online
+
+Fri Sep  5 18:20:35 EDT 1986
+	DM
+		removed all checks for use of number in column
+		where value is non-numerical (value returned == 0.0)
+
+Mon Sep 15 17:34:33 EDT 1986
+	DM, CALC
+		now use skipnumber to skip over numerical constants
+
+Sat Sep 27 04:07:22 EDT 1986
+	DM, CALC
+		added copyright notice for interactive use
+
+Mon Oct 13 16:18:12 EDT 1986
+	REPEAT
+		added use of getopt, readlines, filter
+	FILTER
+		modified to prompt for interactive input
+	DOC/ALL
+		added LIMITS reference to -L option
+		added MAXCHARS constant to most programs
+	STATS
+		added getopt
+	DPRIME
+		added getopt
+		introduced constant SQRT2PI for sqrt (2 * PI)
+		made normaldensity a macro from function
+	CONST.H
+		added some constants for use in probability routines
+	FPACK
+		added getopt
+
+Sat Oct 25 01:45:27 EDT 1986
+	SERIES
+		major rewrite after code inspection, some mods to *.h
+		fixed bug of error exit with: series 1 1 0
+		change "increment" name ot "stepsize"
+		modified to use correct sign on stepsize to avoid user errors
+
+Wed Nov 26 02:56:10 EST 1986
+	Per request of Barry Pyle @ Gruen Gruen & Associates, San Francisco
+	REGRESS
+		prints SEest for regression
+		prints SE for b values
+
+Fri Nov 28 07:55:21 EST 1986
+	RANKSORT
+		added reversal option and made limit operand -l option
+
+Tue Dec  2 00:51:24 EST 1986
+	READLINES
+		added runtime allocation of maxlines
+		affects perm dsort repeat reverse
+
+Wed Dec  3 01:03:16 EST 1986
+	LINEX
+		new program
+	DSORT
+		now uses readmatrix
+
+Sat Dec 27 05:39:21 EST 1986
+	PROBDIST
+		added binomial distribution using new PRODLIST routines
+	CONTAB
+		began use of FISHTEST routine
+	ORDIND
+		first version
+
+Tue Jan  6 03:59:19 EST 1987
+	ORDIND & ORDREL
+		completed first tested versions (still need prob functions)
+	DESC
+		added SD skew & sd kurt
+
+Wed Jan  7 01:41:10 EST 1987
+	RANKSORT
+		fixed shellsort to use better gap
+			old: for (gap = n/n; ...
+			new: for (gap = n/2; ...
+		resulted in 10x improvement for sorting time
+		hard to believe it ever worked
+
+Thu Jan  8 04:56:39 EST 1987
+	RANKIND
+		changed some doubles to floats to fix comparison problem in domedian
+		cast n*n*n in tiecorrect to double ot avoid overflow
+
+Wed Jan 20 12:32:10 EST 1987
+	REGRESS DESC PAIR RANKREL RANKIND ONEWAY TS STATS
+		added NA handling
+	stat.h
+		added isna(string) macro
+
+Thu Jan 29 18:14:58 EST 1987
+	PAIR
+		added correlation to plots
+	CONTAB (mdmat) ANOVA
+		added sorting of numerical labels
+
+Tue Feb  3 18:29:01 EST 1987
+	CONTAB (mdmat) & VALIDATA
+		added NA handling
+
+Wed Feb  4 08:33:48 EST 1987
+	RANKREL RANKIND (ordstat)
+		updated NA reporting
+
+Sat Feb  7 16:44:49 EST 1987
+	FF
+		added file statistics language to titles
+
+November 11, 1987
+	FPACK
+		added -f forceful option and file listing at top of archive
+
+Saturday 30 April 1988     2:15 PM
+	RANKSORT
+		changed order of tests in computing average ranks
+			if ((i == n-1) || (svec[i] != svec[i+1]))
+
+Tuesday 31 May 1988    10:43 PM
+	ABUT
+		changed MAXFILES test from >= to > to allow for MAXFILES files
+			due to C. Palmer
+
+Sun Oct  2 06:16:32 EDT 1988
+	DM CALC
+		added special code in skipnumber for SUN atof bug
+
+Tue Mar 14 07:31:06 EST 1989
+	FEATURES
+		new program (still needs input validation for numerical fields)
+	ANOVA CONTAB
+		added LAN support to ensure unique temp files names
+
+Mon Aug 21 00:38:54 EDT 1989
+	PROBDIST
+		added -q feature for quicker random normal generation
+
+Thu Feb 15 16:11:35 EST 1990
+	ALL
+		updated code for ansi compatibility
+	FEATURES
+		made compatible with |STAT program options and formats
+
+Tue Aug 21 18:01:45 EDT 1990
+	DPRIME 5.2 10/14/86
+		function recognizing yes and no strings identified no's as yes
+		added -p (precision) option
+		added new tabular output format
+		added optional repetition count field for file input
+		added raw frequency count option for command line
+		added check for impossible hit-rate and fa-rate equal to 1.0 or 0.0.
+Wed Aug 29 18:11:08 EDT 1990
+	DPRIME 5.3 10/22/86
+		changed integer counts to long counts
+		moved hit-rate and false-alarm-rate over to line up better
+Sun Sep 23 09:35:33 EDT 1990
+	COLEX 5.2 8/11/86
+		added -c option to support fixed format column extraction
+
+Mon Aug 23 15:41:12 EDT 1993
+	PERM 5.6 8/22/93
+		added -j option for non-juxtaposed items
+
+Fri Feb  3 14:41:04 EST 1995
+	PERM no change in revision number
+		added declaration for name in jprint (which was unused)

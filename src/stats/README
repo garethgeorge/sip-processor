@@ -1,0 +1,9 @@
+FLYER.TXT       information about how to obtain copies of |STAT
+RELEASE.TXT     information about recent releases of |STAT
+doc             formatted manual entries for |STAT programs
+example         online example based on |STAT Handbook
+handbook        troff source and formatted versions of |STAT Handbook
+man             troff source files for manual entries for programs
+manstat         shell script to print manual entries
+refsheet.nr     troff source file for |STAT reference sheet
+src             source code with Makefile for compilation

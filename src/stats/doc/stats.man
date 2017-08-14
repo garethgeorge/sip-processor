@@ -1,0 +1,66 @@
+STATS(1)                           |STAT                   January 20, 1987
+
+NAME
+     stats - print summary statistics
+
+SYNOPSIS
+     stats [-v] [n min max sum ss mean var sd skew kurt se]
+
+DESCRIPTION
+     _s_t_a_t_s prints summary statistics on the data read from the standard
+     input.  The data can be in any format, as long as some white space
+     separates the input values.  Non-numerical input values are ignored,
+     so care must be taken to insure that the input is correct.
+
+OPTIONS
+     With no options, _s_t_a_t_s prints a summary table of statistic names and
+     values separated by a tab delimited = sign.  When options are
+     supplied, _s_t_a_t_s prints only the value of the statistics requested, in
+     the order they were requested, on one line.
+
+     -v   Verbose output.  This option causes requested statistics to be
+          printed in name=value format.
+
+     n    The number of real or integer values read in.  If no values are
+          read in, then all statistics are zero.  If one value is read in,
+          or if the variance of the distribution is zero, then all the
+          higher order statistics are zero.
+
+     min  The minimum value.
+
+     max  The maximum value.
+
+     sum  The sum of the input values.
+
+     ss   The sum of squares of the input values.
+
+     mean The arithmetic average: sum/n.
+
+     var  The variance of the input, computed with "n-1" degrees of
+          freedom.
+
+     sd   The square root of the variance.
+
+     skew The skewness of the distribution, as computed by SPSS and
+          desc(1).
+
+     kurt The kurtosis or pointiness of the distribution.  Normal
+          distributions have a kurtosis of 3.
+
+     se   The standard error of the input values.
+
+     NA   Print the number of missing (NA) values.  Missing data are
+          counted but not included in the analysis.
+
+EXAMPLES
+     Print the standard error of the mean:
+          stats sd n | dm "x1 / x2^.5"
+
+     Print the range of the data:
+          stats min max | dm x2-x1
+
+     Print the sum of the first 100 integers:
+          series 1 100 | stats sum
+
+     Print a t-test of the mean against 0.0:
+          stats mean se | dm x1/x2

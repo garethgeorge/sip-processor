@@ -1,0 +1,30 @@
+.TH MAKETRIX 1 "March 5, 1985" "\(co 1980 Gary Perlman" "|STAT" "UNIX User's Manual"
+.SH NAME
+maketrix -\ format a file into a matrix type file
+.SH SYNOPSIS
+.B maketrix
+[-s] [ncols]
+.SH DESCRIPTION
+.I maketrix
+reads strings separated by white space (spaces, tabs, and newlines)
+from the standard input and prints \fIncols\fR of them per line
+to the standard output until the input is exhausted.
+.SH OPTIONS
+.de OP
+.TP
+.B -\\$1 \\$2
+..
+.OP s
+Be silent about the last line missing columns.
+Otherwise, a warning is printed.
+.TP
+.B ncols
+If \fBncols\fR is not specified, a two column default is used.
+.SH EXAMPLE
+.nf
+echo 1 2 3 4 5 6 7 8 9 10  |  maketrix 5
+1	2	3	4	5
+6	7	8	9	10
+.fi
+.SH LIMITS
+Use the -L option to determine the program limits.

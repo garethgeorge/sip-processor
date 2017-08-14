@@ -1,0 +1,47 @@
+ABUT(1)                            |STAT                   November 2, 1985
+
+NAME
+     abut - formatted printing of corresponding lines from files
+
+SYNOPSIS
+     abut [-cn] [-f format] [-] file1 file2 ...
+
+DESCRIPTION
+     _a_b_u_t makes a list of files with N lines into one file with N lines by
+     printing all the first lines of those files on one line, then the
+     second lines, and so on, until all the lines from the longest file
+     have been printed (but see the -_c option).  _a_b_u_t reads from its file
+     arguments in the order they appear in the call to _a_b_u_t and prints to
+     the standard output.  As a special case, the file name "-" is used as
+     the standard input.  Any white space at the end of lines is removed,
+     but at least one space between fields from different files is
+     guaranteed.
+
+OPTIONS
+     -c   Cycle through lines of short files until longest is exhausted.
+          _a_b_u_t Continue printing until all files have been exhausted once.
+          Files with fewer lines than the longest will be rewound and
+          printed again.  The standard input cannot be recycled.
+
+     -f format
+          Print fields in the specified format.  Positive integers specify
+          the field width.  Negative integers imply a left-justified field.
+          The default printing format is to put a tab between corresponding
+          lines of separate files.
+
+     -n   All output lines are _n_u_m_b_e_r_e_d beginning with 1.
+
+EXAMPLE
+     _a_b_u_t is often used to create input files to _a_n_o_v_a.
+     File1  File2  Data          abut -nc File1 File2 Data
+     large  easy   12            1      large  easy   12
+     small  easy   23            2      small  easy   23
+            hard   34            3      large  hard   34
+            hard   45            4      small  hard   45
+                   76            5      large  easy   76
+                   62            6      small  easy   62
+                   99            7      large  hard   99
+                   14            8      small  hard   14
+
+LIMITS
+     Use the -L option to determine the program limits.

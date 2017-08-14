@@ -1,0 +1,62 @@
+.TH ONEWAY 1 "December 24, 1986" "\(co 1985 Gary Perlman" "|STAT" "UNIX User's Manual"
+.SH NAME
+oneway \- one way analysis of variance / t-test
+.SH SYNOPSIS
+.B oneway
+[-ptu] [-w plotwidth] [-s splitter] [names]
+.SH DESCRIPTION
+.I oneway
+does a one-way analysis of variance on data from different groups.
+These groups can have different cell sizes.
+When cell sizes are equal across groups,
+the unweighted means analysis and the weighted means solutions
+produce identical results.
+When cell sizes are unequal,
+the preferred analysis depends on the reasons for unequal cell sizes.
+A text should be consulted to decide which test is most appropriate.
+.PP
+The input format is simple:
+each group's data is separated from other groups' by including
+a special value, called the splitter.
+.SH OPTIONS
+.de OP
+.TP
+.B -\\$1 \\$2
+..
+.PP
+Group names can be supplied on the command line.
+Otherwise, names like ``Group-1'' are used.
+.OP p
+Print error bar plots of each group.
+The wide line of dashes is two standard deviations on each side of the mean
+of each group.
+The narrower double line is one standard deviation on each side.
+Single standard errors are marked with parentheses.
+The mean of each group is marked with a pound sign.
+The minimum and maximum values are delimited by angle brackets.
+.OP s splitter
+This value is used to tell when one group's data ends and another's begins.
+.OP t
+Request a between group's t-test format for the significance test.
+This option is ignored if there are not two groups.
+.OP u
+Request unweighted means solution rather than the default unweighted.
+.OP w plotwidth
+Set the width of the error bar plot to a value other than the default 60.
+.SH EXAMPLE
+.PP
+Suppose you had two groups of data in two files, called ``long'' and ``short.''
+To compare these, you would do something like:
+.ce
+echo 999 | cat long - short | oneway -s 999 long short
+.SH ALGORITHMS
+The weighted means analysis algorithm follows Guilford & Fruchter's
+.I "Fundamental Statistics for Psychology and Education (5th Edition)."
+The unweighted means solution follows Keppel's
+.I "Design and Analysis: A Researcher's Handbook."
+.SH LIMITS
+Use the -L option to determine the program limits.
+.SH "MISSING VALUES
+Missing data values (NA) are counted but not included in the analysis.
+.SH "SEE ALSO
+rankind(1) for a non-parametric rank order version of the analysis.

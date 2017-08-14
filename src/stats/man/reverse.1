@@ -1,0 +1,43 @@
+.TH REVERSE 1 "October 1985" "\(co 1980 Gary Perlman" "|STAT" "UNIX User's Manual"
+.SH NAME
+reverse \- reverse lines, fields or characters within lines
+.SH SYNOPSIS
+.B reverse
+[-cfl]
+.SH DESCRIPTION
+.I reverse
+reverses lines, space separated fields, or characters within lines
+read from the standard input.
+.SH OPTIONS
+.de OP
+.TP
+.B -\\$1 \\$2
+..
+.OP c
+reverse characters within lines.
+.OP f
+reverse fields within lines.
+Fields are separated by any white space (e.g., tabs, blanks),
+and may be delimited by double or single quotes to allow
+inclusion of spaces inside fields.
+When fields are reversed, any white space between fields
+is replaced by a single tab.
+There is a limit to the number of fields that can be reversed;
+see the -L option.
+.OP l
+reverse lines.
+This is the default action when no options are selected.
+There is a limit to the number of lines that can be reversed;
+see the -L option.
+.SH EXAMPLES
+.nf
+.ta .5i
+echo 11 21 31 41 51 61  |  reverse -c
+	16 15 14 13 12 11
+echo 11 21 31 41 51 61  |  reverse -f
+	61 51 41 31 21 11
+echo 11 21 31 41 51 61  |  reverse -fc
+	11 12 13 14 15 16
+.fi
+.SH LIMITS
+Use the -L option to determine the program limits.

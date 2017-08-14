@@ -1,0 +1,93 @@
+######################### TEMPLATE MAKEFILE ###################################
+# To use this makefile template, set the MAIN macro to the name of the target,
+# and append the names of all the source/object files to the SRCS/OBJS macros.
+
+######################### TARGET ORIENTED MACROS  #############################
+# MAIN      The name of the main target, a single term
+# HDRS      Header files used in building $(MAIN)
+# SRCS      Source files used in building $(MAIN)
+# OBJS      Object files used in building $(MAIN), usually the same as $(SRCS)
+#           except with .o substituted for .c
+# DOCS      Documentation files associated with $(MAIN)
+# LIBS      Libraries used to build $(MAIN) (e.g., -lm -lcurses)
+# DESTDIR   The destination directory for installation (make install)
+# TEXT      All source text files
+
+MAIN=
+HDRS=
+SRCS=$(MAIN).c 
+OBJS=$(MAIN).o 
+DOCS=
+LIBS=
+DESTDIR=.
+TEXT=$(HDRS) $(SRCS)
+
+######################### TOOL ORIENTED MACROS  ###############################
+CC=/bin/cc
+CFLAGS=-O
+LINT  =/usr/bin/lint -hp
+PR    =/usr/ucb/print
+SPELL =/usr/bin/spell
+SHAR  =shar -a
+RCS   =ci -l
+MAKE  =make MAIN=$(MAIN) SRCS=$(SRCS) HDRS=$(HDRS) OBJS=$(OBJS) LIBS=$(LIBS)
+MAKE  =make #use this simple version for "true" recursive makes
+
+######################### PROGRAM DEVELOPMENT RULES  #########################
+# The first rule builds $(MAIN) from $(OBJS) and $(LIBS).
+# Other rules build other program development oriented targets.
+# Note: For most uses, you should not need to modify the following.
+
+$(MAIN): $(OBJS)
+	$(CC) $(CFLAGS) -o $(MAIN) $(OBJS) $(LIBS)
+
+lint: # run lint on the TEXT files for static analysis of problems
+	$(LINT) $(TEXT)
+
+test: $(MAIN) # smoke test of simply making and running MAIN
+	$(MAIN)
+
+gprof: # call-graph profile to get timing information by functions
+	$(MAKE) clean
+	$(MAKE) CFLAGS="$(CFLAGS) -pg" $(MAIN)
+tcov: # test case coverage (Sun only) to get statement counts
+	rm -f $(MAIN).o
+	$(MAKE) CFLAGS="$(CFLAGS) -a" $(MAIN)
+
+print: $(HDRS) $(SRCS) # print only the files that changed since last print
+	@$(PR) $?
+	@touch print
+
+install: $(MAIN) # make and copy MAIN to installation directory
+	cp -i $(MAIN) $(DESTDIR)/$(MAIN)
+
+clean: # clean up all building files
+	rm -f *.o core a.out mon.out gmon.out scmon.out *.tcov
+	-rm -i *.d # tcov files use .d suffix, may clash with other languages
+
+spell: $(SRCS) # run spelling checker on "new" source comments and strings
+	@seec -cqe $? | $(SPELL)
+	touch spell
+
+archive: $(DOCS) [Mm]akefile $(TEXT) # create a shell archive of all files
+	@$(SHAR) $(DOCS) [Mm]akefile $(TEXT) > archive
+
+cflow: $(SRCS) # make a cflow call-graph of the SRC files
+	cflow $(SRCS) > cflow
+
+$(MAIN).1: $(MAIN).c # extract manual entry from MAIN using seec -t MANUAL
+	@seec -t MANUAL $(MAIN).c > $(MAIN).MAN
+	@mv -i $(MAIN).MAN $(MAIN).1
+
+######################### SPECIAL/IMPLICIT RULES  #############################
+# The following ensures that no $(TEXT) nor $(DOCS) are removed by make.
+.PRECIOUS: $(TEXT) $(DOCS)
+
+# To make an implicit rule, you need to encode an implicit dependency,
+# and an action to build the target from the source using special macros:
+#   $*     the name of the target with suffix stripped
+#   $<     the source file
+#   $@     the target file
+#   $?     the dependent files newer than the target
+# Don't forget to add any new suffixes to .SUFFIXES:
+# .SUFFIXES:        # with no arguments, .SUFFIXES: clears the suffixes

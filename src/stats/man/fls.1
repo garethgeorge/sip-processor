@@ -1,0 +1,104 @@
+.TH FLS "1WI" "Created: 6 September 1985" "Wang Institute" "UNIX User's Manual"
+.SH NAME
+fls \- formatted listing of file statistics
+.SH USAGE
+.I fls
+format [files]
+.SH FORMATS
+The following is the summary that is printed by
+.I fls
+when the %? format is used.
+.sp
+.nf
+Summary of % formats:
+xX	means that both integer (x) & string (X) formats supported
+All formats support %-p.wX where:
+	- is an optional sign to left-justify X
+	p is an optional pad of white spaces
+	w is an optional maximum width of X
+.ul
+Char	Meaning:
+?	print this list of formats
+%	insert %
+aA	access time
+cC	change time
+gG	group id
+i	inode number
+l	number of links
+mM	modification time
+n	insert a newline
+N	file name
+pP	protection modes
+s	size
+t	insert a tab
+T	file type
+uU	user id
+.fi
+.SH DESCRIPTION
+.I fls
+gets information about the named files and allows its display
+in a variety of formats.
+The formats are based on the formatted printing routines
+used in C programming, like the newer versions of the
+.I date
+program.
+The program is design to be used in shell scripts.
+.SH EXAMPLES
+.nf
+.ne 18v
+# check user's mail file: cm
+set -- `fls "%m %a %s %A" $MAIL`
+modifytime=$1
+accesstime=$2
+size=$3
+shift 3
+if [ "$size" != 0 ]
+then
+	if test $modifytime -gt $accesstime
+	then
+		echo "You have new mail ($size bytes) Last read $*"
+	else
+		echo "You have old mail ($size bytes) Last read $*"
+	fi
+else
+	echo "You have no mail.  Last read $*"
+.sp
+.ne 3v
+A fast long \fIls\fR format with numbers, and one with strings:
+fls "%.1T%9P %2l %-10U %-10G %7s %-.10M %N"
+fls "%.1T%3p %2l %10u %10g %7s %-.10M %N"
+.sp
+.ne 10v
+A detailed tabular format:
+fls "%n%N:
+	Last Accessed: %.24A
+	Last Modified: %.24M
+	Owner/Group:   %-10U %G
+	File Type:     %T
+	Protections:   %P %p
+	Size:          %s
+	Inode:         %i
+	Links:         %l"
+.sp
+Save the file protections, change them, and reset:
+oldmode=`fls %p $file`
+chmod 777 $file
+do_something_to $file
+chmod $oldmode $file
+.fi
+.SH "SEE ALSO"
+sh(1), ls(1), stat(2), printf(3)
+.SH "SYNTAX FOR PROGRAMMERS
+The program source contains a function that can be called directly.
+A null file name can be used to test the format string.
+
+.ft B
+.nf
+.ta .5i 1.5i
+fls (file, format, buffer)
+char	*file;  	/* name of the file to be listed */
+char	*format;	/* format string */
+char	buffer[];	/* buffer large enough to hold answer */
+.fi
+.SH AUTHOR
+Gary Perlman

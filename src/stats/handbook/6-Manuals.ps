@@ -1,0 +1,309 @@
+%!PS
+%%Version: 3.3
+%%DocumentFonts: (atend)
+%%Pages: (atend)
+%%EndComments
+%
+% Version 3.3 prologue for troff files.
+%
+
+/#copies 1 store
+/aspectratio 1 def
+/formsperpage 1 def
+/landscape false def
+/linewidth .3 def
+/magnification 1 def
+/margin 0 def
+/orientation 0 def
+/resolution 720 def
+/rotation 1 def
+/xoffset 0 def
+/yoffset 0 def
+
+/roundpage true def
+/useclippath true def
+/pagebbox [0 0 612 792] def
+
+/R  /Times-Roman def
+/I  /Times-Italic def
+/B  /Times-Bold def
+/BI /Times-BoldItalic def
+/H  /Helvetica def
+/HI /Helvetica-Oblique def
+/HB /Helvetica-Bold def
+/HX /Helvetica-BoldOblique def
+/CW /Courier def
+/CO /Courier def
+/CI /Courier-Oblique def
+/CB /Courier-Bold def
+/CX /Courier-BoldOblique def
+/PA /Palatino-Roman def
+/PI /Palatino-Italic def
+/PB /Palatino-Bold def
+/PX /Palatino-BoldItalic def
+/Hr /Helvetica-Narrow def
+/Hi /Helvetica-Narrow-Oblique def
+/Hb /Helvetica-Narrow-Bold def
+/Hx /Helvetica-Narrow-BoldOblique def
+/KR /Bookman-Light def
+/KI /Bookman-LightItalic def
+/KB /Bookman-Demi def
+/KX /Bookman-DemiItalic def
+/AR /AvantGarde-Book def
+/AI /AvantGarde-BookOblique def
+/AB /AvantGarde-Demi def
+/AX /AvantGarde-DemiOblique def
+/NR /NewCenturySchlbk-Roman def
+/NI /NewCenturySchlbk-Italic def
+/NB /NewCenturySchlbk-Bold def
+/NX /NewCenturySchlbk-BoldItalic def
+/ZD /ZapfDingbats def
+/ZI /ZapfChancery-MediumItalic def
+/S  /S def
+/S1 /S1 def
+/GR /Symbol def
+
+/inch {72 mul} bind def
+/min {2 copy gt {exch} if pop} bind def
+
+/setup {
+	counttomark 2 idiv {def} repeat pop
+
+	landscape {/orientation 90 orientation add def} if
+	/scaling 72 resolution div def
+	linewidth setlinewidth
+	1 setlinecap
+
+	pagedimensions
+	xcenter ycenter translate
+	orientation rotation mul rotate
+	width 2 div neg height 2 div translate
+	xoffset inch yoffset inch neg translate
+	margin 2 div dup neg translate
+	magnification dup aspectratio mul scale
+	scaling scaling scale
+
+	/Symbol /S Sdefs cf
+	/Times-Roman /S1 S1defs cf
+	0 0 moveto
+} def
+
+/pagedimensions {
+	useclippath userdict /gotpagebbox known not and {
+		/pagebbox [clippath pathbbox newpath] def
+		roundpage currentdict /roundpagebbox known and {roundpagebbox} if
+	} if
+	pagebbox aload pop
+	4 -1 roll exch 4 1 roll 4 copy
+	landscape {4 2 roll} if
+	sub /width exch def
+	sub /height exch def
+	add 2 div /xcenter exch def
+	add 2 div /ycenter exch def
+	userdict /gotpagebbox true put
+} def
+
+/pagesetup {
+	/page exch def
+	currentdict /pagedict known currentdict page known and {
+		page load pagedict exch get cvx exec
+	} if
+} def
+
+/decodingdefs [
+	{counttomark 2 idiv {y moveto show} repeat}
+	{neg /y exch def counttomark 2 idiv {y moveto show} repeat}
+	{neg moveto {2 index stringwidth pop sub exch div 0 32 4 -1 roll widthshow} repeat}
+	{neg moveto {spacewidth sub 0.0 32 4 -1 roll widthshow} repeat}
+	{counttomark 2 idiv {y moveto show} repeat}
+	{neg setfunnytext}
+] def
+
+/setdecoding {/t decodingdefs 3 -1 roll get bind def} bind def
+
+/w {neg moveto show} bind def
+/m {neg dup /y exch def moveto} bind def
+/done {/lastpage where {pop lastpage} if} def
+
+/f {
+	dup /font exch def findfont exch
+	dup /ptsize exch def scaling div dup /size exch def scalefont setfont
+	linewidth ptsize mul scaling 10 mul div setlinewidth
+	/spacewidth ( ) stringwidth pop def
+} bind def
+
+/changefont {
+	/fontheight exch def
+	/fontslant exch def
+	currentfont [
+		1 0
+		fontheight ptsize div fontslant sin mul fontslant cos div
+		fontheight ptsize div
+		0 0
+	] makefont setfont
+} bind def
+
+/sf {f} bind def
+
+/cf {
+	dup length 2 idiv
+	/entries exch def
+	/chtab exch def
+	/newfont exch def
+
+	findfont dup length 1 add dict
+	/newdict exch def
+	{1 index /FID ne {newdict 3 1 roll put} {pop pop} ifelse} forall
+
+	newdict /Metrics entries dict put
+	newdict /Metrics get
+	begin
+		chtab aload pop
+		1 1 entries {pop def} for
+		newfont newdict definefont pop
+	end
+} bind def
+
+%
+% A few arrays used to adjust reference points and character widths in some
+% of the printer resident fonts. If square roots are too high try changing
+% the lines describing /radical and /radicalex to,
+%
+%	/radical	[0 -75 550 0]
+%	/radicalex	[-50 -75 500 0]
+%
+% Move braceleftbt a bit - default PostScript character is off a bit.
+%
+
+/Sdefs [
+	/bracketlefttp		[201 500]
+	/bracketleftbt		[201 500]
+	/bracketrighttp		[-81 380]
+	/bracketrightbt		[-83 380]
+	/braceleftbt		[203 490]
+	/bracketrightex		[220 -125 500 0]
+	/radical		[0 0 550 0]
+	/radicalex		[-50 0 500 0]
+	/parenleftex		[-20 -170 0 0]
+	/integral		[100 -50 500 0]
+	/infinity		[10 -75 730 0]
+] def
+
+/S1defs [
+	/underscore		[0 80 500 0]
+	/endash			[7 90 650 0]
+] def
+%%EndProlog
+%%BeginSetup
+mark
+/resolution 720 def
+setup
+2 setdecoding
+%%EndSetup
+%%Page: 1 1
+/saveobj save def
+mark
+1 pagesetup
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 1 1
+%%Page: 0 2
+/saveobj save def
+mark
+2 pagesetup
+24 B f
+(CHAPTER 6)1 1354 1 720 1128 t
+(Manual Entries)1 1608 1 720 1608 t
+10 R f
+( format follows that used on)5 1159( The)1 212( contains the alphabetically ordered manual entries for the programs.)9 2807(This chapter)1 502 4 720 2448 t
+( possible source of confusion for users is the)8 1847( One)1 225( it takes some getting used to.)6 1240(UNIX systems, and to be honest,)5 1368 4 720 2568 t
+( shell,)1 246( examples are chosen to work on UNIX using my preferred command)11 2851( The)1 211(format of examples in the entries.)5 1372 4 720 2688 t
+12 CB f
+(ksh)720 2808 w
+10 R f
+(, so some translation is needed for UNIX)7 1678 1 939 2808 t
+12 CB f
+(csh)2696 2808 w
+10 R f
+( Chapter 3 on conventions)4 1069( See)1 199( for MSDOS users.)3 781(users, and)1 405 4 2946 2808 t
+( entries, there is online help with most programs with the)10 2449( the manual)2 498( Besides)1 377(used in the entries.)3 797 4 720 2928 t
+12 CB f
+(-O)4931 2928 w
+10 R f
+(option.)5119 2928 w
+(Information about limits, previously part of the entries, is now only available with the)13 3428 1 720 3048 t
+12 CB f
+(-L)4221 3048 w
+10 R f
+(option.)4392 3048 w
+10 B f
+(Learning About the Programs.)3 1343 1 720 3228 t
+10 R f
+( to use a few programs, it would be a good idea to skim the)14 2501(After learning how)2 777 2 2122 3228 t
+( the data manipulation and analysis programs, there)7 2065( Besides)1 362( options.)1 346(manual entries to see all the programs and their)8 1907 4 720 3348 t
+(are manual entries for special programs included in the)8 2355 1 720 3468 t
+10 S f
+(\357)3120 3468 w
+10 R f
+(STAT distribution.)1 782 1 3169 3468 t
+12 CB f
+(cat)4117 3468 w
+10 R f
+( MSDOS)1 391(is provided for)2 628 2 4381 3468 t
+( MSDOS)1 374( The)1 209(versions that do not have the corresponding UNIX program.)8 2436 3 720 3588 t
+12 CB f
+(typ e)1 291 1 3816 3588 t
+10 R f
+(utility does not handle multiple)4 1263 1 4137 3588 t
+(\256les nor wildcards;)2 778 1 720 3708 t
+12 CB f
+(cat)1577 3708 w
+10 R f
+(does both.)1 417 1 1827 3708 t
+12 CB f
+(ff)2396 3708 w
+10 R f
+(is a versatile text formatting \256lter that allows control of text \256lling to)12 2827 1 2573 3708 t
+(any width, right justi\256cation, line spacing, pagination, line numbering, tab expansion, and so on.)13 3867 1 720 3828 t
+12 CB f
+(fpa ck)1 363 1 4734 3828 t
+10 R f
+(creates)5124 3828 w
+(a plain text archive of a series of \256les.)8 1580 1 720 3948 t
+12 CB f
+(fpa ck)1 363 1 2454 3948 t
+10 R f
+( by many small \256les,)4 867(can save space by reducing space wasted)6 1681 2 2852 3948 t
+(and it can save time in \256le transfers by sending several \256les in one package.)14 3025 1 720 4068 t
+10 B f
+(Reading Manual Entries Online.)3 1421 1 720 4248 t
+10 R f
+(The)2201 4248 w
+12 CB f
+(man sta t)2 510 1 2439 4248 t
+10 R f
+( online, assuming)2 725(program lets you read the manual entries)6 1690 2 2985 4248 t
+( read the entry on a program, say)7 1313( To)1 161(that they have been installed.)4 1162 3 720 4368 t
+12 CB f
+(des c)1 291 1 3429 4368 t
+10 R f
+(, you just type:)3 595 1 3721 4368 t
+12 CB f
+( c)1 75( des)1 290(man sta t)2 510 3 2622 4488 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 0 2
+%%Trailer
+done
+%%Pages: 2
+%%DocumentFonts: Times-Roman Symbol Courier-Bold Times-Bold

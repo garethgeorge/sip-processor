@@ -1,0 +1,169 @@
+.TH DSORT 1 "June 17, 1986" "\(co 1980 Gary Perlman" "|STAT" "UNIX User's Manual""
+.SH NAME
+dsort \- multiple key data-file sorting filter
+.SH SYNOPSIS
+.B dsort
+[-aceinr] [-l lines] [[type][column-range]] ...
+.SH DESCRIPTION
+.I dsort
+sorts data it reads from the standard input.
+It sorts lines
+based on numerical or alphabetical values in whitespace-separated columns.
+For when two columns have the same value,
+you can supply further sorting columns to break ties.
+.I dsort
+sorts by looking at columns you choose,
+and orders lines so that the data or labels in the chosen columns
+are ordered.
+You can name the specific column numbers you want,
+and you can use the M-N notation to specify
+a sequence, from M to N, of columns.
+Ranges can be from small to large or from large to small column numbers.
+If you don't supply columns to sort with,
+.I dsort
+uses column 1, then 2, then 3, and so on,
+until it finds a difference, or all columns are used.
+.PP
+You can supply the method for comparing column values:
+.B a,
+for alphabetical,
+.B i,
+for integer,
+.B n,
+for most other numbers, including those with decimal points,
+or
+.B e,
+for sorting all types of numbers,
+even ones with exponential scientific notation.
+If you do not supply the type of sort,
+.I dsort
+chooses the one that is best suited for the data,
+although this makes
+.I dsort
+do some extra work.
+For alphabetical sorts,
+you can request a case-insensitive sort with
+.B c;
+that would make
+.I hello
+match
+.I Hello
+and
+.I HELLO.
+You can reverse the sort from the default ascending order to descending order
+with
+.B r.
+These sorting types can be specified globally for all columns at once
+with command line options.
+Global types can
+be over-ridden by supplying options for specific
+columns or ranges of columns.
+.SH OPTIONS
+.de OP
+.TP
+.B -\\$1 \\$2
+..
+.OP a
+Sort fields by alphabetic ordering of columns.
+.OP c
+Use a case-insensitive comparison for alphabetic comparisons.
+When used as a type modifier for a specific range of columns,
+this also forces alphabetic sorting.
+As a command line option,
+it only modifies the sorting of alphabetic columns.
+.OP e
+Sort fields by exponential notation ordering of columns.
+This is the only true numeric sort that works for all numbers:
+integers, numbers with decimal points, and exponential (scientific) notation
+numbers.
+But it is a lot slower than the other sorting options,
+especially on machines without floating point hardware.
+.OP i
+Sort fields by integer ordering of columns.
+.OP l lines
+Set the maximum number of lines to be read.
+.OP n
+Sort fields by special numeric ordering of columns.
+Numbers with decimal points are allowed,
+and compared by a special fast comparison method
+that is almost as fast as integer sorting.
+.OP r
+Reverse the order of comparison for sorting options.
+.SH EXAMPLES
+.ta 1i 2i 3i 4i 5i 6i
+.de (D
+.br
+.if t .ft B
+.if n .ft I
+.nf
+.if t .sp 6p
+.if n .sp
+.ne 1i
+.if \\n(.$ \\$1   \fR# \\$2
+.if t .ps 9p
+.if t .vs 10p
+.ft R
+..
+.de )D
+.if t .ps
+.if t .vs
+.fi
+..
+Suppose the file
+.I ex.dat
+has the contents below.
+If you did not specify column types,
+.I dsort
+would infer that columns 1 and 2 were to be sorted alphabetically,
+column 3, as integers,
+and column 4, numerically.
+.(D "ex.dat" "file with four columns (alpha, alpha, integer, numerical)
+red	high	1	3.14
+blue	low	2	1.62
+green	high	6	2.54
+green	low	4	2.71
+blue	high	3	1
+red	low	5	1
+.)D
+.(D "dsort  <  ex.dat" "sort by column 1, then 2, then 3, then 4
+blue	high	3	1
+blue	low	2	1.62
+green	high	6	2.54
+green	low	4	2.71
+red	high	1	3.14
+red	low	5	1
+.)D
+.(D "dsort  i3  <  ex.dat" "sort column 3 in ascending order
+red	high	1	3.14
+blue	low	2	1.62
+blue	high	3	1
+green	low	4	2.71
+red	low	5	1
+green	high	6	2.54
+.)D
+.(D "dsort  rn4  3  <  ex.dat" "numerically sort column 4 in reverse order, then 3
+red	high	1	3.14
+green	low	4	2.71
+green	high	6	2.54
+blue	low	2	1.62
+blue	high	3	1
+red	low	5	1
+.)D
+.(D "dsort  rn4  r3  <  ex.dat" "reverse numerical sort of column 4 and then 3
+red	high	1	3.14
+green	low	4	2.71
+green	high	6	2.54
+blue	low	2	1.62
+red	low	5	1
+blue	high	3	1
+.)D
+.(D "dsort  2-1  <  ex.dat" "sort by column 2, then column 1 within ties in 2
+blue	high	3	1
+green	high	6	2.54
+red	high	1	3.14
+blue	low	2	1.62
+green	low	4	2.71
+red	low	5	1
+.)D
+.SH LIMITS
+Use the -L option to determine the program limits.

@@ -1,0 +1,143 @@
+.de RF\"restore font
+.ps 10p
+.vs 12p
+.ft R
+..
+.wh -1i EP
+.wh 0 BP
+.de EV\"set basic environment
+.\".na
+.nh
+.RF
+.ls 1
+.ll 6.5i
+.lt 6.5i
+.po 1i
+.in 0
+.ce 0
+.cs CB 22
+.cs CW 22
+..
+.EV
+.ev 1
+.\".ft CB
+.EV
+.ev
+.de BP
+.ev 1
+'sp |.5i
+.if \\n(% \{\
+.if o 'tl '|STAT Handbook'\\*(CT'\\n(CH-\\n%'
+.if e 'tl '\\n(CH-\\n%'\\*(CT'|STAT Handbook'
+.\}
+'sp |.9i
+.ev
+..
+.de EP
+.ev 1
+'sp .5i
+'tl ''\(co 1986 Gary Perlman''
+'bp
+.ev
+..
+.de CH
+.nr CH \\$1
+.ds CT \\$2
+.nr SH 0
+.nr % 0
+..
+.de SH
+.nr SH +1
+.bp
+.ps 14p
+.ft B
+Section \\n(CH.\\n(SH \\$1
+.IN \\n(CH.\\n(SH "\\$1"
+.RF
+.sp
+..
+.--bold font
+.de B
+\fB\\$1\fP\\$2
+..
+.--italic font
+.de I
+\fI\\$1\fP\\$2
+..
+.--regular font
+.de R
+\fR\\$1\fP\\$2
+..
+.--typewriter font
+.de T
+\s12\f(CB\\$1\s0\fP\\$2
+..
+.de P
+.ft B
+.ps 14p
+.sp .5v
+.if \\n(.$ .sp .5v
+.ne 1i
+.if \\n(.$ \\$1
+.if \\n(.$ .IN "\\$1"
+.if \\n(.$ .sp .5v
+.RF
+.in 0
+.if \\n(.$=0 .ti +.5i
+..
+.de (
+.in +.5i
+.nf
+.ps 10p
+.ft CB
+.ta .5i +.5i +.5i +.5i +.5i +.5i +.5i +.5i +.5i +.5i +.5i
+.sp .5v
+..
+.de )
+.sp .5v
+.in 0
+.fi
+.RF
+..
+.de IN\"index entry
+.da XX
+.ev 1
+.ta 4nR 5n 6i 6.5iR
+.ie \\n(.$=2 .X# "\\$1" "\\$2"
+.el .XU "\\$1"
+.ev
+.di
+..
+.de X#\"index entry numbered
+.br
+	\\$1	\fB\\$2\fR 	\\n(CH-\\n%
+.br
+..
+.de XU\"index entry unnumbered
+.br
+		\fR\\$1
+.br
+..
+.--table of contents
+.de TC
+.RF
+.nf
+.bp 0\" now print title page for chapter
+.sp .5i
+.ft B
+.\".ps 30p
+.ps 24p
+CHAPTER \\n(CH
+.sp .5i
+\\*(CT
+.sp .5i
+.RF
+.ft B
+.\".tl 'Section''Page'
+.ft R
+.nf
+.XX
+.if \\n(.$=0 .sp .5i
+.RF
+.fi
+..

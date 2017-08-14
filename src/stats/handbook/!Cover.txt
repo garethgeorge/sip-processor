@@ -1,0 +1,14 @@
+.ce 100
+The |STAT Handbook
+
+Data Analysis Programs on UNIX and MSDOS
+
+Gary Perlman
+
+Copyright 1986 Gary Perlman
+
+.ce 0
+Permission to copy or distribute without fee all or part of this material
+is granted provided that the copies are not made or distributed for
+commercial advantage
+and that this copyright notice is part of all copies.

@@ -1,0 +1,40 @@
+.TH LINEX 1 "December 2, 1986" "\(co 1980 Gary Perlman" "|STAT" "UNIX User's Manual""
+.SH NAME
+linex \- line extraction
+.SH SYNOPSIS
+.B linex
+[-ns] line-numbers
+.SH DESCRIPTION
+.I linex
+extracts the named lines from the standard input
+and prints them to the standard output.
+Line numbers begin with 1.
+Ranges of line numbers can be abbreviated with arguments
+of the form #-# (e.g., 12-24).
+Line ranges can be in reverse order
+(e.g., 5-1 to reverse the first five lines).
+.SH OPTIONS
+.de OP
+.TP
+.B -\\$1 \\$2
+..
+.OP n
+Number output lines.
+.OP s
+Silent running.
+By default,
+.I linex
+complains if you request a line not found in the file.
+This option turns off the warning messages.
+.SH EXAMPLES
+.nf
+.ta 2i
+linex 1 2 3 4	# lines 1 through 4
+linex 1-4	# an abbreviation of the above
+linex 4-1	# lines 4-1 in reverse order
+linex -s 500-1000	# lines 500 to 1000, if they are there
+.fi
+.SH LIMITS
+There is a limit on the maximum number of lines you can print;
+probably 1000.
+Use the -L option to determine the program limits.

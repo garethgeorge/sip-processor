@@ -1,0 +1,65 @@
+.TH TS 1 "January 20, 1987" "\(co 1980 Gary Perlman" "|STAT" "UNIX User's Manual"
+.SH NAME
+ts \- time series analysis
+.SH SYNOPSIS
+.B ts
+[-aeps] [-b base] [-c lag] [-i interval] [-l length]
+.br
+	[-P style] [-n number] [-w width]
+.br
+.SH DESCRIPTION
+.PP
+.I ts
+performs a variety of time series analyses
+on ordered data read from the standard input.
+.SH OPTIONS
+.de OP
+.TP
+.B -\\$1 \\$2
+..
+.OP a
+requests no axes around plot.
+.OP b base
+set the base label of the time series.
+.OP c lag
+print (auto)correlation of lags 1:lag.
+These can be useful for detecting cycles and other trends within the data.
+The output for a lag of zero is the correlation of the time series
+with the numbers 1 through the length of the time series.
+.OP e
+echo the time series (may be useful with the
+.B -l
+option).
+.OP i size
+set the interval size for plot labels.
+.OP l length
+sets the length of the time series.
+This can be useful for summarizing,
+or for comparing time series of different lengths.
+.OP n N
+number the output lines of plots every N points.
+.OP p
+requests a time series plot.
+A vertical mean line is used for the center of the plot.
+.OP P plotnum
+Plot type.
+The default (type 1) plots points as deviations from the mean.
+Plot type 2 plots points as lines above the minimum.
+A line plot of the range indicating the mean and standard deviation
+surround plots.
+.OP s
+Print summary statistics.
+.OP w width
+Plot width (default: 70).
+.SH EXAMPLES
+.PP
+Side-by-side plots can compare trends in series of different lengths:
+.nf
+	ts -p -w 20 -l 30 < data1 > plot1
+	ts -p -w 20 -l 30 < data2 > plot2
+	pr -m plot1 plot2
+.fi
+.SH LIMITS
+Use the -L option to determine the program limits.
+.SH "MISSING VALUES
+Missing data values (NA) are counted but not included in the analysis.

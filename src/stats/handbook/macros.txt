@@ -1,0 +1,48 @@
+.nh
+.na
+.po 0
+.ll 79n
+.lt 79n
+.de CH
+.ce
+.sp 2
+Chapter \\$1: \\$2
+.nr CH \\$1
+.nr SH 0
+.sp
+..
+.de SH
+.sp
+.nr SH +1
+Section \\n(CH.\\n(SH: \\$1
+..
+.de P
+.sp
+.if !'\\$1'' \{
+\\$1
+.sp
+.fi
+.\}
+..
+.de T
+.\"    \e\\$1/\\$2 old version
+{\\$1}\\$2
+..
+.de R
+\\$1\\$2
+..
+.de I
+\\$1\\$2
+..
+.de B
+\\$1\\$2
+..
+.de (
+.ta 4n +4n +4n +4n +4n +4n +4n +4n +4n +4n +4n +4n +4n +4n +4n
+.sp
+.nf
+..
+.de )
+.sp
+.fi
+..

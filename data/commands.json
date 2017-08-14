@@ -1,0 +1,14 @@
+{
+  "get data" : {
+    "command": "/mnt/data/get-data.sh %1",
+    "next": ["build html"]
+  },
+  "build html" : {
+    "command" : "/mnt/data/build-region-html.sh %1",
+    "next" : ["make yaml"]
+  },
+  "make yaml" : {
+    "command" : "/mnt/data/make-yaml.sh %1",
+    "next": []
+  }
+}

@@ -1,0 +1,2182 @@
+%!PS
+%%Version: 3.3
+%%DocumentFonts: (atend)
+%%Pages: (atend)
+%%EndComments
+%
+% Version 3.3 prologue for troff files.
+%
+
+/#copies 1 store
+/aspectratio 1 def
+/formsperpage 1 def
+/landscape false def
+/linewidth .3 def
+/magnification 1 def
+/margin 0 def
+/orientation 0 def
+/resolution 720 def
+/rotation 1 def
+/xoffset 0 def
+/yoffset 0 def
+
+/roundpage true def
+/useclippath true def
+/pagebbox [0 0 612 792] def
+
+/R  /Times-Roman def
+/I  /Times-Italic def
+/B  /Times-Bold def
+/BI /Times-BoldItalic def
+/H  /Helvetica def
+/HI /Helvetica-Oblique def
+/HB /Helvetica-Bold def
+/HX /Helvetica-BoldOblique def
+/CW /Courier def
+/CO /Courier def
+/CI /Courier-Oblique def
+/CB /Courier-Bold def
+/CX /Courier-BoldOblique def
+/PA /Palatino-Roman def
+/PI /Palatino-Italic def
+/PB /Palatino-Bold def
+/PX /Palatino-BoldItalic def
+/Hr /Helvetica-Narrow def
+/Hi /Helvetica-Narrow-Oblique def
+/Hb /Helvetica-Narrow-Bold def
+/Hx /Helvetica-Narrow-BoldOblique def
+/KR /Bookman-Light def
+/KI /Bookman-LightItalic def
+/KB /Bookman-Demi def
+/KX /Bookman-DemiItalic def
+/AR /AvantGarde-Book def
+/AI /AvantGarde-BookOblique def
+/AB /AvantGarde-Demi def
+/AX /AvantGarde-DemiOblique def
+/NR /NewCenturySchlbk-Roman def
+/NI /NewCenturySchlbk-Italic def
+/NB /NewCenturySchlbk-Bold def
+/NX /NewCenturySchlbk-BoldItalic def
+/ZD /ZapfDingbats def
+/ZI /ZapfChancery-MediumItalic def
+/S  /S def
+/S1 /S1 def
+/GR /Symbol def
+
+/inch {72 mul} bind def
+/min {2 copy gt {exch} if pop} bind def
+
+/setup {
+	counttomark 2 idiv {def} repeat pop
+
+	landscape {/orientation 90 orientation add def} if
+	/scaling 72 resolution div def
+	linewidth setlinewidth
+	1 setlinecap
+
+	pagedimensions
+	xcenter ycenter translate
+	orientation rotation mul rotate
+	width 2 div neg height 2 div translate
+	xoffset inch yoffset inch neg translate
+	margin 2 div dup neg translate
+	magnification dup aspectratio mul scale
+	scaling scaling scale
+
+	/Symbol /S Sdefs cf
+	/Times-Roman /S1 S1defs cf
+	0 0 moveto
+} def
+
+/pagedimensions {
+	useclippath userdict /gotpagebbox known not and {
+		/pagebbox [clippath pathbbox newpath] def
+		roundpage currentdict /roundpagebbox known and {roundpagebbox} if
+	} if
+	pagebbox aload pop
+	4 -1 roll exch 4 1 roll 4 copy
+	landscape {4 2 roll} if
+	sub /width exch def
+	sub /height exch def
+	add 2 div /xcenter exch def
+	add 2 div /ycenter exch def
+	userdict /gotpagebbox true put
+} def
+
+/pagesetup {
+	/page exch def
+	currentdict /pagedict known currentdict page known and {
+		page load pagedict exch get cvx exec
+	} if
+} def
+
+/decodingdefs [
+	{counttomark 2 idiv {y moveto show} repeat}
+	{neg /y exch def counttomark 2 idiv {y moveto show} repeat}
+	{neg moveto {2 index stringwidth pop sub exch div 0 32 4 -1 roll widthshow} repeat}
+	{neg moveto {spacewidth sub 0.0 32 4 -1 roll widthshow} repeat}
+	{counttomark 2 idiv {y moveto show} repeat}
+	{neg setfunnytext}
+] def
+
+/setdecoding {/t decodingdefs 3 -1 roll get bind def} bind def
+
+/w {neg moveto show} bind def
+/m {neg dup /y exch def moveto} bind def
+/done {/lastpage where {pop lastpage} if} def
+
+/f {
+	dup /font exch def findfont exch
+	dup /ptsize exch def scaling div dup /size exch def scalefont setfont
+	linewidth ptsize mul scaling 10 mul div setlinewidth
+	/spacewidth ( ) stringwidth pop def
+} bind def
+
+/changefont {
+	/fontheight exch def
+	/fontslant exch def
+	currentfont [
+		1 0
+		fontheight ptsize div fontslant sin mul fontslant cos div
+		fontheight ptsize div
+		0 0
+	] makefont setfont
+} bind def
+
+/sf {f} bind def
+
+/cf {
+	dup length 2 idiv
+	/entries exch def
+	/chtab exch def
+	/newfont exch def
+
+	findfont dup length 1 add dict
+	/newdict exch def
+	{1 index /FID ne {newdict 3 1 roll put} {pop pop} ifelse} forall
+
+	newdict /Metrics entries dict put
+	newdict /Metrics get
+	begin
+		chtab aload pop
+		1 1 entries {pop def} for
+		newfont newdict definefont pop
+	end
+} bind def
+
+%
+% A few arrays used to adjust reference points and character widths in some
+% of the printer resident fonts. If square roots are too high try changing
+% the lines describing /radical and /radicalex to,
+%
+%	/radical	[0 -75 550 0]
+%	/radicalex	[-50 -75 500 0]
+%
+% Move braceleftbt a bit - default PostScript character is off a bit.
+%
+
+/Sdefs [
+	/bracketlefttp		[201 500]
+	/bracketleftbt		[201 500]
+	/bracketrighttp		[-81 380]
+	/bracketrightbt		[-83 380]
+	/braceleftbt		[203 490]
+	/bracketrightex		[220 -125 500 0]
+	/radical		[0 0 550 0]
+	/radicalex		[-50 0 500 0]
+	/parenleftex		[-20 -170 0 0]
+	/integral		[100 -50 500 0]
+	/infinity		[10 -75 730 0]
+] def
+
+/S1defs [
+	/underscore		[0 80 500 0]
+	/endash			[7 90 650 0]
+] def
+%%EndProlog
+%%BeginSetup
+mark
+/resolution 720 def
+setup
+2 setdecoding
+%%EndSetup
+%%Page: 1 1
+/saveobj save def
+mark
+1 pagesetup
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 1 1
+%%Page: 1 2
+/saveobj save def
+mark
+2 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 5-1)1 2059( Analysis)1 375( Data)1 1506(STAT Handbook)1 691 4 769 480 t
+14 B f
+(Section 5.1 Table of Analysis Programs)5 2341 1 720 768 t
+( Graphical)1 1245(Descriptive Inferential)1 1917 2 1822 1448 t
+(Univariate)720 1648 w
+14 CW f
+(sta ts)1 423 1 720 1848 t
+14 R f
+(simple stats)1 659 1 1831 1848 t
+14 CW f
+(des c)1 339 1 720 2048 t
+14 R f
+( histogram)1 1400( t-test)1 1102(many stats)1 596 3 1862 2048 t
+14 CW f
+(ts)720 2248 w
+14 R f
+( plot)1 253( bar)1 777(summary auto-correlation)1 1966 3 1900 2248 t
+14 B f
+(Multilevel)720 2648 w
+14 CW f
+(one way)1 507 1 720 2848 t
+14 R f
+( error)1 1022( \(un\)weighted)1 1327(group stats)1 611 3 1855 2848 t
+( barplots)1 1068(between anova)1 835 2 3003 3048 t
+14 CW f
+(ran kin d)2 594 1 720 3248 t
+14 R f
+( \256venum)1 1062( Mann-Whitney)1 1421(rank stats)1 533 3 1894 3248 t
+(Kruskal-Wallis plots)1 1824 1 2993 3448 t
+14 B f
+(Bivariate)720 3848 w
+14 CW f
+(pai r)1 339 1 720 4048 t
+14 R f
+( plot)1 253( scatter)1 984( t-test)1 315( paired)1 924(column stats)1 705 5 1808 4048 t
+( regression)1 610(differences simple)1 1452 2 1850 4248 t
+(correlation)1858 4448 w
+14 B f
+(Multivariate)720 4848 w
+14 CW f
+(reg res s)2 594 1 720 5048 t
+14 R f
+( residual)1 1018( regression)1 610( linear)1 746(variable stats)1 735 4 1793 5048 t
+( output)1 940( correlation)1 640(correlation partial)1 1421 3 1858 5248 t
+14 CW f
+(ran kre l)2 594 1 720 5448 t
+14 R f
+( Wilcoxon)1 1269(rank stats)1 533 2 1894 5448 t
+(correlation Friedman)1 1830 1 1858 5648 t
+14 B f
+(Multifactor)720 6048 w
+14 CW f
+(ano va)1 423 1 720 6248 t
+14 R f
+( model ANOVA)2 925( mixed)1 729(cell stats)1 487 3 1917 6248 t
+14 CW f
+(con tab)1 507 1 720 6448 t
+14 R f
+(crosstabs chi-square)1 1808 1 1903 6448 t
+(\256sher exact test)2 871 1 2985 6648 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 1 2
+%%Page: 2 3
+/saveobj save def
+mark
+3 pagesetup
+10 R f
+( Analysis)1 375(5-2 Data)1 2246 2 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+14 B f
+(Section 5.2 stats: print summary statistics)5 2486 1 720 768 t
+12 CB f
+(sta ts)1 363 1 1080 1068 t
+10 R f
+( of strings from which it)5 1024( input is a free format series)6 1174( Its)1 160(prints summary statistics for its input.)5 1562 4 1480 1068 t
+( a full analysis is not needed, the following names request speci\256c)11 2883( When)1 310(extracts only numbers for analysis.)4 1487 3 720 1188 t
+(statistics.)720 1308 w
+10 CB f
+( NA)1 244( se)1 243( t)1 63( kur)1 303( w)1 63( ske)1 304( sd)1 245( var)1 303( n)1 63( mea)1 304( max sum ss)3 855(n min)1 363 12 1080 1488 t
+( ts)1 123( sta)1 242(pro mpt :)2 426 3 1080 1728 t
+( min al)2 306( ter)1 242( m)1 63( fro)1 243( ut)1 123( inp)1 242( din g)2 246( rea)1 244(sta ts:)1 363 9 1080 1848 t
+(1 2 3 4 5 6 7 8 9 10)9 1218 1 1080 1968 t
+10 I f
+(EOF)1080 2088 w
+10 CB f
+(n = 10)2 840 1 1080 2208 t
+( 0)1 360(NA =)1 420 2 1080 2328 t
+( 1)1 360(min =)1 420 2 1080 2448 t
+( 10)1 420(max =)1 420 2 1080 2568 t
+( 55)1 420(sum =)1 420 2 1080 2688 t
+( 385)1 480(ss =)1 420 2 1080 2808 t
+( 5.5)1 480( =)1 177(mea n)1 243 3 1080 2928 t
+( 666 7)2 246( 9.1)1 480(var =)1 420 3 1080 3048 t
+( 276 5)2 246( 3.0)1 480(sd =)1 420 3 1080 3168 t
+( 574 27)2 306( 0.9)1 480(se =)1 420 3 1080 3288 t
+( 0)1 360( =)1 177(ske w)1 243 3 1080 3408 t
+( 383 6)2 246( 1.4)1 480( =)1 177(kur t)1 243 4 1080 3528 t
+( max)1 242( n)1 63( mea)1 244( min)1 243( ts)1 123( sta)1 242( |)1 123( x1)1 123( log)1 243( dm)1 182( |)1 124( 100)1 242( 1)1 124( ies)1 183( ser)1 242(pro mpt :)2 426 16 1080 3768 t
+( 051 7)2 246( 4.6)1 474( 373 9)2 246(0 3.6)1 540 4 1080 3888 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 2 3
+%%Page: 3 4
+/saveobj save def
+mark
+4 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 5-3)1 2059( Analysis)1 375( Data)1 1506(STAT Handbook)1 691 4 769 480 t
+14 B f
+(Section 5.3 desc: descriptions of a single distribution)7 3119 1 720 768 t
+12 CB f
+(des c)1 291 1 1080 1068 t
+10 R f
+( statistics, modi\256able format histograms and frequency)6 2279( Summary)1 453(describes a single distribution.)3 1258 3 1410 1068 t
+( single distribution)2 771(tables, and)1 438 2 720 1188 t
+10 I f
+(t)1964 1188 w
+10 R f
+(-tests are supported.)2 821 1 1992 1188 t
+12 CB f
+(des c)1 291 1 2969 1188 t
+10 R f
+(reads free format input, with numbers separated by)7 2104 1 3296 1188 t
+( order statistics are being printed, or when a)8 1909( When)1 308( tabs, newlines\).)2 689(any amount of white space \(blank spaces,)6 1774 4 720 1308 t
+( the number of input values that must be stored.)9 2012(histogram or frequency table is being printed, there is a limit to)11 2668 2 720 1428 t
+(Although system dependent, usually several thousand values can be stored.)9 3004 1 720 1548 t
+(An example input to)3 819 1 1080 1728 t
+12 CB f
+(des c)1 291 1 1972 1728 t
+10 R f
+(is shown below.)2 647 1 2289 1728 t
+10 CB f
+(3 3 4 4 7 7 7 7 8 9 1 2 3 4 5 6 7)16 2012 1 1080 1908 t
+( 7)1 122( 1 7)2 366(8 9 9 8 7 6 5 4 3 2 4 5 6 1 2 3 4 3)17 2134 3 1080 2028 t
+10 R f
+(The call to)2 433 1 720 2208 t
+12 CB f
+(des c)1 291 1 1229 2208 t
+10 R f
+(includes many options:)2 934 1 1549 2208 t
+12 CB f
+(-o)2559 2208 w
+10 R f
+(for Order statistics,)2 774 1 2733 2208 t
+12 CB f
+(-hc fp)1 363 1 3584 2208 t
+10 R f
+(respectively for a Histogram, and a)5 1422 1 3978 2208 t
+(table with Cumulative Frequencies and Proportions,)5 2102 1 720 2328 t
+12 CB f
+(-m 0.5)1 435 1 2898 2328 t
+10 R f
+(to set the Minimum allowed value to 0.5,)7 1668 1 3364 2328 t
+12 CB f
+(-M 8)1 291 1 5108 2328 t
+10 R f
+(to set the Maximum allowed value to 8,)7 1693 1 720 2448 t
+12 CB f
+(-i 1)1 291 1 2501 2448 t
+10 R f
+( to 1, and)3 420(to set the Interval width in the histogram and table)9 2147 2 2833 2448 t
+12 CB f
+(-t 5)1 291 1 720 2568 t
+10 R f
+(to request a t-test with null mean equal to 5.)9 1754 1 1037 2568 t
+10 CB f
+( 5)1 123( -t)1 243( 1)1 123( -i)1 243( 8)1 123( -M)1 245( 0.5)1 243( -m)1 244( fp)1 123( -hc)1 304( -o)1 243(des c)1 243 12 1080 2748 t
+10 R f
+(The output follows.)2 786 1 720 2928 t
+10 CB f
+(--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---)19 3657 1 1080 3108 t
+( Sum)1 730( sin g)2 246( Mis)1 487( ge)1 123( Ran)1 242( r)1 63( Ove)1 304( ge)1 123( Ran)1 243( In)1 366( ge)1 123( Ran)1 243(Und er)1 303 13 1141 3228 t
+( .00 0)2 246( 164)1 486( 0)1 732( 3)1 733(0 35)1 791 5 1751 3348 t
+(--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---)19 3657 1 1080 3468 t
+( mon ic)2 306( Har)1 427( met ric)2 366( Geo)1 365( poi nt)2 306( Mid)1 427( ian)1 183( Med)1 547(Mea n)1 243 9 1568 3588 t
+( 96)1 123( 3.2)1 609( 55)1 123( 4.0)1 609( 00)1 123( 4.5)1 609( 00)1 123( 4.0)1 609(4.6 86)1 303 9 1507 3708 t
+(--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---)19 3657 1 1080 3828 t
+( n)1 63( mea)1 243( SE)1 427( ge)1 123( Ran)1 610( Dev)1 243( rt)1 123(SD Qua)1 485 8 1690 3948 t
+( 71)1 123( 0.3)1 609( 00)1 123( 7.0)1 609( 00)1 123( 2.0)1 609(2.1 93)1 303 7 1507 4068 t
+(--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---)19 3657 1 1080 4188 t
+( imu m)2 246( Max)1 486( 3)1 123( rti le)2 306( Qua)1 303( 2)1 123( rti le)2 306( Qua)1 303( 1)1 123( rti le)2 306( Qua)1 303(Min imu m)2 426 12 1385 4308 t
+( 00)1 123( 8.0)1 609( 00)1 123( 7.0)1 609( 00)1 123( 4.0)1 609( 00)1 123( 3.0)1 609(1.0 00)1 303 9 1507 4428 t
+(--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---)19 3657 1 1080 4548 t
+( t)1 63( Kur)1 243( SD)1 427( tos is)2 306( Kur)1 425( w)1 63( Ske)1 243( SD)1 426(Ske w)1 243 9 1568 4668 t
+( 28)1 123( 0.8)1 609( 79)1 123( 1.6)1 609( 14)1 123( 0.4)1 610(-0. 064)1 363 7 1446 4788 t
+(--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---)19 3657 1 1080 4908 t
+( \(F\))1 242( b)1 63( pro)1 425( F)1 734( \(t\))1 242( b)1 63( pro)1 425( t)1 732( n)1 63( Mea)1 242(Nul l)1 243 11 1263 5028 t
+( 02)1 123( 0.4)1 609( 19)1 123( 0.7)1 609( 02)1 123( 0.4)1 610( 848)1 183( -0.)1 548(5.0 00)1 303 9 1507 5148 t
+(--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---)19 3657 1 1080 5268 t
+( Cum)1 486( p)1 63( Pro)1 427( Cum)1 486( q)1 63( Fre)1 426(Mid pt)1 303 7 1080 5508 t
+( ***)1 243( 86)1 123( 0.0)1 365( 86)1 123( 0.0)1 364( 3)1 488( 3)1 489(1.0 00)1 303 8 1080 5628 t
+( ***)1 243( 71)1 123( 0.1)1 365( 86)1 123( 0.0)1 364( 6)1 488( 3)1 489(2.0 00)1 303 8 1080 5748 t
+( ***)1 183( ***)1 243( 43)1 123( 0.3)1 365( 71)1 123( 0.1)1 365( 12)1 487( 6)1 489(3.0 00)1 303 9 1080 5868 t
+( ***)1 183( ***)1 243( 14)1 123( 0.5)1 365( 71)1 123( 0.1)1 365( 18)1 487( 6)1 489(4.0 00)1 303 9 1080 5988 t
+( ***)1 243( 00)1 123( 0.6)1 365( 86)1 123( 0.0)1 365( 21)1 487( 3)1 489(5.0 00)1 303 8 1080 6108 t
+( ***)1 243( 86)1 123( 0.6)1 365( 86)1 123( 0.0)1 365( 24)1 487( 3)1 489(6.0 00)1 303 8 1080 6228 t
+( *** **)2 306( ***)1 243( 14)1 123( 0.9)1 365( 29)1 123( 0.2)1 365( 32)1 487( 8)1 489(7.0 00)1 303 9 1080 6348 t
+( ***)1 243( 00)1 123( 1.0)1 365( 86)1 123( 0.0)1 365( 35)1 487( 3)1 489(8.0 00)1 303 8 1080 6468 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 3 4
+%%Page: 4 5
+/saveobj save def
+mark
+5 pagesetup
+10 R f
+( Analysis)1 375(5-4 Data)1 2246 2 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+14 B f
+(Section 5.4 ts: time series analysis and plots)7 2590 1 720 768 t
+12 CB f
+(ts)1080 1068 w
+10 R f
+( input is a free format stream of at most)9 1677( Its)1 161( plots for time series data.)5 1087(performs simple analyses and)3 1214 4 1261 1068 t
+( prints summary statistics for the time series, allows rescaling of the size of the time series so that)18 3965( It)1 116(1000 numbers.)1 599 3 720 1188 t
+( compared, and optionally computes auto-correlations of the series for different)10 3178(time series of different lengths can be)6 1502 2 720 1308 t
+( time)1 207( example, an auto-correlation of lag 1 of a)8 1716( For)1 194( analysis detects recurring trends in data.)6 1657(lags. Auto-correlation)1 906 5 720 1428 t
+( the series.)2 430(series pairs each value with the next in)7 1558 2 720 1548 t
+12 CB f
+(ts)2857 1548 w
+10 R f
+(is best demonstrated on an oscillating sequence, the output)8 2369 1 3031 1548 t
+( call to)2 274( The)1 206(from which is shown below.)4 1139 3 720 1668 t
+12 CB f
+(ts)2413 1668 w
+10 R f
+(includes several options:)2 990 1 2585 1668 t
+12 CB f
+(-c 5)1 291 1 3649 1668 t
+10 R f
+( of)1 108(requests autocorrelations for lags)3 1325 2 3967 1668 t
+(1 to 5, the)3 403 1 720 1788 t
+12 CB f
+(-ps)1197 1788 w
+10 R f
+( statistics, and the)3 717(options request a time-series plot and)5 1495 2 1442 1788 t
+12 CB f
+(-w 40)1 363 1 3729 1788 t
+10 R f
+(option sets the width of the plot)6 1279 1 4121 1788 t
+(to 40 characters.)2 656 1 720 1908 t
+10 CB f
+( 40)1 183( -w)1 245( -ps)1 303( 5)1 123(ts -c)1 364 5 1080 2088 t
+(1 2 3 4 5 4 3 2 1 2 3 4 5 4 3 2 1)16 2012 1 1080 2268 t
+( 17)1 182(n =)1 548 2 1080 2508 t
+( 49)1 182(sum =)1 548 2 1080 2628 t
+( 169)1 242(ss =)1 548 2 1080 2748 t
+( 1)1 122(min =)1 548 2 1080 2868 t
+( 5)1 122(max =)1 548 2 1080 2988 t
+( 4)1 122( =)1 245(ran ge)1 303 3 1080 3108 t
+( 3)1 122( =)1 245(mid pt)1 303 3 1080 3228 t
+( 823 5)2 246( 2.8)1 242( =)1 305(mea n)1 243 4 1080 3348 t
+( 173 1)2 246( 1.3)1 242(sd =)1 548 3 1080 3468 t
+( p)1 428( df)1 365( F)1 794( n')1 367( r\3032)1 425(Lag r)1 609 6 1080 3588 t
+( 00)1 123( 1.0)1 304( 15)1 366( 00)1 123( 0.0)1 670( 17)1 366( 00)1 123( 0.0)1 304( 00)1 123(0 0.0)1 363 10 1202 3708 t
+( 05)1 123( 0.0)1 304( 14)1 367( 200)1 183( 11.)1 609( 16)1 366( 44)1 123( 0.4)1 304( 67)1 123(1 0.6)1 363 10 1202 3828 t
+( 69)1 123( 0.8)1 304( 13)1 366( 28)1 123( 0.0)1 670( 15)1 366( 02)1 123( 0.0)1 305( 047)1 183(2 -0.)1 302 10 1202 3948 t
+( 05)1 123( 0.0)1 304( 12)1 367( 590)1 183( 11.)1 609( 14)1 366( 91)1 123( 0.4)1 305( 701)1 183(3 -0.)1 302 10 1202 4068 t
+( 00)1 123( 0.0)1 304( 11)1 366( 00)1 123( 0.0)1 670( 13)1 366( 00)1 123( 1.0)1 305( 000)1 183(4 -1.)1 302 10 1202 4188 t
+( 12)1 123( 0.0)1 304( 10)1 366( 07)1 123( 9.5)1 670( 12)1 366( 87)1 123( 0.4)1 305( 698)1 183(5 -0.)1 302 10 1202 4308 t
+(--- --+ --- --- --- --- |-- --- --- --- -+- --- --- -)13 2439 1 1080 4428 t
+(--- --- --- --- --- --- |)6 1158 1 1080 4548 t
+(--- --- --- |)3 609 1 1629 4668 t
+(|-)2178 4788 w
+(|-- --- --- ---)3 729 1 2178 4908 t
+(|-- --- --- --- --- --- --- -)7 1341 1 2178 5028 t
+(|-- --- --- ---)3 729 1 2178 5148 t
+(|-)2178 5268 w
+(--- --- --- |)3 609 1 1629 5388 t
+(--- --- --- --- --- --- |)6 1158 1 1080 5508 t
+(--- --- --- |)3 609 1 1629 5628 t
+(|-)2178 5748 w
+(|-- --- --- ---)3 729 1 2178 5868 t
+(|-- --- --- --- --- --- --- -)7 1341 1 2178 5988 t
+(|-- --- --- ---)3 729 1 2178 6108 t
+(|-)2178 6228 w
+(--- --- --- |)3 609 1 1629 6348 t
+(--- --- --- --- --- --- |)6 1158 1 1080 6468 t
+(--- --+ --- --- --- --- |-- --- --- --- -+- --- --- -)13 2439 1 1080 6588 t
+( 00)1 123( 5.0)1 2012(1.0 00)1 303 3 1080 6708 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 4 5
+%%Page: 5 6
+/saveobj save def
+mark
+6 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 5-5)1 2059( Analysis)1 375( Data)1 1506(STAT Handbook)1 691 4 769 480 t
+14 B f
+(Section 5.5 oneway: one way analysis of variance)7 2908 1 720 768 t
+12 CB f
+(one way)1 435 1 1080 1068 t
+10 R f
+( is partly redundant with)4 981( It)1 111(performs a between-groups one-way analysis of variance.)6 2301 3 1543 1068 t
+12 CB f
+(ano va)1 363 1 5010 1068 t
+10 R f
+(,)5375 1068 w
+( input to)2 340( The)1 208( simplify analysis of this common experimental design.)7 2237(but is provided to)3 715 4 720 1188 t
+12 CB f
+(one way)1 435 1 4296 1188 t
+10 R f
+(consists of each)2 638 1 4762 1188 t
+( input format, separated by a special value called the)9 2257(group's data, in free)3 854 2 720 1308 t
+10 I f
+(splitter)3874 1308 w
+10 R f
+( sizes can differ, and)4 894(. Group)1 348 2 4158 1308 t
+12 CB f
+(one way)1 435 1 720 1428 t
+10 R f
+( 20 groups can be compared.)5 1202( most)1 232( At)1 162(uses a weighted or unweighted \(Keppel, 1973\) means solution.)8 2609 4 1195 1428 t
+(When two groups are being compared, the)6 1717 1 720 1548 t
+12 CB f
+(-t)2514 1548 w
+10 R f
+( a)1 74(option prints the signi\256cance test as)5 1450 2 2689 1548 t
+10 I f
+(t)4243 1548 w
+10 R f
+( program is based)3 722(-test. The)1 407 2 4271 1548 t
+(on a method of analysis described by Guilford and Fruchter \(1978\).)10 2698 1 720 1668 t
+(An example interactive session with)4 1504 1 1080 1848 t
+12 CB f
+(one way)1 435 1 2671 1848 t
+10 R f
+( call to)2 300( The)1 219(is shown below.)2 675 3 3148 1848 t
+12 CB f
+(one way)1 435 1 4429 1848 t
+10 R f
+(includes the)1 494 1 4906 1848 t
+12 CB f
+(-s)720 1968 w
+10 R f
+( The)1 215( 999 as the value of the Splitting value between groups.)10 2317(option with)1 470 3 902 1968 t
+12 CB f
+(-u)3987 1968 w
+10 R f
+(option request the)2 736 1 4168 1968 t
+10 I f
+(unweighted)4939 1968 w
+10 R f
+( default)1 307(means solution rather than the)4 1220 2 720 2088 t
+10 I f
+(weighted)2277 2088 w
+10 R f
+( The)1 210(means solution.)1 633 2 2668 2088 t
+12 CB f
+(-w 40)1 363 1 3589 2088 t
+10 R f
+(option requests an error bar plot of)6 1416 1 3984 2088 t
+( names are given to the groups.)6 1245( Meaningful)1 516(width 40.)1 378 3 720 2208 t
+10 CB f
+( e)1 63( mor)1 243( al)1 123( equ)1 242( s)1 63( les)1 304( 40)1 183( -w)1 244( -u)1 245( 999)1 243( -s)1 245( way)1 183( one)1 242(pro mpt :)2 426 14 1080 2388 t
+( min al:)2 366( ter)1 242( m)1 63( fro)1 243( ut)1 123( inp)1 242( din g)2 246( rea)1 242(one way :)2 426 9 1080 2508 t
+(1 2 3 4 5 4 3 2 1)8 1036 1 1080 2628 t
+(999)1080 2748 w
+(3 4 5 4 3 4 5 4 3)8 1036 1 1080 2868 t
+(999)1080 2988 w
+(7 6 5 7 6 5)5 670 1 1080 3108 t
+10 I f
+(EOF)1080 3228 w
+10 CB f
+( Max)1 549( Min)1 548( SD)1 548( n)1 63( Mea)1 486( N)1 671(Nam e)1 243 7 1080 3468 t
+( 00)1 123( 5.0)1 426( 00)1 123( 1.0)1 426( 94)1 123( 1.3)1 426( 78)1 123( 2.7)1 425( 9)1 671(les s)1 243 10 1080 3588 t
+( 00)1 123( 5.0)1 426( 00)1 123( 3.0)1 426( 82)1 123( 0.7)1 426( 89)1 123( 3.8)1 425( 9)1 611(equ al)1 303 10 1080 3708 t
+( 00)1 123( 7.0)1 426( 00)1 123( 5.0)1 426( 94)1 123( 0.8)1 426( 00)1 123( 6.0)1 425( 6)1 671(mor e)1 243 10 1080 3828 t
+( 00)1 123( 7.0)1 426( 00)1 123( 1.0)1 426( 42)1 123( 1.6)1 426( 00)1 123( 4.0)1 426( 24)1 610(Tot al)1 303 10 1080 3948 t
+( |)1 854( === === \(== #== \)== === ==- --- >)9 1527( |<-)1 547(les s)1 243 4 1080 4188 t
+( |)1 855( =\(= #\)= === ->)4 672( <==)1 974( |)1 367(equ al)1 303 5 1080 4308 t
+( =\(= =#= \)== =>|)4 732( <==)1 1767( |)1 427(mor e)1 243 4 1080 4428 t
+( 00)1 123( 7.0)1 2012(1.0 00)1 303 3 1751 4548 t
+( lys is:)2 366( Ana)1 243( ns)1 123( Mea)1 242(Unw eig hte d)3 609 5 1080 4788 t
+( p)1 366( F)1 550( MS)1 671( df)1 366( SS)1 794(Sou rce)1 363 6 1080 4908 t
+( ***)1 243( 00)1 123( 0.0)1 244( 755)1 183( 17.)1 366( 667)1 183( 20.)1 486( 2)1 368( 333)1 183( 41.)1 547(Bet wee n)2 426 11 1080 5028 t
+( 64)1 123( 1.1)1 548( 21)1 367( 444)1 183( 24.)1 610(Wit hin)1 363 6 1080 5148 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 5 6
+%%Page: 6 7
+/saveobj save def
+mark
+7 pagesetup
+10 R f
+( Analysis)1 375(5-6 Data)1 2246 2 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+14 B f
+(Section 5.6 rankind: rank-order analysis of independent groups)7 3796 1 720 768 t
+12 CB f
+(ran kin d)2 510 1 1080 1068 t
+10 R f
+( group data using non-)4 1031(prints rank-order summary statistics and compares independent)6 2721 2 1648 1068 t
+( is the non-parametric counterpart to the normal theory)8 2254( It)1 119(parametric methods.)1 823 3 720 1188 t
+12 CB f
+(one way)1 435 1 3997 1188 t
+10 R f
+( the input)2 392(program, and)1 540 2 4468 1188 t
+(format to)1 376 1 720 1308 t
+12 CB f
+(ran kin d)2 510 1 1176 1308 t
+10 R f
+(is the same as for)4 721 1 1719 1308 t
+12 CB f
+(one way)1 435 1 2520 1308 t
+10 R f
+( group's data are in free input format, separated by a)10 2161(. Each)1 281 2 2958 1308 t
+(special value, called the)3 1004 1 720 1428 t
+10 I f
+(splitter.)1766 1428 w
+10 R f
+(Like)2141 1428 w
+12 CB f
+(one way)1 435 1 2413 1428 t
+10 R f
+(, there are plots of group data, but)7 1462 1 2851 1428 t
+12 CB f
+(ran kin d)2 510 1 4402 1428 t
+10 R f
+('s show the)2 487 1 4913 1428 t
+( tests include the median test, Fisher's)6 1572( Signi\256cance)1 552( and the maximum.)3 796(minimum, 25th, 50th, and 75th percentiles,)5 1760 4 720 1548 t
+(exact test, Mann-Whitney U test for ranks, and the Kruskal-Wallis analysis of variance of ranks.)14 3844 1 720 1668 t
+(The following example is for the same data as in the example with)12 2801 1 1080 1848 t
+12 CB f
+(one way)1 435 1 3966 1848 t
+10 R f
+( options to set the)4 754(. The)1 242 2 4404 1848 t
+( names are given to the groups.)6 1245( Meaningful)1 516(splitter and plot width are the same for both programs.)9 2175 3 720 1968 t
+10 CB f
+( e)1 63( mor)1 243( al)1 123( equ)1 242( s)1 63( les)1 304( 40)1 183( -w)1 245( 999)1 243( -s)1 243( kin d)2 246( ran)1 242(pro mpt :)2 426 13 1080 2148 t
+( min al:)2 366( ter)1 242( m)1 63( fro)1 243( ut)1 123( inp)1 242( din g)2 246( rea)1 243(ran kin d:)2 486 9 1080 2268 t
+(1 2 3 4 5 4 3 2 1)8 1036 1 1080 2388 t
+(999)1080 2508 w
+(3 4 5 4 3 4 5 4 3)8 1036 1 1080 2628 t
+(999)1080 2748 w
+(7 6 5 7 6 5)5 670 1 1080 2868 t
+10 I f
+(EOF)1080 2988 w
+10 CB f
+( 75% Max)2 1098( ian)1 183( Med)1 366( 25%)1 549( Min)1 548(N NA)1 364 6 1873 3228 t
+( 0)1 63( 5.0)1 486( 0)1 63( 4.0)1 486( 0)1 63( 3.0)1 486( 5)1 63( 1.7)1 486( 0)1 63( 1.0)1 486( 0)1 305( 9)1 610(les s)1 243 13 1080 3348 t
+( 0)1 63( 5.0)1 486( 5)1 63( 4.2)1 486( 0)1 63( 4.0)1 486( 0)1 63( 3.0)1 486( 0)1 63( 3.0)1 486( 0)1 305( 9)1 550(equ al)1 303 13 1080 3468 t
+( 0)1 63( 7.0)1 486( 0)1 63( 7.0)1 486( 0)1 63( 6.0)1 486( 0)1 63( 5.0)1 486( 0)1 63( 5.0)1 486( 0)1 305( 6)1 610(mor e)1 243 13 1080 3588 t
+( 0)1 63( 7.0)1 486( 0)1 63( 5.0)1 486( 0)1 63( 4.0)1 486( 0)1 63( 3.0)1 486( 0)1 63( 1.0)1 486( 0)1 306( 24)1 549(Tot al)1 303 13 1080 3708 t
+( |)1 854( >)1 427( --- --- #-- --- -)5 795( ---)1 365( |<)1 487(les s)1 243 6 1080 3948 t
+( |)1 854( >)1 307( --- #--)2 366( <--)1 974( |)1 367(equ al)1 303 6 1080 4068 t
+( --- -#- --- ->|)4 732( <--)1 1767( |)1 427(mor e)1 243 4 1080 4188 t
+( 00)1 123( 7.0)1 2012(1.0 00)1 303 3 1751 4308 t
+(Med ian -Te st:)3 729 1 1080 4548 t
+( e)1 63( mor)1 365( al)1 123( equ)1 303(les s)1 243 5 2117 4668 t
+( 2 6 9)3 1281( 1)1 489(abo ve)1 303 3 1568 4788 t
+( 3 0 9)3 1281( 6)1 489(bel ow)1 303 3 1568 4908 t
+( 18)1 426(7 5 6)2 914 2 2300 5028 t
+( 5)1 122( n)1 63( tha)1 242( s)1 63( les)1 243( que nci es)3 489( fre)1 243( ect ed)2 306( exp)1 244( had)1 243( ls)1 123( cel)1 242( 6)1 123( of)1 182( 6)1 123(WAR NIN G:)2 486 16 1568 5148 t
+( 075 54)2 306( 0.0)1 303( p)1 427( 2)1 245( df)1 427( 714 29)2 306( 9.7)1 609(chi sq)1 303 8 1568 5268 t
+(Kru ska l-W all is:)4 912 1 1080 5508 t
+( 337 778)2 366( 13.)1 975( s\))1 123( for tie)2 488( rec ted)2 366( cor)1 242( t)1 63(H \(no)1 302 8 1568 5628 t
+( 656 52)2 306( 0.9)1 1342( tor)1 183( fac)1 242( rec tio n)3 429(Tie cor)1 424 6 1568 5748 t
+( 812 197)2 366( 13.)1 1219( s\))1 123( tie)1 244( for)1 242( rre cte d)3 429(H \(co)1 302 7 1568 5868 t
+( 010 02)2 306( 0.0)1 303( p)1 427( 2)1 245( df)1 428( 812 197)2 366( 13.)1 548(chi sq)1 303 8 1568 5988 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 6 7
+%%Page: 7 8
+/saveobj save def
+mark
+8 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 5-7)1 2059( Analysis)1 375( Data)1 1506(STAT Handbook)1 691 4 769 480 t
+14 B f
+(Section 5.7 pair: paired points analysis and plots)7 2895 1 720 768 t
+12 CB f
+(pai r)1 291 1 1080 1068 t
+10 R f
+( signi\256cance tests for two input variables in)7 1768(analyzes paired data by printing summary statistics and)7 2232 2 1400 1068 t
+( test of the difference of the)6 1156( The)1 214( regression, and plots.)3 901(columns and their difference, correlation and simple linear)7 2409 4 720 1188 t
+( input consists of a series of lines, each with two paired)11 2219( The)1 206( against zero is equivalent to a paired t-test.)8 1741(two columns)1 514 4 720 1308 t
+( data are being stored for a plot, at most 1000 points can be processed.)14 2806(points. When)1 558 2 720 1428 t
+(An example input to)3 843 1 1080 1608 t
+12 CB f
+(pai r)1 291 1 2004 1608 t
+10 R f
+(is generated using the)3 892 1 2329 1608 t
+12 CB f
+(ser ies)1 435 1 3303 1608 t
+10 R f
+(and)3775 1608 w
+12 CB f
+(dm)4001 1608 w
+10 R f
+(programs connected by pipes.)3 1219 1 4181 1608 t
+(The input to)2 491 1 720 1728 t
+12 CB f
+(pai r)1 291 1 1285 1728 t
+10 R f
+( The)1 205( 1, and the square roots of those numbers in column 2.)11 2167(are the numbers 1 to 100 in column)7 1425 3 1603 1728 t
+12 CB f
+(dm)720 1848 w
+10 R f
+(built-in variable)1 646 1 896 1848 t
+12 CB f
+(INL INE)1 435 1 1620 1848 t
+10 R f
+( second half)2 494(is used in a condition to switch the sign of the second column for the)14 2818 2 2088 1848 t
+(of the data.)2 450 1 720 1968 t
+12 CB f
+(pai r)1 291 1 1318 1968 t
+10 R f
+( test of)2 274( signi\256cance)1 504( The)1 207(reads X-Y points and predicts Y \(in column 2\) with X \(in column 1\).)13 2778 4 1637 1968 t
+( is equivalent to a paired-groups)5 1289(the difference of the columns against 0.0)6 1627 2 720 2088 t
+10 I f
+(t)3662 2088 w
+10 R f
+( call to)2 274(-test. The)1 403 2 3690 2088 t
+12 CB f
+(pai r)1 291 1 4441 2088 t
+10 R f
+(includes several)1 641 1 4759 2088 t
+(options:)720 2208 w
+12 CB f
+(-sp)1123 2208 w
+10 R f
+(requests Statistics and a Plot,)4 1192 1 1374 2208 t
+12 CB f
+(-w 40)1 363 1 2646 2208 t
+10 R f
+( Width of the plot to 40 characters, and)8 1609(sets the)1 304 2 3043 2208 t
+12 CB f
+(-h 15)1 363 1 5035 2208 t
+10 R f
+(sets the Height of the plot to 15 characters.)8 1711 1 720 2328 t
+10 CB f
+( 40 -h 15)3 549( -w)1 184( -sp)1 242( r)1 63( pai)1 242( |)1 124( NLI NE> 50? -1: 1\)* x1\303 .5")7 1281( x1 "\(I)2 426( dm)1 182( |)1 124( 100)1 242( 1)1 124(ser ies)1 363 13 1080 2508 t
+( fer enc e)3 429( Dif)1 364( 2)1 124( umn)1 183( Col)1 364( 1)1 124(Col umn)1 363 7 2056 2748 t
+( 000)1 183( 0.0)1 609( .00 00)2 306( -10)1 366( 000)1 183( 1.0)1 792(Min imu ms)2 486 7 1080 2868 t
+( .00 00)2 306( 110)1 488( 711)1 183( 7.0)1 487( .00 00)2 306( 100)1 670(Max imu ms)2 486 7 1080 2988 t
+( 3.3 913)2 366( 524)1 427( 3.3 913)2 366( -19)1 305( 0.0 000)2 366( 505)1 852(Sum s)1 243 7 1080 3108 t
+( 407 .63 03)3 489( 395)1 305( 9.9 989)2 366( 504)1 304( 350 .00 00)3 489( 338)1 364(Sum Squ are s)3 609 7 1080 3228 t
+( 433 9)2 246( 52.)1 547( 933 9)2 246( -1.)1 425( 500 0)2 246( 50.)1 914(Mea ns)1 303 7 1080 3348 t
+( 884 5)2 246( 34.)1 549( 726)1 183( 6.8)1 486( 011 5)2 246(SDs 29.)1 1217 6 1080 3468 t
+( 030 7)2 246( 15.)1 547( 814 0)2 246( -2.)1 425( 406 9)2 246( 17.)1 914(t\(9 9\))1 303 7 1080 3588 t
+( 000)1 183( 0.0)1 610( 059)1 183( 0.0)1 488( 000)1 183(p 0.0)1 1278 6 1080 3708 t
+( p)1 794( 8\))1 123( t\(9)1 549( qua red)2 366( r-s)1 426(Cor rel ati on)3 669 6 1080 3948 t
+( 000)1 183( 0.0)1 609( .32 19)2 306( -14)1 366( 767)1 183( 0.6)1 608(-0. 822 6)2 426 7 1324 4068 t
+( pe)1 123( Slo)1 671(Int erc ept)2 546 3 1202 4188 t
+( 194 9)2 246( -0.)1 549(7.9 070)1 363 3 1385 4308 t
+(|-- --- --- --- --- --- --- --- --- --- --- --- --- --| 7.0 710 7)16 2988 1 1080 4548 t
+( |)1 1283( 232)1 183(| 323)1 1095 3 1080 4668 t
+( |)1 1649( 232)1 183(| 123)1 729 3 1080 4788 t
+( |)1 1952( 2)1 63(| 232)1 546 3 1080 4908 t
+( |)1 2198(| 223)1 363 2 1080 5028 t
+( |)1 2318(|22 1)1 243 2 1080 5148 t
+(|1 |)1 2561 1 1080 5268 t
+(| |)1 2561 1 1080 5388 t
+( 2)1 122( lum n)2 246(| |Co)1 2681 3 1080 5508 t
+(| |)1 2561 1 1080 5628 t
+(| |)1 2561 1 1080 5748 t
+(| |)1 2561 1 1080 5868 t
+(| |)1 2561 1 1080 5988 t
+( |)1 1037( 2)1 63(| 232)1 1461 3 1080 6108 t
+( |)1 551( 232 321)2 366(| 123)1 1644 3 1080 6228 t
+( 232 323 |)3 429(| 223)1 2132 2 1080 6348 t
+(|-- --- --- --- --- --- --- --- --- --- --- --- --- --| -10)14 2742 1 1080 6468 t
+( .00 0)2 246( 100)1 2012(1.0 00)1 303 3 1080 6588 t
+( 0.8 23)2 306( r=-)1 303( 1)1 124(Col umn)1 363 4 1812 6708 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 7 8
+%%Page: 8 9
+/saveobj save def
+mark
+9 pagesetup
+10 R f
+( Analysis)1 375(5-8 Data)1 2246 2 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+14 B f
+(Section 5.8 rankrel: rank-order analysis of related groups)7 3444 1 720 768 t
+12 CB f
+(ran kre l)2 510 1 1080 1068 t
+10 R f
+( is the non-)3 486( It)1 124(prints rank-order summary statistics and compares data from related groups.)9 3161 3 1629 1068 t
+(parametric counterpart to parts of the normal theory)7 2091 1 720 1188 t
+12 CB f
+(pai r)1 291 1 2887 1188 t
+10 R f
+(and)3207 1188 w
+12 CB f
+(reg res s)2 510 1 3427 1188 t
+10 R f
+( are in)2 253( group's data)2 527(programs. Each)1 654 3 3966 1188 t
+( of normal theory statistics like mean and standard deviation, the median)11 2924( Instead)1 339(a column, separated by whitespace.)4 1417 3 720 1308 t
+( Wilcoxon signed-ranks test for)4 1263( tests include the binomial sign test, the)7 1592( Signi\256cance)1 546(and other quartiles are reported.)4 1279 4 720 1428 t
+(matched pairs, and the Friedman two-way analysis of variance of ranks.)10 2871 1 720 1548 t
+(The following \(transposed\) data are contained in the \256le)8 2304 1 1080 1728 t
+12 CB f
+(sie gel .79)2 654 1 3465 1728 t
+10 R f
+( on the example)3 662(, and are based)3 616 2 4122 1728 t
+( Siegel's book is)3 703( astute analyst will notice that the last datum in column 2 in)12 2551( The)1 219(on page 79 of Siegel \(1956\).)5 1207 4 720 1848 t
+(misprinted as 82.)2 686 1 720 1968 t
+10 CB f
+( 73 43 58 56 76 65)6 2160(82 69)1 358 2 1080 2148 t
+( 74 37 51 43 80 62)6 2160(63 42)1 358 2 1080 2268 t
+10 R f
+( it is because the)4 716(When the output contains a suggestion to consult a table of computed exact probability values,)14 3964 2 720 2448 t
+( normal)1 339( \(1956\) notes that the)4 977( Siegel)1 332(continuous chi-square or normal approximation may not be adequate.)8 3032 4 720 2568 t
+(approximation for the probability of the computed Wilcoxon)7 2470 1 720 2688 t
+10 I f
+(T)3221 2688 w
+10 R f
+(statistic is)1 405 1 3308 2688 t
+10 I f
+(excellent)3745 2688 w
+10 R f
+(even for small samples such as)5 1269 1 4131 2688 t
+( a normal)2 423( again, the astute analyst will see the \257aw in Siegel's analysis when he uses)14 3346( Once)1 284(the one above.)2 627 4 720 2808 t
+(approximation; he fails to use a correction for continuity.)8 2283 1 720 2928 t
+10 CB f
+( gel .79)2 366( sie)1 242( <)1 123( son er)2 306( pri)1 242( tro l)2 246( con)1 242( kre l)2 246( ran)1 242(pro mpt :)2 426 10 1080 3108 t
+( 75% Max)2 1098( ian)1 183( Med)1 366( 25%)1 549( Min)1 548(N NA)1 364 6 1873 3228 t
+( 00)1 123( 82.)1 426( 50)1 123( 74.)1 426( 00)1 123( 67.)1 426( 00)1 123( 57.)1 426( 00)1 123( 0 43.)2 730( 8)1 427(con tro l)2 426 12 1080 3348 t
+( 00)1 123( 80.)1 426( 50)1 123( 68.)1 426( 50)1 123( 56.)1 426( 50)1 123( 42.)1 426( 00)1 123( 0 37.)2 730( 8)1 367(pri son er)2 486 12 1080 3468 t
+( 00)1 123( 82.)1 426( 50)1 123( 73.)1 426( 50)1 123( 62.)1 426( 00)1 123( 47.)1 426( 00)1 123( 37.)1 425( 0)1 306( 16)1 549(Tot al)1 303 13 1080 3588 t
+( t:)1 123( Tes)1 242( n)1 63( Sig)1 243(Bin omi al)2 486 5 1080 3828 t
+( 6)1 246( son er:)2 366( pri)1 243( ve)1 123( abo)1 243( is)1 182( tro l)2 246( con)1 243( es)1 123( cas)1 243( of)1 184(Num ber)1 363 12 1568 3948 t
+( 2)1 246( son er:)2 366( pri)1 243( ow)1 123( bel)1 243( is)1 182( tro l)2 246( con)1 243( es)1 123( cas)1 243( of)1 184(Num ber)1 363 12 1568 4068 t
+( 445 31)2 306( 0.1)1 913( act \))2 246( \(ex)1 243( bab ili ty)3 489( pro)1 243(One -ta il)2 486 7 1568 4188 t
+( t:)1 123( Tes)1 244( ned -Ra nks)3 549( Sig)1 242( che d-P air s)4 612( Mat)1 243(Wil cox on)2 486 7 1080 4428 t
+( son er)2 306( pri)1 244( and)1 242( tro l)2 246( con)1 243( of)1 182(Com par iso n)3 609 7 1324 4548 t
+( 000 00)2 306( 4.0)1 610( ns\))1 183( sig)1 242( e)1 63( lik)1 243( of)1 182( ksu m)2 246( ran)1 243( all er)2 306(T \(sm)1 302 11 1568 4668 t
+( 000 00)2 306( 8.0)1 671( fer enc es\))3 549( dif)1 244( ned)1 183( sig)1 243( of)1 182( mbe r)2 246(N \(nu)1 302 9 1568 4788 t
+( 903 78)2 306(z 1.8)1 2620 2 1568 4908 t
+( 293 54)2 306( 0.0)1 547( rox ima tio n)4 612( app)1 243( bab ili ty)3 489( pro)1 243(One -ta il)2 486 7 1568 5028 t
+( lie d)2 246( app)1 242( tin uit y)3 429( con)1 244( for)1 242( rec tio n)3 429( cor)1 244( es')1 183( Yat)1 243(NOT E:)1 303 10 1568 5148 t
+( N = 8)3 366( h)1 63( wit)1 242( T)1 124( for)1 243( le)1 123( tab)1 242( a)1 123(Che ck)1 303 9 1568 5268 t
+( ks:)1 183( Ran)1 244( for)1 242( t)1 63( Tes)1 242( -Sq uar e)3 429( Chi)1 243(Fri edm an)2 486 8 1080 5508 t
+( 000 00)2 306( 2.0)1 1463( ks)1 123( ran)1 243( of)1 182(Chi -sq uar e)3 609 6 1568 5628 t
+( 572 99)2 306( 0.1)1 303( p)1 427( 1)1 245( df)1 427( 000 00)2 306( 2.0)1 609(chi sq)1 303 8 1568 5748 t
+( N = 8)3 366( h)1 63( wit)1 243( edm an)2 306( Fri)1 244( for)1 243( le)1 123( tab)1 242( a)1 123(Che ck)1 303 10 1568 5868 t
+( s]:)1 183( tie)1 244( for)1 242( rre cte d)3 429( [co)1 243( o\))1 123( \(rh)1 243( rel ati on)3 489( Cor)1 242( k)1 63( Ran)1 243(Spe arm an)2 486 12 1080 6108 t
+( 067 34)2 306( 0.7)1 669( rox ima tio n)4 612( app)1 242( t)1 123( 5\))1 123( \(.0)1 242( r)1 123(Cri tic al)2 486 9 1568 6228 t
+( 343 42)2 306( 0.8)1 669( rox ima tio n)4 612( app)1 242( t)1 123( 1\))1 123( \(.0)1 242( r)1 123(Cri tic al)2 486 9 1568 6348 t
+( N = 8)3 366( h)1 63( wit)1 244( rho)1 243( arm an)2 306( Spe)1 244( for)1 243( le)1 123( tab)1 242( a)1 123(Che ck)1 303 11 1568 6468 t
+( 857 14)2 306(rho 0.7)1 2620 2 1568 6588 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 8 9
+%%Page: 9 10
+/saveobj save def
+mark
+10 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 5-9)1 2059( Analysis)1 375( Data)1 1506(STAT Handbook)1 691 4 769 480 t
+14 B f
+(Section 5.9 regress: multiple correlation/regression)4 3035 1 720 768 t
+12 CB f
+(reg res s)2 510 1 1080 1068 t
+10 R f
+( input consists of a series of)6 1134( Its)1 153(performs a multiple linear correlation and regression analysis.)7 2494 3 1619 1068 t
+( the regression analysis, the \256rst column is)7 1706( In)1 134( with an equal number of columns, one column per variable.)10 2417(lines, each)1 423 4 720 1188 t
+( are options to print the matrix of sums of squares and the covariance matrix.)14 3210( There)1 292( the others.)2 461(predicted with all)2 717 4 720 1308 t
+( an option to perform a partial correlation analysis to see the contribution of individual variables to the)17 4160(There is also)2 520 2 720 1428 t
+( based on a method of analysis described by Kerlinger & Pedhazur)11 2862( program is)2 489( The)1 222(whole regression equation.)2 1107 4 720 1548 t
+( models are possible using transformations with)6 2042( regression)1 458(\(1973\). Non-linear)1 796 3 720 1668 t
+10 S f
+(\357)4063 1668 w
+10 R f
+(STAT utilities like)2 795 1 4112 1668 t
+12 CB f
+(dm)5002 1668 w
+10 R f
+(. The)1 252 1 5148 1668 t
+(program can handle up to 20 input columns, but the width of the output for more than 10 is awkward.)19 4054 1 720 1788 t
+( predicts a straight line with a log function, a quadratic, and an inverse)13 2991(The following arti\256cial example)3 1329 2 1080 1968 t
+( input to)2 348(function. The)1 570 2 720 2088 t
+12 CB f
+(reg res s)2 510 1 1718 2088 t
+10 R f
+( with)1 209(is created)1 386 2 2261 2088 t
+12 CB f
+(ser ies)1 435 1 2935 2088 t
+10 R f
+(and)3404 2088 w
+12 CB f
+(dm)3627 2088 w
+10 R f
+( call to)2 284(. The)1 236 2 3773 2088 t
+12 CB f
+(reg res s)2 510 1 4372 2088 t
+10 R f
+(includes the)1 486 1 4914 2088 t
+12 CB f
+(-p)720 2208 w
+10 R f
+( of the variables in the analysis.)6 1310(option to request a partial correlation analysis and meaningful names for most)11 3192 2 898 2208 t
+(The output from)2 681 1 720 2328 t
+12 CB f
+(reg res s)2 510 1 1487 2328 t
+10 R f
+( correlation matrix, the regression)4 1398(includes summary statistics for each variable, a)6 1966 2 2036 2328 t
+( to)1 109(equation and the signi\256cance test of the multiple correlation coef\256cient, and \256nally, a partial correlation analysis)15 4571 2 720 2448 t
+(examine the contribution of individual predictors, after the others are included in the model.)13 3675 1 720 2568 t
+10 CB f
+( ers e)2 246( inv)1 242( d)1 63( log qua)2 488( ear)1 183( lin)1 243( -p)1 182( res s)2 246( | reg)2 364( 1)1 63( 1/x)1 243( x1)1 123( x1*)1 243( x1)1 123( x1 log)2 426( dm)1 182( |)1 123( 20)1 182( 1)1 124(ser ies)1 363 20 1080 2748 t
+( iab les :)3 429( var)1 242( of 4)2 306( es)1 123( cas)1 243( 20)1 184( for)1 243(Ana lys is)2 486 8 1080 2988 t
+( ers e)2 246( inv)1 425( d)1 63( qua)1 610( log)1 671( ear)1 183( lin)1 609(Var iab le)2 486 8 1080 3108 t
+( 500)1 183( 0.0)1 488( 000)1 183( 1.0)1 488( 000)1 183( 0.0)1 488( 000)1 183(Min 1.0)1 1095 8 1080 3228 t
+( 000)1 183( 1.0)1 487( .00 00)2 306( 400)1 366( 957)1 183( 2.9)1 486( 000 0)2 246(Max 20.)1 1034 8 1080 3348 t
+( 977)1 183( 3.5)1 488( 0.0 000)2 366( 287)1 303( 335 6)2 246( 42.)1 426( .00 00)2 306(Sum 210)1 973 8 1080 3468 t
+( 799)1 183( 0.1)1 487( .50 00)2 306( 143)1 366( 168)1 183( 2.1)1 486( 500 0)2 246( 10.)1 791(Mea n)1 243 9 1080 3588 t
+( 235)1 183( 0.2)1 487( .90 23)2 306( 127)1 366( 127)1 183( 0.8)1 488( 161)1 183(SD 5.9)1 1095 8 1080 3708 t
+( rix :)2 246( Mat)1 243(Cor rel ati on)3 669 3 1080 3948 t
+( 000)1 183( 1.0)1 732(lin ear)1 363 3 1080 4068 t
+( 000)1 183( 1.0)1 488( 313)1 183(log 0.9)1 1095 4 1080 4188 t
+( 000)1 183( 1.0)1 488( 280)1 183( 0.8)1 488( 713)1 183( 0.9)1 852(qua d)1 243 7 1080 4308 t
+( 000)1 183( 1.0)1 486( 563 9)2 246( -0.)1 425( 906 1)2 246( -0.)1 425( 707 6)2 246( -0.)1 608(inv ers e)2 426 9 1080 4428 t
+( ers e)2 246( inv)1 425( d)1 63( qua)1 610( log)1 671( ear)1 183( lin)1 609(Var iab le)2 486 8 1080 4548 t
+( ear :)2 246( lin)1 244( for)1 243( ati on)2 306( Equ)1 242(Reg res sio n)3 609 6 1080 4788 t
+( 663 05)2 306( + -5.)2 486( ers e)2 246( inv)1 243( 64)1 123( + 6.7)2 486( d)1 63( qua)1 242( 224 5)2 246( 0.0)1 303( +)1 185( log)1 243( 39)1 123( 5.5)1 303( =)1 185(lin ear)1 363 16 1080 4908 t
+( ear)1 183( lin)1 243( of)1 182( dic tio n)3 429( pre)1 244( for)1 242( t)1 63( tes)1 244(Sig nif ica nce)3 729 9 1080 5148 t
+( \(F\))1 242( b)1 63( pro)1 364( ,16 \))2 246( F\(3)1 426( st)1 123( SEe)1 549( qua red)2 366( R-S)1 305(Mul t-R)1 363 10 1324 5268 t
+( 000)1 183( 0.0)1 488( 3.7 543)2 366( 760)1 305( 707)1 183( 0.1)1 488( 993)1 183( 0.9)1 488(0.9 996)1 363 9 1324 5388 t
+( ear)1 183( lin)1 243( of)1 184( dic tor \(s\))3 549( pre)1 244( for)1 242( t\(s \))2 246( tes)1 244(Sig nif ica nce)3 729 9 1080 5628 t
+( p)1 611( 6\))1 123( t\(1)1 487( se)1 611( Rsq)1 608( b)1 610( a)1 63( bet)1 488(Pre dic tor)2 546 9 1080 5748 t
+( 000)1 183( 0.0)1 425( 447 8)2 246( 20.)1 366( 709)1 183( 0.2)1 427( 684)1 183( 0.9)1 427( 389)1 183( 5.5)1 427( 609)1 183(log 0.7)1 912 12 1080 5868 t
+( 000)1 183( 0.0)1 425( 455 5)2 246( 25.)1 366( 009)1 183( 0.0)1 427( 795)1 183( 0.8)1 427( 225)1 183( 0.0)1 427( 854)1 183( 0.4)1 669(qua d)1 243 13 1080 5988 t
+( 000)1 183( 0.0)1 425( 113 9)2 246( 10.)1 366( 688)1 183( 0.6)1 427( 314)1 183( 0.9)1 427( 638)1 183( 6.7)1 427( 555)1 183( 0.2)1 486(inv ers e)2 426 13 1080 6108 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 9 10
+%%Page: 10 11
+/saveobj save def
+mark
+11 pagesetup
+10 R f
+( Analysis)1 375(5-10 Data)1 2246 2 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+14 B f
+(Section 5.10 anova: multi-factor analysis of variance)6 3119 1 720 768 t
+12 CB f
+(ano va)1 363 1 1080 1068 t
+10 R f
+( Both)1 254(performs analysis of variance with one random factor and up to nine independent factors.)13 3668 2 1478 1068 t
+( factors, other than those involving)5 1403( Nested)1 329( unequal-cells between-subjects factors are supported.)5 2165(within-subjects and)1 783 4 720 1188 t
+( input format is simple: each datum is preceded by a description of the)13 2940( The)1 215( are not supported.)3 773(the random factor,)2 752 4 720 1308 t
+( subject 3 took 325 msec to respond to a loud sound)11 2074( example, if)2 476( For)1 190(conditions under which the datum was obtained.)6 1940 4 720 1428 t
+(on the \256rst trial, the input line to)7 1295 1 720 1548 t
+12 CB f
+(ano va)1 363 1 2088 1548 t
+10 R f
+(might be:)1 381 1 2478 1548 t
+10 CB f
+( 1 325)2 486( d)1 63(s3 lou)1 424 3 1080 1728 t
+10 R f
+(From input lines of this format,)5 1286 1 720 1908 t
+12 CB f
+(ano va)1 363 1 2085 1908 t
+10 R f
+( is within- or between-subjects, prints cell means)7 2002(infers whether a factor)3 917 2 2481 1908 t
+( interactions, and prints standard format)5 1622(for all main effects and)4 953 2 720 2028 t
+10 I f
+(F)3326 2028 w
+10 R f
+( computations)1 570( The)1 211(tables with probability levels.)3 1201 3 3418 2028 t
+(done in)1 298 1 720 2148 t
+12 CB f
+(ano va)1 363 1 1092 2148 t
+10 R f
+( for unequal cell sizes on)5 1005(are based on a method of analysis described by Keppel \(1973\), however,)11 2912 2 1483 2148 t
+( weighted-means solution is used instead of Keppel's preferred unweighted solution.)10 3541(between-groups factors, the)2 1139 2 720 2268 t
+( and columns in)3 645(The weighted-means solution requires that sample sizes must be in constant proportions across rows)13 4035 2 720 2388 t
+(interactions of between-subjects factors or else the analysis may be invalid.)10 3008 1 720 2508 t
+(An example input to)3 861 1 1080 2688 t
+12 CB f
+(ano va)1 363 1 2028 2688 t
+10 R f
+( call to)2 300( The)1 219(is shown below.)2 675 3 2432 2688 t
+12 CB f
+(ano va)1 363 1 3714 2688 t
+10 R f
+(gives meaningful names to the)4 1281 1 4119 2688 t
+( output from)2 508( The)1 209(columns of its input.)3 835 3 720 2808 t
+12 CB f
+(ano va)1 363 1 2349 2808 t
+10 R f
+( systematic sources \(main effects and)5 1503(contains cell statistics for all)4 1154 2 2743 2808 t
+(interactions\), a summary of the design, and an F-table.)8 2177 1 720 2928 t
+10 CB f
+( RT)1 183( al)1 123( tri)1 243( se)1 123( noi)1 242( jec t)2 246( sub)1 243(ano va)1 303 8 1080 3108 t
+( 1 259)2 608( d)1 63(s1 lou)1 485 3 1080 3348 t
+( 2 228)2 608( d)1 63(s1 lou)1 485 3 1080 3468 t
+( 1 526)2 608( t)1 63(s2 sof)1 485 3 1080 3588 t
+( 2 480)2 608( t)1 63(s2 sof)1 485 3 1080 3708 t
+( 1 325)2 608( d)1 63(s3 lou)1 485 3 1080 3828 t
+( 2 315)2 608( d)1 63(s3 lou)1 485 3 1080 3948 t
+( 1 418)2 608( t)1 63(s4 sof)1 485 3 1080 4068 t
+( 2 397)2 608( t)1 63(s4 sof)1 485 3 1080 4188 t
+( n)1 63( mea)1 243( nd)1 123( gra)1 242(SOU RCE :)2 426 5 1080 4428 t
+( SE)1 671( SD)1 670( N)1 63( MEA)1 608( N)1 367( al)1 123( tri)1 304(noi se)1 303 8 1080 4548 t
+( 077 6)2 246( 37.)1 426( .87 13)2 306( 104)1 365( .50 00)2 306(8 368)1 424 6 2117 4668 t
+( se)1 123( noi)1 242(SOU RCE :)2 426 3 1080 4908 t
+( SE)1 671( SD)1 670( N)1 63( MEA)1 608( N)1 367( al)1 123( tri)1 304(noi se)1 303 8 1080 5028 t
+( 062 9)2 246( 23.)1 425( 125 7)2 246( 46.)1 426( .75 00)2 306( 281)1 364( 4)1 854(lou d)1 243 8 1080 5148 t
+( 437 4)2 246( 29.)1 425( 874 9)2 246( 58.)1 426( .25 00)2 306( 455)1 364( 4)1 854(sof t)1 243 8 1080 5268 t
+( al)1 123( tri)1 242(SOU RCE :)2 426 3 1080 5508 t
+( SE)1 671( SD)1 670( N)1 63( MEA)1 608( N)1 367( al)1 123( tri)1 304(noi se)1 303 8 1080 5628 t
+( 030 2)2 246( 58.)1 426( .06 03)2 306( 116)1 365( .00 00)2 306( 382)1 364(1 4)1 670 7 1507 5748 t
+( 097 1)2 246( 54.)1 426( .19 43)2 306( 108)1 365( .00 00)2 306( 355)1 364(2 4)1 670 7 1507 5868 t
+( al)1 123( tri)1 243( se)1 123( noi)1 242(SOU RCE :)2 426 5 1080 6108 t
+( SE)1 671( SD)1 670( N)1 63( MEA)1 608( N)1 367( al)1 123( tri)1 304(noi se)1 303 8 1080 6228 t
+( 000 0)2 246( 33.)1 425( 669 0)2 246( 46.)1 426( .00 00)2 306( 292)1 364( 2)1 610( 1)1 244(lou d)1 243 9 1080 6348 t
+( 500 0)2 246( 43.)1 425( 518 3)2 246( 61.)1 426( .50 00)2 306( 271)1 364( 2)1 610( 2)1 244(lou d)1 243 9 1080 6468 t
+( 000 0)2 246( 54.)1 425( 367 5)2 246( 76.)1 426( .00 00)2 306( 472)1 364( 2)1 610( 1)1 244(sof t)1 243 9 1080 6588 t
+( 500 0)2 246( 41.)1 425( 689 9)2 246( 58.)1 426( .50 00)2 306( 438)1 364( 2)1 610( 2)1 244(sof t)1 243 9 1080 6708 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 10 11
+%%Page: 11 12
+/saveobj save def
+mark
+12 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 5-11)1 2059( Analysis)1 375( Data)1 1506(STAT Handbook)1 691 4 769 480 t
+10 CB f
+( RT)1 671( al)1 123( tri)1 548( se)1 123( noi)1 547( jec t)2 246( sub)1 425(FAC TOR :)2 426 8 1080 828 t
+( 4 2 2 8)4 2684(LEV ELS :)2 426 2 1080 948 t
+( A)1 63( DAT)1 610( HIN)1 183( WIT)1 486( WEE N)2 246( BET)1 427( DOM)1 183( RAN)1 486( :)1 183(TYP E)1 243 10 1080 1068 t
+( p)1 427( F)1 550( MS)1 854( df)1 244( SS)1 794(SOU RCE)1 363 6 1080 1308 t
+(=== === === === === === === === === === === === === === === === === ==)17 3231 1 1080 1428 t
+( **)1 183( 07)1 123( 0.0)1 303( .11 1)2 246( 145)1 305( 633 8.0 000)3 549( 108)1 303( 1)1 246( 633 8.0 000)3 549( 108)1 364(mea n)1 243 11 1080 1548 t
+( 6.2 500)2 366( 748)1 486( 2)1 244( 72. 500 0)3 429(s/n 149)1 729 5 1080 1668 t
+( 05)1 123( 0.1)1 304( 42)1 123( 8.0)1 425( 04. 500 0)3 429( 602)1 425( 1)1 244( 04. 500 0)3 429( 602)1 426(noi se)1 303 10 1080 1908 t
+( 6.2 500)2 366( 748)1 486( 2)1 244( 72. 500 0)3 429(s/n 149)1 729 5 1080 2028 t
+( 81)1 123( 0.0)1 305( 942)1 183( 10.)1 366( 8.0 000)2 366( 145)1 486( 1)1 246( 8.0 000)2 366( 145)1 487(tri al)1 303 10 1080 2268 t
+( .25 00)2 306( 133)1 547( 2)1 245( .50 00)2 306( 266)1 608(ts/ n)1 243 6 1080 2388 t
+( 09)1 123( 0.5)1 304( 34)1 123( 0.6)1 425( 500 0)2 246( 84.)1 608( 1)1 244( 500 0)2 246(nt 84.)1 912 9 1080 2628 t
+( .25 00)2 306( 133)1 547( 2)1 245( .50 00)2 306( 266)1 608(ts/ n)1 243 6 1080 2748 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 11 12
+%%Page: 12 13
+/saveobj save def
+mark
+13 pagesetup
+10 R f
+( Analysis)1 375(5-12 Data)1 2246 2 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+14 B f
+(Section 5.11 contab: contingency tables and chi-square)6 3261 1 720 768 t
+12 CB f
+(con tab)1 435 1 1080 1068 t
+10 R f
+( tables \(also)2 511( Contingency)1 578(supports the analysis of multifactor designs with categorical data.)8 2752 3 1559 1068 t
+( method)1 326( The)1 206( of independence are printed for all two-way interactions of factors.)10 2705(called crosstabs\) and chi-square test)4 1443 4 720 1188 t
+( input)1 250( The)1 224(of analysis comes from several sources, especially Bradley \(1968\), Hays \(1973\), and Siegel \(1956\).)13 4206 3 720 1308 t
+(format is similar to that of)5 1142 1 720 1428 t
+12 CB f
+(ano va)1 363 1 1954 1428 t
+10 R f
+( by labels indicating the level at which that)8 1859(: each cell count is preceded)5 1222 2 2319 1428 t
+( are \256ctitious data of color preferences of boys and girls:)10 2256( Below)1 311(frequency count was obtained.)3 1219 3 720 1548 t
+10 CB f
+( 3)1 600( red)1 657(boy s)1 243 3 1080 1728 t
+( 17)1 597( e)1 63( blu)1 657(boy s)1 243 4 1080 1848 t
+( 4)1 477( en)1 123( gre)1 657(boy s)1 243 4 1080 1968 t
+( 2)1 417( low)1 183( yel)1 657(boy s)1 243 4 1080 2088 t
+( 10)1 537( wn)1 123( bro)1 657(boy s)1 243 4 1080 2208 t
+( 12)1 660( red)1 597(gir ls)1 303 3 1080 2328 t
+( 10)1 597( e)1 63( blu)1 597(gir ls)1 303 4 1080 2448 t
+( 5)1 477( en)1 123( gre)1 597(gir ls)1 303 4 1080 2568 t
+( 8)1 417( low)1 183( yel)1 597(gir ls)1 303 4 1080 2688 t
+( 1)1 477( wn)1 123( bro)1 597(gir ls)1 303 4 1080 2808 t
+10 R f
+(The output from the following command includes of a summary of the input design, tables, and statistical analyses.)17 4607 1 720 2988 t
+10 CB f
+( or)1 123( sex col)2 610(con tab)1 363 3 1080 3168 t
+( A)1 63( DAT)1 609( or)1 123( col)1 549( sex)1 669(FAC TOR :)2 426 6 1080 3408 t
+( 72)1 670( 2 5)2 1342(LEV ELS :)2 426 3 1080 3528 t
+( nt)1 123( cou)1 548(col or)1 303 3 1080 3768 t
+(red 15)1 974 1 1080 3888 t
+( 27)1 731(blu e)1 243 2 1080 4008 t
+( 9)1 672(gre en)1 303 2 1080 4128 t
+( 10)1 611(yel low)1 363 2 1080 4248 t
+( 11)1 671(bro wn)1 303 2 1080 4368 t
+( 72)1 671(Tot al)1 303 2 1080 4488 t
+( 042 62)2 306( 0.0)1 303( p)1 427( 4)1 245( df)1 428( 222 222)2 366( 15.)1 548(chi sq)1 303 8 1568 4608 t
+( or)1 123( col)1 244( sex)1 242(SOU RCE :)2 426 4 1080 4848 t
+( als)1 183( Tot)1 304( wn)1 123( bro)1 366( low)1 183( yel)1 304( en)1 123( gre)1 364( e)1 63(red blu)1 607 10 1873 4968 t
+( 36)1 488( 10)1 487( 2)1 488( 4)1 489( 17)1 487( 3)1 732(boy s)1 243 7 1080 5088 t
+( 36)1 487( 8 1)2 976( 5)1 489( 10)1 488( 12)1 671(gir ls)1 303 6 1080 5208 t
+( 11 72)2 976( 10)1 487( 9)1 489( 27)1 488( 15)1 611(Tot als)1 363 6 1080 5328 t
+( or:)1 183( col)1 242( sex x)2 368( for)1 243(Ana lys is)2 486 5 1080 5448 t
+( 5)1 122( <)1 123( que nci es)3 489( fre)1 243( ect ed)2 306( exp)1 244( had)1 243( ls)1 123( 10 cel)2 426( of)1 182( 2)1 123(WAR NIN G:)2 486 12 1568 5568 t
+( 010 83)2 306( 0.0)1 303( p)1 427( 4)1 245( df)1 428( 289 562)2 366( 18.)1 548(chi sq)1 303 8 1568 5688 t
+( 040 06)2 306( 0.5)1 2011( V)1 123(Cra mer 's)2 486 4 1568 5808 t
+( 500 73)2 306( 0.4)1 1219( ffi cie nt)3 489( Coe)1 243(Con tin gen cy)3 669 5 1568 5928 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 12 13
+%%Page: 13 14
+/saveobj save def
+mark
+14 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 5-13)1 2059( Analysis)1 375( Data)1 1506(STAT Handbook)1 691 4 769 480 t
+14 B f
+(Section 5.12 dprime: d'/beta for signal detection data)7 3161 1 720 768 t
+12 CB f
+(dpr ime)1 435 1 1080 1068 t
+10 R f
+(computes)1558 1068 w
+10 I f
+(d')1981 1068 w
+10 R f
+(\(a measure of discrimination of stimuli\) and)6 1849 1 2104 1068 t
+10 I f
+(beta)3993 1068 w
+10 R f
+(\(a measure of response bias\))4 1195 1 4205 1068 t
+( input to)2 358( The)1 217( \(1970\).)1 328(using a method of analysis discussed in Coombs, Dawes, & Tversky)10 2867 4 720 1188 t
+12 CB f
+(dpr ime)1 435 1 4575 1188 t
+10 R f
+(can be a)2 350 1 5050 1188 t
+( a signal was present and the second tells if the)10 2029(series of lines, each with two paired indicators: the \256rst tells if)11 2651 2 720 1308 t
+( that,)1 218( From)1 285( signal.)1 307(observer detected a)2 807 4 720 1428 t
+12 CB f
+(dpr ime)1 435 1 2428 1428 t
+10 R f
+(computes the)1 548 1 2909 1428 t
+10 I f
+(hit-rate)3500 1428 w
+10 R f
+(\(the proportion of times the observer)5 1557 1 3843 1428 t
+(detected a signal that was present\), and the)7 1749 1 720 1548 t
+10 I f
+(false-alarm-rate)2500 1548 w
+10 R f
+(\(the proportion of times the observer reported a signal)8 2213 1 3187 1548 t
+( the hit-rate and the false-alarm-rate are known, then they can be supplied directly to the)15 3669( If)1 126( not present\).)2 544(that was)1 341 4 720 1668 t
+(program:)720 1788 w
+10 CB f
+( .4)1 183( .7)1 184( ime)1 183( dpr)1 242(pro mpt :)2 426 5 1080 1968 t
+( a)1 63( bet)1 549( ime)1 183( dpr)1 488(hr far)1 729 5 1202 2088 t
+( 0)1 63( 0.9)1 547( 8)1 63( 0.7)1 608( 0)1 63( 0.4)1 547(0.7 0)1 243 7 1080 2208 t
+10 R f
+( column 1 and the observer's)5 1186( in)1 134( with the true stimulus \(Was a signal present or just noise?\))11 2433(The input in raw form,)4 927 4 720 2388 t
+( column 2, is followed by the output.)7 1475( in)1 128(response \(Did the observer say there was a signal?\))8 2044 3 720 2508 t
+10 CB f
+( yes)1 537(sig nal)1 363 2 1080 2688 t
+( yes)1 537(sig nal)1 363 2 1080 2808 t
+( yes)1 537(sig nal)1 363 2 1080 2928 t
+( yes)1 537(sig nal)1 363 2 1080 3048 t
+( yes)1 537(sig nal)1 363 2 1080 3168 t
+( yes)1 537(sig nal)1 363 2 1080 3288 t
+( yes)1 537(sig nal)1 363 2 1080 3408 t
+( no)1 477(sig nal)1 363 2 1080 3528 t
+( no)1 477(sig nal)1 363 2 1080 3648 t
+( no)1 477(sig nal)1 363 2 1080 3768 t
+( yes)1 597(noi se)1 303 2 1080 3888 t
+( yes)1 597(noi se)1 303 2 1080 4008 t
+( no)1 537(noi se)1 303 2 1080 4128 t
+( no)1 537(noi se)1 303 2 1080 4248 t
+( no)1 537(noi se)1 303 2 1080 4368 t
+12 CB f
+(dpr ime)1 435 1 720 4548 t
+10 R f
+(would produce for the above data:)5 1366 1 1183 4548 t
+10 CB f
+( se)1 123( noi)1 366(sig nal)1 363 3 1690 4728 t
+( 2)1 549(yes 7)1 792 2 1080 4848 t
+( 3)1 549(no 3)1 731 2 1141 4968 t
+( a)1 63( bet)1 549( ime)1 183( dpr)1 488(hr far)1 729 5 1202 5208 t
+( 0)1 63( 0.9)1 547( 8)1 63( 0.7)1 608( 0)1 63( 0.4)1 547(0.7 0)1 243 7 1080 5328 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 13 14
+%%Page: 14 15
+/saveobj save def
+mark
+15 pagesetup
+10 R f
+( Analysis)1 375(5-14 Data)1 2246 2 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+14 B f
+(Section 5.13 CALC: Tutorial and Manual)5 2489 1 720 768 t
+12 CB f
+(cal c)1 291 1 1080 1068 t
+10 R f
+( mathematical calculations for which you might use a hand-held calculator.)10 3263(is a program for)3 715 2 1422 1068 t
+12 CB f
+(cal c)1 291 1 720 1188 t
+10 R f
+( to programming languages and variables with constraint properties)8 2720(supplies most of the operations common)5 1639 2 1041 1188 t
+(much like those in spreadsheets.)4 1290 1 720 1308 t
+(The arithmetical operators)2 1053 1 1080 1488 t
+12 CB f
+(cal c)1 291 1 2206 1488 t
+10 R f
+(offers are)1 378 1 2523 1488 t
+10 CB f
+(+)1080 1668 w
+10 R f
+(addition)1440 1668 w
+10 CB f
+(-)1080 1788 w
+10 R f
+(subtraction and change-sign)2 1120 1 1440 1788 t
+10 CB f
+(*)1080 1908 w
+10 R f
+(multiplication)1440 1908 w
+10 CB f
+(/)1080 2028 w
+10 R f
+(division)1440 2028 w
+10 CB f
+(%)1080 2148 w
+10 R f
+(modulo division)1 654 1 1440 2148 t
+10 CB f
+(\303)1080 2268 w
+10 R f
+(exponentiation)1440 2268 w
+( is,)1 117( That)1 233(Arithmetical expressions can be arbitrarily complex and are generally evaluated left to right.)12 3689 3 720 2448 t
+10 CB f
+(a + b - c)4 548 1 1080 2628 t
+10 R f
+(is the same as)3 552 1 720 2808 t
+10 CB f
+( c)1 122( -)1 123( b\))1 182(\(a +)1 243 4 1080 2988 t
+10 R f
+( evaluated before addition and subtraction.)5 1732(Exponentiation is evaluated before multiplication and division which are)8 2948 2 720 3168 t
+(For example, the expression)3 1126 1 720 3288 t
+10 CB f
+(a + b - c * d / e \303 2)10 1280 1 1080 3468 t
+10 R f
+(is parsed as)2 460 1 720 3648 t
+10 CB f
+( 2\)\))1 242( \303)1 123( \(e)1 182( /)1 123( d\))1 182( *)1 124( \(\(c)1 242( -)1 123( b\))1 182(\(a +)1 243 10 1080 3828 t
+10 R f
+(This default order of operations can be overridden by using parentheses.)10 2885 1 720 4008 t
+12 CB f
+(cal c)1 291 1 1080 4188 t
+10 R f
+(supplies some transcendental functions:)3 1632 1 1411 4188 t
+12 CB f
+(sqr t)1 291 1 3130 4188 t
+10 R f
+(,)3422 4188 w
+12 CB f
+(log)3534 4188 w
+10 R f
+(,)3753 4188 w
+12 CB f
+(exp)3865 4188 w
+10 R f
+(, and)1 209 1 4084 4188 t
+12 CB f
+(abs)4381 4188 w
+10 R f
+(, and the following)3 800 1 4600 4188 t
+(trigonometric functions:)1 971 1 720 4308 t
+12 CB f
+(sin)1766 4308 w
+10 R f
+(,)1985 4308 w
+12 CB f
+(asi n)1 291 1 2085 4308 t
+10 R f
+(,)2377 4308 w
+12 CB f
+(cos)2477 4308 w
+10 R f
+(,)2696 4308 w
+12 CB f
+(aco s)1 291 1 2796 4308 t
+10 R f
+(,)3088 4308 w
+12 CB f
+(tan)3188 4308 w
+10 R f
+(, and)1 196 1 3407 4308 t
+12 CB f
+(ata n)1 291 1 3678 4308 t
+10 R f
+( measured in)2 512(, for which degrees are)4 918 2 3970 4308 t
+(radians.)720 4428 w
+14 B f
+(Using CALC)1 775 1 720 4668 t
+10 R f
+(To use)1 269 1 720 4848 t
+12 CB f
+(cal c)1 291 1 1062 4848 t
+10 R f
+(, begin by typing)3 678 1 1354 4848 t
+10 CB f
+(cal c)1 243 1 1080 5028 t
+10 R f
+(at the command level, and)4 1051 1 720 5208 t
+12 CB f
+(cal c)1 291 1 1844 5208 t
+10 R f
+(will prompt you with)3 848 1 2161 5208 t
+10 CB f
+(CAL C:)1 303 1 1080 5388 t
+10 R f
+(You can supply inputs to)4 1000 1 720 5568 t
+12 CB f
+(cal c)1 291 1 1793 5568 t
+10 R f
+( example, typing)2 669( For)1 189(from \256les speci\256ed by command line arguments.)6 1951 3 2110 5568 t
+10 CB f
+( foo)1 242(cal c)1 243 2 1080 5748 t
+10 R f
+(will read from the \256le)4 935 1 720 5928 t
+12 CB f
+(foo)1744 5928 w
+10 R f
+( of your expressions followed by)5 1397( in each)2 342( Type)1 271(and then ask for input from you.)6 1386 4 2004 5928 t
+12 CB f
+(RET URN)1 435 1 720 6048 t
+10 R f
+(and)1193 6048 w
+12 CB f
+(cal c)1 291 1 1420 6048 t
+10 R f
+( all following)2 557( In)1 142( by the result.)3 571(will respond with how it parsed your expression followed)8 2383 4 1747 6048 t
+(examples, what you would type in is preceded by the)9 2119 1 720 6168 t
+12 CB f
+(cal c)1 291 1 2912 6168 t
+10 R f
+(prompt)3229 6168 w
+10 CB f
+(CAL C:)1 303 1 1080 6348 t
+10 R f
+(and what)1 363 1 720 6528 t
+12 CB f
+(cal c)1 291 1 1156 6528 t
+10 R f
+( simple calculation is:)3 875( A)1 122(responds with is immediately after.)4 1407 3 1473 6528 t
+10 CB f
+( \))1 63( 5\3032)1 242( +)1 123( \3032)1 123( \(12)1 242( t)1 63( sqr)1 243(CAL C:)1 303 8 1080 6708 t
+( 13)1 182( =)1 366( \))1 63( 2\)\))1 242( \303)1 123( \(5)1 182( +)1 123( 2\))1 182( \303)1 124(sqr t\(\( \(12)2 546 10 1080 6828 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 14 15
+%%Page: 15 16
+/saveobj save def
+mark
+16 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 5-15)1 2059( Analysis)1 375( Data)1 1506(STAT Handbook)1 691 4 769 480 t
+( example you could type:)4 1010( For)1 189(Expressions can be stored by assigning them to variables.)8 2300 3 1080 768 t
+10 CB f
+( 7)1 63( 22/)1 242( pi =)2 306(CAL C:)1 303 4 1080 948 t
+( 428 6)2 246( 3.1)1 242( =)1 428( 7\))1 182(\(22 /)1 304 5 1080 1068 t
+( pi)1 183(CAL C:)1 303 2 1080 1188 t
+( 428 6)2 246( 3.1)1 242(pi =)1 792 3 1080 1308 t
+10 R f
+(Variables can be used in expressions.)5 1491 1 720 1488 t
+10 CB f
+( r\3032)1 242( *)1 123( = pi)2 304( a)1 63( are)1 243(CAL C:)1 303 6 1080 1668 t
+( EFI NED)2 366( UND)1 242( =)1 429( 2\)\))1 242( \303)1 123( \(r)1 182(\(pi *)1 304 7 1080 1788 t
+( a)1 63( are)1 243(CAL C:)1 303 3 1080 1908 t
+( EFI NED)2 366( UND)1 242( =)1 366(are a)1 243 4 1080 2028 t
+12 CB f
+(are a)1 291 1 720 2208 t
+10 R f
+(is unde\256ned because)2 830 1 1039 2208 t
+12 CB f
+(r)1944 2208 w
+10 R f
+( Once)1 262(has not been set.)3 666 2 2044 2208 t
+12 CB f
+(r)3047 2208 w
+10 R f
+(is set,)1 230 1 3147 2208 t
+12 CB f
+(are a)1 291 1 3452 2208 t
+10 R f
+(will have a value because)4 1027 1 3771 2208 t
+12 CB f
+(are a)1 291 1 4874 2208 t
+10 R f
+(is set)1 206 1 5194 2208 t
+( can be observed by printing all the variables so far introduced)11 2602( This)1 239(to an equation rather than a particular value.)7 1839 3 720 2328 t
+(with)720 2448 w
+12 CB f
+(\303V)971 2448 w
+10 R f
+(, which may have to be typed twice as)8 1522 1 1117 2448 t
+12 CB f
+(\303V)2712 2448 w
+10 R f
+(is used in some UNIX versions to quote characters.)8 2049 1 2883 2448 t
+10 CB f
+( \303V)1 183(CAL C:)1 303 2 1080 2628 t
+( 7\))1 182( /)1 124( = \(22)2 364( 428 6)2 246( 3.1)1 547(pi =)1 609 6 1080 2748 t
+( 2\)\))1 242( \303)1 123( \(r)1 182( *)1 124( \(pi)1 242( =)1 124( EFI NED)2 366( UND)1 425( =)1 366(are a)1 243 10 1080 2868 t
+( =)1 124( EFI NED)2 366( UND)1 425(r =)1 609 4 1080 2988 t
+10 R f
+( on the left, followed by its current value, followed by)10 2188(The variable table is formatted so that each variable's name is)10 2492 2 720 3168 t
+( If)1 116(its current de\256nition.)2 836 2 720 3288 t
+12 CB f
+(r)1745 3288 w
+10 R f
+(is set to 5, the value of)6 902 1 1843 3288 t
+12 CB f
+(are a)1 291 1 2818 3288 t
+10 R f
+(is now de\256ned.)2 608 1 3135 3288 t
+10 CB f
+( = 5)2 244( r)1 123(CAL C:)1 303 3 1080 3468 t
+( 5)1 122(5 =)1 609 2 1080 3588 t
+( \303V)1 183(CAL C:)1 303 2 1080 3708 t
+( 7\))1 182( /)1 124( = \(22)2 364( 428 6)2 246( 3.1)1 547(pi =)1 609 6 1080 3828 t
+( 2\)\))1 242( \303)1 123( \(r)1 182( *)1 124( = \(pi)2 364( 571 4)2 246( 78.)1 547( =)1 366(are a)1 243 9 1080 3948 t
+( = 5)2 244( 5)1 793(r =)1 609 3 1080 4068 t
+10 R f
+(The effect of changing)3 905 1 720 4248 t
+12 CB f
+(r)1698 4248 w
+10 R f
+(on)1796 4248 w
+12 CB f
+(are a)1 291 1 1969 4248 t
+10 R f
+(can be observed because of the way)6 1428 1 2286 4248 t
+12 CB f
+(are a)1 291 1 3787 4248 t
+10 R f
+(is de\256ned.)1 411 1 4104 4248 t
+10 CB f
+( = 2)2 244( r)1 123(CAL C:)1 303 3 1080 4428 t
+( 2)1 122(2 =)1 670 2 1080 4548 t
+( a)1 63( are)1 243(CAL C:)1 303 3 1080 4668 t
+( 571 4)2 246( 12.)1 242( =)1 427(are a)1 243 4 1080 4788 t
+10 R f
+(A special variable named)3 1011 1 1080 5028 t
+12 CB f
+($)2164 5028 w
+10 R f
+(is always equal to the most recent result printed.)8 1928 1 2262 5028 t
+14 B f
+(Setting Constant Values)2 1438 1 720 5268 t
+10 R f
+( want to set a variable to a value and not have it depend on the values of)17 3147(Of course, there are times when you)6 1533 2 720 5448 t
+( do this, you precede an expression with the number operator)10 2437( To)1 161(variables at a later time.)4 956 3 720 5568 t
+12 CB f
+(#)4347 5568 w
+10 R f
+( example,)1 388(. For)1 214 2 4420 5568 t
+10 CB f
+( a)1 63( # are)2 364( =)1 123( a2)1 123( are)1 243(CAL C:)1 303 6 1080 5748 t
+( 571 6)2 246( 12.)1 242( =)1 427(12. 571 6)2 426 4 1080 5868 t
+( \303V)1 183(CAL C:)1 303 2 1080 5988 t
+( 7\))1 182( /)1 124( = \(22)2 364( 428 6)2 246( 3.1)1 547(pi =)1 609 6 1080 6108 t
+( 2\)\))1 242( \303)1 123( \(r)1 182( *)1 124( = \(pi)2 364( 571 6)2 246( 12.)1 547( =)1 366(are a)1 243 9 1080 6228 t
+( = 2)2 244( 2)1 793(r =)1 609 3 1080 6348 t
+( 571 6)2 246( = 12.)2 364( 571 6)2 246( 12.)1 547( =)1 306(are a2)1 303 6 1080 6468 t
+12 CB f
+(are a2)1 363 1 720 6648 t
+10 R f
+( because the number operator)4 1218(does not depend on the variable to which it was set)10 2136 2 1120 6648 t
+12 CB f
+(#)4558 6648 w
+10 R f
+(only lets numbers)2 733 1 4667 6648 t
+( If)1 118( expressions.)1 518(through it rather than)3 855 3 720 6768 t
+12 CB f
+(are a2)1 363 1 2286 6768 t
+10 R f
+(was set without the)3 775 1 2678 6768 t
+12 CB f
+(#)3528 6768 w
+10 R f
+(operator, it would be subject to any changes)7 1772 1 3628 6768 t
+(in)720 6888 w
+12 CB f
+(are a)1 291 1 871 6888 t
+10 R f
+(or to any changes in variables on which)7 1583 1 1188 6888 t
+12 CB f
+(are a)1 291 1 2844 6888 t
+10 R f
+(depends.)3161 6888 w
+10 CB f
+( a)1 63( are)1 242( =)1 123( a2)1 123( are)1 243(CAL C:)1 303 6 1080 7068 t
+( 571 6)2 246( 12.)1 242( =)1 427(are a)1 243 4 1080 7188 t
+( \303V)1 183(CAL C:)1 303 2 1080 7308 t
+10 S f
+(\323)2617 7788 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7788 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 15 16
+%%Page: 16 17
+/saveobj save def
+mark
+17 pagesetup
+10 R f
+( Analysis)1 375(5-16 Data)1 2246 2 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+10 CB f
+( 7\))1 182( /)1 124( = \(22)2 364( 428 6)2 246( 3.1)1 547(pi =)1 609 6 1080 768 t
+( 2\)\))1 242( \303)1 123( \(r)1 182( *)1 124( = \(pi)2 364( 571 6)2 246( 12.)1 547( =)1 366(are a)1 243 9 1080 888 t
+( = 2)2 244( 2)1 793(r =)1 609 3 1080 1008 t
+( a)1 63( = are)2 364( 571 6)2 246( 12.)1 547( =)1 306(are a2)1 303 6 1080 1128 t
+14 B f
+(Testing Conditions)1 1133 1 720 1428 t
+10 R f
+( example, you may want a variable)6 1454( For)1 199(Variables can be set based on a tested condition.)8 2012 3 720 1608 t
+12 CB f
+(max)4468 1608 w
+10 R f
+( be the)2 288(to always)1 390 2 4722 1608 t
+(maximum of)1 514 1 720 1728 t
+12 CB f
+(a)1307 1728 w
+10 R f
+(and)1405 1728 w
+12 CB f
+(b)1622 1728 w
+10 R f
+(.)1695 1728 w
+10 CB f
+( b)1 122( e)1 63( a els)2 364( n)1 63( > b the)3 486( a)1 123( if)1 182( =)1 124( max)1 243(CAL C:)1 303 10 1080 1908 t
+( EFI NED)2 366( UND)1 242( =)1 306( b\))1 182( e)1 63( a els)2 364( n)1 63( the)1 243( b\))1 182( >)1 123(\(if \(a)1 364 11 1080 2028 t
+12 CB f
+(max)720 2208 w
+10 R f
+(is unde\256ned because)2 826 1 964 2208 t
+12 CB f
+(a)1863 2208 w
+10 R f
+(and)1961 2208 w
+12 CB f
+(b)2178 2208 w
+10 R f
+(have not been set.)3 715 1 2276 2208 t
+10 CB f
+( = 21)2 304( a)1 123(CAL C:)1 303 3 1080 2388 t
+( 21)1 182(21 =)1 487 2 1080 2508 t
+( = 3\3033)2 364( b)1 123(CAL C:)1 303 3 1080 2628 t
+( 27)1 182( =)1 306( 3\))1 182(\(3 \303)1 243 4 1080 2748 t
+( max)1 243(CAL C:)1 303 2 1080 2868 t
+( 27)1 182(max =)1 609 2 1080 2988 t
+( = 50)2 304( a)1 123(CAL C:)1 303 3 1080 3108 t
+( 50)1 182(50 =)1 365 2 1080 3228 t
+( max)1 243(CAL C:)1 303 2 1080 3348 t
+( 50)1 182(max =)1 609 2 1080 3468 t
+10 R f
+( with)1 218( condition can be made up)5 1121( This)1 242(The if-then-else expression allows variables to be set based on conditions.)10 3099 4 720 3648 t
+( relational operators available with)4 1386( The)1 205(relational and logical operators.)3 1264 3 720 3768 t
+12 CB f
+(cal c)1 291 1 3648 3768 t
+10 R f
+(are:)3965 3768 w
+10 CB f
+(==)1080 3948 w
+10 R f
+(test equality)1 486 1 1440 3948 t
+10 CB f
+(!=)1080 4068 w
+10 R f
+(test inequality)1 564 1 1440 4068 t
+10 CB f
+(>=)1080 4188 w
+10 R f
+(greater than or equal)3 822 1 1440 4188 t
+10 CB f
+(<=)1080 4308 w
+10 R f
+(less than or equal)3 696 1 1440 4308 t
+10 CB f
+(>)1080 4428 w
+10 R f
+(greater than)1 473 1 1440 4428 t
+10 CB f
+(<)1080 4548 w
+10 R f
+(less than)1 347 1 1440 4548 t
+(while the logical operators are:)4 1236 1 720 4728 t
+10 CB f
+(&)1080 4908 w
+10 R f
+(and)1440 4908 w
+10 CB f
+(|)1080 5028 w
+10 R f
+(or)1440 5028 w
+10 CB f
+(!)1080 5148 w
+10 R f
+(not)1440 5148 w
+(A more complicated expression involving these is:)6 2026 1 720 5328 t
+10 CB f
+( b)1 122( n)1 63( > b & b > c the)7 974(if a)1 243 4 1080 5508 t
+10 R f
+(The)720 5688 w
+12 CB f
+(els e)1 291 1 963 5688 t
+10 R f
+( if not present and the condition is false, the conditional is)11 2491(part of the conditional is optional, and)6 1614 2 1295 5688 t
+(unde\256ned.)720 5808 w
+14 B f
+(Unde\256ned Variables)1 1226 1 720 6048 t
+10 R f
+( they have not been set, if they depend on variables that are unde\256ned, or if they are set to)19 3641(Variables are unde\256ned if)3 1039 2 720 6228 t
+(an expression involving an illegal operation.)5 1776 1 720 6348 t
+10 CB f
+( 1/0)1 243(CAL C:)1 303 2 1080 6528 t
+( EFI NED)2 366( UND)1 242( =)1 367( 0\))1 182(\(1 /)1 243 5 1080 6648 t
+10 R f
+( that no operations will result in)6 1314(You can be con\256dent)3 869 2 720 6828 t
+12 CB f
+(cal c)1 291 1 2983 6828 t
+10 R f
+( you could write the equation for)6 1351( Thus)1 257(blowing up.)1 485 3 3307 6828 t
+(the roots of a quadratic formula with the following de\256nitions and always get reasonable answers.)14 3913 1 720 6948 t
+10 CB f
+(x = 0)2 304 1 1080 7128 t
+(a = b = 1)4 548 1 1080 7248 t
+10 S f
+(\323)2617 7728 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7728 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 16 17
+%%Page: 17 18
+/saveobj save def
+mark
+18 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 5-17)1 2059( Analysis)1 375( Data)1 1506(STAT Handbook)1 691 4 769 480 t
+10 CB f
+(c = -1)2 364 1 1080 768 t
+( *c\))1 183( - 4*a)2 364( 2)1 63( \(b\303)1 242( t)1 63( = sqr)2 364(rad ica l)2 426 7 1080 888 t
+( c)1 122( +)1 124( b*x)1 242( +)1 123( \3032)1 123( a*x)1 242( =)1 123(equ ati on)2 486 8 1080 1008 t
+( b)1 122( +)1 123( *x)1 123( = 2*a)2 364(der iva tiv e)3 609 5 1080 1128 t
+( a\))1 182( *)1 123( \(2)1 182( /)1 123( ica l\))2 306( rad)1 242( +)1 124( \(-b)1 242( =)1 123(roo t1)1 303 10 1080 1248 t
+( a\))1 182( *)1 123( \(2)1 182( /)1 123( ica l\))2 306( rad)1 242( -)1 124( \(-b)1 242( =)1 123(roo t2)1 303 10 1080 1368 t
+14 B f
+(Control Characters)1 1169 1 720 1668 t
+10 R f
+( type a control character, say CTRL-p,)6 1589( To)1 170( are accomplished with control characters.)5 1729(Non-mathematical operations)1 1192 4 720 1848 t
+(while you hold down the key labeled CTRL you type a)10 2218 1 720 1968 t
+12 CB f
+(p)3013 1968 w
+10 R f
+( appear as)2 400( will)1 183(. This)1 255 3 3086 1968 t
+12 CB f
+(\303P)3998 1968 w
+10 R f
+( control characters have)3 952(. Some)1 304 2 4144 1968 t
+( UNIX, you can avoid some)5 1175( On)1 183(special meanings, such as "stop the program" so you must be careful with them.)13 3322 3 720 2088 t
+(problems with control characters by typing a)6 1918 1 720 2208 t
+12 CB f
+(\303V)2733 2208 w
+10 R f
+( removes any special meaning)4 1287( character)1 411( This)1 250(before them.)1 526 4 2926 2208 t
+( to type)2 312( So)1 162( immediately following it.)3 1063(associated with the character)3 1164 4 720 2328 t
+12 CB f
+(\303P)3500 2328 w
+10 R f
+(you could be extra safe and type)6 1327 1 3677 2328 t
+12 CB f
+(\303V\303 P)1 291 1 5083 2328 t
+10 R f
+(.)5375 2328 w
+(To type a)2 377 1 720 2448 t
+12 CB f
+(\303V)1170 2448 w
+10 R f
+( these conventions are not universal.)5 1453( Unfortunately,)1 635(, you may have to type it twice.)7 1257 3 1316 2448 t
+(The following control operations are available with)6 2052 1 1080 2628 t
+12 CB f
+(cal c)1 291 1 3205 2628 t
+10 R f
+(.)3497 2628 w
+10 CB f
+(\303P)1080 2808 w
+10 R f
+(toggle the printing of expressions \(UNIX only\))6 1881 1 1440 2808 t
+10 CB f
+(\303Rf)1080 2928 w
+10 R f
+(read the input from \256le f and return to current state)10 2029 1 1440 2928 t
+10 CB f
+(\303V)1080 3048 w
+10 R f
+(print the variable table)3 901 1 1440 3048 t
+10 CB f
+(\303Wf)1080 3168 w
+10 R f
+(write the variable table to \256le)5 1173 1 1440 3168 t
+10 CB f
+(f)2638 3168 w
+10 R f
+(\()1440 3288 w
+10 CB f
+(\303W)1473 3288 w
+10 R f
+(is a synonym for)3 669 1 1620 3288 t
+10 CB f
+(\303V)2314 3288 w
+10 R f
+(\))2436 3288 w
+(If you forget any of these commands, you can type a)10 2098 1 720 3468 t
+12 CB f
+(?)2891 3468 w
+10 R f
+(to get)1 225 1 3014 3468 t
+12 CB f
+(cal c)1 291 1 3312 3468 t
+10 R f
+(to remind you.)2 586 1 3629 3468 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 17 18
+%%Page: 18 19
+/saveobj save def
+mark
+19 pagesetup
+10 R f
+( Analysis)1 375(5-18 Data)1 2246 2 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+12 B f
+(Table of)1 424 1 1080 828 t
+12 CW f
+(cal c)1 291 1 1534 828 t
+12 B f
+(Operations)1856 828 w
+10 R f
+(Operator Associativity)1 1521 1 1263 1068 t
+(Precedence Description)1 1592 1 1754 1188 t
+10 CW f
+($)1410 1368 w
+10 R f
+( value of previous calculation)4 1181( numerical)1 662(const none)1 742 3 1875 1368 t
+10 CW f
+(#)1388 1488 w
+10 R f
+( value of a)3 418( numerical)1 662( none)1 612(a 1)1 556 4 1449 1488 t
+(a)1363 1608 w
+10 CW f
+(=)1407 1608 w
+10 R f
+( is set to expression b)5 858( a)1 309( right)1 610(b 2)1 537 4 1468 1608 t
+10 CW f
+(if)1173 1728 w
+10 R f
+(a)1320 1728 w
+10 CW f
+(the n)1 243 1 1389 1728 t
+10 R f
+( a != 0 then b else)6 710( if)1 354( left)1 582(b 3)1 347 4 1658 1728 t
+10 CW f
+(UND EFI NED)2 546 1 3676 1728 t
+(els e)1 243 1 1318 1848 t
+10 R f
+(4 left)1 632 1 1955 1848 t
+(a)1363 1968 w
+10 CW f
+(|)1407 1968 w
+10 R f
+( if a or b is true)6 610( true)1 448( left)1 582(b 5)1 537 4 1468 1968 t
+(a)1363 2088 w
+10 CW f
+(&)1407 2088 w
+10 R f
+( is a and b are true)6 731( true)1 448( left)1 582(b 6)1 537 4 1468 2088 t
+10 CW f
+(!)1388 2208 w
+10 R f
+( is a is false)4 466( true)1 418( none)1 612(a 7)1 556 4 1449 2208 t
+(a)1332 2328 w
+10 CW f
+(==)1376 2328 w
+10 R f
+( if a equals b)4 510( true)1 418( none)1 612(b 8)1 507 4 1498 2328 t
+(a)1332 2448 w
+10 CW f
+(!=)1376 2448 w
+10 R f
+( if a is not equal b)6 716( true)1 418( none)1 612(b 8)1 507 4 1498 2448 t
+(a)1363 2568 w
+10 CW f
+(<)1407 2568 w
+10 R f
+( if a is less than b)6 694( true)1 418( none)1 612(b 8)1 537 4 1468 2568 t
+(a)1363 2688 w
+10 CW f
+(>)1407 2688 w
+10 R f
+( if a greater than b)5 728( true)1 418( none)1 612(b 8)1 537 4 1468 2688 t
+(a)1332 2808 w
+10 CW f
+(>=)1376 2808 w
+10 R f
+( if a)2 155( true)1 418( none)1 612(b 8)1 507 4 1498 2808 t
+10 S f
+(>)3215 2808 w
+10 R f
+(b)3295 2808 w
+10 S f
+(\357)3370 2808 w
+10 R f
+(a == b)2 256 1 3444 2808 t
+(a)1332 2928 w
+10 CW f
+(<=)1376 2928 w
+10 R f
+( if a)2 155( true)1 418( none)1 612(b 8)1 507 4 1498 2928 t
+10 S f
+(<)3215 2928 w
+10 R f
+(b)3295 2928 w
+10 S f
+(\357)3370 2928 w
+10 R f
+(a == b)2 256 1 3444 2928 t
+(a)1363 3048 w
+10 CW f
+(+)1407 3048 w
+10 R f
+( plus b)2 267( a)1 337( left)1 582(b 9)1 537 4 1468 3048 t
+(a)1363 3168 w
+10 CW f
+(-)1407 3168 w
+10 R f
+( minus b)2 345( a)1 337( left)1 582(b 9)1 537 4 1468 3168 t
+(a)1363 3288 w
+10 CW f
+(*)1407 3288 w
+10 R f
+( times b)2 317( a)1 337( left)1 557(b 10)1 562 4 1468 3288 t
+(a)1363 3408 w
+10 CW f
+(/)1407 3408 w
+10 R f
+( divided by b)3 525( a)1 337( left)1 557(b 10)1 562 4 1468 3408 t
+(a)1363 3528 w
+10 CW f
+(%)1407 3528 w
+10 R f
+( modulo b)2 406( a)1 337( left)1 557(b 10)1 562 4 1468 3528 t
+(a)1363 3648 w
+10 CW f
+(\303)1407 3648 w
+10 R f
+( to the b)3 325( a)1 309( right)1 585(b 11)1 562 4 1468 3648 t
+10 CW f
+(-)1388 3768 w
+10 R f
+( sign)1 192( change)1 545( none)1 587(a 12)1 581 4 1449 3768 t
+10 CW f
+(abs \()1 243 1 1266 3888 t
+10 R f
+(a)1510 3888 w
+10 CW f
+(\))1554 3888 w
+10 R f
+( value)1 241( absolute)1 596(12 none)1 687 3 1930 3888 t
+10 CW f
+(exp \()1 243 1 1266 4008 t
+10 R f
+(a)1510 4008 w
+10 CW f
+(\))1554 4008 w
+10 R f
+( to the power a)4 593( e)1 307(12 none)1 687 3 1930 4008 t
+10 CW f
+(log \()1 243 1 1266 4128 t
+10 R f
+(a)1510 4128 w
+10 CW f
+(\))1554 4128 w
+10 R f
+( logarithm of a)3 591( natural)1 540(12 none)1 687 3 1930 4128 t
+10 CW f
+(sqr t\()1 303 1 1235 4248 t
+10 R f
+(a)1540 4248 w
+10 CW f
+(\))1584 4248 w
+10 R f
+( root of a)3 363( square)1 523(12 none)1 687 3 1930 4248 t
+10 CW f
+(sin \()1 243 1 1266 4368 t
+10 R f
+(a)1510 4368 w
+10 CW f
+(\))1554 4368 w
+10 R f
+( of a in radians \()5 651( sine)1 424(12 none)1 687 3 1930 4368 t
+10 CW f
+(cos)3692 4368 w
+10 R f
+(&)3900 4368 w
+10 CW f
+(tan)4003 4368 w
+10 R f
+(\))4186 4368 w
+10 CW f
+(asi n\()1 303 1 1235 4488 t
+10 R f
+(a)1540 4488 w
+10 CW f
+(\))1584 4488 w
+10 R f
+( sine of a \()4 421( arc)1 384(12 none)1 687 3 1930 4488 t
+10 CW f
+(aco s)1 243 1 3422 4488 t
+10 R f
+(&)3691 4488 w
+10 CW f
+(ata n)1 243 1 3794 4488 t
+10 R f
+(\))4038 4488 w
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 18 19
+%%Page: 0 20
+/saveobj save def
+mark
+20 pagesetup
+24 B f
+(CHAPTER 5)1 1354 1 720 1128 t
+(Data Analysis)1 1421 1 720 1608 t
+10 R f
+(5.1)795 2088 w
+10 B f
+(Table of Analysis Programs)3 1186 1 970 2088 t
+10 R f
+(.................................................................................................................. 5-1)1 3210 1 2190 2088 t
+(5.2)795 2208 w
+10 B f
+(stats: print summary statistics)3 1290 1 970 2208 t
+10 R f
+(.............................................................................................................. 5-2)1 3110 1 2290 2208 t
+(5.3)795 2328 w
+10 B f
+(desc: descriptions of a single distribution)5 1743 1 970 2328 t
+10 R f
+(............................................................................................ 5-3)1 2660 1 2740 2328 t
+(5.4)795 2448 w
+10 B f
+(ts: time series analysis and plots)5 1364 1 970 2448 t
+10 R f
+(........................................................................................................... 5-4)1 3035 1 2365 2448 t
+(5.5)795 2568 w
+10 B f
+(oneway: one way analysis of variance)5 1591 1 970 2568 t
+10 R f
+(.................................................................................................. 5-5)1 2810 1 2590 2568 t
+(5.6)795 2688 w
+10 B f
+(rankind: rank-order analysis of independent groups)5 2228 1 970 2688 t
+10 R f
+(........................................................................ 5-6)1 2160 1 3240 2688 t
+(5.7)795 2808 w
+10 B f
+(pair: paired points analysis and plots)5 1584 1 970 2808 t
+10 R f
+(.................................................................................................. 5-7)1 2810 1 2590 2808 t
+(5.8)795 2928 w
+10 B f
+(rankrel: rank-order analysis of related groups)5 1974 1 970 2928 t
+10 R f
+(.................................................................................. 5-8)1 2410 1 2990 2928 t
+(5.9)795 3048 w
+10 B f
+(regress: multiple correlation/regression)2 1680 1 970 3048 t
+10 R f
+(.............................................................................................. 5-9)1 2710 1 2690 3048 t
+(5.10)745 3168 w
+10 B f
+(anova: multi-factor analysis of variance)4 1693 1 970 3168 t
+10 R f
+(.............................................................................................. 5-10)1 2710 1 2690 3168 t
+(5.11)745 3288 w
+10 B f
+(contab: contingency tables and chi-square)4 1795 1 970 3288 t
+10 R f
+(.......................................................................................... 5-12)1 2610 1 2790 3288 t
+(5.12)745 3408 w
+10 B f
+(dprime: d'/beta for signal detection data)5 1724 1 970 3408 t
+10 R f
+(............................................................................................ 5-13)1 2660 1 2740 3408 t
+(5.13)745 3528 w
+10 B f
+(CALC: Tutorial and Manual)3 1243 1 970 3528 t
+10 R f
+(................................................................................................................ 5-14)1 3160 1 2240 3528 t
+(Using CALC)1 531 1 970 3648 t
+(Setting Constant Values)2 967 1 970 3768 t
+(Testing Conditions)1 765 1 970 3888 t
+(Unde\256ned Variables)1 823 1 970 4008 t
+(Control Characters)1 757 1 970 4128 t
+( documentation can be)3 907( Full)1 214( their options.)2 557(Each of the analysis programs are introduced, showing some, but not all of)12 3002 4 720 4608 t
+( procedures and assumptions are found in the references in the)10 2688( about the)2 436( Details)1 354(found in the manual entries.)4 1202 4 720 4728 t
+( programs allow summary statistics, inferential)5 2031( analysis)1 377( Most)1 286(ALGORITHM sections of the manual entries.)5 1986 4 720 4848 t
+( There)1 287( a program consists of all the analyses for a speci\256c type of data.)13 2643( general,)1 349( In)1 139( simple graphics.)2 692(statistics. and)1 570 6 720 4968 t
+( simple analyses are)3 840( Some)1 291( \(single\) distributions, multilevel, and multifactor analysis.)6 2425(are programs for univariate)3 1124 4 720 5088 t
+( example, Scheffe con\256dence intervals can be)6 1855( For)1 194( manipulation and analysis programs.)4 1516(possible by combining data)3 1115 4 720 5208 t
+(computed for means using the)4 1212 1 720 5328 t
+12 CB f
+(pro bdi st)2 582 1 2007 5328 t
+10 R f
+(and)2618 5328 w
+12 CB f
+(cal c)1 291 1 2837 5328 t
+10 R f
+( reference manual for)3 863( tutorial and)2 487(programs. A)1 526 3 3156 5328 t
+12 CB f
+(cal c)1 291 1 5108 5328 t
+10 R f
+(is the \256nal section of this chapter.)6 1346 1 720 5448 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 0 20
+%%Trailer
+done
+%%Pages: 20
+%%DocumentFonts: Times-Roman Symbol Courier-Bold Courier Times-Bold Times-Italic

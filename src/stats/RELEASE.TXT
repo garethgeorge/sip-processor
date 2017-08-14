@@ -1,0 +1,109 @@
+Key for reading changes to |STAT:
+    [+] new program  [-] deleted program     [F] new feature
+    [M] modification of existing feature     [R] robustness enhancements
+
+Recent Changes
+    General
+        updated all code to be ANSI C compatible
+    Specific Programs
+        anova:    [F]  added -p and -w for error bar plots
+        probdist: [F]  added -q option for quick random number generation
+        features: [MR] made compatible with other |STAT program options
+        dprime:   [FM] added -p option and new I/O formats, repaired file-input
+        colex:    [FM] added -c option for fixed column input (like cut)
+        perm:     [F]  added -j option for special permutations
+
+Changes for Release 5.4 March 1989
+    General
+        Added missing value (NA) handling for most analysis programs
+    Specific Programs
+        pair:     [F] added correlation coefficient to plots
+        anova:    [F] added sorting for numerical factor labels, DOS LAN support
+        contab:   [F] added sorting for numerical factor labels, DOS LAN support
+                  [F] added -i option to restrict # of reported interactions
+        ff:       [F] added file statistics language to three-part titles
+        calc, dm: [R] added special code to fix Sun conversion software bug
+        features: [+] summarize features of several items
+
+Changes for Release 5.3  January 1987
+    General
+        Random number seeding on MSDOS now uses the system clock;
+            it is never interactive (affects MSDOS dm, perm, probdist).
+        Several rank order analyses are now supported.
+    Specific Programs
+        contab:   [M] removed -m option for marginal totals; they are automatic
+        desc      [F] added standard deviations of skew and kurtosis
+        linex:    [+] for line extraction
+        oneway:   [M] removed -w option to request weighted means solution with
+                  unweighted solution, -P plotwidth option now requested with -w
+        rankind:  [+] analyze rank-order data for independent conditions
+                  Median Test, Mann-Whitney U, Kruskal-Wallice H
+        rankrel:  [+] analyze rank-order data for related conditions
+                  Sign Test, Wilcoxon, Friedman, Spearman Rho
+        probdist: [F] binomial (b N p1/p2) distribution added
+        probdist: [M] output format for verbose option modified
+        ranksort: [F] reversal option added (-r)
+        repeat:   [FM] added several new options, changed syntax
+        series:   [M] minor syntax changes
+        stats:    [M] added standard option parser and -v (verbose) option
+
+Changes for Release 5.2  October 1986
+    General
+        Second Edition of Handbook (with manual entries)
+        Handbook examples now online
+        Manual entries no longer distributed separate from handbook
+        for infinite F ratios, 9999 is used
+    Specific Programs
+        cat:      [+] added for MSDOS compatibility
+        colex:    [F] formatted output of columns added
+        dm:       [R] some new operators added, bugs fixed
+        dm:       [F] random seed now follows R[AND] operator
+        dm:       [M] no longer checks for non-numerical inputs (use number(si))
+        dsort:    [+] for sorting data files by columns
+        ff:       [+] for pagination, simple text formatting
+        fpack:    [+] for packing files into plain archives
+        perm:     [F] sorting options added
+        regress:  [R] improved matrix calculations
+
+Changes for Release 5.2  January 1986
+    General
+        on-line help in most programs (-LOV options)
+        |STAT Handbook and new manual entries
+        on-line manuals on MSDOS
+    Specific Programs
+        probdist: [+] 5 probability distributions with random number generation
+        pof:      [-] deleted from distribution (probdist)
+        chisq:    [-] deleted from distribution (probdist)
+        contab:   [+] crosstabs and chi-square program
+        pair:     [F] plotting options added
+        dataplot: [-] deleted from distribution (use pair plotting options)
+        anova:    [R] program more robust against invalid designs
+        oneway:   [F] error bar plots, unweighted means solution
+        regress:  [F] better support for residual plotting (-e option)
+        vincent:  [-] no longer distributed (use ts -l option)
+
+Changes for Release 5.1  November 1985
+    General
+        several minor bugs removed
+        full package ported to MSDOS
+    Specific Programs
+        calc:      [R] some syntax bugs fixed, ported to MSDOS
+        stats:     [+] for simple statistics
+        trans:     [-] no longer distributed (dm now on MSDOS)
+
+Changes for Release 5.0  March 1985
+    General
+        reworked to increase portability, reliability, usability
+        most commands now use standard option parser (getopt)
+        [R] all calculations now done in double precision
+        [R] improved error messages
+        [R] better approximations for F-ratios
+        efficiency of I/O improved
+        most programs ported to MSDOS
+        [R] improved random number seeding on UNIX (perm, dm)
+        standard exit status (0) on successful runs
+        version control added
+    Specific Programs
+        regress:   [F] partial correlation analysis
+        colex:     [+] added as faster alternative to dm
+        trans:     [+] added as alternative to dm (later dropped)

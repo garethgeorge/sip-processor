@@ -1,0 +1,61 @@
+REGRESS(1)                         |STAT                   January 27, 1987
+
+NAME
+     regress - multivariate linear regression and correlation
+
+SYNOPSIS
+     regress [-ceprs] [column names]
+
+DESCRIPTION
+     _r_e_g_r_e_s_s performs a general linear correlation and regression analysis
+     for up to 20 variables.  Input is a series of lines, each containing
+     an equal number of numerical fields.  Names for these fields can be
+     supplied, but if none are given, REG, A, B, C, etc. are used.
+
+     For regression analysis, the first column is predicted with all the
+     others (see _d_m or _c_o_l_e_x to reorder columns).
+
+OPTIONS
+     -c   Print the covariance matrix.
+
+     -e   Save the regression equation in the file _r_e_g_r_e_s_s._e_q_n. This file
+          is designed for use with the data manipulator _d_m. Suppose the
+          input to _r_e_g_r_e_s_s is in _r_e_g_r_e_s_s._i_n. Then,
+                               regress -e < regress.in
+          can be followed by
+                       dm Eregress.eqn < regress.in | pair -p
+          to plot the obtained against the predicted values.  The residuals
+          can be obtained with an extra pass through _d_m:
+           dm  Eregress.eqn  <  regress.in  |  dm  x2  x1-x2  |  pair  -p
+
+     -p   Do a partial correlation analysis to determine the contribution
+          of individual predictors after the others have been included.
+          _r_e_g_r_e_s_s reports, for each predictor, the regression weight (b)
+          and the standardized regression weight (beta).  The Rsq value is
+          the squared multiple correlation of the predictor with all other
+          predictors; if there is only one predictor, this will be zero,
+          and if there is only one other, both Rsq's will be identical.
+          Also reported is the standard error of the regression weight (b).
+          The significance test answers the question: ``After all the other
+          variables have been taken into account, does this variable
+          significantly improve prediction?''
+
+     -r   Do no regression analysis.  Only print the correlation matrix and
+          summary statistics.
+
+     -s   Print the matrix of raw sums of squares and cross products.
+
+DIAGNOSTICS
+     _r_e_g_r_e_s_s will complain about a singular correlation matrix if variables
+     are perfectly correlated.
+
+ALGORITHM
+     Chapter 4 of Kerlinger and Pedhazur (1973) _M_u_l_t_i_p_l_e _R_e_g_r_e_s_s_i_o_n _i_n
+     _B_e_h_a_v_i_o_r_a_l _R_e_s_e_a_r_c_h. New York: Holt, Rinehart & Winston.
+
+LIMITS
+     Use the -L option to determine the program limits.
+
+MISSING VALUES
+     Cases with missing data values (NA) are counted but not included in
+     the analysis.

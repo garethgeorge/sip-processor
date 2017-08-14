@@ -1,0 +1,62 @@
+.TH ABUT 1 "November 2, 1985" "\(co 1980 Gary Perlman" "|STAT" "UNIX User's Manual"
+.SH NAME
+abut \- formatted printing of corresponding lines from files
+.SH SYNOPSIS
+.B abut
+[-cn] [-f format] [-] file1 file2 ...
+.SH DESCRIPTION
+.I abut
+makes a list of files with N lines into one file
+with N lines by printing all the first lines of those files
+on one line, then the second lines, and so on,
+until all the lines from the longest file have been printed
+(but see the
+.I -c
+option).
+.I abut
+reads from its file arguments in the order they appear in the call to
+.I abut
+and prints to the standard output.
+As a special case, the file name "-" is used as the standard input.
+Any white space at the end of lines is removed,
+but at least one space between fields from different files
+is guaranteed.
+.SH OPTIONS
+.de OP
+.TP
+.B -\\$1 \\$2
+..
+.OP c
+Cycle through lines of short files until longest is exhausted.
+.I abut
+Continue printing until all files have been exhausted once.
+Files with fewer lines than the longest will be rewound and printed again.
+The standard input cannot be recycled.
+.OP f format
+Print fields in the specified format.
+Positive integers specify the field width.
+Negative integers imply a left-justified field.
+The default printing format is to put a tab between
+corresponding lines of separate files.
+.OP n
+All output lines are
+.I numbered
+beginning with 1.
+.SH EXAMPLE
+.I abut
+is often used to create input files to
+.I anova.
+.nf
+.ta .75i +.75i +.75i +.75i +.75i +.75i +.75i +.75i +.75i
+File1	File2	Data		abut -nc File1 File2 Data
+large	easy	12		1	large	easy	12
+small	easy	23		2	small	easy	23
+	hard	34		3	large	hard	34
+	hard	45		4	small	hard	45
+		76		5	large	easy	76
+		62		6	small	easy	62
+		99		7	large	hard	99
+		14		8	small	hard	14
+.fi
+.SH LIMITS
+Use the -L option to determine the program limits.

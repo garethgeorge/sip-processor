@@ -1,0 +1,70 @@
+.TH DESC 1 "January 20, 1987" "\(co 1980 Gary Perlman" "|STAT" "UNIX User's Manual"
+.SH NAME
+desc \- describing a single data distribution
+.SH SYNOPSIS
+.B desc
+[-cfhopsv] [-i interval] [-m min] [-M max] [-F|-t Ho]
+.SH DESCRIPTION
+.I desc
+does a number of summary statistics and frequency counts.
+The program's input is a series of numbers
+separated by newlines, tabs or spaces.
+.SH OPTIONS
+.de OP
+.TP
+.B -\\$1 \\$2
+..
+.OP c
+changes -f and -p options to Cumulative.
+.OP f
+table of midpoints and Frequencies.
+Data on bin boundaries
+end up in the next lower bin, except for data
+on the lower boundary of the first bin, which are put in the first bin.
+Thus, the first bin is a doubly closed interval,
+while all the others are half open: [],(],(],(],(],...(]
+.OP F Ho
+requests a F-test of mean = Ho rather than 0 (also -t).
+.OP h
+prints a Histogram with frequencies.
+.OP i width
+sets the Interval width for -h, -f & -p.
+.OP m min
+sets the Minimum of the first interval.
+Numbers below it are ignored on input.
+.OP M max
+sets the Maximum value allowed.
+Numbers above it are ignored on input.
+.OP o
+requests Order statistics (the default with no options).
+.OP p
+table of midpoints and Proportions.
+.OP s
+summary Statistics according to SPSS formulas.
+.OP t Ho
+same as -F option, which also prints a t-test.
+.OP v
+output statistics in Variable (name=value) format.
+.SH LIMITS
+.PP
+Use the -L option to determine the program limits.
+.I desc
+does its computations in either one or two
+passes, depending on whether the data is stored.
+If the -i and -m options are used, then it is not
+necessary to store the data for frequency tables.
+Otherwise, or if order statistics are requested
+(which require storing and sorting the data),
+then the number of
+input points is limited to some large number,
+which can be found with the -L option.
+.SH "MISSING VALUES
+Missing data values (NA) are counted but not included in the analysis.
+.SH EXAMPLES
+.ce
+desc  -cf  -m 0  -i 10  <  file
+prints a table of Cumulative Frequencies with
+Minimum = 0 and Interval width = 10.
+.ce
+desc  -s  -m 100  -M 1000  <  file
+prints summary Statistics for inputs between 100 and 1000.

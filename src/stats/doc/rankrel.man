@@ -1,0 +1,87 @@
+RANKREL(1)                         |STAT                   January 20, 1987
+
+NAME
+     rankrel - rank order statistics for related samples
+
+SYNOPSIS
+     rankrel [-ry] [-c maxcases] [names]
+
+DESCRIPTION
+     _r_a_n_k_r_e_l analyses data from ordinally ranked data obtained from
+     related/matched samples.  The input consists of scores from several
+     samples, conditions, or groups.  Each condition's data are in a
+     separate column.  The scores need not be ranks; they will be ranked by
+     the program.  For each condition, the number of scores, extrema and
+     quartiles are reported.  Conditions are compared for equality of
+     location using the sign test, the Wilcoxon signed-ranks test, and the
+     Friedman two-way analysis of variance of ranks.  A matrix of Spearman
+     rank-order correlation coefficients (rho) is printed.
+
+     The sign test and the Wilcoxon test are only used when there are two
+     conditions.  When there are fewer than 25 paired cases that are
+     different, the exact binomial probability is computed; for larger N,
+     the normal approximation is used.
+
+     Probability of Obtained Statistics
+     Functions computing exact probabilities of Wilcoxon and Friedman could
+     not be found when the program was written, so for small samples,
+     statistical tables at the back of a text should be consulted.  For
+     large samples, normal and Chi-square approximations are adequate.
+
+OPTIONS
+     -c maxcases
+          Set the maximum number of input cases.  Use the -L option to see
+          the default.
+
+     -r   Request a report of average ranks for conditions.
+
+     -s   Stop significance tests from printing.  This option is useful
+          when the Spearman rho values are of primary interest.
+
+     -y   When computing the normal approximation for the probability of
+          the Wilcoxon test, Yates' correction for continuity is applied.
+          This option stops its use.  There are no cases where Yates'
+          correction should not be used, but the option is useful to check
+          textbook examples for accuracy.
+
+EXAMPLE
+     The following data are from Siegel, page 79.  The command names the
+     conditions "school" and "home."
+          > rankrel school home
+          82   63
+          69   42
+          73   74
+          43   37
+          58   51
+          56   43
+          76   80
+          65   62
+
+     sign test: 0.144531 (one-tailed)
+     Wilcoxon T = 4, N = 8
+          p approximated with z: .026892 (one-tailed)
+          tabled critical value for T for one-tailed p = .025: 4
+     Friedman R = 2
+     Spearman Rank Correlation (rho) = .786
+
+LIMITS
+     Use the -L option to determine the program limits.
+
+MISSING VALUES
+     Cases with missing data values (NA) are counted but not included in
+     the analysis.
+
+SEE ALSO
+     pair(1), regress(1), and anova(1) perform the normal-theory parametric
+     counterparts to this non-parametric, distribution-free analysis.  To
+     see a scatterplot of ranks, the ranksort(1) filter can be used as a
+     pre-processor for the pair(1) plotting option.  rankind(1) analyses
+     ordinal data for independent conditions.
+
+     Siegel, S. (1956) _N_o_n_p_a_r_a_m_e_t_r_i_c _S_t_a_t_i_s_t_i_c_s _f_o_r _t_h_e _B_e_h_a_v_i_o_r_a_l
+     _S_c_i_e_n_c_e_s.  New York: McGraw-Hill.
+
+WARNING
+     When the program advises to check a table for exact probabilities of
+     significance tests, it may still compute approximate values.  These
+     approximations should not be used for serious work.

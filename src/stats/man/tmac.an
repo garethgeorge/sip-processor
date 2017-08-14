@@ -1,0 +1,61 @@
+.na
+.nh
+.po 0
+.ll 75n
+.lt 75n
+.if @\n(mo@1@ .ds mo January
+.if @\n(mo@2@ .ds mo February
+.if @\n(mo@3@ .ds mo March
+.if @\n(mo@4@ .ds mo April
+.if @\n(mo@5@ .ds mo May
+.if @\n(mo@6@ .ds mo June
+.if @\n(mo@7@ .ds mo July
+.if @\n(mo@8@ .ds mo August
+.if @\n(mo@9@ .ds mo September
+.if @\n(mo@10@ .ds mo October
+.if @\n(mo@11@ .ds mo November
+.if @\n(mo@12@ .ds mo December
+.de TH\"title
+.tl @\\$1(\\$2)@\\$5@\\$3@
+..
+.de SH\"section
+.sp
+.ti 0
+\\$1
+.in 5n
+..
+.de SS\"subsection
+.in 5n
+.br
+\\$1
+.br
+..
+.de PP
+.in 5n
+.sp
+..
+.de I\"italic
+.ft I
+.if !@\\$1@@ \\$1 \\$2 \\$3 \\$4 \\$5
+.if !@\\$1@@ .ft P
+..
+.de B\"bold
+.ft B
+.if !@\\$1@@ \\$1 \\$2 \\$3 \\$4 \\$5
+.if !@\\$1@@ .ft P
+..
+.de LP\"left para
+.PP
+..
+.de HP\"hanging para
+.sp
+.ne 2
+..
+.de TP\"hanging label
+.PP
+.it 1 tP
+..
+.de tP
+.\".br
+.in 10n
+..

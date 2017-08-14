@@ -1,0 +1,30 @@
+VALIDATA(1)                        |STAT                   February 3, 1987
+
+NAME
+     validata - validate and report columnar file consistency
+
+SYNOPSIS
+     validata
+
+DESCRIPTION
+     _v_a_l_i_d_a_t_a reads a file from the standard input and for each column in
+     its input, reports statistics about the data type of fields (whether a
+     column contains alphanumeric strings, integers, real numbers, or
+     something else).  _v_a_l_i_d_a_t_a also reports the maximum and minimum values
+     of the columns; _v_a_l_i_d_a_t_a is useful to check data files for consistency
+     before input to some data analysis program because it detects missing
+     columns or columns of the wrong type, such as non-numeric input.
+
+EXAMPLE
+     series  1  100  |  dm  x1  RAND  "x1^.5"  |  validata
+     Col  N    NA   alnum  alpha  int    float  other  type      min       max
+     1    100  0    100    0      100    100    0      int       1         100
+     2    100  0    0      0      0      100    0      float     0.0123    0.9836
+     3    100  0    10     0      10     100    0      float     1         10
+
+SEE ALSO
+     sort(1), grep(1), uniq(1), and diff(1) are also useful for checking
+     data
+
+LIMITS
+     Use the -L option to determine the program limits.

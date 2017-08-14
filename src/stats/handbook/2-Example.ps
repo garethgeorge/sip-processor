@@ -1,0 +1,1194 @@
+%!PS
+%%Version: 3.3
+%%DocumentFonts: (atend)
+%%Pages: (atend)
+%%EndComments
+%
+% Version 3.3 prologue for troff files.
+%
+
+/#copies 1 store
+/aspectratio 1 def
+/formsperpage 1 def
+/landscape false def
+/linewidth .3 def
+/magnification 1 def
+/margin 0 def
+/orientation 0 def
+/resolution 720 def
+/rotation 1 def
+/xoffset 0 def
+/yoffset 0 def
+
+/roundpage true def
+/useclippath true def
+/pagebbox [0 0 612 792] def
+
+/R  /Times-Roman def
+/I  /Times-Italic def
+/B  /Times-Bold def
+/BI /Times-BoldItalic def
+/H  /Helvetica def
+/HI /Helvetica-Oblique def
+/HB /Helvetica-Bold def
+/HX /Helvetica-BoldOblique def
+/CW /Courier def
+/CO /Courier def
+/CI /Courier-Oblique def
+/CB /Courier-Bold def
+/CX /Courier-BoldOblique def
+/PA /Palatino-Roman def
+/PI /Palatino-Italic def
+/PB /Palatino-Bold def
+/PX /Palatino-BoldItalic def
+/Hr /Helvetica-Narrow def
+/Hi /Helvetica-Narrow-Oblique def
+/Hb /Helvetica-Narrow-Bold def
+/Hx /Helvetica-Narrow-BoldOblique def
+/KR /Bookman-Light def
+/KI /Bookman-LightItalic def
+/KB /Bookman-Demi def
+/KX /Bookman-DemiItalic def
+/AR /AvantGarde-Book def
+/AI /AvantGarde-BookOblique def
+/AB /AvantGarde-Demi def
+/AX /AvantGarde-DemiOblique def
+/NR /NewCenturySchlbk-Roman def
+/NI /NewCenturySchlbk-Italic def
+/NB /NewCenturySchlbk-Bold def
+/NX /NewCenturySchlbk-BoldItalic def
+/ZD /ZapfDingbats def
+/ZI /ZapfChancery-MediumItalic def
+/S  /S def
+/S1 /S1 def
+/GR /Symbol def
+
+/inch {72 mul} bind def
+/min {2 copy gt {exch} if pop} bind def
+
+/setup {
+	counttomark 2 idiv {def} repeat pop
+
+	landscape {/orientation 90 orientation add def} if
+	/scaling 72 resolution div def
+	linewidth setlinewidth
+	1 setlinecap
+
+	pagedimensions
+	xcenter ycenter translate
+	orientation rotation mul rotate
+	width 2 div neg height 2 div translate
+	xoffset inch yoffset inch neg translate
+	margin 2 div dup neg translate
+	magnification dup aspectratio mul scale
+	scaling scaling scale
+
+	/Symbol /S Sdefs cf
+	/Times-Roman /S1 S1defs cf
+	0 0 moveto
+} def
+
+/pagedimensions {
+	useclippath userdict /gotpagebbox known not and {
+		/pagebbox [clippath pathbbox newpath] def
+		roundpage currentdict /roundpagebbox known and {roundpagebbox} if
+	} if
+	pagebbox aload pop
+	4 -1 roll exch 4 1 roll 4 copy
+	landscape {4 2 roll} if
+	sub /width exch def
+	sub /height exch def
+	add 2 div /xcenter exch def
+	add 2 div /ycenter exch def
+	userdict /gotpagebbox true put
+} def
+
+/pagesetup {
+	/page exch def
+	currentdict /pagedict known currentdict page known and {
+		page load pagedict exch get cvx exec
+	} if
+} def
+
+/decodingdefs [
+	{counttomark 2 idiv {y moveto show} repeat}
+	{neg /y exch def counttomark 2 idiv {y moveto show} repeat}
+	{neg moveto {2 index stringwidth pop sub exch div 0 32 4 -1 roll widthshow} repeat}
+	{neg moveto {spacewidth sub 0.0 32 4 -1 roll widthshow} repeat}
+	{counttomark 2 idiv {y moveto show} repeat}
+	{neg setfunnytext}
+] def
+
+/setdecoding {/t decodingdefs 3 -1 roll get bind def} bind def
+
+/w {neg moveto show} bind def
+/m {neg dup /y exch def moveto} bind def
+/done {/lastpage where {pop lastpage} if} def
+
+/f {
+	dup /font exch def findfont exch
+	dup /ptsize exch def scaling div dup /size exch def scalefont setfont
+	linewidth ptsize mul scaling 10 mul div setlinewidth
+	/spacewidth ( ) stringwidth pop def
+} bind def
+
+/changefont {
+	/fontheight exch def
+	/fontslant exch def
+	currentfont [
+		1 0
+		fontheight ptsize div fontslant sin mul fontslant cos div
+		fontheight ptsize div
+		0 0
+	] makefont setfont
+} bind def
+
+/sf {f} bind def
+
+/cf {
+	dup length 2 idiv
+	/entries exch def
+	/chtab exch def
+	/newfont exch def
+
+	findfont dup length 1 add dict
+	/newdict exch def
+	{1 index /FID ne {newdict 3 1 roll put} {pop pop} ifelse} forall
+
+	newdict /Metrics entries dict put
+	newdict /Metrics get
+	begin
+		chtab aload pop
+		1 1 entries {pop def} for
+		newfont newdict definefont pop
+	end
+} bind def
+
+%
+% A few arrays used to adjust reference points and character widths in some
+% of the printer resident fonts. If square roots are too high try changing
+% the lines describing /radical and /radicalex to,
+%
+%	/radical	[0 -75 550 0]
+%	/radicalex	[-50 -75 500 0]
+%
+% Move braceleftbt a bit - default PostScript character is off a bit.
+%
+
+/Sdefs [
+	/bracketlefttp		[201 500]
+	/bracketleftbt		[201 500]
+	/bracketrighttp		[-81 380]
+	/bracketrightbt		[-83 380]
+	/braceleftbt		[203 490]
+	/bracketrightex		[220 -125 500 0]
+	/radical		[0 0 550 0]
+	/radicalex		[-50 0 500 0]
+	/parenleftex		[-20 -170 0 0]
+	/integral		[100 -50 500 0]
+	/infinity		[10 -75 730 0]
+] def
+
+/S1defs [
+	/underscore		[0 80 500 0]
+	/endash			[7 90 650 0]
+] def
+%%EndProlog
+%%BeginSetup
+mark
+/resolution 720 def
+setup
+2 setdecoding
+%%EndSetup
+%%Page: 1 1
+/saveobj save def
+mark
+1 pagesetup
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 1 1
+%%Page: 1 2
+/saveobj save def
+mark
+2 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 2-1)1 1942( Example)1 380( Annotated)1 1618(STAT Handbook)1 691 4 769 480 t
+14 B f
+(Section 2.1 A Familiar Problem)4 1883 1 720 768 t
+10 R f
+(To show the)2 536 1 1080 1068 t
+10 S f
+(\357)1662 1068 w
+10 R f
+( The)1 227( work through a concrete example.)5 1495(STAT style of interactive data analysis, I will)7 1967 3 1711 1068 t
+( Scores)1 321( a \256nal exam.)3 553(example is based on a familiar problem: grades in a course based on two midterm exams and)16 3806 3 720 1188 t
+( section taught by one of two)6 1244(on exams will be broken down by student gender \(male or female\) and by the lab)15 3436 2 720 1308 t
+( the following data are in the \256le)7 1371( Assume)1 382(teaching assistants: John or Jane.)4 1358 3 720 1428 t
+12 CB f
+(exa m.d at)2 582 1 3914 1428 t
+10 R f
+( line in the \256le)4 618(. Each)1 284 2 4498 1428 t
+( number, the student's section's teaching assistant, the student's gender, and the)11 3366(includes a student identi\256cation)3 1314 2 720 1548 t
+(scores \(out of 100\) on the two midterm exams and the \256nal.)11 2386 1 720 1668 t
+10 CB f
+( 42 58)2 1080( 56)1 417( e)1 63( mal)1 477( n)1 63(S-1 joh)1 720 6 1080 1848 t
+( 90 91)2 1080( 96)1 417( e)1 63( mal)1 477( n)1 63(S-2 joh)1 720 6 1080 1968 t
+( 59 65)2 1080( 70)1 417( e)1 63( mal)1 477( n)1 63(S-3 joh)1 720 6 1080 2088 t
+( 75 78)2 1080( 82)1 417( e)1 63( mal)1 477( n)1 63(S-4 joh)1 720 6 1080 2208 t
+( 90 92)2 1080( 85)1 417( e)1 63( mal)1 477( n)1 63(S-5 joh)1 720 6 1080 2328 t
+( 60 65)2 1080( 69)1 417( e)1 63( mal)1 477( n)1 63(S-6 joh)1 720 6 1080 2448 t
+( 78 60)2 1080( 82)1 297( ale)1 183( fem)1 477( n)1 63(S-7 joh)1 720 6 1080 2568 t
+( 81 82)2 1080( 84)1 297( ale)1 183( fem)1 477( n)1 63(S-8 joh)1 720 6 1080 2688 t
+( 80 68)2 1080( 89)1 297( ale)1 183( fem)1 477( n)1 63(S-9 joh)1 720 6 1080 2808 t
+( 93 91)2 1080( 90)1 297( ale)1 183( fem)1 477( n)1 63( joh)1 477(S-1 0)1 243 7 1080 2928 t
+( 46 65)2 1080( 42)1 417( e)1 63( mal)1 477( e)1 63( jan)1 477(S-1 1)1 243 7 1080 3048 t
+( 15 34)2 1080( 28)1 417( e)1 63( mal)1 477( e)1 63( jan)1 477(S-1 2)1 243 7 1080 3168 t
+( 68 75)2 1080( 49)1 417( e)1 63( mal)1 477( e)1 63( jan)1 477(S-1 3)1 243 7 1080 3288 t
+( 30 48)2 1080( 36)1 417( e)1 63( mal)1 477( e)1 63( jan)1 477(S-1 4)1 243 7 1080 3408 t
+( 58 62)2 1080( 58)1 417( e)1 63( mal)1 477( e)1 63( jan)1 477(S-1 5)1 243 7 1080 3528 t
+( 70 84)2 1080( 72)1 417( e)1 63( mal)1 477( e)1 63( jan)1 477(S-1 6)1 243 7 1080 3648 t
+( 61 70)2 1080( 65)1 297( ale)1 183( fem)1 477( e)1 63( jan)1 477(S-1 7)1 243 7 1080 3768 t
+( 75 71)2 1080( 68)1 297( ale)1 183( fem)1 477( e)1 63( jan)1 477(S-1 8)1 243 7 1080 3888 t
+( 50 55)2 1080( 62)1 297( ale)1 183( fem)1 477( e)1 63( jan)1 477(S-1 9)1 243 7 1080 4008 t
+( 72 87)2 1080( 71)1 297( ale)1 183( fem)1 477( e)1 63( jan)1 477(S-2 0)1 243 7 1080 4128 t
+10 R f
+( the exam scores, and comparing the performances of)8 2170(We are interested in computing \256nal grades based on)8 2150 2 1080 4368 t
+( following analyses can be tried by typing in the)9 1968( The)1 210( teaching assistants.)2 801(males versus females, and of the different)6 1701 4 720 4488 t
+( variations on the example commands will help show)8 2166( Minor)1 304(above \256le and running the commands in the examples.)8 2210 3 720 4608 t
+(how the programs work.)3 976 1 720 4728 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 1 2
+%%Page: 2 3
+/saveobj save def
+mark
+3 pagesetup
+10 R f
+( Example)1 380(2-2 Annotated)1 2358 2 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+14 B f
+(Section 2.2 Computing Final Scores)4 2126 1 720 768 t
+10 R f
+(Computing \256nal scores is easy with the data manipulation program)9 2715 1 1080 1068 t
+12 CB f
+(dm)3872 1068 w
+10 R f
+( midterm is)2 466( that the \256rst)3 515(. Assume)1 401 3 4018 1068 t
+( following command tells)3 1067( The)1 219( percent, and the \256nal exam, 50 percent.)7 1694(worth 20 percent, the second 30)5 1350 4 720 1188 t
+12 CB f
+(dm)5137 1188 w
+10 R f
+(to)5322 1188 w
+(repeat each input line with)4 1079 1 720 1308 t
+12 CB f
+(INP UT)1 363 1 1877 1308 t
+10 R f
+( of columns 4, 5, and 6, treated as)8 1393(, and then print the weighted sum)6 1365 2 2242 1308 t
+10 I f
+(numbers)5031 1308 w
+10 R f
+(.)5375 1308 w
+( numbers,)1 426(To print)1 358 2 720 1428 t
+12 CB f
+(dm)1609 1428 w
+10 R f
+(uses an)1 323 1 1812 1428 t
+12 CB f
+(x)2240 1428 w
+10 R f
+( input to)2 398( The)1 237(before the column number.)3 1177 3 2370 1428 t
+12 CB f
+(dm)4287 1428 w
+10 R f
+(is read from the \256le)4 910 1 4490 1428 t
+12 CB f
+(exa m.d at)2 582 1 720 1548 t
+10 R f
+( result is saved in the \256le)6 1030(and the)1 296 2 1334 1548 t
+12 CB f
+(sco res .da t)3 729 1 2739 1548 t
+10 R f
+( all the original data and the \256nal scores)8 1640(. Once)1 291 2 3469 1548 t
+(are in)1 224 1 720 1668 t
+12 CB f
+(sco res .da t)3 729 1 1017 1668 t
+10 R f
+(, only that \256le will be used in following analyses.)9 1969 1 1747 1668 t
+10 CB f
+( res .da t)3 429( sco)1 242( >)1 123( m.d at)2 306( exa)1 242( <)1 124( x6")1 183( .5*)1 242( +)1 123( x5)1 123( .3*)1 242( +)1 124( *x4)1 183( ".2)1 243( UT)1 123(dm INP)1 363 16 1080 1848 t
+10 R f
+(The standard input is redirected from the \256le)7 1888 1 720 2028 t
+12 CB f
+(exa m.d at)2 582 1 2696 2028 t
+10 R f
+(with the)1 340 1 3320 2028 t
+12 CB f
+(<)3748 2028 w
+10 R f
+( the)1 163( Similarly,)1 464( line.)1 216(on the command)2 696 4 3861 2028 t
+(standard output, which would ordinarily go to the screen, is redirected to the \256le)13 3243 1 720 2148 t
+12 CB f
+(sco res .da t)3 729 1 4039 2148 t
+10 R f
+(with the)1 328 1 4797 2148 t
+12 CB f
+(>)5200 2148 w
+10 R f
+(on)5300 2148 w
+( second expression for)3 925( The)1 215(the command line.)2 761 3 720 2268 t
+12 CB f
+(dm)2704 2268 w
+10 R f
+( spaces to make the)4 820( allows the insertion of)4 956( This)1 238(is in quotes.)2 501 4 2885 2268 t
+(expression more readable, and to make sure that any special characters \(e.g.,)11 3225 1 720 2388 t
+12 CB f
+(*)4034 2388 w
+10 R f
+(is special to UNIX shells\) are)5 1253 1 4147 2388 t
+( saved in the \256le)4 863( output from the above command,)5 1609( The)1 256(hidden from the command line interpreter.)5 1952 4 720 2508 t
+12 CB f
+(sco res .da t)3 729 1 720 2628 t
+10 R f
+(, would begin with the following.)5 1336 1 1450 2628 t
+10 CB f
+( 8)1 63( 42 58 52.)3 1680( 56)1 417( e)1 63( mal)1 477( n)1 63(S-1 joh)1 720 7 1080 2808 t
+( 7)1 63( 90 91 91.)3 1680( 96)1 417( e)1 63( mal)1 477( n)1 63(S-2 joh)1 720 7 1080 2928 t
+( 2)1 63( 59 65 64.)3 1680( 70)1 417( e)1 63( mal)1 477( n)1 63(S-3 joh)1 720 7 1080 3048 t
+( 9)1 63( 75 78 77.)3 1680( 82)1 417( e)1 63( mal)1 477( n)1 63(S-4 joh)1 720 7 1080 3168 t
+( 90 92 90)3 1620( 85)1 417( e)1 63( mal)1 477( n)1 63(S-5 joh)1 720 6 1080 3288 t
+( 3)1 63( 60 65 64.)3 1680( 69)1 417( e)1 63( mal)1 477( n)1 63(S-6 joh)1 720 7 1080 3408 t
+10 I f
+(etc.)1080 3528 w
+10 R f
+( columns and sending the output to the standard UNIX or)10 2472(This could be sorted by \256nal grade by reversing the)9 2208 2 720 3708 t
+(MSDOS)720 3828 w
+12 CB f
+(sor t)1 291 1 1138 3828 t
+10 R f
+(utility program using the ``pipe'' symbol)5 1641 1 1455 3828 t
+12 CB f
+(|)3169 3828 w
+10 R f
+(.)3242 3828 w
+10 CB f
+( t)1 63( | sor)2 364( res .da t)3 429( sco)1 242( <)1 123( -f)1 182(rev ers e)2 426 7 1080 4008 t
+10 R f
+(The above command would produce the following output.)7 2325 1 720 4188 t
+10 CB f
+( 2)1 63( S-1)1 477( e)1 63( jan)1 477( e)1 63( 15 28 mal)3 1680( 34)1 417(27. 1)1 243 8 1080 4368 t
+( 4)1 63( S-1)1 477( e)1 63( jan)1 477( e)1 63( 30 36 mal)3 1680( 48)1 417(40. 2)1 243 8 1080 4488 t
+( S-1)1 477( n)1 63( joh)1 477( e)1 63( 42 56 mal)3 1680( 58)1 417(52. 8)1 243 7 1080 4608 t
+( 1)1 63( S-1)1 477( e)1 63( jan)1 477( e)1 63( 46 42 mal)3 1680( 65)1 417(54. 7)1 243 8 1080 4728 t
+( 9)1 63( S-1)1 477( e)1 63( jan)1 357( ale)1 183( 50 62 fem)3 1680( 55)1 417(54. 9)1 243 8 1080 4848 t
+(...)1141 4968 w
+( 0)1 63( S-2)1 477( e)1 63( jan)1 357( ale)1 183( 72 71 fem)3 1680( 87)1 417(79. 3)1 243 8 1080 5088 t
+( S-8)1 477( n)1 63( joh)1 357( ale)1 183( 81 84 fem)3 1680( 82)1 417(82. 1)1 243 7 1080 5208 t
+( S-5)1 477( n)1 63( joh)1 477( e)1 63(90 92 90 85 mal)4 2340 5 1080 5328 t
+( 0)1 63( S-1)1 477( n)1 63( joh)1 357( ale)1 183( 93 90 fem)3 1680( 91)1 417(91. 4)1 243 8 1080 5448 t
+( S-2)1 477( n)1 63( joh)1 477( e)1 63( 90 96 mal)3 1680( 91)1 417(91. 7)1 243 7 1080 5568 t
+10 R f
+( of the \256elds,)3 528(To restore the order)3 792 2 720 5748 t
+12 CB f
+(rev ers e)2 510 1 2115 5748 t
+10 R f
+( way, more ef\256cient, would be to use)7 1492( Another)1 379(could be called again.)3 876 3 2653 5748 t
+(the)720 5868 w
+12 CB f
+(dso rt)1 363 1 915 5868 t
+10 R f
+(\256lter to sort based on column 7:)6 1272 1 1305 5868 t
+10 CB f
+( res .da t)3 429( < sco)2 364( 7)1 123(dso rt)1 303 4 1080 6048 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 2 3
+%%Page: 3 4
+/saveobj save def
+mark
+4 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 2-3)1 1942( Example)1 380( Annotated)1 1618(STAT Handbook)1 691 4 769 480 t
+14 B f
+(Section 2.3 Summary of Final Scores)5 2191 1 720 768 t
+12 CB f
+(des c)1 291 1 720 1008 t
+10 R f
+( the \256nal scores)3 645( following command takes)3 1081( The)1 211(prints summary statistics, histograms, and frequency tables.)6 2420 4 1043 1008 t
+(\(the weighted average from the previous section\).)6 1981 1 720 1128 t
+10 CB f
+( res .da t)3 429( sco)1 303(dm s7 <)2 548 3 1080 1308 t
+10 R f
+(Summary order statistics are printed with the)6 1828 1 720 1488 t
+12 CB f
+(-o)2626 1488 w
+10 R f
+( against the passing grade of)5 1164(option and the distribution is tested)5 1434 2 2802 1488 t
+(75 with the)2 452 1 720 1608 t
+12 CB f
+(-t 75)1 363 1 1246 1608 t
+10 R f
+(option.)1637 1608 w
+12 CB f
+(des c)1 291 1 2065 1608 t
+10 R f
+(makes a histogram \(the)3 932 1 2383 1608 t
+12 CB f
+(-h)3389 1608 w
+10 R f
+( \(the)1 180(option\) with 10 point intervals)4 1221 2 3561 1608 t
+12 CB f
+(-i 10)1 363 1 5035 1608 t
+10 R f
+(option\) starting at a minimum value of 0 \(the)8 1799 1 720 1728 t
+12 CB f
+(-m 0)1 291 1 2592 1728 t
+10 R f
+(option\).)2909 1728 w
+10 CB f
+( 0)1 123( -m)1 244( 10)1 183( -h -i)2 488( 75)1 183( -t)1 244( -o)1 243( c)1 63( | des)2 364( res .da t)3 429( sco)1 303(dm s7 <)2 548 12 1080 1908 t
+(--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---)19 3657 1 1080 2148 t
+( Sum)1 730( sin g)2 246( Mis)1 487( ge)1 123( Ran)1 242( r)1 63( Ove)1 304( ge)1 123( Ran)1 243( In)1 366( ge)1 123( Ran)1 243(Und er)1 303 13 1141 2268 t
+( 9.2 00)2 306( 135)1 425( 0)1 732( 0)1 733(0 20)1 791 5 1751 2388 t
+(--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---)19 3657 1 1080 2508 t
+( mon ic)2 306( Har)1 427( met ric)2 366( Geo)1 365( poi nt)2 306( Mid)1 427( ian)1 183( Med)1 547(Mea n)1 243 9 1568 2628 t
+( 529)1 183( 62.)1 549( 564)1 183( 65.)1 549( 400)1 183( 59.)1 549( 750)1 183( 68.)1 549(67. 960)1 363 9 1446 2748 t
+(--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---)19 3657 1 1080 2868 t
+( n)1 63( mea)1 243( SE)1 427( ge)1 123( Ran)1 610( Dev)1 243( rt)1 123(SD Qua)1 485 8 1690 2988 t
+( 36)1 123( 3.7)1 610( 600)1 183( 64.)1 549( 575)1 183( 10.)1 549(16. 707)1 363 7 1446 3108 t
+(--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---)19 3657 1 1080 3228 t
+( imu m)2 246( Max)1 486( 3)1 123( rti le)2 306( Qua)1 303( 2)1 123( rti le)2 306( Qua)1 303( 1)1 123( rti le)2 306( Qua)1 303(Min imu m)2 426 12 1385 3348 t
+( 700)1 183( 91.)1 549( 600)1 183( 78.)1 549( 750)1 183( 68.)1 549( 450)1 183( 57.)1 549(27. 100)1 363 9 1446 3468 t
+(--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---)19 3657 1 1080 3588 t
+( t)1 63( Kur)1 243( SD)1 427( tos is)2 306( Kur)1 425( w)1 63( Ske)1 243( SD)1 426(Ske w)1 243 9 1568 3708 t
+( 95)1 123( 1.0)1 609( 44)1 123( 2.8)1 609( 48)1 123( 0.5)1 610(-0. 586)1 363 7 1446 3828 t
+(--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---)19 3657 1 1080 3948 t
+( \(F\))1 242( b)1 63( pro)1 425( F)1 734( \(t\))1 242( b)1 63( pro)1 425( t)1 732( n)1 63( Mea)1 242(Nul l)1 243 11 1263 4068 t
+( 75)1 123( 0.0)1 609( 51)1 123( 3.5)1 609( 75)1 123( 0.0)1 610( 884)1 183( -1.)1 549(75. 000)1 363 9 1446 4188 t
+(--- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---)19 3657 1 1080 4308 t
+( q)1 63( Fre)1 426(Mid pt)1 303 3 1507 4428 t
+( 0)1 489(5.0 00)1 303 2 1507 4548 t
+( 0)1 490(15. 000)1 363 2 1446 4668 t
+( *)1 122( 1)1 490(25. 000)1 363 3 1446 4788 t
+( 0)1 490(35. 000)1 363 2 1446 4908 t
+( *)1 122( 1)1 490(45. 000)1 363 3 1446 5028 t
+( *)1 63( ***)1 242( 4)1 490(55. 000)1 363 4 1446 5148 t
+( **)1 123( ***)1 242( 5)1 490(65. 000)1 363 4 1446 5268 t
+( **)1 123( ***)1 242( 5)1 490(75. 000)1 363 4 1446 5388 t
+( **)1 182( 2)1 490(85. 000)1 363 3 1446 5508 t
+( **)1 182( 2)1 490(95. 000)1 363 3 1446 5628 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 3 4
+%%Page: 4 5
+/saveobj save def
+mark
+5 pagesetup
+10 R f
+( Example)1 380(2-4 Annotated)1 2358 2 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+14 B f
+(Section 2.4 Predicting Final Exam Scores)5 2456 1 720 768 t
+10 R f
+( The)1 221( scores with those of the two midterm exams.)8 1940(The next analysis predicts \256nal exam)5 1559 3 1080 1068 t
+12 CB f
+(reg res s)2 510 1 4889 1068 t
+10 R f
+( 1 and the predictors in following columns.)7 1777(program assumes its input has the predicted variable in column)9 2603 2 720 1188 t
+12 CB f
+(dm)5254 1188 w
+10 R f
+(can extract the columns in the correct order from the \256le)10 2250 1 720 1308 t
+12 CB f
+(sco res .da t)3 729 1 3043 1308 t
+10 R f
+( command for)2 560(. The)1 230 2 3773 1308 t
+12 CB f
+(dm)4636 1308 w
+10 R f
+(looks like this.)2 587 1 4807 1308 t
+10 CB f
+( res .da t)3 429( sco)1 242(dm x6 x4 x5 <)4 792 3 1080 1488 t
+10 R f
+(The output from)2 655 1 720 1668 t
+12 CB f
+(dm)1448 1668 w
+10 R f
+(looks like this.)2 587 1 1619 1668 t
+10 CB f
+(58 56 42)2 840 1 1080 1848 t
+(91 96 90)2 840 1 1080 1968 t
+(65 70 59)2 840 1 1080 2088 t
+(78 82 75)2 840 1 1080 2208 t
+(92 85 90)2 840 1 1080 2328 t
+(65 69 60)2 840 1 1080 2448 t
+(60 82 78)2 840 1 1080 2568 t
+10 I f
+(etc.)1080 2688 w
+10 R f
+(This is the correct format for input for)7 1564 1 720 2868 t
+12 CB f
+(reg res s)2 510 1 2363 2868 t
+10 R f
+( The)1 212( for the columns.)3 698(, which is given mnemonic names)5 1390 3 2874 2868 t
+12 CB f
+(-e)5254 2868 w
+10 R f
+(option tells)1 448 1 720 2988 t
+12 CB f
+(reg res s)2 510 1 1241 2988 t
+10 R f
+(to save the regression equation in the \256le)7 1634 1 1777 2988 t
+12 CB f
+(reg res s.e qn)3 801 1 3484 2988 t
+10 R f
+(for a later analysis.)3 759 1 4312 2988 t
+10 CB f
+( ter m2)2 306( mid)1 243( ter m1)2 306( mid)1 243( al)1 123( fin)1 243( -e)1 182( res s)2 246( | reg)2 364( res .da t)3 429( sco)1 242(dm x6 x4 x5 <)4 792 12 1080 3168 t
+10 R f
+(The output from)2 695 1 720 3348 t
+12 CB f
+(reg res s)2 510 1 1508 3348 t
+10 R f
+( the variables, a correlation matrix \(e.g., the)7 1890(includes summary statistics for all)4 1446 2 2064 3348 t
+(correlation of)1 545 1 720 3468 t
+12 CB f
+(mid ter m1)2 582 1 1343 3468 t
+10 R f
+(and)1957 3468 w
+12 CB f
+(mid ter m2)2 582 1 2179 3468 t
+10 R f
+( the predicted variable,)3 926(is .9190\), the regression equation relating)5 1681 2 2793 3468 t
+( squared multiple correlation coef\256cient of)5 1805( The)1 224(and the signi\256cance test of the multiple correlation coef\256cient.)8 2651 3 720 3588 t
+(0.7996 shows a strong relationship between midterm exams and the \256nal.)10 2936 1 720 3708 t
+10 CB f
+( iab les :)3 429( var)1 242( of 3)2 306( es)1 123( cas)1 243( 20)1 184( for)1 243(Ana lys is)2 486 8 1080 3888 t
+( ter m2)2 306( mid)1 365( ter m1)2 306( mid)1 365( al)1 123( fin)1 670(Var iab le)2 486 7 1080 4008 t
+( 000 0)2 246( 15.)1 425( 000 0)2 246( 28.)1 425( 000 0)2 246(Min 34.)1 1034 6 1080 4128 t
+( 000 0)2 246( 93.)1 425( 000 0)2 246( 96.)1 425( 000 0)2 246(Max 92.)1 1034 6 1080 4248 t
+( 3.0 000)2 366( 129)1 305( 4.0 000)2 366( 135)1 305( 1.0 000)2 366(Sum 140)1 912 6 1080 4368 t
+( 650 0)2 246( 64.)1 425( 700 0)2 246( 67.)1 425( 050 0)2 246( 70.)1 791(Mea n)1 243 7 1080 4488 t
+( 430 3)2 246( 20.)1 425( 672 0)2 246( 18.)1 425( 350 2)2 246(SD 15.)1 1034 6 1080 4608 t
+( rix :)2 246( Mat)1 243(Cor rel ati on)3 669 3 1080 4848 t
+( 000)1 183( 1.0)1 792(fin al)1 303 3 1080 4968 t
+( 000)1 183( 1.0)1 488( 586)1 183( 0.7)1 609(mid ter m1)2 486 5 1080 5088 t
+( 000)1 183( 1.0)1 488( 190)1 183( 0.9)1 488( 838)1 183( 0.8)1 609(mid ter m2)2 486 7 1080 5208 t
+( ter m2)2 306( mid)1 365( ter m1)2 306( mid)1 365( al)1 123( fin)1 670(Var iab le)2 486 7 1080 5328 t
+( al:)1 183( fin)1 244( for)1 243( ati on)2 306( Equ)1 242(Reg res sio n)3 609 6 1080 5568 t
+( 917 7)2 246( 30.)1 303( +)1 184( ter m2)2 306( mid)1 244( 022)1 183( 0.9)1 303( +)1 184( ter m1)2 306( mid)1 242( 283 5)2 246( -0.)1 303( =)1 184(fin al)1 303 14 1080 5688 t
+( al)1 123( fin)1 243( of)1 182( dic tio n)3 429( pre)1 244( for)1 242( t)1 63( tes)1 244(Sig nif ica nce)3 729 9 1080 5928 t
+( \(F\))1 242( b)1 63( pro)1 364( ,17 \))2 246( F\(2)1 426( st)1 123( SEe)1 549( qua red)2 366( R-S)1 305(Mul t-R)1 363 10 1324 6048 t
+( 000)1 183( 0.0)1 486( 922 8)2 246( 33.)1 427( 640)1 183( 7.2)1 488( 996)1 183( 0.7)1 488(0.8 942)1 363 9 1324 6168 t
+14 B f
+(Predicted Plot)1 849 1 720 6468 t
+10 R f
+( the analysis above, the \256le)5 1102( From)1 271(We can look at the predictions from the regression analysis.)9 2426 3 720 6648 t
+12 CB f
+(reg res s.e qn)3 801 1 4597 6648 t
+10 R f
+(contains a regression equation for)4 1347 1 720 6768 t
+12 CB f
+(dm)2140 6768 w
+10 R f
+(.)2286 6768 w
+10 CB f
+(s1)1080 6948 w
+( 917 7.. .)3 429( 30.)1 242( +)1 124( 021 82. ..\))3 549( 0.9)1 242( *)1 124( + \(x3)2 364( 283 512 ... \))4 612( -0.)1 242(\(x2 *)1 304 10 1080 7068 t
+10 R f
+(Extra precision is used in)4 1022 1 720 7248 t
+12 CB f
+(reg res s.e qn)3 801 1 1818 7248 t
+10 R f
+(, compared to the equation in the output from)8 1836 1 2621 7248 t
+12 CB f
+(reg res s)2 510 1 4533 7248 t
+10 R f
+(to allow)1 328 1 5072 7248 t
+10 S f
+(\323)2617 7728 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7728 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 4 5
+%%Page: 5 6
+/saveobj save def
+mark
+6 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 2-5)1 1942( Example)1 380( Annotated)1 1618(STAT Handbook)1 691 4 769 480 t
+( two expressions, one on each line, are the obtained and predicted \256nal exam)13 3258( These)1 303( calculations.)1 542(more accurate)1 577 4 720 768 t
+( plot these against each other, we duplicate the input used to)11 2545( To)1 174(scores, respectively.)1 819 3 720 888 t
+12 CB f
+(reg res s)2 510 1 4344 888 t
+10 R f
+( process)1 338(, and)1 207 2 4855 888 t
+12 CB f
+(reg res s)2 510 1 720 1008 t
+10 R f
+('s output with)2 570 1 1231 1008 t
+12 CB f
+(dm)1881 1008 w
+10 R f
+( \256le)1 159(, reading its expressions from the expression)6 1820 2 2027 1008 t
+12 CB f
+(reg res s.e qn)3 801 1 4085 1008 t
+10 R f
+(that follows)1 481 1 4919 1008 t
+(the letter)1 364 1 720 1128 t
+12 CB f
+(E)1169 1128 w
+10 R f
+( is passed through a pipe to the paired data analysis program)11 2553( result)1 259(. The)1 242 3 1242 1128 t
+12 CB f
+(pai r)1 291 1 4382 1128 t
+10 R f
+(with the plotting)2 688 1 4712 1128 t
+(option)720 1248 w
+12 CB f
+(-p)1063 1248 w
+10 R f
+( the plot, the)3 539(, options to control the height and width of)8 1820 2 1209 1248 t
+12 CB f
+(-h)3654 1248 w
+10 R f
+(and)3838 1248 w
+12 CB f
+(-w)4068 1248 w
+10 R f
+(options, and)1 502 1 4252 1248 t
+12 CB f
+(-x)4840 1248 w
+10 R f
+(and)5024 1248 w
+12 CB f
+(-y)5254 1248 w
+10 R f
+(options to label the plot.)4 970 1 720 1368 t
+10 CB f
+( |)1 124( gre ss. eqn)3 549( Ere)1 243( | dm)2 304( res .da t)3 429( sco)1 242(dm x6 x4 x5 <)4 792 7 1080 1548 t
+( dic ted)2 366( -y pre)2 426( al)1 123( -h 10 -w 30 -x fin)6 1158( -p)1 182(pai r)1 243 6 1440 1668 t
+(|-- --- --- --- --- --- --- --- --- --- -|8 9.3 045)12 2376 1 1080 1848 t
+(| 3|)1 1950 1 1080 1968 t
+( |)1 366( 1)1 305(| 1)1 1280 3 1080 2088 t
+( |)1 183( 1)1 122( 1)1 184( 1 11)2 548(| 1)1 914 5 1080 2208 t
+(| |)1 1951 1 1080 2328 t
+( edi cte d)3 429( |pr)1 852( 2 1)2 244(| 1)1 975 4 1080 2448 t
+( |)1 854( 1)1 366(| 1)1 731 3 1080 2568 t
+( |)1 1098(| 1)1 853 2 1080 2688 t
+( |)1 1403(| 1)1 548 2 1080 2808 t
+(| |)1 1951 1 1080 2928 t
+(|1 |)1 1951 1 1080 3048 t
+(|-- --- --- --- --- --- --- --- --- --- -|3 6.5 121)12 2376 1 1080 3168 t
+( 000)1 183( 92.)1 1403(34. 000)1 363 3 1080 3288 t
+( 94)1 123( 0.8)1 243( r=)1 244(fin al)1 303 4 1568 3408 t
+14 B f
+(Residual Plot)1 797 1 720 3708 t
+10 R f
+(To plot the residuals \(deviations\) from prediction, you can run the data through another pass of)15 3854 1 720 3888 t
+12 CB f
+(dm)4651 3888 w
+10 R f
+(to subtract the)2 574 1 4826 3888 t
+( that)1 175( Note)1 244(predicted scores from the obtained.)4 1405 3 720 4008 t
+12 CB f
+(r)2617 4008 w
+10 R f
+(must be zero.)2 535 1 2715 4008 t
+10 CB f
+( |)1 123( x2)1 123( x2 x1-)2 426( dm)1 182( |)1 124( gre ss. eqn)3 549( Ere)1 243( | dm)2 304( res .da t)3 429( sco)1 242(dm x6 x4 x5 <)4 792 11 1080 4188 t
+( idu als)2 366( res)1 243( -y)1 184( dic ted)2 366( -h 10 -w 30 -x pre)6 1158( -p)1 182(pai r)1 243 7 1440 4308 t
+(|-- --- --- --- --- --- --- --- --- --- -|1 1.2 546)12 2376 1 1080 4488 t
+( |)1 489(| 11)1 1462 2 1080 4608 t
+( |)1 183(| 1)1 1768 2 1080 4728 t
+( 1|)1 487( 1)1 305( 1 1)2 488(| 1)1 670 4 1080 4848 t
+( 1|)1 365( 1 1)2 1098(| 1)1 487 3 1080 4968 t
+( sid ual s)3 429( 1 |re)2 974(|1 1)1 1097 3 1080 5088 t
+( |)1 793( 1)1 305(| 1)1 853 3 1080 5208 t
+( |)1 366(| 1)1 1585 2 1080 5328 t
+( |)1 427(| 1)1 1524 2 1080 5448 t
+(| |)1 1951 1 1080 5568 t
+( |)1 427(| 1)1 1524 2 1080 5688 t
+(|-- --- --- --- --- --- --- --- --- --- -|- 18. 039 9)13 2439 1 1080 5808 t
+( 304)1 183( 89.)1 1403(36. 512)1 363 3 1080 5928 t
+( 00)1 123( 0.0)1 243( r=)1 245(pre dic ted)2 546 4 1446 6048 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 5 6
+%%Page: 6 7
+/saveobj save def
+mark
+7 pagesetup
+10 R f
+( Example)1 380(2-6 Annotated)1 2358 2 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+14 B f
+(Section 2.5 Failures by Assistant and Gender)6 2680 1 720 768 t
+10 R f
+( see how many people of each sex in the two)10 1955( To)1 178( passing grade in the course is 75.)7 1467(Now suppose the)2 720 4 1080 1068 t
+( use the)2 323(sections passed, we can)3 972 2 720 1188 t
+12 CB f
+(con tab)1 435 1 2097 1188 t
+10 R f
+( First)1 243(program to print contingency tables.)4 1487 2 2569 1188 t
+12 CB f
+(dm)4381 1188 w
+10 R f
+(extracts the columns)2 839 1 4561 1188 t
+( than)1 215( Rather)1 334( grade \(the weighted average computed earlier\).)6 2015(containing teaching assistant, gender, and the \256nal)6 2116 4 720 1308 t
+(include the \256nal grade, a label indicating pass or fail is added, as appropriate.)13 3083 1 720 1428 t
+10 CB f
+( res .da t)3 429( 1 < sco)3 669( il' ")2 246( 'fa)1 242( e)1 63( els)1 244( ss')1 183( 'pa)1 242( n)1 63( >= 75 the)3 609( x7)1 184(dm s2 s3 "if)3 912 12 1080 1608 t
+10 R f
+( insert the string)3 662(The huge third expression says ``if the \256nal grade is greater than or equal to 75, then)16 3438 2 720 1788 t
+12 CB f
+(pas s)1 291 1 4898 1788 t
+10 R f
+(, else)1 210 1 5190 1788 t
+(insert the string)2 636 1 720 1908 t
+12 CB f
+(fai l)1 291 1 1436 1908 t
+10 R f
+( can be placed in \256les rather than be typed on the command line, and)14 2826( expressions)1 498(.'' Such)1 348 3 1728 1908 t
+(usually)720 2028 w
+12 CB f
+(dm)1085 2028 w
+10 R f
+( fourth expression is the constant)5 1338( The)1 209(is used for simpler expressions.)4 1273 3 1260 2028 t
+12 CB f
+(1)4157 2028 w
+10 R f
+(used to tell)2 447 1 4259 2028 t
+12 CB f
+(con tab)1 435 1 4783 2028 t
+10 R f
+(that)5250 2028 w
+( of the output from)4 755( Part)1 211(there was one replication for each combination of factor levels.)9 2521 3 720 2148 t
+12 CB f
+(dm)4280 2148 w
+10 R f
+(follows.)4451 2148 w
+10 CB f
+( 1)1 305( l)1 63( fai)1 425( e)1 63( mal)1 425(joh n)1 243 6 1080 2328 t
+( 1)1 305( s)1 63( pas)1 425( e)1 63( mal)1 425(joh n)1 243 6 1080 2448 t
+( 1)1 305( l)1 63( fai)1 425( e)1 63( mal)1 425(joh n)1 243 6 1080 2568 t
+(...)1324 2688 w
+( 1)1 305( l)1 63( fai)1 305( ale)1 183( fem)1 425(jan e)1 243 6 1080 2808 t
+( 1)1 305( l)1 63( fai)1 305( ale)1 183( fem)1 425(jan e)1 243 6 1080 2928 t
+( 1)1 305( s)1 63( pas)1 305( ale)1 183( fem)1 425(jan e)1 243 6 1080 3048 t
+10 R f
+(This is used as input to)5 920 1 720 3228 t
+12 CB f
+(con tab)1 435 1 1713 3228 t
+10 R f
+(, which is given mnemonic factor names.)6 1642 1 2151 3228 t
+10 CB f
+( |)1 122( res .da t)3 429( 1 < sco)3 669( il' ")2 246( 'fa)1 242( e)1 63( els)1 244( ss')1 183( 'pa)1 242( n)1 63( >= 75 the)3 609( x7)1 184(dm s2 s3 "if)3 912 13 1080 3408 t
+( nt)1 123( cou)1 242( ces s)2 246( suc)1 244( der)1 183( gen)1 244( ist ant)2 366( ass)1 244(con tab)1 363 9 1440 3528 t
+10 R f
+( summary of the input, which contained three factors,)8 2159( there is a)3 391( First,)1 261(Parts of the output from this command follow.)7 1869 4 720 3708 t
+(each with 2 levels, and a sum of observation counts.)9 2083 1 720 3828 t
+10 CB f
+( nt)1 123( cou)1 547( ces s)2 246( suc)1 427( der)1 183( gen)1 488( ist ant)2 366( ass)1 303(FAC TOR :)2 426 9 1080 4008 t
+( 20)1 670( 2 2 2)3 2013(LEV ELS :)2 426 3 1080 4128 t
+10 R f
+( shows that both Jane's section and John's section)8 2046( It)1 117( does not provide new information.)5 1434(The \256rst contingency table)3 1083 4 720 4308 t
+(had 6 male and 4 female students.)6 1356 1 720 4428 t
+10 CB f
+( der)1 183( gen)1 244( ist ant)2 366( ass)1 242(SOU RCE :)2 426 5 1080 4608 t
+( als)1 183( Tot)1 305( ale)1 183( fem)1 303(mal e)1 243 5 1812 4728 t
+( 10)1 487( 4)1 488( 6)1 732(joh n)1 243 4 1080 4848 t
+( 10)1 487( 4)1 488( 6)1 732(jan e)1 243 4 1080 4968 t
+( 20)1 487( 8)1 489( 12)1 611(Tot als)1 363 4 1080 5088 t
+10 R f
+( A)1 124( 20 students failed the course--4 in John's section and 8 in Jane's.)12 2645(The second contingency table tells us that 12 of)8 1911 3 720 5268 t
+( test for)2 335(signi\256cance test follows, and the warning about small expected frequencies suggests that the chi-square)13 4345 2 720 5388 t
+( and)1 172( matter, the Fisher exact test applies because we are dealing with a 2x2 table)14 3074( No)1 174(independence might be invalid.)3 1260 4 720 5508 t
+( section did not do)4 775( does not show a signi\256cant association of factors \(ie. Jane's)10 2510( It)1 121(total frequencies less than 100.)4 1274 4 720 5628 t
+(signi\256cantly better than John's\).)3 1288 1 720 5748 t
+10 CB f
+( ces s)2 246( suc)1 244( ist ant)2 366( ass)1 242(SOU RCE :)2 426 5 1080 5928 t
+( als)1 183( Tot)1 303( s)1 63( pas)1 425(fai l)1 243 5 1812 6048 t
+( 10)1 487( 6)1 488( 4)1 732(joh n)1 243 4 1080 6168 t
+( 10)1 487( 2)1 488( 8)1 732(jan e)1 243 4 1080 6288 t
+( 20)1 487( 8)1 489( 12)1 611(Tot als)1 363 4 1080 6408 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 6 7
+%%Page: 7 8
+/saveobj save def
+mark
+8 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 2-7)1 1942( Example)1 380( Annotated)1 1618(STAT Handbook)1 691 4 769 480 t
+10 CB f
+( ces s:)2 306( suc)1 242( x)1 124( ist ant)2 366( ass)1 244( for)1 243(Ana lys is)2 486 7 1080 768 t
+( lie d)2 246( app)1 242( tin uit y)3 429( con)1 244( for)1 242( rec tio n)3 429( cor)1 244( es')1 183( Yat)1 243(NOT E:)1 303 10 1080 888 t
+( 5)1 122( <)1 123( que nci es)3 489( fre)1 243( ect ed)2 306( exp)1 244( had)1 243( ls)1 123( cel)1 242( 4)1 123( of)1 182( 2)1 123(WAR NIN G:)2 486 13 1080 1008 t
+( 709 04)2 306( 0.1)1 303( p)1 305( 1)1 245( df)1 366( 750 00)2 306( 1.8)1 609(chi sq)1 303 8 1080 1128 t
+( 849 01)2 306( 0.0)1 304( bab ili ty)3 489( Pro)1 242( -Ta ile d)3 429( One)1 243( ct)1 123( Exa)1 244(Fis her)1 363 9 1080 1248 t
+( 698 02)2 306( 0.1)1 304( bab ili ty)3 489( Pro)1 242( -Ta ile d)3 429( Two)1 243( ct)1 123( Exa)1 244(Fis her)1 363 9 1080 1368 t
+( 061 86)2 306( 0.3)1 669( V)1 123( mer 's)2 306( == Cra)2 426( ffi cie nt)3 489(phi Coe)1 424 7 1080 1488 t
+( 927 70)2 306( 0.2)1 1036( ffi cie nt)3 489( Coe)1 243(Con tin gen cy)3 669 5 1080 1608 t
+10 R f
+(The third contingency table shows that 8 male students and 4 female students failed the course.)15 3800 1 720 1788 t
+10 CB f
+( ces s)2 246( suc)1 244( der)1 183( gen)1 242(SOU RCE :)2 426 5 1080 1968 t
+( als)1 183( Tot)1 303( s)1 63( pas)1 425(fai l)1 243 5 1812 2088 t
+( 12)1 487( 4)1 488( 8)1 732(mal e)1 243 4 1080 2208 t
+( 4 8)2 976( 4)1 612(fem ale)1 363 3 1080 2328 t
+( 20)1 487( 8)1 489( 12)1 611(Tot als)1 363 4 1080 2448 t
+10 R f
+( all the effects listed above, but no signi\256cance test is computed by)12 2732(The \256nal table, the three-way interaction, shows)6 1948 2 720 2628 t
+12 CB f
+(con tab)1 435 1 720 2748 t
+10 R f
+( the reason for the poorer performance of Jane's section follow from the next section's)14 3466( hints about)2 471(. Some)1 305 3 1158 2748 t
+(analysis of variance.)2 817 1 720 2868 t
+10 CB f
+( ces s)2 246( suc)1 244( der)1 183( gen)1 244( ist ant)2 366( ass)1 242(SOU RCE :)2 426 7 1080 3048 t
+( ces s)2 246( suc)1 244( der)1 183( gen)1 304(ass ist an)2 486 5 1080 3168 t
+( 3)1 488( l)1 63( fai)1 425( e)1 63( mal)1 425(joh n)1 243 6 1324 3288 t
+( 3)1 488( s)1 63( pas)1 425( e)1 63( mal)1 425(joh n)1 243 6 1324 3408 t
+( 1)1 488( l)1 63( fai)1 427( ale)1 183( fem)1 303(joh n)1 243 6 1324 3528 t
+( 3)1 488( s)1 63( pas)1 427( ale)1 183( fem)1 303(joh n)1 243 6 1324 3648 t
+( 5)1 488( l)1 63( fai)1 425( e)1 63( mal)1 425(jan e)1 243 6 1324 3768 t
+( 1)1 488( s)1 63( pas)1 425( e)1 63( mal)1 425(jan e)1 243 6 1324 3888 t
+( 3)1 488( l)1 63( fai)1 427( ale)1 183( fem)1 303(jan e)1 243 6 1324 4008 t
+( 1)1 488( s)1 63( pas)1 427( ale)1 183( fem)1 303(jan e)1 243 6 1324 4128 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 7 8
+%%Page: 8 9
+/saveobj save def
+mark
+9 pagesetup
+10 R f
+( Example)1 380(2-8 Annotated)1 2358 2 720 480 t
+10 S f
+(\357)4660 480 w
+10 R f
+(STAT Handbook)1 691 1 4709 480 t
+14 B f
+(Section 2.6 Effects of Assistant and Gender)6 2569 1 720 768 t
+10 R f
+(We now want to compare the performance of the two teaching assistants and of male versus female)16 4320 1 1080 1068 t
+( to see how an assistant's students progress through the term.)10 2439( are interested)2 561(students. We)1 542 3 720 1188 t
+12 CB f
+(ano va)1 363 1 4408 1188 t
+10 R f
+(, the analysis of)3 627 1 4773 1188 t
+( correct format for input)4 984(variance program, is the program to analyze these data, but we have to get the data into the)17 3696 2 720 1308 t
+(to)720 1428 w
+12 CB f
+(ano va)1 363 1 883 1428 t
+10 R f
+(.)1248 1428 w
+12 CB f
+(ano va)1 363 1 1431 1428 t
+10 R f
+( by the levels of factors under)6 1252(assumes that there is only one datum per line, preceded)9 2315 2 1833 1428 t
+( is unlike the format of)5 953( This)1 236(which it was obtained.)3 923 3 720 1548 t
+12 CB f
+(sco res .da t)3 729 1 2913 1548 t
+10 R f
+( the)1 156(, which has the three exam scores after)7 1601 2 3643 1548 t
+( transformations are needed to get the data in the)9 2087( Several)1 365( gender.)1 337(student number, teaching assistant name, and)5 1891 4 720 1668 t
+( an example, the data for student 1:)7 1403( As)1 161(correct format.)1 592 3 720 1788 t
+10 CB f
+( 42 58)2 1080( 56)1 417( e)1 63( mal)1 477( n)1 63(S-1 joh)1 720 6 1080 1968 t
+10 R f
+(must be transformed to:)3 952 1 720 2148 t
+10 CB f
+( 56)1 540( m1)1 417( e)1 63( mal)1 477( n)1 63(S-1 joh)1 720 6 1080 2328 t
+( 42)1 540( m2)1 417( e)1 63( mal)1 477( n)1 63(S-1 joh)1 720 6 1080 2448 t
+( 58)1 357( al)1 123( fin)1 477( e)1 63( mal)1 477( n)1 63(S-1 joh)1 720 7 1080 2568 t
+10 R f
+(This is made up of three replications of the labels with new labels,)12 2865 1 720 2748 t
+12 CB f
+(m1)3676 2748 w
+10 R f
+(,)3822 2748 w
+12 CB f
+(m2)3938 2748 w
+10 R f
+(, and)1 212 1 4084 2748 t
+12 CB f
+(fin al)1 363 1 4387 2748 t
+10 R f
+( exams)1 299(, for the)2 349 2 4752 2748 t
+(inserted. First,)1 612 1 720 2868 t
+12 CB f
+(dm)1417 2868 w
+10 R f
+( result is a 15 column output, one for each)9 1780( The)1 216( the desired information.)3 1015(extracts and inserts)2 789 4 1600 2868 t
+( insert the)2 406( To)1 167( of the labels for the exam names.)7 1389( that on UNIX, it is necessary to quote the quotes)10 2017(expression. Note)1 701 5 720 2988 t
+(newlines, so that each datum is on one line, the program)10 2357 1 720 3108 t
+12 CB f
+(mak etr ix)2 582 1 3161 3108 t
+10 R f
+( to)1 113(reformats the input)2 782 2 3781 3108 t
+12 CB f
+(ano va)1 363 1 4759 3108 t
+10 R f
+(into 5)1 241 1 5159 3108 t
+( mnemonic labels for factor names are given to)8 1879(columns. Finally,)1 723 2 720 3228 t
+12 CB f
+(ano va)1 363 1 3395 3228 t
+10 R f
+(.)3760 3228 w
+10 CB f
+( ...)1 243( s4)1 428( 1'")1 183(dm s1 s2 s3 "'m)4 1156 4 1080 3408 t
+( ...)1 243( s5)1 428( 2'")1 183(s1 s2 s3 "'m)3 912 4 1324 3528 t
+( |)1 122( res .da t)3 429( sco)1 242( <)1 123( s6)1 245( ina l'")2 366(s1 s2 s3 "'f)3 912 7 1324 3648 t
+( re)1 123( sco)1 242( m)1 63( exa)1 244( der)1 183( gen)1 244( ist ant)2 366( ass)1 242( den t)2 246( stu)1 243( va)1 123( | ano)2 364( 5)1 123(mak etr ix)2 486 14 1324 3768 t
+10 R f
+( Jane's students \(F\(1,16\)=8.311,)3 1330( John's students did better than)5 1306( First,)1 272(Only parts of the output are shown below.)7 1772 4 720 3948 t
+(p=.011\).)720 4068 w
+10 CB f
+( 700 0)2 246( 76.)1 608(joh n)1 243 3 1080 4248 t
+( 233 3)2 246( 58.)1 608(jan e)1 243 3 1080 4368 t
+10 R f
+(Female students scored better than males, although the effect is not statistically signi\256cant \(F\(1,16\)=3.102, p=.097\).)14 4630 1 720 4548 t
+10 CB f
+( 861 1)2 246( 62.)1 608(mal e)1 243 3 1080 4728 t
+( 375 0)2 246( 74.)1 488(fem ale)1 363 3 1080 4848 t
+10 R f
+( between section)2 667(There was no interaction between these two factors \(F\(1,16\)=.289\), but there were some interactions)13 4013 2 720 5028 t
+( assistant and exam, we)4 964( we look at the interaction of section)7 1505( If)1 123(assistant and gender and the different exam grades.)7 2088 4 720 5148 t
+(get a better picture of the performances of John and Jane.)10 2285 1 720 5268 t
+10 CB f
+( m)1 63( exa)1 244( ist ant)2 366( ass)1 242(SOU RCE :)2 426 5 1080 5448 t
+( SE)1 671( SD)1 670( N)1 63( N MEA)2 1096( m)1 63( exa)1 242(ass ist a)2 426 7 1080 5568 t
+( 743)1 183( 3.7)1 486( 935 5)2 246( 11.)1 425( 300 0)2 246( 80.)1 426( 10)1 610( m1)1 365(joh n)1 243 9 1080 5688 t
+( 786)1 183( 5.1)1 486( 376 1)2 246( 16.)1 425( 800 0)2 246( 74.)1 426( 10)1 610( m2)1 365(joh n)1 243 9 1080 5808 t
+( 453)1 183( 4.2)1 486( 424 7)2 246( 13.)1 425( 000 0)2 246( 75.)1 426( 10)1 427( al)1 123( fin)1 425(joh n)1 243 10 1080 5928 t
+( 068)1 183( 4.9)1 486( 516 7)2 246( 15.)1 425( 100 0)2 246( 55.)1 426( 10)1 610( m1)1 365(jan e)1 243 9 1080 6048 t
+( 972)1 183( 6.1)1 486( 597 3)2 246( 19.)1 425( 500 0)2 246( 54.)1 426( 10)1 610( m2)1 365(jan e)1 243 9 1080 6168 t
+( 261)1 183( 5.1)1 486( 210 1)2 246( 16.)1 425( 100 0)2 246( 65.)1 426( 10)1 427( al)1 123( fin)1 425(jan e)1 243 10 1080 6288 t
+10 R f
+( contains the names of factors and levels, cell counts, means, standard)11 2811( It)1 113(This is the \256rst full cell-means table shown.)7 1756 3 720 6468 t
+( Jane's \(80.3 versus 55.1\),)4 1061( results show that John's students started higher than)8 2144( The)1 210(deviations, and standard errors.)3 1265 4 720 6588 t
+( signi\256cance test for the interaction)5 1456( The)1 215(and that over the term, Jane's students improved while John's got worse.)11 3009 3 720 6708 t
+(looks like this.)2 587 1 720 6828 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 8 9
+%%Page: 9 10
+/saveobj save def
+mark
+10 pagesetup
+10 S f
+(\357)720 480 w
+10 R f
+( 2-9)1 1942( Example)1 380( Annotated)1 1618(STAT Handbook)1 691 4 769 480 t
+10 CB f
+( p)1 427( F)1 489( MS)1 671( df)1 305( SS)1 733(SOU RCE)1 363 6 1080 768 t
+(=== === === === === === === === === === === === === === === === =)16 2988 1 1080 888 t
+( ***)1 243( 01)1 123( 0.0)1 304( 02)1 123( 9.5)1 365( .21 67)2 306( 305)1 364( 2)1 306( .43 33)2 306(ae 610)1 790 10 1080 1008 t
+( 121 5)2 246( 32.)1 426( 32)1 306( 7.8 889)2 366( 102)1 426(es/ ag)1 303 6 1080 1128 t
+10 R f
+( the difference between two means of this interaction can be found with the)13 3150(A Scheffe con\256dence interval around)4 1530 2 720 1308 t
+(following formula.)1 755 1 720 1428 t
+10 CB f
+( * 2 / N\))4 548( rro r)2 246( MSe)1 242( *)1 123( tf)1 123( * cri)2 364( 1)1 63( \(df)1 242(sqr t)1 243 9 1080 1608 t
+12 CB f
+(df1)720 1788 w
+10 R f
+( numerator,)1 480(is the degrees of freedom)4 1084 2 983 1788 t
+12 CB f
+(cri tf)1 363 1 2640 1788 t
+10 R f
+(is the critical F-ratio given the degrees of freedom and)9 2350 1 3050 1788 t
+( desired,)1 353(con\256dence level)1 667 2 720 1908 t
+12 CB f
+(MSe rro r)2 510 1 1828 1908 t
+10 R f
+(is the mean-square error for the overall F-test, and)8 2123 1 2379 1908 t
+12 CB f
+(N)4590 1908 w
+10 R f
+(is the number of)3 697 1 4703 1908 t
+( for a 95% con\256dence interval based on 2 and 32 degrees of freedom)13 2784( critical F ratio)3 597( The)1 207(scores going into each cell.)4 1092 4 720 2028 t
+(can be found with the)4 865 1 720 2148 t
+12 CB f
+(pro bdi st)2 582 1 1658 2148 t
+10 R f
+(program.)2267 2148 w
+10 CB f
+( .05)1 304( F 2 32)3 609( t)1 63( cri)1 304(pro bdi st)2 486 5 1080 2328 t
+(3.2 945 37)2 486 1 1080 2448 t
+10 R f
+(Then, the calculator program)3 1158 1 720 2628 t
+12 CB f
+(cal c)1 291 1 1951 2628 t
+10 R f
+(can be used interactively to substitute the values.)7 1953 1 2268 2628 t
+10 CB f
+( * 2 / 10\))4 608( 121 5)2 246( 32.)1 242( *)1 123( 945 37)2 306( 3.2)1 242( *)1 123( \(2)1 182( t)1 63( sqr)1 243(CAL C:)1 303 11 1080 2808 t
+( 061 7)2 246( 6.5)1 255( =)1 122( \))1 63( 10\))1 242( /)1 123( 2\))1 182( *)1 123( 121 5\))2 306( 32.)1 242( *)1 123( 945 4\))2 306( * 3.2)2 364(sqr t\(\( \(\(\( 2)3 609 14 1080 2928 t
+10 R f
+(Any difference of two means in this interaction greater than 6.5 is signi\256cant at the .05 level.)16 3708 1 720 3108 t
+( started out lower than)4 957( Males)1 310( females on the three exams.)5 1216(There was a similar pattern of males versus)7 1837 4 1080 3288 t
+(females, and males improved slightly while females stayed about the same.)10 3007 1 720 3408 t
+10 CB f
+( m)1 63( exa)1 244( der)1 183( gen)1 242(SOU RCE :)2 426 5 1080 3588 t
+( SE)1 671( SD)1 670( N)1 63( N MEA)2 1096( m)1 63( exa)1 305(gen der)1 363 7 1080 3708 t
+( 993)1 183( 5.9)1 486( 782 2)2 246( 20.)1 425( 916 7)2 246( 61.)1 426( 12)1 610( m1)1 365(mal e)1 243 9 1080 3828 t
+( 221)1 183( 6.5)1 486( 593 1)2 246( 22.)1 425( 583 3)2 246( 58.)1 426( 12)1 610( m2)1 365(mal e)1 243 9 1080 3948 t
+( 459)1 183( 4.9)1 486( 132 9)2 246( 17.)1 425( 083 3)2 246( 68.)1 426( 12)1 427( al)1 123( fin)1 425(mal e)1 243 10 1080 4068 t
+( 413)1 183( 3.9)1 486( 147 5)2 246( 11.)1 425( 375 0)2 246( 76.)1 425( 8)1 611( m1)1 245(fem ale)1 363 9 1080 4188 t
+( 512)1 183( 4.6)1 486( 155 7)2 246( 13.)1 425( 750 0)2 246( 73.)1 425( 8)1 611( m2)1 245(fem ale)1 363 9 1080 4308 t
+( 960)1 183( 4.4)1 486( 716 7)2 246( 12.)1 425( 000 0)2 246( 73.)1 425( 8)1 428( al)1 123( fin)1 305(fem ale)1 363 10 1080 4428 t
+10 R f
+(After the cell means in the output from)7 1556 1 720 4608 t
+12 CB f
+(ano va)1 363 1 2349 4608 t
+10 R f
+( the design, followed by an F-table, parts of which)9 2020(is a summary of)3 641 2 2739 4608 t
+(were seen above.)2 683 1 720 4728 t
+10 CB f
+( re)1 123( sco)1 547( m)1 63( exa)1 610( der)1 183( gen)1 488( ist ant)2 366( ass)1 303( den t)2 246( stu)1 425(FAC TOR :)2 426 11 1080 4908 t
+( 60)1 670( 2 3)2 1342( 2)1 672( 20)1 670(LEV ELS :)2 426 5 1080 5028 t
+( A)1 63( DAT)1 610( HIN)1 183( WIT)1 486( WEE N)2 246( BET)1 425( WEE N)2 246( BET)1 427( DOM)1 183( RAN)1 486( :)1 183(TYP E)1 243 12 1080 5148 t
+10 R f
+( quali\256ed because it)3 799( must be)2 339( That)1 233(The results of the analysis show that John's section did better than Jane's.)12 2949 4 1080 5388 t
+( improved more than)3 841( Jane's credit, her students)4 1068( To)1 164(seems that Jane's students may not have been as good as John's.)11 2607 4 720 5508 t
+(John's during the term.)3 927 1 720 5628 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 9 10
+%%Page: 0 11
+/saveobj save def
+mark
+11 pagesetup
+24 B f
+(CHAPTER 2)1 1354 1 720 1128 t
+(Annotated Example)1 2046 1 720 1608 t
+10 R f
+(2.1)795 2088 w
+10 B f
+(A Familiar Problem)2 860 1 970 2088 t
+10 R f
+(............................................................................................................................... 2-1)1 3535 1 1865 2088 t
+(2.2)795 2208 w
+10 B f
+(Computing Final Scores)2 1034 1 970 2208 t
+10 R f
+(........................................................................................................................ 2-2)1 3360 1 2040 2208 t
+(2.3)795 2328 w
+10 B f
+(Summary of Final Scores)3 1080 1 970 2328 t
+10 R f
+(...................................................................................................................... 2-3)1 3310 1 2090 2328 t
+(2.4)795 2448 w
+10 B f
+(Predicting Final Exam Scores)3 1269 1 970 2448 t
+10 R f
+(............................................................................................................... 2-4)1 3135 1 2265 2448 t
+(Predicted Plot)1 564 1 970 2568 t
+(Residual Plot)1 537 1 970 2688 t
+(2.5)795 2808 w
+10 B f
+(Failures by Assistant and Gender)4 1429 1 970 2808 t
+10 R f
+(........................................................................................................ 2-6)1 2960 1 2440 2808 t
+(2.6)795 2928 w
+10 B f
+(Effects of Assistant and Gender)4 1349 1 970 2928 t
+10 R f
+(........................................................................................................... 2-8)1 3035 1 2365 2928 t
+(A concrete example with several)4 1327 1 720 3408 t
+10 S f
+(\357)2077 3408 w
+10 R f
+( style of analysis in)4 796( example shows the)3 800( The)1 210(STAT programs is worked in detail.)5 1468 4 2126 3408 t
+10 S f
+(\357)720 3528 w
+10 R f
+( users of)2 362(STAT. New)1 525 2 769 3528 t
+10 S f
+(\357)1693 3528 w
+10 R f
+( about all the)3 552( Details)1 344( the examples.)2 596(STAT should not try to understand all the details in)9 2166 4 1742 3528 t
+( appear in following chapters.)4 1221(programs can be found in on-line manual entries and more examples of program use)13 3459 2 720 3648 t
+(Explanations about features common to all)5 1712 1 720 3768 t
+10 S f
+(\357)2457 3768 w
+10 R f
+(STAT programs can be found in the next chapter.)8 1982 1 2506 3768 t
+10 S f
+(\323)2617 7680 w
+10 R f
+(1986 Gary Perlman)2 782 1 2721 7680 t
+cleartomark
+showpage
+saveobj restore
+%%EndPage: 0 11
+%%Trailer
+done
+%%Pages: 11
+%%DocumentFonts: Times-Roman Symbol Courier-Bold Times-Bold Times-Italic

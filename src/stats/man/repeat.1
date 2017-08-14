@@ -1,0 +1,58 @@
+.TH REPEAT 1 "October 13, 1986" "\(co 1980 Gary Perlman" "|STAT" "UNIX User's Manual"
+.SH NAME
+repeat \- repeat input strings or files
+.SH SYNOPSIS
+.B repeat
+[-fi] [-l maxlines] [-n count] [-] [files]
+.SH DESCRIPTION
+.I repeat
+repeatedly prints its argument files as many times as requested.
+If no files are specified, the standard input is read.
+The special file name \- is allowed to refer to the standard input.
+.SH OPTIONS
+.de OP
+.TP
+.B -\\$1 \\$2
+..
+.OP f
+Insert a formfeed before each repetition.
+This allows pagination of output for most printers.
+.OP i
+Repeat lines inside files.
+For example, if a file has the days of the week,
+each on its own line,
+then two copies with this option will produce:
+.nf
+.ta 1.5i
+Sunday
+Sunday
+Monday
+Monday
+ ...
+.fi
+.OP l maxlines
+Set the maximum number of lines to be read.
+.OP n count
+Set the number of repetitions of each input file.
+By default, one copy is printed.
+.SH EXAMPLES
+.nf
+.in +.5i
+.if n .ta 30n
+.if t .ta 2i
+repeat -n 10	# input from tty is reprinted 10 times
+pr file | repeat -n 5	# pr output is repeated five times
+echo hello | repeat -n 20	# 20 hello's are printed
+repeat -n 20 hello	# the file hello is repeated
+.in -.5i
+.fi
+.SH BUGS
+The name
+.I repeat
+is a reserved word in
+.I csh.
+The program should be installed as
+.I rep
+instead.
+.SH LIMITS
+Use the -L option to determine the program limits.

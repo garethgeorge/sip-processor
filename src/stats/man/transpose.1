@@ -1,0 +1,31 @@
+.TH TRANSPOSE 1 "March 5, 1985" "\(co 1980 Gary Perlman" "|STAT" "UNIX User's Manual"
+.SH NAME
+transpose \- transpose matrix type file of strings or numbers
+.SH SYNOPSIS
+.B transpose
+[-f format]
+.SH DESCRIPTION
+.I transpose
+reads non-blank lines and transposes lines and columns.
+.SH OPTIONS
+.TP
+.B -f format
+Specify the width of the field holding each string.
+At least one space is guaranteed between fields.
+If the width is negative, then the absolute value of
+the width is used to left justify fields.
+Without formatting instructions,
+.I transpose
+puts a tab between fields on a line.
+.SH EXAMPLE
+.nf
+For the input:
+	1	2	3
+	4	5	6
+the program produces:
+	1	4	
+	2	5	
+	3	6	
+.fi
+.SH LIMITS
+Use the -L option to determine the program limits.

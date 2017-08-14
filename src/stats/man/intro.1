@@ -1,0 +1,77 @@
+.TH INTRO|STAT 1 "1980-1987" "\(co 1980 Gary Perlman" "|STAT" "UNIX User's Manual"
+.de Pg
+.br
+.nr Pg +1
+.ta .5iR .6i +1.5i
+.if n .ta 3nR .5i +2i
+	\\n(Pg	\\$1	\\$2
+.br
+..
+.SH NAME
+|STAT \- compact data analysis programs
+.SH DESCRIPTION
+.PP
+|STAT is a set of data manipulation and analysis programs
+developed by Gary Perlman while at the University of California, San Diego
+and at the Wang Institute of Graduate Studies.
+The programs are designed with the UNIX philosophy that
+individual programs should be designed as
+.I tools
+that do one task well and produce output suitable
+for input via pipes to other programs.
+Interactive use is supported in the UNIX shell which also
+provides a programming language for complex analyses.
+Functionality often built into statistical packages
+(e.g., graphics, sorting and other data manipulation)
+is not re-invented in |STAT which delegates such responsibility
+to standard UNIX tools.
+.SS "DATA MANIPULATION PROGRAMS"
+.nf
+.Pg abut         "join data files
+.Pg colex        "column extraction/formatting
+.Pg dm           "column oriented data manipulator
+.Pg dsort        "multiple-key data line sorting filter
+.Pg linex        "line extraction
+.Pg maketrix     "create matrix type file from free-form file
+.Pg perm         "permute line order
+.Pg probdist     "probability distribution functions
+.Pg ranksort     "rank order columns
+.Pg repeat       "repeat a pattern or file
+.Pg reverse      "reverse lines, columns, and characters
+.Pg series       "print a series of numbers
+.Pg transpose    "transpose matrix type file
+.Pg validata     "verify data file consistency
+.fi
+.SS "ANALYSIS PROGRAMS"
+.nf
+.Pg anova        "multi-factor analysis of variance
+.Pg calc         "interactive algebraic modeling calculator
+.Pg contab       "contingency tables and chi-square
+.Pg desc         "descriptions, histograms, frequency tables
+.Pg dprime       "signal detection d' and beta calculations
+.Pg features     "display features of items
+.Pg oneway       "one-way anova and t-test and error-bar plots
+.Pg pair         "paired data statistics, regression, plots
+.Pg rankind      "rank order analysis for independent conditions
+.Pg rankrel      "rank order analysis for related conditions
+.Pg regress      "multiple linear regression
+.Pg stats        "report summary statistics
+.Pg ts           "time series analysis and plots
+.fi
+.SH AUTHOR
+Gary Perlman
+.SH "SEE ALSO"
+awk(1),
+cat(1),
+cp(1),
+grep(1),
+ls(1),
+mv(1),
+pr(1),
+rm(1),
+sed(1),
+sh(1),
+sort(1),
+uniq(1)
+.br
+manstat(1) prints the manual entry on |STAT programs

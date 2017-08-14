@@ -1,0 +1,50 @@
+.TH CALC 1 "November 2, 1985" "\(co 1980 Gary Perlman" "|STAT" "UNIX User's Manual"
+.SH NAME
+calc \- algebraic formula calculator with variables
+.SH SYNOPSIS
+.B calc
+[files]
+.SH DESCRIPTION
+.I calc
+is a calculator for doing real arithmetic using familiar infix notation.
+.I calc
+uses a calculation method based on the popular program VisiCalc
+in that it allows variables to be define by equations.
+For example,
+.ce
+A = B + C * D
+says that whatever B, C, and D are, A is equal to the above function of them.
+If B, C, or D change, then so does the value of A because it depends on them.
+(To set A to the value of a function of several variables so that it doesn't
+change over time, you prepend a # before the = sign to emphasize you
+want the current value.)
+In
+.I calc,
+you get the prompt, "CALC:\ ", and you type in an expression to be calculated.
+You can use numbers and even variables.
+For example,
+
+.nf
+12 + 123/6
+a = b^2 + log (sqrt (c))
+AVeryLongVariableName = (a+b) - c*d/e ^ f%log (sqrt (exp (abs (x))))
+.fi
+
+The usual operators and precedences are available along with the
+common mathematical functions.
+Parentheses can be used for clarity.
+.SH EXAMPLE
+The following example computes the roots of the equation:
+.ce
+y = a * x^2  +  b * x  +  c
+where a, b, and c are left undefined.
+.sp
+.nf
+.ta 1i
+y	= (((a * (x ^ 2)) + (b * x)) + c)
+radical	= sqrt(((b * b) - ((4 * a) * c)))
+root1	= ((-b - radical) / (2 * a))
+root2	= ((-b + radical) / (2 * a))
+.fi
+.SH "SEE ALSO
+The CALC Manual in the |STAT Handbook

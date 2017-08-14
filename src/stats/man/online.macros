@@ -1,0 +1,53 @@
+.\" Nroff macros for printing manual entries on-line
+.\" Gary Perlman (Wang Institute of Graduate Studies)
+.\" Tue Oct  8 21:23:05 EDT 1985
+.\"
+.\" Usage: nroff -man this-file manual-entry > manual-entry.nr
+.\" or:    nroff -man.new this-file manual-entry > manual-entry.nr
+.\"
+.\" Remove macros for page control.
+.\" Define registers for on-line nroff formatting.
+.\" Use a wider page width to shorten the manual entries.
+.rm }H
+.rm }F
+.\" Redefine the .TH macro
+.\" I am assuming that the positional parameters are:
+.\" program  manual-section  update-date  copyright system-release  manual-name
+.rm TH
+.de TH
+.nr IN .5i
+.nr LL 75n
+.nr PL \\n(.p
+.ta .5i 1i 1.5i 2i 2.5i 3i 3.5i 4i 4.5i 5i 5.5i 6i 6.5i
+.nr )P 1v
+.nr )I .5i
+.na
+.nh
+.ll \\n(LLu
+.lt \\n(LLu
+.po 0
+.tl @\\$1(\\$2)@\\$5@\\$3@
+..
+.de B \" bold
+\fB\\$1\fP
+..
+.de I
+\fI\\$1\fP
+..
+.de SH
+.sp
+.in 0
+.B "\\$1"
+.in .5i
+.ft R
+.fi
+..
+.de SS
+.SH "   \fI\\$1"
+..
+.de PP
+.sp
+.in .5i
+.fi
+.ft R
+..

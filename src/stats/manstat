@@ -1,0 +1,40 @@
+#! /bin/sh
+
+# The DOCDIR variable should be set to suit the needs for your system.
+DOCDIR=/n/ship/0/perlman/stat/stat/doc
+VIEWER=${VIEWER-$PAGER}
+VIEWER=${PAGER-/bin/cat}
+
+# This shell script replaces the old version of the manstat program.
+# This version simply prints the formatted copies of the manual entries.
+
+PGM=`basename $0`
+SUFFIX=man
+
+if test -d $DOCDIR
+then
+	cd $DOCDIR
+else
+	echo "There is no directory of |STAT manual entries"
+	echo "Your system administrator should modify the $PGM program"
+	exit 1
+fi
+
+if test $# = 0
+then
+	$VIEWER intro.$SUFFIX
+else
+	for prog
+	do
+		manfile=$prog.$SUFFIX
+		if test -r $manfile
+		then
+			$VIEWER $manfile
+		else
+			echo "No |STAT manual entry on $prog.  Calling 'man' for help."
+			man $prog
+		fi
+	done
+fi
+
+exit 0

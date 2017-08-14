@@ -1,0 +1,149 @@
+PROBDIST(1)                        |STAT                    August 21, 1989
+
+NNNNAAAAMMMMEEEE
+     probdist - probability distribution functions, random number generation
+
+SSSSYYYYNNNNOOOOPPPPSSSSIIIISSSS
+     pppprrrroooobbbbddddiiiisssstttt [-qv] [-s seed] [ function distribution [parameters] value ]
+
+DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+     _p_r_o_b_d_i_s_t is a family of probability distribution functions.  _f_u_n_c_t_i_o_n_s
+     include:
+          probability of obtained statistic (prob);
+          critical statistic for specific probability level (crit or quantile);
+          random samples of distribution values (rand).
+     _d_i_s_t_r_i_b_u_t_i_o_n_s include the uniform, normal-z, binomial, chi-square F,
+     and t.  Applicable distribution parameters, such as degrees of
+     freedom, should follow the name of the distribution.  For example, you
+     can request the probability of an F-ratio:
+          probdist  prob  F  2  12  3.46
+     or a random sample of normal-z values:
+          probdist  rand  n  100
+
+     A single request can be supplied on the command line:
+          probdist  rand  z  20
+     or several can be supplied to the standard input.  Blank input lines
+     are ignored.
+          > probdist
+          prob binomial 20 3/4 18
+          0.091260
+          critical t 8 .05
+          2.306004
+
+     Functions and distributions can be abbreviated with single letters;
+     only the first letter is used, and case does not matter.  The normal-z
+     distribution can be requested with z or n.  The chi-square
+     distribution can be requested with c or x.
+
+     Probabilities are between 0 and 1, usually not including those values.
+     When supplying probabilities to the program, they can be input in
+     decimal form (e.g., .05), or as a ratio of two integers (e.g., 1/20).
+     The ratio form must be used to specify the probability of a success in
+     the binomial distribution.
+
+OOOOPPPPTTTTIIIIOOOONNNNSSSS
+     ----qqqq   Quick version.  If a faster but slightly less robust/accurate
+          version of a function exists, use that instead.
+     ----ssss   Supply the integer random seed for random number generation.
+          This value should be from 1 to the maximum integer for a system.
+          Otherwise, the first random seed is taken from the system clock
+          and process number.  This option allows the replication of random
+          samples; the same requests with the same seed always produce the
+          same result.
+     ----vvvv   Verbose output.  By default, only the requested values are
+          printed (e.g., you ask for the probability of a t statistic and
+          that probability is printed, or you ask for a uniform random
+          sample of 10 numbers and ten numbers are printed).  With the
+          verbose option, the output from the program contains lines with
+          the distribution name, parameters, value, and probability, in
+          order.
+
+EEEEXXXXAAAAMMMMPPPPLLLLEEEESSSS
+
+     _d_m is useful for converting the output from _p_r_o_b_d_i_s_t.
+     Normal sample with mean 20 and standard deviation 10:
+          probdist  random  z  100  |  dm  "x1*10+20"
+     Uniform random integers between 20 and 29 (inclusive):
+          probdist  random  u  100  |  dm  "floor(x1*10+20)"
+
+DDDDIIIISSSSTTTTRRRRIIIIBBBBUUUUTTTTIIIIOOOONNNNSSSS
+     e = epsilon (a very small number), oo = infinity, p = a/b, *one-tailed test
+                 params      mean        min         max         prob
+     Uniform                 0.5         0+e         1-e         x..1
+     Binomial    N  p        Np          0           N           x..N*
+     Normal Z                0           -oo         +oo         -oo..x*
+     t           df          see F       0           +oo         x..oo
+     Chi-Square  df          df          0           +oo         x..oo
+     F           df1  df2    df2/(df2-2) 0           +oo         x..oo
+
+     The critical value functions use an inversion of the probability
+     functions that refine their approximations until the computed
+     distribution value produces a probability within .000001 of the
+     requested value.  The random samples are based on uniform random
+     numbers between 0.0 and 1.0 (but not including those extreme values);
+     the uniform random numbers are used as input to the critical statistic
+     calculation.
+
+   _U_N_I_F_O_R_M:  pppprrrroooobbbb||||ccccrrrriiiitttt||||rrrraaaannnndddd   uuuu   _p|#
+     The uniform probability and critical value functions both return 1
+     minus the value.
+          prob u .9                     # _e_q_u_a_l_s _0._1
+          crit uni .7                   # _e_q_u_a_l_s _0._3
+          rand uniform 10               # _p_r_o_d_u_c_e_s _1_0 _r_a_n_d_o_m _n_u_m_b_e_r_s
+
+   _B_I_N_O_M_I_A_L:  pppprrrroooobbbb||||ccccrrrriiiitttt||||rrrraaaannnndddd   bbbb   _N   _P   _r|_p|#
+     The binomial distribution returns the cumulative probability from a
+     given value r (number of successes) up to N (the number of trials).
+     The value of P, the probability of a success must be specified as a
+     ratio of integers (e.g., 1/2, not .5).  To compute the lower tail of
+     the binomial distribution, that is, the probability of getting r or
+     less successes, the following rule can be used:
+               prob ( B(N,p) <= r )  =  prob ( B(N,1-p) >= N-r )
+     For a specified significance level, such as the .05 level, there may
+     be no critical statistic with exactly the desired probability.  In
+     most cases, the probability of the statistic will be less than that
+     requested.  In some cases, there may be no critical statistic with
+     less than the requested probability (e.g., the probability of 5
+     successes in 5 binomial trials with p=1/2 is 0.03125), so the computed
+     value would be one greater than the maximum possible (e.g., for the
+     B(5,1/2) example: 6).  To compute random binomial numbers, N uniform
+     random numbers are generated and the count of those less than p is the
+     random statistic; with this algorithm, under the verbose option, the
+     probability reported with the random statistic is not meaningful.
+     Probability calculations are based on a logarithmic approximation of
+     sums of products of powers of primes, thought to be accurate to over
+     ten decimal places for N up to 1000.
+          prob binomial 20 1/2 17       # _i_s _j_u_s_t _l_e_s_s _t_h_a_n _0._0_0_6
+          crit bin 30 3/4 .05           # _e_q_u_a_l_s _2_7 (_p = ._0_3_7)
+          rand B 40 1/4 10              # _p_r_o_d_u_c_e_s _1_0 _r_a_n_d_o_m _n_u_m_b_e_r_s
+
+   _N_O_R_M_A_L-_Z:  pppprrrroooobbbb||||ccccrrrriiiitttt||||rrrraaaannnndddd   nnnn||||zzzz   _Z|_p|#
+     The normal-z probability function computes values for the one-tailed
+     cumulative probability from -oo up to the given value.  The function
+     is accurate to six decimal places (z values with absolute values up to
+     6).  Probability of Normal Z value computed with CACM Algorithm 209.
+     The quick version of the random number generation adds twelve uniform
+     random numbers and subtracts 6.0.
+          prob normal 2.0               # _e_q_u_a_l_s _0._9_7_7_2_5_0
+          crit n .05                    # _e_q_u_a_l_s -_1._6_4_4_8_5_4 (_o_n_e-_t_a_i_l_e_d)
+          rand Z 10                     # _p_r_o_d_u_c_e_s _1_0 _r_a_n_d_o_m _n_u_m_b_e_r_s
+
+   _S_T_U_D_E_N_T'_S _T:  pppprrrroooobbbb||||ccccrrrriiiitttt||||rrrraaaannnndddd   tttt   _d_f   _t|_p|#
+     The probability of Student's t-value computed from the relation:
+     t(n)*t(n) = F(1,n) so, the probability reported for a t statistic is
+     the two-tailed probability of |t| exceeding the obtained value.
+          prob t 20 2.0                 # _e_q_u_a_l_s _0._0_5_9
+          crit t-test 10 .05            # _e_q_u_a_l_s _2._2_3 (_t_w_o-_t_a_i_l_e_d)
+          rand tarantula 30 10          # _p_r_o_d_u_c_e_s _1_0 _r_a_n_d_o_m _n_u_m_b_e_r_s
+
+   _F:  pppprrrroooobbbb||||ccccrrrriiiitttt||||rrrraaaannnndddd   ffff   _d_f_1   _d_f_2
+     Probability of F-ratio computed with CACM Algorithm 322.
+          prob f 1 20 3.4               # _e_q_u_a_l_s _0._0_8
+          crit F 4 10 .05               # _e_q_u_a_l_s _3._4_8
+          rand F 5 30 10                # _p_r_o_d_u_c_e_s _1_0 _r_a_n_d_o_m _n_u_m_b_e_r_s
+
+   _C_H_I-_S_Q_U_A_R_E:  pppprrrroooobbbb||||ccccrrrriiiitttt||||rrrraaaannnndddd   cccc||||xxxx   _d_f   _x|_p|#
+     Probability of Chi-square computed with CACM Algorithm 299.
+          prob chi2 5 18                # _e_q_u_a_l_s _0._0_0_3
+          crit chi-square 2 .05         # _e_q_u_a_l_s _5._9_9
+          rand X 1 10                   # _p_r_o_d_u_c_e_s _1_0 _r_a_n_d_o_m _n_u_m_b_e_r_s

@@ -1,0 +1,28 @@
+SERIES(1)                          |STAT                   October 24, 1986
+
+NAME
+     series - generate an additive series of numbers
+
+SYNOPSIS
+     _s_e_r_i_e_s start end [stepsize]
+
+DESCRIPTION
+     _s_e_r_i_e_s prints the real numbers from _s_t_a_r_t to _e_n_d, one per line.  If
+     _s_t_e_p_s_i_z_e is not specified, it is assumed to be of unit size.  _s_e_r_i_e_s
+     begins with _s_t_a_r_t to which _s_t_e_p_s_i_z_e is repeatedly added or subtracted,
+     as appropriate, to approach, possibly meet, but not pass _e_n_d.
+
+EXAMPLE
+     To make a random permutation of the numbers 1 to 100:
+          series 1 100 | perm
+     or
+          series 100 1 | perm
+
+LIMITATIONS
+     The reported number of significant digits is limited.  If the ratio of
+     the series range to the _s_t_e_p_s_i_z_e is too large, several numbers in a
+     row will be equal.
+
+     The maximum length of a series is limited to the size of the maximum
+     long integer that can be represented on the machine in use.  Exceeding
+     this value has undefined results.

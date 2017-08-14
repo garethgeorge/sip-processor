@@ -1,0 +1,10 @@
+MANSTAT(1)                         |STAT                  February 26, 1986
+
+NAME
+     manstat - print manual entries on |STAT programs
+
+SYNOPSIS
+     manstat [program ...]
+
+DESCRIPTION
+     _m_a_n_s_t_a_t prints the manual entries for the named |STAT programs.
