@@ -9,9 +9,6 @@ do
 	/mnt/data/make-yaml.rb ${f} /mnt/export/$(basename ${f}).yaml
 done
 
-date --rfc-3339="seconds" > /mnt/export/last_update.txt
-echo $1 >> /mnt/export/last_update.txt
-
-curl -X POST api:3030/update
+eval $(/mnt/data/gather-all.sh)
 
 echo "X" >> count_file.txt
