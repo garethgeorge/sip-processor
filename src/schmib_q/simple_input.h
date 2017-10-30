@@ -31,6 +31,9 @@
 
 #define DEFAULT_BLOCKSIZE (50000)
 int InitDataSet(void **cookie, int fields);
+void SaveBinaryDataSet(void *cookie, FILE *fd);
+int LoadBinaryDataSet(void **cookie, int fields, FILE *fd);
+
 void FreeDataSet(void *cookie);
 void SetBlockSize(void *cookie, int size);
 int LoadDataSet(char *fname, void *cookie);

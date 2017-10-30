@@ -24,6 +24,7 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+#include <assert.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -97,6 +98,49 @@ InitDataSet(void **cookie, int fields)
 	*cookie = (void *)ds;
 	
 	return(1);
+}
+
+void SaveBinaryDataSet(void *cookie, FILE *fd)
+{
+	DataSet *ds = (DataSet *)cookie;
+
+	DataSet copy;
+	memcpy(&copy, ds, sizeof(DataSet));
+	copy.data = NULL;
+
+	fwrite(&copy, sizeof(DataSet), 1, fd);
+
+	for (int i = 0; i < ds->fields; ++i)
+	{
+		fwrite(ds->data[i], sizeof(double), ds->data_c, fd);
+	}
+}
+
+int LoadBinaryDataSet(void **cookie, int fields, FILE *fd)
+{
+	printf("Loading Binary Data Set\n");
+
+	DataSet *ds = (DataSet *)malloc(sizeof(DataSet));
+	fread(ds, sizeof(DataSet), 1, fd);
+
+	assert(ds->fields == fields);
+
+	ds->data = (double **)malloc(sizeof(double *) * ds->fields);
+	assert(ds->data != NULL);
+	
+	for (int i = 0; i < ds->fields; ++i) 
+	{
+		ds->data[i] = (double *)malloc(sizeof(double) * ds->space_size);
+		assert(ds->data[i] != NULL);
+		bzero(ds->data[i], sizeof(double) * ds->space_size);
+		fread(ds->data[i], sizeof(double), ds->data_c, fd);
+	}
+
+	printf("Finish Loading Binary Dataset.\n");
+
+	*cookie = (void *)ds;
+
+	return 1;
 }
 
 void SetBlockSize(void *cookie, int size)

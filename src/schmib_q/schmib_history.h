@@ -39,15 +39,17 @@ int JobIndex;
 struct history_stc
 { 
 	void *data;		/* data set defined by simple_input */
-        JRB value_list;
-        JRB age_list;
+	JRB value_list;
+	JRB age_list;
 	int count;
 };
 
 typedef struct history_stc History;
 
 History *MakeHistory(int fields);
-void AddToHistory(History *h, double ts, double resp_value, 
+History *LoadHistory(int fields, FILE *fd);
+void SaveHistory(History *h, FILE *fd);
+void AddToHistory(History *h, double ts, double resp_value,
 		double lowpred, double highpred, double exp_value,
 		double node_count, double exec_time);
 int GetHistorySize(History *h);

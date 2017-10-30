@@ -38,7 +38,7 @@ int Recovery;
 #define RAND() (drand48())
 #define SEED() (srand48())
 
-#define ARGS "f:c:C:q:vX:TDP:J:M:whrt:W:LI:i:E"
+#define ARGS "f:c:C:q:s:S:vX:TDP:J:M:whrt:W:LI:i:E"
 char *Usage = "bmbp_ts -f filename\n\
 \t-c confidence level\n\
 \t-C conditional time value\n\
@@ -52,7 +52,10 @@ char *Usage = "bmbp_ts -f filename\n\
 \t-T use_trimming\n\
 \t-t training count\n\
 \t-W window (to take one per window size)\n\
-\t-v <verbose>\n";
+\t-v <verbose>\n\
+\t-s the file from which to load the state\n\
+\t-S the file to which to save the state\n\
+";
 
 
 int main(int argc, char *argv[])
@@ -60,6 +63,8 @@ int main(int argc, char *argv[])
 	int c;
 	char fname[255];
 	char cname[255];
+	char ldstate[255];
+	char svstate[255];
 	int curr_count;
 	double high_success,low_success;
 	double total;
@@ -79,6 +84,7 @@ int main(int argc, char *argv[])
 	double highp;
 	double remaining;
 	int no_update;
+	FILE *statefile;
 
 	Quantile = 0.95;
 	Confidence = 0.05;
@@ -89,6 +95,8 @@ int main(int argc, char *argv[])
 	UseCDF = 0;
 	memset(fname,0,sizeof(fname));
 	memset(cname,0,sizeof(cname));
+	memset(ldstate,0,sizeof(ldstate));
+	memset(svstate,0,sizeof(svstate));
 	UseLow = 0;
 	Training = 0;
 
@@ -97,55 +105,61 @@ int main(int argc, char *argv[])
 	  switch(c)
 	    {
 	    case 'f':
-	      strncpy(fname,optarg,sizeof(fname));
-	      break;
+			strncpy(fname,optarg,sizeof(fname));
+			break;
 	    case 'q':
-	      Quantile = atof(optarg);
-	      break;
+			Quantile = atof(optarg);
+			break;
+		case 's':
+			strncpy(ldstate,optarg,sizeof(ldstate));
+			break;
+		case 'S':
+			strncpy(svstate,optarg,sizeof(svstate));
+			break;
 	    case 'c':
-	      Confidence = atof(optarg);
-	      break;
+			Confidence = atof(optarg);
+			break;
 	    case 'C':
-	      Conditional = atof(optarg);
-	      break;
+			Conditional = atof(optarg);
+			break;
 	    case 'D':
-	      Durations = 1;
-	      break;
+			Durations = 1;
+			break;
 	    case 'E':
-	      UseCDF = 1;
-	      break;
+			UseCDF = 1;
+			break;
 	    case 'I':
-	      InvertValue = atof(optarg);
-	      break;
+			InvertValue = atof(optarg);
+			break;
 	    case 'i':
-		Interval = atoi(optarg);
-		break;
+			Interval = atoi(optarg);
+			break;
 	    case 'T':
-	      UseTrim = 1;
-	      break;
+			UseTrim = 1;
+			break;
 	    case 'X':
-	      strncpy(cname,optarg,sizeof(cname));
-	      break;
+			strncpy(cname,optarg,sizeof(cname));
+			break;
 	    case 'v':
-	      Verbose = 1;
-	      break;
+			Verbose = 1;
+			break;
 	    case 'W' :
-		Window = atoi(optarg);
-		break;
+			Window = atoi(optarg);
+			break;
 	    case 't':
-		Training = atoi(optarg);
-		break;
+			Training = atoi(optarg);
+			break;
 	    case 'L':
-		UseLow = 1;
-		break;
+			UseLow = 1;
+			break;
 	    default:
-	      fprintf(stderr,
-		      "unrecognized command %c\n",(char)c);
-	      fprintf(stderr,"%s",Usage);
-	      exit(1);
+			fprintf(stderr,
+				"unrecognized command %c\n",(char)c);
+			fprintf(stderr,"%s",Usage);
+			exit(1);
 	    }
 	}
-
+	printf("hello world.\n");
 	if(fname[0] == 0)
 	{
 		fprintf(stderr,"must specify file name\n");
@@ -177,7 +191,29 @@ int main(int argc, char *argv[])
 
 	curr_count = 0;
 
-	bp = InitBMBPPred(Quantile,Confidence,J_FIELDS);
+	if (ldstate[0])
+	{
+		fprintf(stderr, 
+		"\tNOTICE!!! HITTING LOAD STATE CODE PATH. THIS CODE IS EXPERIMENTAL AT THE MOMENT\n");
+		
+		FILE *fd = fopen(ldstate, "rb");
+		if (!fd)
+		{
+			fprintf(stderr,
+			"No such file %s", ldstate);
+			exit(1);
+		}
+
+		printf("%d\n", fd);
+		bp = LoadBMBPPred(Quantile, Confidence, J_FIELDS, fd);
+		fclose(fd);
+		fprintf(stderr, "\tFINISHED LOADING BMBPPred.\n");
+	}
+	else
+	{
+		bp = InitBMBPPred(Quantile,Confidence,J_FIELDS);
+	}
+	
 	if(bp == NULL)
 	{
 		exit(1);
@@ -212,17 +248,19 @@ int main(int argc, char *argv[])
 		SetUseCDFBMBP(bp);
 	}
 
+	// TODO: persist these variables from file, and then restore them when reloading from file.
 	high_success = 0.0;
 	low_success = 0.0;
-	pred_value = 0.0;	
+	pred_value = 0.0;
 	total = 0.0;
 
-	curr_count = 0;
+	curr_count = 0; // TODO: persist cur count too!!
 	values = (double *)malloc(fields*sizeof(double));
 	if(values == NULL) {
 		exit(1);
 	}
-	last_ts = -1;
+	last_ts = -1; // TODO: persist last_ts and load it from file... yep yep yep.
+	printf("started reading data...\n");
 	while(ReadData(data,fields,values))
 	{
 		value = values[fields-1];
@@ -262,7 +300,7 @@ int main(int argc, char *argv[])
 				} else {
 	      				fprintf(stdout,"pred: %f ",pred_value);
 				}
-	      			fprintf(stdout,"count: %d ",SizeOfBMBPPred(bp));
+	      		fprintf(stdout,"count: %d ",SizeOfBMBPPred(bp));
 				if(UseLow == 1) {
 	      				fprintf(stdout,"success: %f ",low_success);
 				} else {
@@ -360,6 +398,14 @@ int main(int argc, char *argv[])
 		fprintf(stdout,"success_percentage: %f\n",
 			low_success / total);
 	}
+
+	if (svstate[0])
+	{
+		FILE *fd = fopen(svstate, "wb");
+		SaveBMBPPred(bp, fd);
+		fclose(fd);
+	}
+
 	free(values);
 	exit(0);
 }

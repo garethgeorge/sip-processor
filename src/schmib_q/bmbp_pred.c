@@ -1,6 +1,7 @@
 /*
  * http://www.swox.com/gmp/manual
  */
+#include <assert.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -21,6 +22,8 @@
 #include "logupred.h"
 #include "lognpred.h"
 #include "weibpred.h"
+
+#define DEBUG_SAVE_RESTORE 1
 
 void *InitBMBPPred(double quantile, double confidence, int fields)
 {
@@ -68,6 +71,55 @@ void *InitBMBPPred(double quantile, double confidence, int fields)
 	p->use_cdf = 0;
 
 	return((void *)p);
+}
+
+void SaveBMBPPred(void *ib, FILE *fd)
+{
+	BMBPPred *p = (BMBPPred *)ib;
+#ifdef DEBUG_SAVE_RESTORE 
+	// write out debug information / error checking information
+	fputc(0x01, fd);
+	fprintf(fd, "Begin BMBPPred");
+#endif 
+
+	BMBPPred copy;
+	memcpy(&copy, p, sizeof(BMBPPred));
+	copy.data = NULL;
+	fwrite(&copy, sizeof(BMBPPred), 1, fd);
+
+	SaveHistory(p->data, fd);
+
+#ifdef DEBUG_SAVE_RESTORE 
+	// write out debug information / error checking information
+	fputc(0x01, fd);
+	fprintf(fd, "End BMBPPred");
+#endif 
+}
+
+void *LoadBMBPPred(double quantile, double confidence, int fields, FILE *fd)
+{
+#ifdef DEBUG_SAVE_RESTORE
+	printf("Loading BMBPPred.\n");
+	assert(fgetc(fd) == 0x01);
+	fseek(fd, sizeof("Begin BMBPPred") - 1, SEEK_CUR);
+#endif 
+
+	BMBPPred *p;
+	p = (BMBPPred *)malloc(sizeof(BMBPPred));
+	if (p == NULL)
+	{
+		return NULL;
+	}
+	fread(p, sizeof(BMBPPred), 1, fd);
+	
+	p->data = LoadHistory(fields, fd);
+	
+#ifdef DEBUG_SAVE_RESTORE
+	assert(fgetc(fd) == 0x01);
+	fseek(fd, sizeof("End BMBPPred") - 1, SEEK_CUR);
+#endif 
+	
+	return p;
 }
 
 void FreeBMBPPred(void *ib)
@@ -438,13 +490,12 @@ void UpdateBMBPPred(void *ib, double ts, double value, double lowpred,
 		AddToHistory(p->data,ts,value,lowpred,highpred,0.0,0.0,0.0);
 		return;
 	}
-
 	/*
         p->wrong_count = ConsecutiveWrong(p->data,&autoc);
         p->right_count = ConsecutiveRight(p->data,&autoc);
 	*/
 	ConsecutiveWrongRight(p->data,&autoc,&p->wrong_count,&p->right_count);
-printf("cwrong: %d cright: %d, autoc: %f\n",p->wrong_count,p->right_count,autoc);
+	printf("cwrong: %d cright: %d, autoc: %f\n",p->wrong_count,p->right_count,autoc);
 	
 #if 0
 	if((p->no_trim == 0) 
@@ -456,7 +507,7 @@ printf("cwrong: %d cright: %d, autoc: %f\n",p->wrong_count,p->right_count,autoc)
 					&p->low_wrong,
 					&p->high_wrong))
 #endif
-
+	
 	rare = IsRareBMBP(p,ts,value,lowpred,highpred);
 
 	if(rare != 0) {

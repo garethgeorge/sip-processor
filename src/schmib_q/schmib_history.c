@@ -1,6 +1,7 @@
 /*
  * http://www.swox.com/gmp/manual
  */
+#include <assert.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -16,6 +17,7 @@
 
 #include "schmib_history.h"
 
+#define DEBUG_SAVE_RESTORE 1
 
 History *MakeHistory(int fields)
 {
@@ -51,6 +53,97 @@ History *MakeHistory(int fields)
 	}
 
 	return(h);
+}
+
+void SaveHistory(History* h, FILE *fd)
+{
+#ifdef DEBUG_SAVE_RESTORE
+	fputc(0x02, fd);
+	fprintf(fd, "Begin History");
+#endif
+
+	// step 1: save out the struct itself
+	History copy;
+	memcpy(&copy, h, sizeof(History));
+	copy.data = NULL;
+	copy.age_list = NULL;
+	copy.value_list = NULL;
+	fwrite(&copy, sizeof(History), 1, fd);
+
+	// step 2: save out the age list red black tree
+	JRB ptr;
+    jrb_traverse(ptr, h->age_list)
+    {
+        fputc(1, fd);
+        fwrite(&ptr->key, sizeof(Jval), 1, fd);
+        fwrite(&ptr->val, sizeof(Jval), 1, fd);
+    }
+    fputc(0, fd);
+
+	// step 3: save out the value list red black tree
+    jrb_traverse(ptr, h->value_list)
+    {
+        fputc(1, fd);
+        fwrite(&ptr->key, sizeof(Jval), 1, fd);
+        fwrite(&ptr->val, sizeof(Jval), 1, fd);
+    }
+	fputc(0, fd);
+	
+	// step 4: write out the history data set
+	SaveBinaryDataSet(h->data, fd);
+
+#ifdef DEBUG_SAVE_RESTORE
+	fputc(0x02, fd);
+	fprintf(fd, "End History");
+#endif
+}
+
+History *LoadHistory(int fields, FILE *fd)
+{
+#ifdef DEBUG_SAVE_RESTORE 
+	printf("Loading History\n");
+	assert(fgetc(fd) == 0x02);
+	fseek(fd, sizeof("Begin History") - 1, SEEK_CUR);
+#endif
+
+	// step 1: read in the struct itself
+	History *h;
+	h = (History *)malloc(sizeof(History));
+	fread(h, sizeof(History), 1, fd);
+
+	// step 2: read the age list
+	JRB age_list = make_jrb();
+	while (fgetc(fd)) 
+	{
+		Jval key, val;
+		fread(&key, sizeof(Jval), 1, fd);
+		fread(&val, sizeof(Jval), 1, fd);
+		jrb_insert_dbl(age_list, jval_d(key), val);
+	}
+
+	h->age_list = age_list;
+
+	// step 3: read the value list
+	JRB value_list = make_jrb();
+	while (fgetc(fd)) 
+	{
+		Jval key, val;
+		fread(&key, sizeof(Jval), 1, fd);
+		fread(&val, sizeof(Jval), 1, fd);
+		jrb_insert_dbl(value_list, jval_d(key), val);
+	}
+	h->value_list = value_list;
+
+	// step 4: read in the history data set
+	LoadBinaryDataSet(&(h->data), fields, fd);
+	assert(h->data != NULL);
+
+#ifdef DEBUG_SAVE_RESTORE 
+	assert(fgetc(fd) == 0x02);
+	fseek(fd, sizeof("End History") - 1, SEEK_CUR);
+#endif
+
+	return h;
 }
 
 void FreeHistory(History *h)
@@ -115,7 +208,7 @@ void AddToHistory(History *h, double ts,
 int GetHistorySize(History *h)
 {
 	int list_size;
-
+	
 	list_size = h->count;
 
 	return(list_size);
