@@ -38,6 +38,8 @@ int Recovery;
 #define RAND() (drand48())
 #define SEED() (srand48())
 
+#define SAVE_STATE_VERSION 1 // the state file format version number
+
 #define ARGS "f:c:C:q:s:S:vX:TDP:J:M:whrt:W:LI:i:E"
 char *Usage = "bmbp_ts -f filename\n\
 \t-c confidence level\n\
@@ -54,6 +56,8 @@ char *Usage = "bmbp_ts -f filename\n\
 \t-W window (to take one per window size)\n\
 \t-v <verbose>\n\
 \t-s the file from which to load the state\n\
+\t     NOTE: options passed must be the same as were\n\
+\t            used to generate the state file\n\
 \t-S the file to which to save the state\n\
 ";
 
@@ -84,7 +88,6 @@ int main(int argc, char *argv[])
 	double highp;
 	double remaining;
 	int no_update;
-	FILE *statefile;
 
 	Quantile = 0.95;
 	Confidence = 0.05;
@@ -159,7 +162,7 @@ int main(int argc, char *argv[])
 			exit(1);
 	    }
 	}
-	printf("hello world.\n");
+
 	if(fname[0] == 0)
 	{
 		fprintf(stderr,"must specify file name\n");
@@ -204,21 +207,66 @@ int main(int argc, char *argv[])
 			exit(1);
 		}
 
-		printf("%d\n", fd);
+		//  read version number from the file
+		int32_t version;
+		fread(&version, sizeof(int32_t), 1, fd);
+		if (version != SAVE_STATE_VERSION)
+		{
+			fprintf(stderr, 
+				"State file version is on version '%d' but current version is '%d'. "
+				"Could not load state. "
+				"Please run again providing all data so that the model can "
+				"be fully reconstructed.\n", version, SAVE_STATE_VERSION);
+			exit(1);
+		}
+
+		// load integer variables from the file
+		int save_vars_i[1];
+		fread(save_vars_i, sizeof(save_vars_i), 1, fd);
+		curr_count = save_vars_i[0];
+
+		// load double valued variables from the file
+		double save_vars_d[6];
+		fread(save_vars_d, sizeof(save_vars_d), 1, fd);
+		high_success = save_vars_d[0];
+		low_success = save_vars_d[1];
+		pred_value = save_vars_d[2];
+		total = save_vars_d[3];
+		last_ts = save_vars_d[4];
+		last_value = save_vars_d[5];
+		fprintf(stderr, "loaded high_success %f\n", high_success);
+
+		// load the BMBPPred
 		bp = LoadBMBPPred(Quantile, Confidence, J_FIELDS, fd);
 		fclose(fd);
 		fprintf(stderr, "\tFINISHED LOADING BMBPPred.\n");
+
+		if(bp == NULL)
+		{
+			fprintf(stderr, "Failed to load the BMBPPred data structure from "
+				"disk or failed to allocate memory\n");
+			exit(1);
+		}
 	}
 	else
 	{
 		bp = InitBMBPPred(Quantile,Confidence,J_FIELDS);
+		if(bp == NULL)
+		{
+			fprintf(stderr, "Failed to load allocate the BMBPPred data structure\n");
+			exit(1);
+		}
+
+		// Initialize state variables etc
+		high_success = 0.0;
+		low_success = 0.0;
+		pred_value = 0.0;
+		total = 0.0;
+		last_ts = -1;
+		last_value = 0;
+		curr_count = 0; 
 	}
 	
-	if(bp == NULL)
-	{
-		exit(1);
-	}
-
 	if(UseLow == 1) {
 		SetUseLowBMBP(bp);
 	}
@@ -248,19 +296,11 @@ int main(int argc, char *argv[])
 		SetUseCDFBMBP(bp);
 	}
 
-	// TODO: persist these variables from file, and then restore them when reloading from file.
-	high_success = 0.0;
-	low_success = 0.0;
-	pred_value = 0.0;
-	total = 0.0;
-
-	curr_count = 0; // TODO: persist cur count too!!
 	values = (double *)malloc(fields*sizeof(double));
 	if(values == NULL) {
 		exit(1);
 	}
-	last_ts = -1; // TODO: persist last_ts and load it from file... yep yep yep.
-	printf("started reading data...\n");
+	
 	while(ReadData(data,fields,values))
 	{
 		value = values[fields-1];
@@ -380,7 +420,7 @@ int main(int argc, char *argv[])
 				fprintf(stdout,"lowp: %f\n",lowp);
 				fprintf(stdout,"highp: %f\n",highp);
 			}
-	      		fprintf(stdout,"\n");
+			fprintf(stdout,"\n");
 		}
 		curr_count++;
 		UpdateBMBPPred(bp,ts,value,low_pred_value,pred_value);
@@ -402,7 +442,30 @@ int main(int argc, char *argv[])
 	if (svstate[0])
 	{
 		FILE *fd = fopen(svstate, "wb");
+
+		// write out the state file version number
+		int32_t version = SAVE_STATE_VERSION;
+		fwrite(&version, sizeof(int32_t), 1, fd);
+
+		// save the integer variables to the state file
+		int save_vars_i[1];
+		save_vars_i[0] = curr_count;
+		fwrite(save_vars_i, sizeof(save_vars_i), 1, fd);
+
+		// load double valued variables from the file
+		double save_vars_d[6];
+		save_vars_d[0] = high_success;
+		save_vars_d[1] = low_success;
+		save_vars_d[2] = pred_value;
+		save_vars_d[3] = total;
+		save_vars_d[4] = last_ts;
+		save_vars_d[5] = last_value;
+		fwrite(save_vars_d, sizeof(save_vars_d), 1, fd);
+
+		// write out the BMBPPred
 		SaveBMBPPred(bp, fd);
+		
+		// close the file descriptor
 		fclose(fd);
 	}
 

@@ -17,7 +17,7 @@
 
 #include "schmib_history.h"
 
-#define DEBUG_SAVE_RESTORE 1
+#define DEBUG_SAVE_RESTORE 0
 
 History *MakeHistory(int fields)
 {
@@ -190,7 +190,6 @@ void AddToHistory(History *h, double ts,
 	*/
 	WriteData(h->data,7,values);
 	index = Current(h->data);
-
 
 	/*
 	 * sort value list by values
