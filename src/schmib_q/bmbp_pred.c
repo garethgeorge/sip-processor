@@ -273,10 +273,10 @@ int IsRareBMBP(BMBPPred *p,
 		}
 		sd = sqrt(total_v / count);
 		if(value > (mean + 5*sd)) {
-printf("sd rare: %10.0f %f (%10.0f)\n" ,ts,value,max_ts);
+			printf("sd rare: %10.0f %f (%10.0f)\n" ,ts,value,max_ts);
 			return(2); /* discard as outlier */
 		} else {
-printf("bmbp rare: %10.0f %f (%10.0f)\n" ,ts,value,max_ts);
+			printf("bmbp rare: %10.0f %f (%10.0f)\n" ,ts,value,max_ts);
 			return(1);
 		}
 	}
@@ -590,11 +590,11 @@ int ForcBMBPPred(void *ib, double *lowpred, double *highpred)
 	}
 	p->last_index = jbindex;
 	if(p->use_low == 1) {
-        	*lowpred = GetHistoryValue(p->data,jbindex);
-        	*highpred = GetHistoryValue(p->data, GetHistorySize(p->data) - jbindex);
+		*lowpred = GetHistoryValue(p->data,jbindex);
+		*highpred = GetHistoryValue(p->data, GetHistorySize(p->data) - jbindex);
 	} else {
-        	*highpred = GetHistoryValue(p->data,jbindex);
-        	*lowpred = GetHistoryValue(p->data, GetHistorySize(p->data) - jbindex);
+		*highpred = GetHistoryValue(p->data,jbindex);
+		*lowpred = GetHistoryValue(p->data, GetHistorySize(p->data) - jbindex);
 	}
 // printf("COMP %d %f %d\n",jbindex,*highpred,GetHistorySize(p->data));
 // fflush(stdout);

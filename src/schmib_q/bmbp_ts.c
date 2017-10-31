@@ -1,22 +1,23 @@
 /*
  * http://www.swox.com/gmp/manual
  */
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <time.h>
+#include <getopt.h>
 #include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include <time.h>
+#include <unistd.h>
 
-#include "jval.h"
 #include "jrb.h"
+#include "jval.h"
 #include "simple_input.h"
 
 #include "norm.h"
 
+#include "bmbp_pred.h"
 #include "bmbp_q_sim.h"
 #include "rare_event.h"
-#include "bmbp_pred.h"
 
 
 double Quantile;
@@ -38,11 +39,11 @@ int Recovery;
 #define RAND() (drand48())
 #define SEED() (srand48())
 
-#define SAVE_STATE_VERSION 1 // the state file format version number
+#define SAVE_STATE_VERSION 2 // the state file format version number
 
-#define ARGS "f:c:C:q:s:S:vX:TDP:J:M:whrt:W:LI:i:E"
+#define ARGS "f:c:C:q:s:S:vX:TDP:J:M:whrt:W:LI:i:E:"
 char *Usage = "bmbp_ts -f filename\n\
-\t-c confidence level\n\
+\t-c or --confidence confidence level\n\
 \t-C conditional time value\n\
 \t-D <values are durations>\n\
 \t-E <use Empirical CDF instead of binomial method -- implies NoTrim>\n\
@@ -51,15 +52,28 @@ char *Usage = "bmbp_ts -f filename\n\
 \t-I value <inverted value to use>\n\
 \t-L use low\n\
 \t-X cache_file <acceleration cache file>\n\
-\t-T use_trimming\n\
+\t-T or --trim use_trimming\n\
 \t-t training count\n\
 \t-W window (to take one per window size)\n\
 \t-v <verbose>\n\
-\t-s the file from which to load the state\n\
+\t-s or --savestate the file from which to load the state\n\
 \t     NOTE: options passed must be the same as were\n\
-\t            used to generate the state file\n\
-\t-S the file to which to save the state\n\
+\t           used to generate the state file\n\
+\t-S or --loadstate the file to which to save the state\n\
 ";
+
+char *short_opts = "f:c:C:q:s:S:vX:TDP:J:M:whrt:W:LI:i:E:";
+static struct option long_opts[] = // could never remember the arguments so added long argument support
+{
+    {"savestate", required_argument, NULL, 'S'},
+	{"loadstate", required_argument, NULL, 's'},
+	{"file", required_argument, NULL, 'f'},
+	{"confidence", required_argument, NULL, 'c'},
+	{"quantile", required_argument, NULL, 'q'},
+	{"trim", no_argument, NULL, 'T'},
+    {NULL, 0, NULL, 0}
+};
+
 
 
 int main(int argc, char *argv[])
@@ -103,7 +117,7 @@ int main(int argc, char *argv[])
 	UseLow = 0;
 	Training = 0;
 
-	while((c = getopt(argc,argv,ARGS)) != EOF)
+	while((c = getopt_long(argc,argv,short_opts,long_opts, NULL)) != EOF)
 	{
 	  switch(c)
 	    {
@@ -214,32 +228,29 @@ int main(int argc, char *argv[])
 		{
 			fprintf(stderr, 
 				"State file version is on version '%d' but current version is '%d'. "
-				"Could not load state. "
-				"Please run again providing all data so that the model can "
-				"be fully reconstructed.\n", version, SAVE_STATE_VERSION);
+				"You will need to regenerate the state.\n", version, SAVE_STATE_VERSION);
 			exit(1);
 		}
 
 		// load integer variables from the file
-		int save_vars_i[1];
-		fread(save_vars_i, sizeof(save_vars_i), 1, fd);
-		curr_count = save_vars_i[0];
+		int load_vars_i[1];
+		fread(load_vars_i, sizeof(load_vars_i), 1, fd);
+		curr_count = load_vars_i[0];
 
 		// load double valued variables from the file
-		double save_vars_d[6];
-		fread(save_vars_d, sizeof(save_vars_d), 1, fd);
-		high_success = save_vars_d[0];
-		low_success = save_vars_d[1];
-		pred_value = save_vars_d[2];
-		total = save_vars_d[3];
-		last_ts = save_vars_d[4];
-		last_value = save_vars_d[5];
-		fprintf(stderr, "loaded high_success %f\n", high_success);
+		double load_vars_d[7];
+		fread(load_vars_d, sizeof(load_vars_d), 1, fd);
+		high_success = load_vars_d[0];
+		low_success = load_vars_d[1];
+		pred_value = load_vars_d[2];
+		total = load_vars_d[3];
+		last_ts = load_vars_d[4];
+		last_value = load_vars_d[5];
+		low_pred_value = load_vars_d[6];
 
 		// load the BMBPPred
 		bp = LoadBMBPPred(Quantile, Confidence, J_FIELDS, fd);
 		fclose(fd);
-		fprintf(stderr, "\tFINISHED LOADING BMBPPred.\n");
 
 		if(bp == NULL)
 		{
@@ -306,7 +317,7 @@ int main(int argc, char *argv[])
 		value = values[fields-1];
 	  	if (value == 0.0) 
 		{
-	    		value = 1.0;
+	    	value = 1.0;
 	  	}
 		if(fields > 1) {
 			ts = values[0];
@@ -332,21 +343,21 @@ int main(int argc, char *argv[])
 					low_success++;
 				}
 				total++;
-	      			fprintf(stdout,"itime: %10.0f ",ds);
-	      			fprintf(stdout,"value: %f ",last_value);
+				fprintf(stdout,"itime: %10.0f ",ds);
+				fprintf(stdout,"value: %f ",last_value);
 				if(UseLow == 1) {
-	      				fprintf(stdout,
-						"pred: %f ",low_pred_value);
+					fprintf(stdout,
+					"pred: %f ",low_pred_value);
 				} else {
-	      				fprintf(stdout,"pred: %f ",pred_value);
+	      			fprintf(stdout,"pred: %f ",pred_value);
 				}
 	      		fprintf(stdout,"count: %d ",SizeOfBMBPPred(bp));
 				if(UseLow == 1) {
-	      				fprintf(stdout,"success: %f ",low_success);
+					fprintf(stdout,"success: %f ",low_success);
 				} else {
-	      				fprintf(stdout,"success: %f ",high_success);
+					fprintf(stdout,"success: %f ",high_success);
 				}
-	      			fprintf(stdout,"total: %f ",total);
+				fprintf(stdout,"total: %f ",total);
 				if(UseLow == 1) {
 					fprintf(stdout,"percent: %f\n",
 						low_success/total);
@@ -358,7 +369,7 @@ int main(int argc, char *argv[])
 					fprintf(stdout,"lowp: %f\n",lowp);
 					fprintf(stdout,"highp: %f\n",highp);
 				}
-	      			fprintf(stdout,"\n");
+				fprintf(stdout,"\n");
 			}
 		}
 		/*
@@ -383,9 +394,10 @@ int main(int argc, char *argv[])
 		if((curr_count > min_history) && (curr_count > Training))
 		{
 			if(InvertValue != 0) {
+				exit(1);
 				InvForcBMBPPred(bp,InvertValue,&lowp,&highp);
 			}
-	    		ForcBMBPPred(bp,&low_pred_value,&pred_value);
+	    	ForcBMBPPred(bp,&low_pred_value,&pred_value);
 			if(pred_value >= value)
 			{
 				high_success++;
@@ -395,14 +407,14 @@ int main(int argc, char *argv[])
 				low_success++;
 			}
 			total++;
-	      		fprintf(stdout,"time: %10.0f ",ts);
-	      		fprintf(stdout,"value: %f ",value);
+			fprintf(stdout,"time: %10.0f ",ts);
+			fprintf(stdout,"value: %f ",value);
 			if(UseLow == 1) {
-	      			fprintf(stdout,"pred: %f ",low_pred_value);
+	      		fprintf(stdout,"pred: %f ",low_pred_value);
 			} else {
-	      			fprintf(stdout,"pred: %f ",pred_value);
+	      		fprintf(stdout,"pred: %f ",pred_value);
 			}
-	      		fprintf(stdout,"count: %d ",SizeOfBMBPPred(bp));
+	      	fprintf(stdout,"count: %d ",SizeOfBMBPPred(bp));
 			if(UseLow == 1) {
 	      			fprintf(stdout,"success: %f ",low_success);
 			} else {
@@ -423,7 +435,7 @@ int main(int argc, char *argv[])
 			fprintf(stdout,"\n");
 		}
 		curr_count++;
-		UpdateBMBPPred(bp,ts,value,low_pred_value,pred_value);
+		UpdateBMBPPred(bp, ts, value, low_pred_value, pred_value);
 		last_ts = ts;
 		last_value = value;
 	}
@@ -453,13 +465,14 @@ int main(int argc, char *argv[])
 		fwrite(save_vars_i, sizeof(save_vars_i), 1, fd);
 
 		// load double valued variables from the file
-		double save_vars_d[6];
+		double save_vars_d[7];
 		save_vars_d[0] = high_success;
 		save_vars_d[1] = low_success;
 		save_vars_d[2] = pred_value;
 		save_vars_d[3] = total;
 		save_vars_d[4] = last_ts;
 		save_vars_d[5] = last_value;
+		save_vars_d[6] = low_pred_value;
 		fwrite(save_vars_d, sizeof(save_vars_d), 1, fd);
 
 		// write out the BMBPPred

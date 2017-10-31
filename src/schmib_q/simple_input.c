@@ -118,8 +118,6 @@ void SaveBinaryDataSet(void *cookie, FILE *fd)
 
 int LoadBinaryDataSet(void **cookie, int fields, FILE *fd)
 {
-	printf("Loading Binary Data Set\n");
-
 	DataSet *ds = (DataSet *)malloc(sizeof(DataSet));
 	fread(ds, sizeof(DataSet), 1, fd);
 
@@ -135,8 +133,6 @@ int LoadBinaryDataSet(void **cookie, int fields, FILE *fd)
 		bzero(ds->data[i], sizeof(double) * ds->space_size);
 		fread(ds->data[i], sizeof(double), ds->data_c, fd);
 	}
-
-	printf("Finish Loading Binary Dataset.\n");
 
 	*cookie = (void *)ds;
 
