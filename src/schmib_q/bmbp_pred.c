@@ -272,10 +272,9 @@ int IsRareBMBP(BMBPPred *p,
 		}
 	}
 	else if((p->use_low == 1) && (lowcount >= p->wrong_count)) {
-
-printf("lowr: %10.0f %d %f %d %10.0f %f\n",max_ts,
-		lowcount,max_diff,p->wrong_count,
-		ts,value);
+		printf("lowr: %10.0f %d %f %d %10.0f %f\n",max_ts,
+			lowcount,max_diff,p->wrong_count,
+			ts,value);
 		return(1);
 
 	} else {

@@ -193,12 +193,7 @@ void AddToHistory(History *h, double ts,
 
 int GetHistorySize(History *h)
 {
-	int list_size;
-	
-	list_size = h->count;
-
-	return(list_size);
-
+	return h->count;
 }
 
 double GetHistoryValue(History *h, int index)
@@ -208,20 +203,43 @@ double GetHistoryValue(History *h, int index)
 	int i;
 	double value;
 	JRB curr;
+	// uccess_percentage: 0.977571
+	// 4.23 real         4.01 user         0.07 sys
 
-	count = 1;
-	jrb_traverse(curr,h->value_list)
+	if (index < h->count / 2) // optimizer should turn /2 into << 
 	{
-		if(count >= index)
-			break;
+		count = 1;
+		jrb_traverse(curr,h->value_list)
+		{
+			if(count >= index)
+				break;
+	
+			count++;
+		}
+	
+		if(curr == NULL)
+		{
+			curr = jrb_last(h->value_list);
+		}
+	}
+	else
+	{
+		count = h->count;
 
-		count++;
+		jrb_rtraverse(curr, h->value_list)
+		{
+			if (count <= index)
+				break;
+			count--;
+		}
+
+		if (curr == NULL)
+		{
+			curr = jrb_first(h->value_list);
+		}
 	}
 
-	if(curr == NULL)
-	{
-		curr = jrb_last(h->value_list);
-	}
+	
 
 	HistoryPoint *p = (HistoryPoint *)jval_v(jrb_val(curr));
 	// vals = GetFieldValues(h->data,J_VALUE);

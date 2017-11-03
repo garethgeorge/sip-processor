@@ -407,30 +407,30 @@ int main(int argc, char *argv[])
 				low_success++;
 			}
 			total++;
-			fprintf(stdout,"time: %10.0f ",ts);
-			fprintf(stdout,"value: %f ",value);
+			fprintf(stdout, "time: %10.0f ", ts);
+			fprintf(stdout, "value: %f ", value);
 			if(UseLow == 1) {
-	      		fprintf(stdout,"pred: %f ",low_pred_value);
+	      		fprintf(stdout, "pred: %f ", low_pred_value);
 			} else {
-	      		fprintf(stdout,"pred: %f ",pred_value);
+	      		fprintf(stdout, "pred: %f ", pred_value);
 			}
-	      	fprintf(stdout,"count: %d ",SizeOfBMBPPred(bp));
+	      	fprintf(stdout, "count: %d ", SizeOfBMBPPred(bp));
 			if(UseLow == 1) {
-	      			fprintf(stdout,"success: %f ",low_success);
+	      			fprintf(stdout, "success: %f ", low_success);
 			} else {
-	      			fprintf(stdout,"success: %f ",high_success);
+	      			fprintf(stdout, "success: %f ", high_success);
 			}
-	      		fprintf(stdout,"total: %f ",total);
+	      		fprintf(stdout, "total: %f ", total);
 			if(UseLow == 1) {
-				fprintf(stdout,"percent: %f\n",
+				fprintf(stdout, "percent: %f\n",
 						low_success/total);
 			} else {
-				fprintf(stdout,"percent: %f\n",
+				fprintf(stdout, "percent: %f\n",
 						high_success/total);
 			}
 			if(InvertValue != 0) {
-				fprintf(stdout,"lowp: %f\n",lowp);
-				fprintf(stdout,"highp: %f\n",highp);
+				fprintf(stdout, "lowp: %f\n", lowp);
+				fprintf(stdout, "highp: %f\n", highp);
 			}
 			fprintf(stdout,"\n");
 		}
