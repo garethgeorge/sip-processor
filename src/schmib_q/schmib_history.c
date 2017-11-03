@@ -206,7 +206,7 @@ double GetHistoryValue(History *h, int index)
 	// uccess_percentage: 0.977571
 	// 4.23 real         4.01 user         0.07 sys
 
-	if (index < h->count / 2) // optimizer should turn /2 into << 
+	if (index <= h->count / 2)
 	{
 		count = 1;
 		jrb_traverse(curr,h->value_list)
@@ -216,27 +216,21 @@ double GetHistoryValue(History *h, int index)
 	
 			count++;
 		}
-	
-		if(curr == NULL)
-		{
-			curr = jrb_last(h->value_list);
-		}
-	}
-	else
+	} 
+	else 
 	{
 		count = h->count;
-
 		jrb_rtraverse(curr, h->value_list)
 		{
 			if (count <= index)
 				break;
 			count--;
 		}
+	}
 
-		if (curr == NULL)
-		{
-			curr = jrb_first(h->value_list);
-		}
+	if (curr == NULL)
+	{
+		curr = jrb_last(h->value_list);
 	}
 
 	
@@ -257,16 +251,29 @@ double GetHistoryAge(History *h, int index)
 	JRB curr;
 	JRB temp;
 
-	count = 1;
-	jrb_traverse(curr,h->age_list)
+	if (index <= h->count / 2)
 	{
-		if(count >= index)
-			break;
-
-		count++;
+		count = 1;
+		jrb_traverse(curr,h->age_list)
+		{
+			if(count >= index)
+				break;
+	
+			count++;
+		}
+	} 
+	else 
+	{
+		count = h->count;
+		jrb_rtraverse(curr, h->age_list)
+		{
+			if (count <= index)
+				break;
+			count--;
+		}
 	}
 
-	if(curr == NULL)
+	if (curr == NULL)
 	{
 		curr = jrb_last(h->age_list);
 	}
@@ -303,31 +310,37 @@ double *exec_time)
 		return(0);
 	}
 
-	count = 1;
-	jrb_traverse(curr,h->age_list)
+	if (index <= h->count / 2)
 	{
-		if(count >= index)
-			break;
-
-		count++;
+		count = 1;
+		jrb_traverse(curr,h->age_list)
+		{
+			if(count >= index)
+				break;
+	
+			count++;
+		}
+	} 
+	else 
+	{
+		count = h->count;
+		jrb_rtraverse(curr, h->age_list)
+		{
+			if (count <= index)
+				break;
+			count--;
+		}
 	}
 
-	if(curr == NULL)
+	if (curr == NULL)
 	{
 		curr = jrb_last(h->age_list);
 	}
+	
 
 	// i = jval_i(jrb_val(curr));
 	HistoryPoint *p = jval_v(jrb_val(curr));
 
-	// vals = GetFieldValues(h->data,J_TS);
-	// *ts = vals[i];
-	// vals = GetFieldValues(h->data,J_VALUE);
-	// *value = vals[i];
-	// vals = GetFieldValues(h->data,J_HIGHPRED);
-	// *highpred = vals[i];
-	// vals = GetFieldValues(h->data,J_LOWPRED);
-	// *lowpred = vals[i];
 	*ts = p->ts;
 	*value = p->value;
 	*highpred = p->highpred;
