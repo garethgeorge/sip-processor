@@ -38,13 +38,28 @@ int JobIndex;
   
 struct history_stc
 { 
-	void *data;		/* data set defined by simple_input */
 	JRB value_list;
 	JRB age_list;
 	int count;
 };
 
 typedef struct history_stc History;
+
+struct history_data_point_stc 
+{
+	// TODO: convert the history data structure to use this such that it is effectively
+	// a linked list, not indexing into an array of records that grows in a strictly
+	// increasing manner
+	double ts;
+	double value;
+	double lowpred;
+	double highpred;
+	double exp;
+	double nodecount;
+	double exectime;
+};
+
+typedef struct history_data_point_stc HistoryPoint;
 
 History *MakeHistory(int fields);
 History *LoadHistory(int fields, FILE *fd);
