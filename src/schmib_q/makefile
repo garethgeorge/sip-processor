@@ -13,7 +13,7 @@ GMPLIB = gmp-6.0.0/lib/libgmp.a
 GMPOBJS = jbindex.o mpf_comb.o rare_event.o
 LIBS = ${GMPLIB} ./norm.o -lm
 NGLIBS = ./norm.o -lm
-CFLAGS = -g $(INC) -O3 -finline-functions
+CFLAGS = -g $(INC) -O3 -finline-functions -fPIC
 
 all: bmbp_sim glrt_cluster exp_cluster bmbp_ts bmbp_index bmbp_steady cluster_ts\
 	 machine_analysis logn_ts
