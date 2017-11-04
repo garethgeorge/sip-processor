@@ -174,14 +174,14 @@ int ConsecutiveWrongRight(History *h, double *retautoc,
   sorted = make_jrb();
   if(sorted == NULL)
   {
-	exit(1);
+	  exit(1);
   }
 
   for (i=start; i<=GetHistorySize(h); i++)
   {
-    	GetHistoryEntry(h, i, &ts, &value, &dummy, &dummya, &dummyb,
-		&dummyc, &dummyd);
-	jrb_insert_dbl(sorted,ts,new_jval_i(i));
+    GetHistoryEntry(h, i, &ts, &value, &dummy, &dummya, &dummyb,
+		    &dummyc, &dummyd);
+	  jrb_insert_dbl(sorted,ts,new_jval_i(i));
   }
   count = 0; 
   //  printf("START: %d STOP: %d\n", start, GetHistorySize(h));

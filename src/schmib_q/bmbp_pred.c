@@ -1,6 +1,7 @@
 /*
  * http://www.swox.com/gmp/manual
  */
+#include <assert.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -21,6 +22,8 @@
 #include "logupred.h"
 #include "lognpred.h"
 #include "weibpred.h"
+
+#define DEBUG_SAVE_RESTORE 0
 
 void *InitBMBPPred(double quantile, double confidence, int fields)
 {
@@ -70,6 +73,55 @@ void *InitBMBPPred(double quantile, double confidence, int fields)
 	return((void *)p);
 }
 
+void SaveBMBPPred(void *ib, FILE *fd)
+{
+	BMBPPred *p = (BMBPPred *)ib;
+#ifdef DEBUG_SAVE_RESTORE 
+	// write out debug information / error checking information
+	fputc(0x01, fd);
+	fprintf(fd, "Begin BMBPPred");
+#endif 
+
+	BMBPPred copy;
+	memcpy(&copy, p, sizeof(BMBPPred));
+	copy.data = NULL;
+	fwrite(&copy, sizeof(BMBPPred), 1, fd);
+
+	SaveHistory(p->data, fd);
+
+#ifdef DEBUG_SAVE_RESTORE 
+	// write out debug information / error checking information
+	fputc(0x01, fd);
+	fprintf(fd, "End BMBPPred");
+#endif 
+}
+
+void *LoadBMBPPred(double quantile, double confidence, int fields, FILE *fd)
+{
+#ifdef DEBUG_SAVE_RESTORE
+	printf("Loading BMBPPred.\n");
+	assert(fgetc(fd) == 0x01);
+	fseek(fd, sizeof("Begin BMBPPred") - 1, SEEK_CUR);
+#endif 
+
+	BMBPPred *p;
+	p = (BMBPPred *)malloc(sizeof(BMBPPred));
+	if (p == NULL)
+	{
+		return NULL;
+	}
+	fread(p, sizeof(BMBPPred), 1, fd);
+	
+	p->data = LoadHistory(fields, fd);
+	
+#ifdef DEBUG_SAVE_RESTORE
+	assert(fgetc(fd) == 0x01);
+	fseek(fd, sizeof("End BMBPPred") - 1, SEEK_CUR);
+#endif 
+	
+	return p;
+}
+
 void FreeBMBPPred(void *ib)
 {
 	BMBPPred *p = (BMBPPred *)ib;
@@ -99,8 +151,6 @@ int IsRareBMBP(BMBPPred *p,
 	int highcount;
 	int lowcount;
 	double t;
-	int ndx;
-	double *vals;
 	double old_ts;
 	int found;
 	double old_v;
@@ -126,11 +176,9 @@ int IsRareBMBP(BMBPPred *p,
 	 * walk backward in the history list and find the spot
 	 */
 	found = 0;
-	vals = GetFieldValues(p->data->data,J_TS);
-	jrb_rtraverse(jr,p->data->age_list)
+	jrb_rtraverse(jr, p->data->age_list)
 	{
-		ndx = jval_i(jrb_val(jr));
-		old_ts = vals[ndx];
+		old_ts = ((HistoryPoint *)jval_v(jrb_val(jr)))->ts;
 		if(old_ts <= ts)
 		{
 			found = 1;
@@ -158,15 +206,12 @@ int IsRareBMBP(BMBPPred *p,
 	jr = start_jr;
 	while(jr != jrb_nil(p->data->age_list))
 	{
-		ndx = jval_i(jrb_val(jr));
-		vals = GetFieldValues(p->data->data,J_TS);
-		old_ts = vals[ndx];
-		vals = GetFieldValues(p->data->data,J_VALUE);
-		old_v = vals[ndx];
-		vals = GetFieldValues(p->data->data,J_HIGHPRED);
-		old_hp = vals[ndx];
-		vals = GetFieldValues(p->data->data,J_LOWPRED);
-		old_lp = vals[ndx];
+		HistoryPoint *historyPoint = (HistoryPoint *)jval_v(jrb_val(jr));
+		
+		old_ts = historyPoint->ts;
+		old_v = historyPoint->value;
+		old_hp = historyPoint->highpred;
+		old_lp = historyPoint->lowpred;
 
 //		if((UseLow == 0) && ((old_v > old_hp) || (old_v < old_lp)))
 		if((p->use_low == 0) && (old_v > old_hp))
@@ -199,11 +244,10 @@ int IsRareBMBP(BMBPPred *p,
 		total = 0;
 		count = 0;
 		jr = start_jr;
-		vals = GetFieldValues(p->data->data,J_VALUE);
 		while(jr != jrb_nil(p->data->age_list))
 		{
-			ndx = jval_i(jrb_val(jr));
-			old_v = vals[ndx];
+			HistoryPoint *historyPoint = (HistoryPoint *)jval_v(jrb_val(jr));
+			old_v = historyPoint->value;
 			total += old_v;
 			count++;
 			jr = jrb_prev(jr);
@@ -211,28 +255,26 @@ int IsRareBMBP(BMBPPred *p,
 		mean = total / count;
 		total_v = 0;
 		jr = start_jr;
-		vals = GetFieldValues(p->data->data,J_VALUE);
 		while(jr != jrb_nil(p->data->age_list))
 		{
-			ndx = jval_i(jrb_val(jr));
-			old_v = vals[ndx];
+			HistoryPoint *historyPoint = (HistoryPoint *)jval_v(jrb_val(jr));
+			old_v = historyPoint->value;
 			total_v += (old_v - mean) * (old_v - mean);
 			jr = jrb_prev(jr);
 		}
 		sd = sqrt(total_v / count);
 		if(value > (mean + 5*sd)) {
-printf("sd rare: %10.0f %f (%10.0f)\n" ,ts,value,max_ts);
+			printf("sd rare: %10.0f %f (%10.0f)\n" ,ts,value,max_ts);
 			return(2); /* discard as outlier */
 		} else {
-printf("bmbp rare: %10.0f %f (%10.0f)\n" ,ts,value,max_ts);
+			printf("bmbp rare: %10.0f %f (%10.0f)\n" ,ts,value,max_ts);
 			return(1);
 		}
 	}
 	else if((p->use_low == 1) && (lowcount >= p->wrong_count)) {
-
-printf("lowr: %10.0f %d %f %d %10.0f %f\n",max_ts,
-		lowcount,max_diff,p->wrong_count,
-		ts,value);
+		printf("lowr: %10.0f %d %f %d %10.0f %f\n",max_ts,
+			lowcount,max_diff,p->wrong_count,
+			ts,value);
 		return(1);
 
 	} else {
@@ -251,8 +293,6 @@ int IsRareBMBPHigh(BMBPPred *p,
 	int highcount;
 	int lowcount;
 	double t;
-	int ndx;
-	double *vals;
 	double old_ts;
 	int found;
 	double old_v;
@@ -279,12 +319,10 @@ int IsRareBMBPHigh(BMBPPred *p,
 	 * walk backward in the history list and find the spot
 	 */
 	found = 0;
-	vals = GetFieldValues(p->data->data,J_TS);
 	jrb_rtraverse(jr,p->data->age_list)
 	{
-		ndx = jval_i(jrb_val(jr));
-		old_ts = vals[ndx];
-		if(old_ts <= ts)
+		HistoryPoint *historyPoint = (HistoryPoint *)jval_v(jrb_val(jr));
+		if(historyPoint->ts <= ts)
 		{
 			found = 1;
 			break;
@@ -312,15 +350,11 @@ int IsRareBMBPHigh(BMBPPred *p,
 	last_ts = -1;
 	while(jr != jrb_nil(p->data->age_list))
 	{
-		ndx = jval_i(jrb_val(jr));
-		vals = GetFieldValues(p->data->data,J_TS);
-		old_ts = vals[ndx];
-		vals = GetFieldValues(p->data->data,J_VALUE);
-		old_v = vals[ndx];
-		vals = GetFieldValues(p->data->data,J_HIGHPRED);
-		old_hp = vals[ndx];
-		vals = GetFieldValues(p->data->data,J_LOWPRED);
-		old_lp = vals[ndx];
+		HistoryPoint *historyPoint = (HistoryPoint *)jval_v(jrb_val(jr));
+		old_ts = historyPoint->ts;
+		old_v = historyPoint->value;
+		old_hp = historyPoint->highpred;
+		old_lp = historyPoint->lowpred;
 
 //		if((UseLow == 0) && ((old_v > old_hp) || (old_v < old_lp)))
 		/*
@@ -374,11 +408,10 @@ int IsRareBMBPHigh(BMBPPred *p,
 		total = 0;
 		count = 0;
 		jr = start_jr;
-		vals = GetFieldValues(p->data->data,J_VALUE);
 		while(jr != jrb_nil(p->data->age_list))
 		{
-			ndx = jval_i(jrb_val(jr));
-			old_v = vals[ndx];
+			HistoryPoint *historyPoint = (HistoryPoint *)jval_v(jrb_val(jr));
+			old_v = historyPoint->value;
 			total += old_v;
 			count++;
 			jr = jrb_prev(jr);
@@ -386,11 +419,10 @@ int IsRareBMBPHigh(BMBPPred *p,
 		mean = total / count;
 		total_v = 0;
 		jr = start_jr;
-		vals = GetFieldValues(p->data->data,J_VALUE);
 		while(jr != jrb_nil(p->data->age_list))
 		{
-			ndx = jval_i(jrb_val(jr));
-			old_v = vals[ndx];
+			HistoryPoint *historyPoint = (HistoryPoint *)jval_v(jrb_val(jr));
+			old_v = historyPoint->value;
 			total_v += (old_v - mean) * (old_v - mean);
 			jr = jrb_prev(jr);
 		}
@@ -438,13 +470,12 @@ void UpdateBMBPPred(void *ib, double ts, double value, double lowpred,
 		AddToHistory(p->data,ts,value,lowpred,highpred,0.0,0.0,0.0);
 		return;
 	}
-
 	/*
         p->wrong_count = ConsecutiveWrong(p->data,&autoc);
         p->right_count = ConsecutiveRight(p->data,&autoc);
 	*/
 	ConsecutiveWrongRight(p->data,&autoc,&p->wrong_count,&p->right_count);
-printf("cwrong: %d cright: %d, autoc: %f\n",p->wrong_count,p->right_count,autoc);
+	printf("cwrong: %d cright: %d, autoc: %f\n",p->wrong_count,p->right_count,autoc);
 	
 #if 0
 	if((p->no_trim == 0) 
@@ -456,7 +487,7 @@ printf("cwrong: %d cright: %d, autoc: %f\n",p->wrong_count,p->right_count,autoc)
 					&p->low_wrong,
 					&p->high_wrong))
 #endif
-
+	
 	rare = IsRareBMBP(p,ts,value,lowpred,highpred);
 
 	if(rare != 0) {
@@ -539,11 +570,11 @@ int ForcBMBPPred(void *ib, double *lowpred, double *highpred)
 	}
 	p->last_index = jbindex;
 	if(p->use_low == 1) {
-        	*lowpred = GetHistoryValue(p->data,jbindex);
-        	*highpred = GetHistoryValue(p->data, GetHistorySize(p->data) - jbindex);
+		*lowpred = GetHistoryValue(p->data,jbindex);
+		*highpred = GetHistoryValue(p->data, GetHistorySize(p->data) - jbindex);
 	} else {
-        	*highpred = GetHistoryValue(p->data,jbindex);
-        	*lowpred = GetHistoryValue(p->data, GetHistorySize(p->data) - jbindex);
+		*highpred = GetHistoryValue(p->data,jbindex);
+		*lowpred = GetHistoryValue(p->data, GetHistorySize(p->data) - jbindex);
 	}
 // printf("COMP %d %f %d\n",jbindex,*highpred,GetHistorySize(p->data));
 // fflush(stdout);

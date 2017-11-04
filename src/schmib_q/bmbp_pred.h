@@ -25,6 +25,8 @@ typedef struct bmbp_stc BMBPPred;
 
 
 void *InitBMBPPred(double quantile, double confidence, int fields);
+void *LoadBMBPPred(double quantile, double confidence, int fields, FILE *fd);
+void SaveBMBPPred(void *ib, FILE *fd);
 void FreeBMBPPred(void *ib);
 void UpdateBMBPPred(void *ib, double ts, double value, double lowpred, double highpred);
 int ForcBMBPPred(void *ib, double *lowpred, double *highpred);

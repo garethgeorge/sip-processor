@@ -2,28 +2,28 @@ CC = gcc
 #INC = -I. -Igmp-4.2.1/include
 INC = -I. -Igmp-6.0.0/include
 OBJS = jrb.o jval.o fbuff.o simple_input.o ecdf.o weibull.o weibpred.o hyperexp.o hyppred.o autoc.o lognpred.o matlabhack.o logupred.o
-SCHMIBOBJS = schmib_history.o schmib_q_sim.o schmib-means.o schmib_pred.o\
+SCHMIBOBJS = schmib_history.o schmib_q_sim.o schmib-means.o \
 	bmbp_pred.o dllist.o sim_history.o
 BMBPOBJS = schmib_history.o bmbp_pred.o schmib_q_sim.o
 INCLS = fbuff.h jrb.h jval.h norm.h simple_input.h jbindex.h\
-	rare_event.h ecdf.h weibull.h weibpred.h schmib_pred.h\
+	rare_event.h ecdf.h weibull.h weibpred.h \
 	schmib_history.h bmbp_pred.h schmib-means.h sim_history.h
 #GMPLIB = gmp-4.2.1/lib/libgmp.a
 GMPLIB = gmp-6.0.0/lib/libgmp.a
 GMPOBJS = jbindex.o mpf_comb.o rare_event.o
 LIBS = ${GMPLIB} ./norm.o -lm
 NGLIBS = ./norm.o -lm
-CFLAGS = -g $(INC)
+CFLAGS = -g $(INC) -O3 -finline-functions
 
-all: schmib_sim bmbp_sim glrt_cluster exp_cluster bmbp_ts bmbp_index bmbp_steady cluster_ts\
-	spruce_sim machine_analysis logn_ts
+all: bmbp_sim glrt_cluster exp_cluster bmbp_ts bmbp_index bmbp_steady cluster_ts\
+	 machine_analysis logn_ts
 
-schmib_sim: schmib_sim.c $(OBJS) $(INCLS) ${GMPLIB} ${GMPOBJS} $(SCHMIBOBJS)\
-	 ./norm.o ./schmib-glrt.o
-	rm -f schmib_q_sim.o
-	${CC} ${CFLAGS} -g -c -DDOWN_TIME schmib_q_sim.c
-	${CC} ${CFLAGS} -DDOWN_TIME -o schmib_sim schmib_sim.c $(SCHMIBOBJS) $(OBJS) schmib-glrt.o ${GMPOBJS} $(LIBS)
-	${CC} ${CFLAGS} -g -c schmib_q_sim.c
+# schmib_sim: schmib_sim.c $(OBJS) $(INCLS) ${GMPLIB} ${GMPOBJS} $(SCHMIBOBJS)\
+# 	 ./norm.o ./schmib-glrt.o
+# 	rm -f schmib_q_sim.o
+# 	${CC} ${CFLAGS} -g -c -DDOWN_TIME schmib_q_sim.c
+# 	${CC} ${CFLAGS} -DDOWN_TIME -o schmib_sim schmib_sim.c $(SCHMIBOBJS) $(OBJS) schmib-glrt.o ${GMPOBJS} $(LIBS)
+# 	${CC} ${CFLAGS} -g -c schmib_q_sim.c
 
 spruce_sim: spruce_sim.c $(OBJS) $(INCLS) ${GMPLIB} ${GMPOBJS} $(SCHMIBOBJS)\
 	 ./norm.o ./schmib-glrt.o
@@ -49,13 +49,13 @@ machine_analysis: machine_analysis.c $(INCLS) $(INCLS) ${GMPLIB}\
 	 ${GMPOBJS} $(BMBPOBJS) norm.o
 	${CC} ${CFLAGS} -o machine_analysis machine_analysis.c $(BMBPOBJS) $(OBJS) ${GMPOBJS} $(LIBS)
 
-glrt_cluster: schmib-glrt.c $(OBJS) $(INCLS) schmib-means.o
+glrt_cluster: schmib-glrt.c $(OBJS) $(INCLS) schmib-means.o ${SCHMIBOBJS}
 	${CC} ${CFLAGS} -DTEST -o glrt_cluster schmib-glrt.c schmib-means.o jval.o jrb.o dllist.o simple_input.o $(LIBS)
 
-exp_cluster: schmib-means.c $(OBJS) $(INCLS)
+exp_cluster: schmib-means.c $(OBJS) $(INCLS) ${SCHMIBOBJS}
 	${CC} ${CFLAGS} -DTEST -o exp_cluster schmib-means.c jval.o jrb.o dllist.o simple_input.o $(NGLIBS)
 
-cluster_ts: schmib-means.o $(OBJS) $(INCLS) cluster_ts.c
+cluster_ts: schmib-means.o $(OBJS) $(INCLS) cluster_ts.c ${SCHMIBOBJS}
 	${CC} ${CFLAGS} cluster_ts.c -o cluster_ts schmib-means.o jval.o jrb.o dllist.o simple_input.o $(NGLIBS)
 
 jrb.o: jrb.c jval.h jrb.h
