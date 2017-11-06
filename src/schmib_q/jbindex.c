@@ -146,14 +146,14 @@ int JBIndex(int size, double quantile, double confidence, double *ratio)
 
   if(FindJBIndex(quantile,confidence,size,&index,ratio))
   {
-	return(index);
+	  return(index);
   }
 
   if(size > 500)
   {
-	idx = JBApprox(size,quantile,confidence);
-	*ratio = 0.0;
-	return(idx);
+    idx = JBApprox(size,quantile,confidence);
+    *ratio = 0.0;
+    return(idx);
   }
 
   if(size > 200)
@@ -189,8 +189,6 @@ int JBIndex(int size, double quantile, double confidence, double *ratio)
   mpf_out_str(stdout, 10, 10, c);
   printf(" ");
    */
-    
-  
 
   for (mpf_init_set_ui(j, 0);  mpf_cmp(n, j); mpf_add_ui(j, j, 1)) {
 
