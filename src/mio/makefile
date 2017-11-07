@@ -19,4 +19,4 @@ mio-leak-test: mio-leak-test.c ${INC} mio.h mio.o ${LIBS}
 	${CC} ${CFLAGS} -o mio-leak-test mio-leak-test.c mio.o ${LIBS}
 
 clean:
-	rm *.o mio-test
+	- rm *.o mio-test

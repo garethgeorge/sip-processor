@@ -23,4 +23,4 @@ in-a-row: in-a-row.c ${INC} ${LIBS}
 	${CC} ${CFLAGS} -o in-a-row in-a-row.c ${LIBS}
 
 clean:
-	rm *.o pred-duration in-a-row
+	- rm *.o ; rm pred-duration ; rm in-a-row
