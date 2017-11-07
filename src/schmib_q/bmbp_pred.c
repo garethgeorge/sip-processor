@@ -23,7 +23,7 @@
 #include "lognpred.h"
 #include "weibpred.h"
 
-#define DEBUG_SAVE_RESTORE 0
+// #define DEBUG_SAVE_RESTORE 0
 
 void *InitBMBPPred(double quantile, double confidence, int fields)
 {
