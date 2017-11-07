@@ -17,7 +17,7 @@ int Values;
 int CDF;
 
 
-#define PI (3.14159265)
+#define PI (3.14159265358979323846)
 
 #define Usage "normal -m mu -s sigma -c sample_count -l low -h high [-VC]\n"
 
@@ -167,7 +167,7 @@ InvNormal(double p, double mu, double sigma)
 	if(( 0 < p)&&(p < 1))
 	{
 		e = 0.5 * erfc(-x/sqrt(2)) - p;
-		u = e * sqrt(2*M_PI) * exp(x*x/2);
+		u = e * sqrt(2*PI) * exp(x*x/2);
 		x = x - u/(1 + x*u/2);
 	}
 

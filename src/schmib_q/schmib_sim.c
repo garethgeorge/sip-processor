@@ -44,7 +44,6 @@ double Prev_job_ts;
 double Low_queued;
 double High_queued;
 
-
 #define RAND() (drand48())
 #define SEED() (srand48())
 
